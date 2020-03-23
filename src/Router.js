@@ -4,8 +4,8 @@ import {
     Route,
     Switch
 } from 'react-router-dom'
-import Outlet from "./components/homepage/HomepageOutlet";
-import Login from "./components/"
+import Outlet from "./components/homepage/Outlet";
+import Login from "./pages/auth/Login"
 
 export default function Router() {
     return (
@@ -15,7 +15,7 @@ export default function Router() {
                     Hello World!!
                 </Route>
 
-                <Route path='/outlet'>
+                <Route exact path='/outlet'>
                     <Outlet></Outlet>
                 </Route>
 
