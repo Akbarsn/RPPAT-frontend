@@ -1,7 +1,7 @@
 import React, { useState, Fragment } from "react";
-import Container from "../../components/Container";
+import Container from "../../components/inc/Container";
 import { Alert, Form, Input } from "antd";
-import Button from "../../components/Button";
+import Button from "../../components/inc/Button";
 import "./Login.scss";
 import axios from 'axios';
 
