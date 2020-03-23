@@ -28,7 +28,8 @@ export default function Login() {
       } catch (e) {
         switch (e.response.status) {
           case 406:
-            setError("Email atau Password Salah");
+            setError("Username atau Password Salah");
+            setVisible(true);
             break;
           case 500:
             console.log(e.message);
@@ -39,8 +40,6 @@ export default function Login() {
         }
       }
     }
-    setError("Email atau Password Salah");
-    setVisible(true);
     setLoading(false);
   }
     const handleClose = () => {

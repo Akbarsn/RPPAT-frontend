@@ -1,6 +1,5 @@
 import React from "react";
-import { Form, Input,  InputNumber, DatePicker, Upload } from "antd";
-import './step2.scss';
+import { Form, Input,  InputNumber, DatePicker, Upload, Button } from "antd";
 import { UploadOutlined, InboxOutlined } from '@ant-design/icons';
 
 export default function Step2(props) {
@@ -20,33 +19,34 @@ export default function Step2(props) {
         label="Nama Lengkap"
         rules={[{ required: true, message: 'Tolong masukkan nama lengkap anda !' }]}
       >
-        <Input />
+        <Input onChange={data=>{props.namalengkap(data.target.value);}}/>
       </Form.Item>
 
       <Form.Item
         label="Alamat"
         rules={[{ required: true, message: 'Tolong masukkan alamat anda !' }]}
       >
-        <Input />
+        <Input onChange={data=>{props.alamat(data.target.value);}}>{props.alamattext}</Input>
       </Form.Item>
 
       <Form.Item
         label="Nomor HP"
         rules={[{ required: true, message: 'Tolong masukkan nomor anda !' }]}
       >
-        <InputNumber/>
+        <Input onChange={data=>{props.nomor(data.target.value);}}/>
       </Form.Item>
 
       <Form.Item
         label="Tanggal Lahir"
         rules={[{ required: true, message: 'Tolong masukkan tanggal lahir anda !' }]}
       >
-        <DatePicker/>
+        <DatePicker />
       </Form.Item>
 
       <Form.Item
         label="Upload Foto KTP"
         valuePropName="fileList"
+        rules={[{ required: true, message: 'Tolong upload KTP anda !' }]}
       >
         <Upload name="logo" action="/upload.do" listType="picture">
           <Button>
