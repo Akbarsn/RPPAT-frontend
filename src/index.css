@@ -1,13 +1,18 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+@import url('https://fonts.googleapis.com/css?family=Domine|Roboto:300,400,500,700&display=swap');
+body{
+  margin: 0px;
+  padding: 0px;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+:root{
+  --color-gray:#F5F5F5;
+  --color-black:#272C30;
+  --color-primary:#1DC6C6;
+  --color-white:#ffffff;
+
+  --font-header: 'Domine', serif;
+  --font-sub: 'Roboto', sans-serif;
+  --font-sub-style:500;
+  --font-paragraph:'Roboto', sans-serif;
+  --fotn-paragraph-style:300;
 }

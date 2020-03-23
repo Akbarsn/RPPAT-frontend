@@ -1,0 +1,9 @@
+#greetItem{
+    font-size: 24px;
+    color: var(--color-white);
+    font-family: var(--font-header);
+}
+
+#greetItem:hover{
+    color: white;
+}

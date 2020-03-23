@@ -1,0 +1,65 @@
+@import "Constant";
+
+.btn {  
+  display: inline-block;
+    border-radius: 0.75rem;
+    transition: all .3s;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+    font-family: 'Domine', serif;
+    font-weight: 550;
+    &:after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -2;
+    }
+    &:before {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 0%;
+        height: 100%;
+        transition: all .3s;
+        z-index: -1;
+    }
+    &:hover {
+        color: #fff;
+        &:before {
+            width: 100%;
+        }
+    }
+  @media screen and (max-width: $break-medium) {
+    font-size: 14px;
+    padding: 6px 14px;
+  }
+  @media screen and (min-width: $break-medium + 1) {
+    padding: 10px 28px;
+  }
+  &.primary {
+    background-color: #1DC6C6;    
+    color: white;
+    &:before {
+      background-color: darken(#1DC6C6, 15%);
+  }
+  }
+  &.secondary{
+    background-color: white;    
+    color: #1DC6C6;
+    &:before {
+      background-color: darken(white, 15%);
+  }
+  }
+  &.tertiary{
+    background-color: white;    
+    color: black;
+    &:before {
+      background-color: darken(white, 15%);
+  }
+  }
+}
