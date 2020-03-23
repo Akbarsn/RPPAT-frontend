@@ -1,14 +1,10 @@
 import React from 'react';
 import './App.css';
-import {DatePicker} from 'antd';
+import Router from "./Router";
 
 function App() {
   return (
-    <div className="App">
-      <DatePicker>
-        
-      </DatePicker>
-    </div>
+    <Router></Router>
   );
 }
 
