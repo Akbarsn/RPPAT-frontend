@@ -4,7 +4,7 @@ import {
     Route,
     Switch
 } from 'react-router-dom'
-import Outlet from "./components/homepage/Outlet";
+import Homepage from "./pages/Home";
 import Login from "./pages/auth/Login"
 
 export default function Router() {
@@ -15,8 +15,8 @@ export default function Router() {
                     Hello World!!
                 </Route>
 
-                <Route exact path='/outlet'>
-                    <Outlet></Outlet>
+                <Route exact path='/homepage'>
+                    <Homepage></Homepage>
                 </Route>
 
                 <Route exact path="/login" render={props => <Login {...props} />} />
