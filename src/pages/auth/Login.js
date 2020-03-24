@@ -1,7 +1,7 @@
 import React, { useState, Fragment } from "react";
-import Container from "../../components/Container";
+import Container from "../../components/inc/Container";
 import { Alert, Form, Input } from "antd";
-import Button from "../../components/Button";
+import Button from "../../components/inc/Button";
 import "./Login.scss";
 import axios from 'axios';
 
@@ -26,13 +26,13 @@ export default function Login() {
         //localStorage.setItem("token", hasil.data.token);
         //window.location.replace("/dashboard");
       } catch (e) {
-        switch (e.response.status) {
+        switch (e.response) {
           case 406:
             setError("Username atau Password Salah");
             setVisible(true);
             break;
           case 500:
-            console.log(e.message);
+            console.log(e.reponse.message);
             break;
           default:
             console.log("berhasil");
@@ -53,14 +53,6 @@ export default function Login() {
   const tailLayout = {
     wrapperCol: { offset: 8, span: 16 }
   };
-
-  const onFinish = values => {
-    console.log("Success:", values);
-  };
-
-  const onFinishFailed = errorInfo => {
-    console.log("Failed:", errorInfo);
-  };
   return (
     <div className="login">
       <Container>
@@ -70,8 +62,6 @@ export default function Login() {
           <Form
             {...layout}
             name="basic"
-            onFinish={onFinish}
-            onFinishFailed={onFinishFailed}
           >
           {visible ? (
             <Alert
