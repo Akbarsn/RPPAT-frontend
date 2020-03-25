@@ -1,0 +1,30 @@
+@import "../Root.scss";
+
+.title{
+    font-family: $font-header;
+    font-size: 72px;
+    color: $color-black;
+}
+
+.card{
+    border-radius: 25px;
+    min-height: 200px;
+}
+
+.card .title{
+    font-family: $font-sub;
+    font-size: 40px;
+    margin-bottom: 1rem;
+    font-weight: 500;
+}
+
+.card .content{
+    font-family:  $font-sub;
+    font-size: 64px;
+    font-weight: 300;
+}
+
+#table{
+    font-family: $font-sub;
+    font-size: 24px;
+}

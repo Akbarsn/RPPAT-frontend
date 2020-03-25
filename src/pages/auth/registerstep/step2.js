@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
 import { Form, Input, DatePicker, Upload, Button } from "antd";
 import { UploadOutlined } from '@ant-design/icons';
 import moment from 'moment';
 import './step2.scss'
 
 export default function Step2(props) {
+
     const layout = {
         labelCol: { span: 6 },
         wrapperCol: { span: 16 },
@@ -13,6 +14,7 @@ export default function Step2(props) {
       function handleDate(date, dateString){
         props.tanggal(dateString)
       }
+      
       
   return (
     <div className="step2">

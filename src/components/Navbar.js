@@ -5,7 +5,7 @@ import "./Navbar.scss";
 
 import { DownOutlined } from "@ant-design/icons";
 
-export default function Navbar() {
+export default function Navbar(props) {
 
     const menu = (
         < Menu >
@@ -30,7 +30,7 @@ export default function Navbar() {
                 <Col span={3}>
                     <Dropdown overlay={menu}>
                         <Row align="middle" id="helloNav">
-                            Hello Akbar <DownOutlined style={{ fontSize: '24px', marginLeft: '24px' }} />
+                            Hello {props.name} <DownOutlined style={{ fontSize: '24px', marginLeft: '24px' }} />
                         </Row>
                     </Dropdown>
                 </Col>
