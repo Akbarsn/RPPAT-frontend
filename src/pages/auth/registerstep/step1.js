@@ -11,11 +11,11 @@ export default function Step1(props) {
   return (
     <div className="step1">
       <p className="step1title">Anda Ingin Daftar Sebagai Apa ?</p>
-      <Radio.Group onChange={data=>{props.role(data.target.value)}}>
-        <Radio style={radioStyle} value={1}>
+      <Radio.Group onChange={data=>{props.roles(data.target.value)}} value = {props.cekinput} style={{fontWeight:"650"}}>
+        <Radio style={radioStyle} value={1} >
           Petani Apel
         </Radio>
-        <Radio style={radioStyle} value={2}>
+        <Radio style={radioStyle} value={2} >
           Pemasok Bahan Tambahan
         </Radio>
         <Radio style={radioStyle} value={3}>
@@ -24,7 +24,7 @@ export default function Step1(props) {
         <Radio style={radioStyle} value={4}>
           UMKM Pengolah Apel
         </Radio>
-        <Radio style={radioStyle} value={5}>
+        <Radio style={radioStyle} value={5} >
           Retail & Outlet Produk Olahan Apel
         </Radio>
       </Radio.Group>

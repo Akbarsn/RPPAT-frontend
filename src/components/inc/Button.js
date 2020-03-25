@@ -6,7 +6,7 @@ function Button(props) {
 
     return (
       <div>
-        <button className={`btn ${buttonType}`} onClick={props.click}>{props.text}</button>
+        <button className={`btn ${buttonType}`} onClick={props.click} disabled = { props.disable }>{props.text}</button>
       </div>
     );
   }

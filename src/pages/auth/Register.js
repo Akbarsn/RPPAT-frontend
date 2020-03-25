@@ -1,275 +1,264 @@
-import React, { useState, Fragment } from "react";
-import { makeStyles } from "@material-ui/core/styles";
+import React, { useState } from "react";
 import Stepper from "@material-ui/core/Stepper";
 import Step from "@material-ui/core/Step";
 import StepLabel from "@material-ui/core/StepLabel";
-import Button from "@material-ui/core/Button";
-import Typography from "@material-ui/core/Typography";
-import Step1 from "../components/Step1";
-import Step2 from "../components/Step2";
-import Step3 from "../components/Step3";
-import Form from "react-bootstrap/Form";
-import { Container, Row, Col } from "react-bootstrap";
-import Logo from "../components/LogoHome";
-import Card from "react-bootstrap/Card";
-import "./Register.scss";
-import Alert from "react-bootstrap/Alert";
-import ReactLoading from "react-loading";
+import { Card, Result, Alert } from "antd";
+import Step1 from "./registerstep/step1";
+import Step2 from "./registerstep/step2";
+import Step3 from "./registerstep/step3";
+import Step4 from "./registerstep/step4";
 import axios from "axios";
-import {Link} from 'react-router-dom';
-
-
-const useStyles = makeStyles(theme => ({
-  root: {
-    width: "100%"
-  },
-  backButton: {
-    marginRight: theme.spacing(1)
-  },
-  instructions: {
-    marginTop: theme.spacing(1),
-    marginBottom: theme.spacing(1)
-  }
-}));
-
-function getSteps() {
-  return ["Data Diri", "Buat Akun", "Verifikasi Data"];
-}
+import Container from "../../components/inc/Container";
+import Button from "../../components/inc/Button";
+import "./Register.scss";
 
 export default function Register() {
-  const classes = useStyles();
-  const [activeStep, setActiveStep] = React.useState(0);
-  const steps = getSteps();
-  const [nama, setNama] = useState("");
-  const [date, setDate] = useState("");
-  const [JenisKelamin, setJenisKelamin] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [rpassword, setRpassword] = useState("");
-  const [instansi, setInstansi] = useState("");
-  const [norek, setNorek] = useState("");
-  const [metode, setMetode] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [valid, setValid] = useState("");
-  const [passworderror, setPassworderror] = useState("");
-  const [error, setError] = useState("");
-  const [file, setFile] = useState(null);
-
-  function checkPassword(password, rpassword) {
-    if (password < 8) {
-      setPassworderror("Password Kurang Panjang");
-    } else if (password !== rpassword) {
-      setPassworderror("Password Tidak Sama");
-    }
-    if (password.length >= 8 && password === rpassword) {
-      setPassworderror(null);
-    }
+  function getSteps() {
+    return ["", "", "", ""];
   }
 
-  function getStepContent(stepIndex) {
-    switch (stepIndex) {
+  const steps = getSteps();
+  const [step, setStep] = useState(0);
+  const [fullName, setFullname] = useState("");
+  const [address, setAddress] = useState("");
+  const [date, setDate] = useState(new Date());
+  const [phone, setPhone] = useState("");
+  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [idcard, setIdcard] = useState([]);
+  const [bankacc, setBankacc] = useState("");
+  const [banknum, setBanknum] = useState("");
+  const [role, setRole] = useState(0);
+  const [loading, setLoading] = useState(false);
+  const [name, setName] = useState("");
+  const [success, setSuccess] = useState(false);
+  const [valid, setValid] = useState(false);
+
+  const handleNext = () => {
+    setStep(prevStep => prevStep + 1);
+    console.log(idcard);
+  };
+
+  const handleBack = () => {
+    setStep(prevStep => prevStep - 1);
+  };
+
+  function getContent(stepindex) {
+    switch (stepindex) {
       case 0:
         return (
           <Step1
-            onChangeNama={data => {
-              setNama(data);
+            roles={data => {
+              setRole(data);
             }}
-            onChangeDate={data => {
-              setDate(data);
-            }}
-            onChangeJK={data => {
-              setJenisKelamin(data);
-            }}
+            cekinput={role}
           />
         );
       case 1:
         return (
           <Step2
-            onChangeMail={data => {
+            fullnama={data => {
+              setFullname(data);
+            }}
+            datanama={name}
+            mail={data => {
               setEmail(data);
             }}
-            onChangePass={data => {
-              setPassword(data);
+            dataemail={email}
+            alamat={data => {
+              setAddress(data);
             }}
-            onChangeRpass={data => {
-              setRpassword(data);
+            dataalamat={address}
+            nomor={data => {
+              setPhone(data);
             }}
+            datanohp={phone}
+            tanggal={data => {
+              setDate(data);
+            }}
+            datatanggal={date}
+            idfile={data => {
+              setIdcard(data);
+            }}
+            filektp={idcard}
           />
         );
       case 2:
         return (
           <Step3
-            onChangeUniv={data => {
-              setInstansi(data);
+          // acc={data => {
+          //   setBankacc(data);
+          // }}
+          // num={data => {
+          //   setBanknum(data);
+          // }}
+          />
+        );
+      case 3:
+        return (
+          <Step4
+            uname={data => {
+              setUsername(data);
             }}
-            onChangeNorek={data => {
-              setNorek(data);
+            datauname={username}
+            pass={data => {
+              setPassword(data);
             }}
-            onChangeMetode={data => {
-              setMetode(data);
-            }}
-            onChangeFile={data => {
-              setFile(data);
-            }}
+            datapass={password}
           />
         );
       default:
-        return "Unknown stepIndex";
+        return "Hai";
     }
   }
 
-  const handleNext = () => {
-    setActiveStep(prevActiveStep => prevActiveStep + 1);
-  };
+  function getNama(data) {
+    let nama = data.split(" ");
+    setName(nama[0]);
+  }
 
-  const handleBack = () => {
-    setActiveStep(prevActiveStep => prevActiveStep - 1);
-  };
+  function handleClose() {
+    setValid(false);
+  }
 
-  async function handleSelesai(e) {
+  async function handleSubmit(e) {
     setLoading(true);
     e.preventDefault();
-    checkPassword(password, rpassword);
     if (
-      nama &&
+      fullName &&
+      address &&
       date &&
-      JenisKelamin &&
+      phone &&
       email &&
+      username &&
       password &&
-      rpassword &&
-      instansi &&
-      metode &&
-      norek &&
-      file
+      idcard &&
+      // bankacc &&
+      // banknum &&
+      role
     ) {
-      setValid("");
-      if (passworderror === null) {
-        let user = {
-          name: nama,
-          email: email,
-          tanggal_lahir: date,
-          jenis_kelamin: JenisKelamin,
-          password: password,
-          instansi: instansi,
-          saldo:"0"
-        };
-        try {
-          // let hasil = await axios.post(
-          //   "http://localhost:8000/api/user/register",
-          //   user
-          // );
-          window.location.replace("/");
-        } catch (e) {
-          switch (e.response) {
-            case 400:
-              setError("Akun Tersebut Sudah Ada");
-              break;
-            default:
-              console.log("berhasil");
-              break;
-          }
+      getNama(fullName);
+      let user = {
+        name: name,
+        fullName: fullName,
+        address: address,
+        birthDate: date,
+        phoneNumber: phone,
+        email: email,
+        username: username,
+        password: password,
+        //IDCard: idcard,
+        // bankAccount: bankacc,
+        // bankNumber: banknum,
+        role: role
+      };
+      try {
+        // let hasil = await axios.post("/auth/register", user);
+        console.log(user);
+        setSuccess(true);
+      } catch (e) {
+        switch (e.response) {
+          case 406:
+            console.log(e.response.message);
+            break;
+          case 500:
+            console.log(e.reponse.message);
+            setValid(true);
+            break;
+          default:
+            console.log("berhasil");
+            break;
         }
       }
     } else {
-      setValid("Tolong cek masukan anda");
+      setValid(true);
     }
-    
     setLoading(false);
   }
 
   return (
-    <div className="registerbody">
+    <div className="register">
       <Container>
-        <br />
-        <br />
-        <Card>
-          <Card.Body>
-            <div className="cardregis">
-              <div className="judulregis">Daftar</div>
-              <div className={classes.root}>
-                <Stepper activeStep={activeStep} alternativeLabel>
-                  {steps.map(label => (
-                    <Step key={label}>
-                      <StepLabel>{label}</StepLabel>
-                    </Step>
-                  ))}
-                </Stepper>
+        <div className="judulregister">Register</div>
+        {success ? (
+          <div className="card" style={{ backgroundColor: "#f5f5f5" }}>
+            <Result
+              status="success"
+              title="Akun Anda Telah Terdaftar"
+              extra={[
+                <Button
+                  type="primary"
+                  text="Login Sekarang"
+                  onClick={window.location.replace("/login")}
+                />
+              ]}
+            />
+          </div>
+        ) : (
+          <div>
+            <div className="stepper">
+              <Stepper activeStep={step} alternativeLabel>
+                {steps.map(label => (
+                  <Step key={label}>
+                    <StepLabel>{label}</StepLabel>
+                  </Step>
+                ))}
+              </Stepper>
+            </div>
+            <div>
+              {step === steps.length - 1 ? (
                 <div>
-                  {activeStep === steps.length - 1 ? (
+                  <div className="card" style={{ backgroundColor: "#f5f5f5" }}>
                     <div>
                       {valid ? (
-                        <Alert variant="warning">{valid}</Alert>
-                      ) : (
-                        <Fragment />
-                      )}
-                      {passworderror ? (
-                        <Alert variant="danger">{passworderror}</Alert>
-                      ) : (
-                        <Fragment />
-                      )}
-                      {error ? (
-                        <Alert variant="danger">{error}</Alert>
-                      ) : (
-                        <Fragment />
-                      )}
-                      <Typography className={classes.instructions}>
-                        {getStepContent(activeStep)}
-                      </Typography>
-                      <div>
-                        <Button
-                          disabled={activeStep === 0}
-                          onClick={handleBack}
-                          className={classes.backButton}
-                        >
-                          Kembali
-                        </Button>
-                        <Button
-                          variant="contained"
-                          color="primary"
-                          onClick={e => handleSelesai(e)}
-                        >
-                          {loading ? (
-                            <ReactLoading
-                              type="spokes"
-                              width="25px"
-                              height="30px"
-                            />
-                          ) : (
-                            "Selesai"
-                          )}
-                        </Button>
-                      </div>
+                        <Alert
+                          message="Tolong lengkapi data anda"
+                          closable
+                          afterClose={handleClose}
+                          type="warning"
+                          showIcon
+                          style={{ margin: "2% 13%" }}
+                        />
+                      ) : null}
                     </div>
-                  ) : (
-                    <div>
-                      <Typography className={classes.instructions}>
-                        {getStepContent(activeStep)}
-                      </Typography>
-                      <div>
-                        <Button
-                          disabled={activeStep === 0}
-                          onClick={handleBack}
-                          className={classes.backButton}
-                        >
-                          Kembali
-                        </Button>
-                        <Button
-                          variant="contained"
-                          color="primary"
-                          onClick={handleNext}
-                        >
-                          Selanjutnya
-                        </Button>
-                      </div>
+                    <div className="formregister">{getContent(step)}</div>
+                    <div className="buttonmulti">
+                      <Button
+                        type="tertiary"
+                        text="Kembali"
+                        disable={step === 0 ? true : false}
+                        click={handleBack}
+                      />
+                      <Button
+                        type="primary"
+                        text="Selesai"
+                        click={e => handleSubmit(e)}
+                      />
                     </div>
-                  )}
+                  </div>
                 </div>
-              </div>
+              ) : (
+                <div className="card" style={{ backgroundColor: "#f5f5f5" }}>
+                  <div className="formregister">{getContent(step)}</div>
+                  <div className="buttonmulti">
+                    <Button
+                      type="tertiary"
+                      text="Kembali"
+                      disable={step === 0 ? true : false}
+                      click={handleBack}
+                    />
+                    <Button
+                      type="primary"
+                      text="Selanjutnya"
+                      click={handleNext}
+                    />
+                  </div>
+                </div>
+              )}
             </div>
-          </Card.Body>
-        </Card>
-        <br />
-        <br />
+          </div>
+        )}
       </Container>
     </div>
   );
