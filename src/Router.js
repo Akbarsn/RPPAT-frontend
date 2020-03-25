@@ -5,6 +5,7 @@ import {
     Switch
 } from 'react-router-dom'
 import Homepage from "./pages/Home";
+import Laporan from "./pages/Laporan"
 import Login from "./pages/auth/Login"
 
 export default function Router() {
@@ -17,6 +18,10 @@ export default function Router() {
 
                 <Route exact path='/homepage'>
                     <Homepage></Homepage>
+                </Route>
+
+                <Route exact path='/laporan'>
+                    <Laporan />
                 </Route>
 
                 <Route exact path="/login" render={props => <Login {...props} />} />

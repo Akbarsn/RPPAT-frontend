@@ -1,0 +1,45 @@
+@import "../Root.scss";
+
+.title {
+  font-family: $font-header;
+  font-size: 64px;
+  color: $color-black;
+  margin-bottom: 1rem;
+}
+
+.button-text {
+  margin-left: 12px;
+}
+
+.subtitle {
+  font-family: $font-sub;
+  font-weight: $font-sub-style;
+  font-size: 32px;
+  color: $color-black;
+  margin-bottom: 0.5rem;
+}
+
+.table {
+  font-size: 16px;
+}
+
+.ant-table-cell {
+  font-size: 20px !important;
+  font-weight: 500;
+}
+
+.ant-form-item-required {
+  font-size: 20px !important;
+}
+
+.btn_primary {
+  background-color: $color-primary;
+  color: $color-white;
+  border: solid 2px $color-primary;
+}
+
+.btn_secondary {
+  background-color: $color-white;
+  color: $color-primary;
+  border: solid 2px $color-primary;
+}
