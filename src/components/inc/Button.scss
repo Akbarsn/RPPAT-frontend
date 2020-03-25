@@ -6,7 +6,7 @@
     transition: all .3s;
     position: relative;
     overflow: hidden;
-    z-index: 1;
+    z-index: 0;
     font-family: 'Domine', serif;
     font-weight: 550;
     &:after {
@@ -51,6 +51,7 @@
   &.secondary{
     background-color: white;    
     color: #1DC6C6;
+    border: solid 2px #1DC6C6;
     &:before {
       background-color: darken(white, 15%);
   }
