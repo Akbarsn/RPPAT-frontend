@@ -34,6 +34,9 @@ function getRole(role) {
     case 5:
       name = "Kasir";
       break;
+      default:
+      name="Not found";
+      break;
   }
   return name;
 }
