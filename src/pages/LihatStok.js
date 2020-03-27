@@ -2,9 +2,9 @@ import React from "react";
 import Navbar from "../components/Navbar";
 import Sidebar from "../components/Sidebar";
 import { Layout } from "antd";
-import LihatStok from "../components/lihatstok/index";
+import Lihat from "../components/lihatstok/index";
 
-export default function() {
+export default function LihatStok() {
   const dummy = [
     {
       no: 1,
@@ -39,7 +39,7 @@ export default function() {
           <Sidebar role={4} />
         </Layout.Sider>
         <Layout.Content style={{ backgroundColor: "white" }}>
-          <LihatStok title="Stok Bahan" rows={dummy} />
+          <Lihat title="Stok Bahan" rows={dummy} />
         </Layout.Content>
       </Layout>
     </Layout>
