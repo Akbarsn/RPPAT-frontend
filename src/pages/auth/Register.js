@@ -2,15 +2,14 @@ import React, { useState } from "react";
 import Stepper from "@material-ui/core/Stepper";
 import Step from "@material-ui/core/Step";
 import StepLabel from "@material-ui/core/StepLabel";
-import { Card, Result, Alert } from "antd";
+import { Card, Result, Alert, Button } from "antd";
 import Step1 from "./registerstep/step1";
 import Step2 from "./registerstep/step2";
 import Step3 from "./registerstep/step3";
 import Step4 from "./registerstep/step4";
 import axios from "axios";
-import Container from "../../components/inc/Container";
-import Button from "../../components/inc/Button";
 import "./Register.scss";
+import Container from '../../components/Container';
 
 export default function Register() {
   function getSteps() {
@@ -61,7 +60,7 @@ export default function Register() {
             fullnama={data => {
               setFullname(data);
             }}
-            datanama={name}
+            datanama={fullName}
             mail={data => {
               setEmail(data);
             }}
@@ -179,7 +178,7 @@ export default function Register() {
 
   return (
     <div className="register">
-      <Container>
+    <Container>
         <div className="judulregister">Register</div>
         {success ? (
           <div className="card" style={{ backgroundColor: "#f5f5f5" }}>
@@ -189,9 +188,15 @@ export default function Register() {
               extra={[
                 <Button
                   type="primary"
-                  text="Login Sekarang"
-                  onClick={window.location.replace("/login")}
-                />
+                  size="large"
+                  htmlType="submit"
+                  className="btn_primary"
+                  onClick={() => {
+                    window.location.replace("/login");
+                  }}
+                >
+                  Login Sekarang
+                </Button>
               ]}
             />
           </div>
@@ -224,17 +229,23 @@ export default function Register() {
                     </div>
                     <div className="formregister">{getContent(step)}</div>
                     <div className="buttonmulti">
-                      <Button
-                        type="tertiary"
-                        text="Kembali"
-                        disable={step === 0 ? true : false}
-                        click={handleBack}
-                      />
+                    <Button
+                      disabled={step === 0 ? true : false}
+                      onClick={handleBack}
+                    >
+                    Kembali
+                    </Button>
                       <Button
                         type="primary"
-                        text="Selesai"
-                        click={e => handleSubmit(e)}
-                      />
+                        size="large"
+                        htmlType="submit"
+                        className="btn_primary"
+                        onClick={e => {
+                          handleSubmit(e);
+                        }}
+                      >
+                        Selesai
+                      </Button>
                     </div>
                   </div>
                 </div>
@@ -243,23 +254,27 @@ export default function Register() {
                   <div className="formregister">{getContent(step)}</div>
                   <div className="buttonmulti">
                     <Button
-                      type="tertiary"
-                      text="Kembali"
-                      disable={step === 0 ? true : false}
-                      click={handleBack}
-                    />
+                      disabled={step === 0 ? true : false}
+                      onClick={handleBack}
+                    >
+                    Kembali
+                    </Button>
                     <Button
                       type="primary"
-                      text="Selanjutnya"
-                      click={handleNext}
-                    />
+                      size="large"
+                      htmlType="submit"
+                      className="btn_primary"
+                      onClick= {handleNext}
+                    >
+                      Selanjutnya
+                    </Button>
                   </div>
                 </div>
               )}
             </div>
           </div>
         )}
-      </Container>
+        </Container>
     </div>
   );
 }

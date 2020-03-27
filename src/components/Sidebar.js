@@ -277,7 +277,7 @@ export default function Sidebar(props) {
         position: "fixed",
         left: 0
       }}
-      width="400"
+      width="280"
       id="sidebar"
     >
       <div id="photoProfile">

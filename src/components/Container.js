@@ -1,7 +1,7 @@
 import React from "react";
-import "./Container.scss";
+import './Container.scss';
 
-export default function Container(props){
+function Container(props){
     return (
       <div className="container">
         <div className="content">
@@ -11,3 +11,4 @@ export default function Container(props){
     );
   }
 
+export default Container;
