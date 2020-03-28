@@ -1,0 +1,27 @@
+@import '../Root';
+
+.contentpage{
+    background-color: white;
+}
+.titlepage{
+    font-family: $font-header;
+    color: black;
+    font-size: 47px;
+    
+}
+
+.sectitle{
+    font-family: $font-sub;
+    font-size: 28px;
+    font-weight: bold;
+}
+.tablestok{
+    margin: 1% 2%;
+}
+.ant-table-wrapper{
+    .ant-table-thead{
+    background-color: blue;
+    color: blueviolet;
+    }
+}
+

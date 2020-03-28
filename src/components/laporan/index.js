@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { Row, Table, Col, Modal, Form, Input, Select, Button } from "antd";
-import Button1 from "../inc/Button";
 
 import { PlusOutlined } from "@ant-design/icons";
 
@@ -21,7 +20,7 @@ export default function Laporan(props) {
         </Row>
       );
       const button = (
-        <Button1 type="secondary" click={() => setVisible(true)} text={text} />
+        <Button className="btn_secondary" click={() => setVisible(true)} >{text} </Button>
       );
       return button;
     }

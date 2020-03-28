@@ -1,7 +1,5 @@
 import React, { useState, Fragment } from "react";
-import Container from "../../components/inc/Container";
-import { Alert, Form, Input } from "antd";
-import Button from "../../components/inc/Button";
+import { Alert, Form, Input, Button } from "antd";
 import "./Login.scss";
 import axios from 'axios';
 
@@ -50,12 +48,8 @@ export default function Login() {
     labelCol: { span: 6 },
     wrapperCol: { span: 16 }
   };
-  const tailLayout = {
-    wrapperCol: { offset: 8, span: 16 }
-  };
   return (
     <div className="login">
-      <Container>
         <div className="cardlogin">
           <p className="titlelogin">Masuk</p>
           
@@ -97,12 +91,17 @@ export default function Login() {
               />
             </Form.Item>
             <div className="buttonlogin">
-              <Button
-                type="primary"
-                text={loading ? "Loading..." : "Kirim"}
-                {...tailLayout}
-                click={e => submit(e)}
-              />
+            <Button
+              type="primary"
+              size="large"
+              htmlType="submit"
+              className="btn_primary"
+              onClick={(e) => {
+                submit(e);
+              }}
+            >
+              Submit
+            </Button>
             </div>
           </Form>
           <p className="keregister">
@@ -112,7 +111,6 @@ export default function Login() {
             </a>
           </p>
         </div>
-      </Container>
     </div>
   );
 }
