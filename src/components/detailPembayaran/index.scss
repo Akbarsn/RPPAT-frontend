@@ -1,0 +1,64 @@
+@import "../Root.scss";
+
+.subtitle {
+  font-family: $font-sub;
+  font-size: 36px;
+}
+
+.card {
+  border: solid 3px $color-primary;
+  border-radius: 10px;
+  color: black;
+  margin-top: 2rem;
+}
+
+.paragraph {
+  font-size: 24px;
+}
+
+#highlight {
+  font-size: 32px !important;
+  font-weight: 500;
+}
+
+.buttonGroup {
+  margin-top: 4rem;
+  width: 96%;
+}
+
+.btn_secondary {
+  background-color: white !important;
+  color: $color-primary;
+  font-size: 24px;
+  width: auto;
+  height: auto;
+  border: solid 2px $color-primary;
+  transition: ease-in 0.1s;
+  border-radius: 5px;
+  padding-left: 16px;
+  padding-right: 16px;
+}
+
+.btn_secondary:hover {
+  background-color: $color-primary !important;
+  color: $color-white !important;
+  border: solid 2px $color-white !important;
+}
+
+.btn_primary {
+  background-color: $color-primary;
+  font-size: 24px;
+  width: auto;
+  height: auto;
+  border: solid 2px $color-white;
+  transition: ease-in 0.1s;
+  border-radius: 5px;
+  padding-left: 16px;
+  padding-right: 16px;
+}
+
+.btn_primary:hover {
+  background-color: $color-white;
+  color: $color-primary;
+  border: solid 2px $color-primary;
+}
