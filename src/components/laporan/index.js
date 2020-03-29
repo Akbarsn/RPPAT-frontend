@@ -20,7 +20,9 @@ export default function Laporan(props) {
         </Row>
       );
       const button = (
-        <Button className="btn_secondary" click={() => setVisible(true)} >{text} </Button>
+        <Button className="btn_secondary" click={() => setVisible(true)}>
+          {text}{" "}
+        </Button>
       );
       return button;
     }
@@ -167,29 +169,31 @@ export default function Laporan(props) {
 
   return (
     <React.Fragment>
-      <span className="title">Laporan {props.name}</span>
+      <div style={{marginLeft:"1.5rem"}}>
+        <span className="title">Laporan {props.name}</span>
 
-      <Row justify="space-between" style={{ marginBottom: "1rem" }}>
-        <Col span={4}>
-          <span className="subtitle">{props.name}</span>
-        </Col>
+        <Row justify="space-between" style={{ marginBottom: "1rem" }}>
+          <Col span={4}>
+            <span className="subtitle">{props.name}</span>
+          </Col>
 
-        <Col span={4}>{checkButton(props.isThereButton)}</Col>
-      </Row>
+          <Col span={4}>{checkButton(props.isThereButton)}</Col>
+        </Row>
 
-      <Row justify="start">
-        <Col span={23}>
-          <Table
-            columns={props.table.columns}
-            dataSource={props.table.data}
-            style={{
-              fontSize: "16px!important"
-            }}
-          ></Table>
-        </Col>
-      </Row>
+        <Row justify="start">
+          <Col span={23}>
+            <Table
+              columns={props.table.columns}
+              dataSource={props.table.data}
+              style={{
+                fontSize: "16px!important"
+              }}
+            ></Table>
+          </Col>
+        </Row>
 
-      {checkModal(props)}
+        {checkModal(props)}
+      </div>
     </React.Fragment>
   );
 }

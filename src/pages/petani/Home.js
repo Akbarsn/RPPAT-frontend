@@ -34,9 +34,9 @@ export default function Home() {
   return (
     <Layout style={{ backgroundColor: "#ffffff" }}>
       <Navbar name={"Akbar"} />
-      <Layout style={{ marginTop: 64, marginLeft: 400 }}>
+      <Layout style={{ marginTop: 64, marginLeft: 280 }}>
         <Sidebar role={4} />
-        <Layout.Content style={{ marginLeft: "1rem", minHeight: "100vh" }}>
+        <Layout.Content style={{ minHeight: "100vh" }}>
           <Homepage
             card1={{ title: "Total Stok", content: "20.000 Unit" }}
             card2={{ title: "Keuntungan", content: "Rp. 6.000.000" }}

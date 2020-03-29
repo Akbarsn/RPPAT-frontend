@@ -94,15 +94,9 @@ export default function Laporan() {
   return (
     <Layout style={{ backgroundColor: "#ffffff" }}>
       <Navbar name={"Akbar"} />
-      <Layout style={{ marginTop: 64, marginLeft: 400 }}>
+      <Layout style={{ marginTop: 64, marginLeft: 280 }}>
         <Sidebar role={0} />
-        <Layout.Content style={{ marginLeft: "1.5rem", minHeight: "100vh" }}>
-          {/* <Konten
-            name="Penjualan"
-            isThereButton={false}
-            table={{ columns: column, data: data }}
-          ></Konten> */}
-
+        <Layout.Content style={{  minHeight: "100vh", backgroundColor:"white" }}>
           <Konten
             name="Stok Panen"
             isThereButton={true}
