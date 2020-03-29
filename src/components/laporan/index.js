@@ -20,8 +20,8 @@ export default function Laporan(props) {
         </Row>
       );
       const button = (
-        <Button className="btn_secondary" click={() => setVisible(true)}>
-          {text}{" "}
+        <Button className="btn_secondary" onClick={() => setVisible(true)}>
+          {text}
         </Button>
       );
       return button;
