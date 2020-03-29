@@ -1,47 +1,59 @@
-import React from 'react'
+import React from "react";
 import { Row, Col, Card, Table } from "antd";
 
-import './index.scss'
+import "./index.scss";
 
 export default function Homepage(props) {
-    return (
-        <React.Fragment>
-            <span className="title">Beranda</span>
+  return (
+    <React.Fragment>
+      <div style={{marginLeft:"1rem"}}>
+        <span className="title">Beranda</span>
 
-            <Row justify="space-around" gutter={[24, 48]}>
-                <Col span={11}>
-                    <Card className="card">
-                        <Row>
-                            <Col><span className="title">{props.card1.title} </span></Col>
-                        </Row>
-                        <Row>
-                            <Col offset={5} className="content">{props.card1.content}</Col>
-                        </Row>
-                    </Card>
+        <Row justify="space-around" gutter={[24, 48]}>
+          <Col span={11}>
+            <Card className="card">
+              <Row>
+                <Col>
+                  <span className="title">{props.card1.title} </span>
                 </Col>
-
-                <Col span={11}>
-                    <Card className="card">
-                        <Row>
-                            <Col><span className="title">{props.card2.title} </span></Col>
-                        </Row>
-                        <Row>
-                            <Col offset={5} className="content">{props.card2.content}</Col>
-                        </Row>
-                    </Card>
+              </Row>
+              <Row>
+                <Col offset={5} className="content">
+                  {props.card1.content}
                 </Col>
-            </Row>
+              </Row>
+            </Card>
+          </Col>
 
-            <Row justify="space-around" gutter={[24, 48]}>
-                <Col span={23}>
-                    <Card className="card">
-                        <span className="title">{props.table.title} </span>
-                        <Table columns={props.table.column} dataSource={props.table.data} id="table"></Table>
-                    </Card>
+          <Col span={11}>
+            <Card className="card">
+              <Row>
+                <Col>
+                  <span className="title">{props.card2.title} </span>
                 </Col>
-            </Row>
+              </Row>
+              <Row>
+                <Col offset={5} className="content">
+                  {props.card2.content}
+                </Col>
+              </Row>
+            </Card>
+          </Col>
+        </Row>
 
-        </React.Fragment>
-    )
-
+        <Row justify="space-around" gutter={[24, 48]}>
+          <Col span={23}>
+            <Card className="card">
+              <span className="title">{props.table.title} </span>
+              <Table
+                columns={props.table.column}
+                dataSource={props.table.data}
+                id="table"
+              ></Table>
+            </Card>
+          </Col>
+        </Row>
+      </div>
+    </React.Fragment>
+  );
 }

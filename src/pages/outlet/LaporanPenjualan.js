@@ -94,9 +94,9 @@ export default function LaporanPenjualan() {
   return (
     <Layout style={{ backgroundColor: "#ffffff" }}>
       <Navbar name={"Akbar"} />
-      <Layout style={{ marginTop: 64, marginLeft: 400 }}>
+      <Layout style={{ marginTop: 64, marginLeft: 280 }}>
         <Sidebar role={4} />
-        <Layout.Content style={{ marginLeft: "1.5rem", minHeight: "100vh" }}>
+        <Layout.Content style={{  minHeight: "100vh" }}>
           <Konten
             name="Penjualan"
             isThereButton={false}

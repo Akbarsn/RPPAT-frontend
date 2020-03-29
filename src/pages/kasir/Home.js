@@ -10,9 +10,9 @@ export default function Home() {
   return (
     <Layout style={{ backgroundColor: "#ffffff" }}>
       <Navbar name={"Kasir"} />
-      <Layout style={{ marginTop: 64, marginLeft: 400 }}>
+      <Layout style={{ marginTop: 64, marginLeft: 280 }}>
         <Sidebar role={5} />
-        <Layout.Content style={{ marginLeft: "1rem", minHeight: "100vh" }}>
+        <Layout.Content style={{ minHeight: "100vh" }}>
           
         </Layout.Content>
       </Layout>
