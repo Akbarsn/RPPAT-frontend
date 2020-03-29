@@ -3,6 +3,8 @@ import "./Card.scss";
 import { Button, Avatar } from "antd";
 
 export default function Beli(props) {
+  const data = props.data;
+
   return (
     <div className="cardtoko">
       <div className="titlecard">
@@ -11,23 +13,28 @@ export default function Beli(props) {
           className="titletoko"
           style={{ display: "inline-block", verticalAlign: "top" }}
         >
-          Toko Budi
+          {data.nama}
         </p>
       </div>
       <div className="stok">
         <p className="stoktoko">Stok :</p>
         <div className="liststok">
-          <div className="listbarang">
-            <p>Minyak Goreng</p>
-            <p>300</p>
+        {data.stok.map(stocks => {return (
+          <div className="listbarang" key={stocks}>
+                <p >{stocks.barang}</p>
+                <p >{stocks.jumlah}</p>
+            
           </div>
+          )})}
           <div className="listbarang">
             <p>. . .</p>
           </div>
         </div>
       </div>
       <div style={{ textAlign: "center" }}>
-        <Button className="btn_primary" size={"large"}>Lihat</Button>
+        <Button className="btn_primary">
+          Lihat
+        </Button>
       </div>
     </div>
   );
