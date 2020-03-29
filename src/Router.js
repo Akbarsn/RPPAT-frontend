@@ -10,6 +10,7 @@ import Login from "./pages/auth/Login";
 import Register from './pages/auth/Register';
 import LihatStok from './pages/LihatStok';
 import RiwayatTransaksi from './pages/RiwayatTransaksi';
+import Beli from './pages/Beli';
 
 export default function Router() {
     return (
@@ -18,6 +19,8 @@ export default function Router() {
                 <Route exact path='/'>
                     Hello World!!
                 </Route>
+
+                <Route exact path="/beli" render={props => <Beli {...props} />} />
 
                 <Route exact path='/homepage'>
                     <Homepage></Homepage>
