@@ -10,7 +10,10 @@ import Login from "./pages/auth/Login";
 import Register from './pages/auth/Register';
 import LihatStok from './pages/LihatStok';
 import RiwayatTransaksi from './pages/RiwayatTransaksi';
-import DetailPembayaran from './pages/DetailPembayaran'
+import Beli from './pages/Beli';
+import DetailPembayaran from './pages/DetailPembayaran';
+import DetailToko from './pages/DetailToko';
+import DaftarBarang from './pages/kasir/DaftarBarang';
 
 export default function Router() {
     return (
@@ -19,6 +22,12 @@ export default function Router() {
                 <Route exact path='/'>
                     Hello World!!
                 </Route>
+
+                <Route exact path="/beli-bahan" render={props => <Beli {...props} />} />
+
+                <Route exact path="/daftar-barang" render={props => <DaftarBarang {...props} />} />
+
+                <Route exact path="/detail-toko" render={props => <DetailToko {...props} />} />
 
                 <Route exact path='/homepage'>
                     <Homepage></Homepage>

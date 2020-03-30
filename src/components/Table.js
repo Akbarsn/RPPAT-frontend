@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, Fragment } from "react";
 import { withStyles } from "@material-ui/core/styles";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
@@ -93,7 +93,7 @@ export default function Tabel(props) {
                 <StyledTableCell align="left">{total}</StyledTableCell>
               </TableRow>
             ) : (
-              <div></div>
+              <Fragment/>
             )}
           </TableBody>
         </Table>
