@@ -5,30 +5,154 @@ import { Layout } from "antd";
 import Lihat from "../components/lihatstok/index";
 
 export default function LihatStok() {
-  const dummy = [
+
+  const columns = [
     {
-      no: 1,
-      barang: "Minyak Goreng",
-      jumlah: 1000,
-      satuan: "liter",
-      harga: "Rp. 11.000"
+      align: "center",
+      name: "No"
     },
     {
-      no: 2,
-      barang: "Natrium Benzoat",
-      jumlah: 2000,
-      satuan: "kilogram",
-      harga: "Rp. 1.100"
+      align: "left",
+      name: "Barang"
     },
     {
-        no: 3,
-        barang: "Sorbitol",
-        jumlah: 500,
-        satuan: "gram",
-        harga: "Rp. 700"
-      },
-      
+      align: "center",
+      name: "Stok"
+    },
+    {
+      align: "center",
+      name: "Satuan per Kemasan"
+    },
+    {
+      align: "center",
+      name: "Harga per Kemasan"
+    }
   ];
+
+
+  const rows = [
+    {
+      data: [
+        {
+          value: 1,
+          align: "center"
+        },
+        {
+          value: "Minyak Goreng",
+          align: "left"
+        },
+        {
+          value: "2000",
+          align: "center"
+        },
+        {
+          value: "1000 gr",
+          align: "center"
+        },
+        {
+          value: "Rp. 20.000",
+          align: "center"
+        }
+      ]
+    },
+    {
+      data: [
+        {
+          value: 1,
+          align: "center"
+        },
+        {
+          value: "Minyak Goreng",
+          align: "left"
+        },
+        {
+          value: "2000",
+          align: "center"
+        },
+        {
+          value: "1000 gr",
+          align: "center"
+        },
+        {
+          value: "Rp. 20.000",
+          align: "center"
+        }
+      ]
+    },
+    {
+      data: [
+        {
+          value: 1,
+          align: "center"
+        },
+        {
+          value: "Minyak Goreng",
+          align: "left"
+        },
+        {
+          value: "2000",
+          align: "center"
+        },
+        {
+          value: "1000 gr",
+          align: "center"
+        },
+        {
+          value: "Rp. 20.000",
+          align: "center"
+        }
+      ]
+    },
+    {
+      data: [
+        {
+          value: 1,
+          align: "center"
+        },
+        {
+          value: "Minyak Goreng",
+          align: "left"
+        },
+        {
+          value: "2000",
+          align: "center"
+        },
+        {
+          value: "1000 gr",
+          align: "center"
+        },
+        {
+          value: "Rp. 20.000",
+          align: "center"
+        }
+      ]
+    },
+    {
+      data: [
+        {
+          value: 1,
+          align: "center"
+        },
+        {
+          value: "Minyak Goreng",
+          align: "left"
+        },
+        {
+          value: "2000",
+          align: "center"
+        },
+        {
+          value: "1000 gr",
+          align: "center"
+        },
+        {
+          value: "Rp. 20.000",
+          align: "center"
+        }
+      ]
+    }
+
+  ]
   return (
     <Layout>
       <Layout.Header>
@@ -39,7 +163,7 @@ export default function LihatStok() {
           <Sidebar role={4} />
         </Layout.Sider>
         <Layout.Content style={{ backgroundColor: "white" }}>
-          <Lihat title="Stok Bahan" rows={dummy} />
+          <Lihat title="Stok Bahan" rows={rows} columns ={columns} />
         </Layout.Content>
       </Layout>
     </Layout>
