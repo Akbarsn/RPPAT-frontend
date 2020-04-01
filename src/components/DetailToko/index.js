@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./index.scss";
-import { Pagination, Button, Select, Input } from "antd";
+import {  Button, Select, Input } from "antd";
 import Tabel from "../Table";
 
 export default function Index(props) {

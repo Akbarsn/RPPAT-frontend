@@ -8,24 +8,34 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import TablePagination from "@material-ui/core/TablePagination";
+import './Table.scss';
 
 export default function Tabel(props) {
   const hitungTotal = (rows, columns) => {
     let temp = 0;
     let index = 0;
     let i = 0;
+    let isThereTotal = false;
     columns.map(column => {
       if (column.name === "Total Harga") {
         index = i;
+        isThereTotal = true;
       }
       i++;
     });
 
+    if(isThereTotal){
     rows.map(row => {
       temp += row.data[index].value;
     });
+    isThereTotal = false;
 
     return temp;
+  }
+
+  return props.total;
+
+    
   };
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(props.pagination[0]);
@@ -89,8 +99,8 @@ export default function Tabel(props) {
               <TableRow>
                 <StyledTableCell align="center"></StyledTableCell>
                 <StyledTableCell align="center"></StyledTableCell>
-                <StyledTableCell align="center">Total</StyledTableCell>
-                <StyledTableCell align="left">{total}</StyledTableCell>
+                <StyledTableCell align="center"><p className="totaltable">Total</p></StyledTableCell>
+                <StyledTableCell align="left"><p className="totaltable">{total}</p></StyledTableCell>
               </TableRow>
             ) : (
               <Fragment/>

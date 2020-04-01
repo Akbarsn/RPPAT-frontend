@@ -14,6 +14,7 @@ import Beli from './pages/Beli';
 import DetailPembayaran from './pages/DetailPembayaran';
 import DetailToko from './pages/DetailToko';
 import DaftarBarang from './pages/kasir/DaftarBarang';
+import Notif from './pages/Notifikasi';
 
 export default function Router() {
     return (
@@ -40,6 +41,8 @@ export default function Router() {
                 <Route exact path="/login" render={props => <Login {...props} />} />
 
                 <Route exact path="/lihatstok" render={props => <LihatStok {...props} />} />
+
+                <Route exact path="/notifikasi" render={props => <Notif {...props} />} />
 
                 <Route exact path="/register" render={props => <Register {...props} />} />
                 

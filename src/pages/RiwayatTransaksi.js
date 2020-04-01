@@ -1,37 +1,153 @@
 import React from "react";
 import Navbar from "../components/Navbar";
 import Sidebar from "../components/Sidebar";
-import { Layout } from "antd";
+import { Layout, Modal, Button } from "antd";
 import Riwayat from '../components/RiwayatTransaksi/index';
 
 export default function RiwayatTransaksi() {
-  const dummy = [
+
+  function DataModal(content) {
+    Modal.info({
+      title: "Detail Transaksi",
+      content: (
+        <div>
+          {content}
+        </div>
+      )
+    })}
+
+  function detail (data) { 
+    return (
+    <div>
+      <Button className="btn_primary" onClick={()=>DataModal(data)}>Lihat Detail</Button>
+    </div>
+  )
+  }
+
+  const columns = [
     {
-      no: 1,
-      transaksi: "Pembelian Apel Manalagi",
-      tipe: "Pengeluaran",
-      harga: "Rp. 2.000.000"
+      align: "center",
+      name: "No"
     },
     {
-        no: 2,
-        transaksi: "Pembelian Natrium Benzoat",
-        tipe: "Pengeluaran",
-        harga: "Rp. 1.000.000"
-      },
-      {
-        no: 3,
-        transaksi: "Pembelian Kemasan Plastik 4x4",
-        tipe: "Pengeluaran",
-        harga: "Rp. 500.000"
-      },
-      {
-        no: 4,
-        transaksi: "Penjualan Kripik Apel",
-        tipe: "Pemasukan",
-        harga: "Rp. 2.000.000"
-      }
-      
+      align: "left",
+      name: "Transaksi"
+    },
+    {
+      align: "center",
+      name: "Tipe"
+    },
+    {
+      align: "center",
+      name: "Total"
+    },
+    {
+      align: "center",
+      name: "Aksi"
+    }
   ];
+
+
+  const rows = [
+    {
+      data: [
+        {
+          value: 1,
+          align: "center"
+        },
+        {
+          value: "Pembelian Apel Manalagi",
+          align: "left"
+        },
+        {
+          value: "Pengeluaran",
+          align: "center"
+        },
+        {
+          value: "Rp. 2.000.000",
+          align: "center"
+        },
+        {
+          value: detail("Membeli Apel Manalagi"),
+          align: "center"
+        }
+      ]
+    },
+    {
+      data: [
+        {
+          value: 1,
+          align: "center"
+        },
+        {
+          value: "Pembelian Apel Manalagi",
+          align: "left"
+        },
+        {
+          value: "Pengeluaran",
+          align: "center"
+        },
+        {
+          value: "Rp. 2.000.000",
+          align: "center"
+        },
+        {
+          value: detail("Membeli Apel Manalagi"),
+          align: "center"
+        }
+      ]
+    },
+    {
+      data: [
+        {
+          value: 1,
+          align: "center"
+        },
+        {
+          value: "Pembelian Apel Manalagi",
+          align: "left"
+        },
+        {
+          value: "Pengeluaran",
+          align: "center"
+        },
+        {
+          value: "Rp. 2.000.000",
+          align: "center"
+        },
+        {
+          value: detail("Membeli Apel Manalagi"),
+          align: "center"
+        }
+      ]
+    },
+    {
+      data: [
+        {
+          value: 1,
+          align: "center"
+        },
+        {
+          value: "Pembelian Apel Manalagi",
+          align: "left"
+        },
+        {
+          value: "Pengeluaran",
+          align: "center"
+        },
+        {
+          value: "Rp. 2.000.000",
+          align: "center"
+        },
+        {
+          value: detail("Membeli Apel Manalagi"),
+          align: "center"
+        }
+      ]
+    }
+
+  ]
+
   return (
     <Layout>
       <Layout.Header>
@@ -42,7 +158,7 @@ export default function RiwayatTransaksi() {
           <Sidebar role={4} />
         </Layout.Sider>
         <Layout.Content style={{ backgroundColor: "white" }}>
-          <Riwayat rows={dummy} masuk="1.000.000"/>
+          <Riwayat rows={rows} columns = {columns} total = "Rp. 8.000.000" masuk="1.000.000"/>
         </Layout.Content>
       </Layout>
     </Layout>
