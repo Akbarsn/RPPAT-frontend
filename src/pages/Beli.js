@@ -1,4 +1,4 @@
-import React, { useState, useEffect} from "react";
+import React from "react";
 import Navbar from "../components/Navbar";
 import Sidebar from "../components/Sidebar";
 import { Layout } from "antd";
@@ -25,7 +25,7 @@ export default function Beli() {
       ]
     },
     {
-      nama: "Toko Budi",
+      nama: "Toko Cantika",
       stok: [
         {
           barang: "Kripik Apel",
@@ -149,14 +149,6 @@ export default function Beli() {
         {
           barang: "Kripik Apel",
           jumlah: 100
-        },
-        {
-          barang: "Dodol",
-          jumlah: 200
-        },
-        {
-          barang: "Sari Buah",
-          jumlah: 75
         }
       ]
     },

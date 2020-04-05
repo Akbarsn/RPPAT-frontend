@@ -1,11 +1,16 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import "./Beli.scss";
 import { Input, Card, Row, Col, Pagination } from "antd";
 import Isi from "./Card";
 
 export default function Beli(props) {
+
+  const data = props.data;
+
   const [minValue, setMinValue] = useState(0);
   const [maxValue, setMaxValue] = useState(9);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [searchResults, setSearchResults] = useState(data);
 
   function handleChange(page, pageSize){
     if (page <=1){
@@ -18,6 +23,20 @@ export default function Beli(props) {
     }
   }
 
+  useEffect(() => {
+    const results = data.filter(datas =>{ 
+      const lower = datas.stok.map(stocks => {
+        const baranglower = stocks.barang.toLowerCase();
+          if(baranglower.toString().includes(searchTerm.toLowerCase())){
+            return baranglower;
+        }
+      return null;
+      })
+      return lower.toString().includes(searchTerm.toLowerCase());
+    })
+    setSearchResults(results);
+  }, [searchTerm]);
+
   return (
     <div className="beli">
       <p className="titlepage" style={{ margin: "1% 2% 1% 2%" }}>
@@ -29,12 +48,12 @@ export default function Beli(props) {
           style={{ margin: "1% 2% 2% 2%", width: 500 }}
           enterButton
           size="large"
-          onChange={data=>{props.searchterm(data.target.value);}}
+          onChange={data=> setSearchTerm(data.target.value)}
         />
       </div>
       <div className="toko">
         <Row gutter={16} style={{ marginLeft: "1.5%" }}>
-          {props.data.slice(minValue, maxValue).map(datas => {
+          {searchResults.slice(minValue, maxValue).map(datas => {
             return (
               <Col className="gutter-row" span={7} style={{ marginBottom: "1%" }}>
                 <Card key={datas}>
@@ -51,7 +70,7 @@ export default function Beli(props) {
             `${range[0]}-${range[1]} dari ${total} toko`
           }
           onChange={handleChange}
-          total={props.data.length}
+          total={searchResults.length}
           defaultPageSize={9}
         />
       </div>
