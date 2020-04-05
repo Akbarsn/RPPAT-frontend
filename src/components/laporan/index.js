@@ -4,6 +4,7 @@ import { Row, Table, Col, Modal, Form, Input, Select, Button } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
 
 import "./index.scss";
+import "../Inc.scss";
 
 export default function Laporan(props) {
   let [visible, setVisible] = useState(false);
@@ -77,6 +78,7 @@ export default function Laporan(props) {
               <Form.Item
                 label={props.firstItem}
                 name="item"
+                placeholder="Masukkan barang"
                 rules={[
                   {
                     required: true,

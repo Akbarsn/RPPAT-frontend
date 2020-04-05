@@ -5,7 +5,7 @@ import "./index.scss";
 
 export default function Homepage(props) {
   return (
-    <React.Fragment>
+    <div className="homepage">
       <div style={{marginLeft:"1rem"}}>
         <span className="title">Beranda</span>
 
@@ -54,6 +54,6 @@ export default function Homepage(props) {
           </Col>
         </Row>
       </div>
-    </React.Fragment>
+    </div>
   );
 }

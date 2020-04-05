@@ -1,14 +1,22 @@
-$color-gray: #F5F5F5;
-$color-black: #272C30;
-$color-primary: #1DC6C6;
+$color-gray: #f5f5f5;
+$color-black: #272c30;
+$color-primary: #1dc6c6;
 $color-white: #ffffff;
-$color-light-gray:#F8F9FA;
+$color-light-gray: #f8f9fa;
 
-$font-header: 'Domine',
-serif;
-$font-sub: 'Roboto',
-sans-serif;
+$font-header: "Domine", serif;
+$font-sub: "Roboto", sans-serif;
 $font-sub-style: 500;
-$font-paragraph: 'Roboto',
-sans-serif;
-$fotn-paragraph-style: 300;
+
+//Constant (min)
+$break-large: 1024px;
+$break-medium: 768px;
+
+//Font Size
+$font-header-large:64px;
+$font-header-medium:48px;
+$font-header-small:24px;
+
+$font-sub-large:48px;
+$font-sub-medium:32px;
+$font-sub-small:16px;

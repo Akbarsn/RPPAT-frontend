@@ -13,12 +13,12 @@ export default function DaftarBarang() {
           harga: "20.000"
         },
         {
-            nama: "Kripik Apel",
+            nama: "Dodol",
             berat: "500 gr",
             harga: "20.000"
           },
           {
-            nama: "Kripik Apel",
+            nama: "Pikachu",
             berat: "500 gr",
             harga: "20.000"
           },

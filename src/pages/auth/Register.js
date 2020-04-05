@@ -213,6 +213,7 @@ export default function Register() {
             </div>
             <div>
               {step === steps.length - 1 ? (
+                //Step 4
                 <div>
                   <div className="card" style={{ backgroundColor: "#f5f5f5" }}>
                     <div>
@@ -230,8 +231,8 @@ export default function Register() {
                     <div className="formregister">{getContent(step)}</div>
                     <div className="buttonmulti">
                     <Button
-                      disabled={step === 0 ? true : false}
                       onClick={handleBack}
+                      className="btn_tertiary"
                     >
                     Kembali
                     </Button>
@@ -249,13 +250,15 @@ export default function Register() {
                     </div>
                   </div>
                 </div>
-              ) : (
+              ) : ( 
+                // Step 123
                 <div className="card" style={{ backgroundColor: "#f5f5f5" }}>
                   <div className="formregister">{getContent(step)}</div>
                   <div className="buttonmulti">
                     <Button
                       disabled={step === 0 ? true : false}
                       onClick={handleBack}
+                      className="btn_tertiary"
                     >
                     Kembali
                     </Button>

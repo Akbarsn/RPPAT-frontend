@@ -31,7 +31,7 @@ export default function Router() {
                 <Route exact path="/detail-toko" render={props => <DetailToko {...props} />} />
 
                 <Route exact path='/homepage'>
-                    <Homepage></Homepage>
+                    <Homepage />
                 </Route>
 
                 <Route exact path='/laporan'>
@@ -49,7 +49,7 @@ export default function Router() {
                 <Route exact path="/riwayat" render={props => <RiwayatTransaksi {...props} />} />
 
                 <Route exact path="/detail-pembayaran">
-                    <DetailPembayaran></DetailPembayaran>
+                    <DetailPembayaran />
                 </Route>
             </Switch>
         </Brow>
