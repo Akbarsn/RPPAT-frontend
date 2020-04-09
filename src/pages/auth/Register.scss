@@ -1,16 +1,26 @@
+@import "../../components/Root.scss";
 
-
-.judulregister{
-    font-size: 40px;
-    margin: 3% 0 1% 0;
-    font-weight: bold;
-    text-align: center;
-    font-family: 'Domine', serif;
+// .buttonmulti{
+//     display: flex;
+//     justify-content: space-between;
+//     margin: 0% 5% 2% 5%;
+// }
+.judulregister {
+  font-size: 40px;
+  margin: 3% 0 1% 0;
+  font-weight: bold;
+  text-align: center;
+  font-family: "Domine", serif;
 }
 
-.buttonmulti{
-    display: flex;
-    justify-content: space-between;
-    margin: 0% 5% 2% 5%;
-}
+#register {
+  .register-content {
+    background-color: $color-gray;
+    border-radius: 20px;
+    padding: 3% 4%;
+  }
 
+  .buttonGroup {
+    margin: auto;
+  }
+}

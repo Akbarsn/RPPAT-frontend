@@ -2,14 +2,14 @@ import React, { useState } from "react";
 import Stepper from "@material-ui/core/Stepper";
 import Step from "@material-ui/core/Step";
 import StepLabel from "@material-ui/core/StepLabel";
-import { Card, Result, Alert, Button } from "antd";
+import { Result, Button, Row, Col, Form } from "antd";
 import Step1 from "./registerstep/step1";
 import Step2 from "./registerstep/step2";
 import Step3 from "./registerstep/step3";
 import Step4 from "./registerstep/step4";
 import axios from "axios";
 import "./Register.scss";
-import Container from '../../components/Container';
+import Container from "../../components/Container";
 
 export default function Register() {
   function getSteps() {
@@ -18,167 +18,134 @@ export default function Register() {
 
   const steps = getSteps();
   const [step, setStep] = useState(0);
-  const [fullName, setFullname] = useState("");
-  const [address, setAddress] = useState("");
-  const [date, setDate] = useState(new Date());
-  const [phone, setPhone] = useState("");
-  const [email, setEmail] = useState("");
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const [idcard, setIdcard] = useState([]);
-  const [bankacc, setBankacc] = useState("");
-  const [banknum, setBanknum] = useState("");
-  const [role, setRole] = useState(0);
   const [loading, setLoading] = useState(false);
-  const [name, setName] = useState("");
   const [success, setSuccess] = useState(false);
-  const [valid, setValid] = useState(false);
 
-  const handleNext = () => {
-    setStep(prevStep => prevStep + 1);
-    console.log(idcard);
-  };
+  const [step1, setStep1] = useState({});
+  const [step2, setStep2] = useState({});
+  const [step3, setStep3] = useState({});
+  const [bank, setBank] = useState({});
 
   const handleBack = () => {
-    setStep(prevStep => prevStep - 1);
+    setStep((prevStep) => prevStep - 1);
+  };
+
+  const onStep1 = (values) => {
+    setStep1(values);
+    setStep((prevStep) => prevStep + 1);
+  };
+
+  const onStep2 = (values) => {
+    setStep2(values);
+    setStep((prevStep) => prevStep + 1);
+  };
+
+  const onStep3 = (values) => {
+    console.log(values);
+    let bankAcc = "";
+    let bankNumber = "";
+
+    values.banks.map((bank) => {
+      bankAcc += bank.bankAcc + "-";
+      bankNumber += bank.bankNumber + "-";
+    });
+
+    bankAcc = bankAcc.substring(0, bankAcc.length - 1);
+    bankNumber = bankNumber.substring(0, bankNumber.length - 1);
+
+    setBank(values);
+    setStep3({ bankAcc: bankAcc, bankNumber: bankNumber });
+    setStep((prevStep) => prevStep + 1);
+  };
+
+  const onStep4 = (values) => {
+    const data = { ...step1, ...step2, ...step3, ...values };
+    data.birthDate = data.birthDate.format("YYYY-MM-DD");
+    console.log(data);
+    setSuccess(true);
   };
 
   function getContent(stepindex) {
     switch (stepindex) {
       case 0:
-        return (
-          <Step1
-            roles={data => {
-              setRole(data);
-            }}
-            cekinput={role}
-          />
-        );
+        return <Step1 onFinishStep1={onStep1} data={step1} />;
       case 1:
         return (
-          <Step2
-            fullnama={data => {
-              setFullname(data);
-            }}
-            datanama={fullName}
-            mail={data => {
-              setEmail(data);
-            }}
-            dataemail={email}
-            alamat={data => {
-              setAddress(data);
-            }}
-            dataalamat={address}
-            nomor={data => {
-              setPhone(data);
-            }}
-            datanohp={phone}
-            tanggal={data => {
-              setDate(data);
-            }}
-            datatanggal={date}
-            idfile={data => {
-              setIdcard(data);
-            }}
-            filektp={idcard}
-          />
+          <Step2 handleBack={handleBack} onFinishStep2={onStep2} data={step2} />
         );
       case 2:
         return (
-          <Step3
-          // acc={data => {
-          //   setBankacc(data);
-          // }}
-          // num={data => {
-          //   setBanknum(data);
-          // }}
-          />
+          <Step3 handleBack={handleBack} onFinishStep3={onStep3} data={bank} />
         );
       case 3:
-        return (
-          <Step4
-            uname={data => {
-              setUsername(data);
-            }}
-            datauname={username}
-            pass={data => {
-              setPassword(data);
-            }}
-            datapass={password}
-          />
-        );
+        return <Step4 handleBack={handleBack} onFinishStep4={onStep4} />;
       default:
-        return "Hai";
+        return "";
     }
   }
 
-  function getNama(data) {
-    let nama = data.split(" ");
-    setName(nama[0]);
-  }
+  // function handleClose() {
+  //   setValid(false);
+  // }
 
-  function handleClose() {
-    setValid(false);
-  }
-
-  async function handleSubmit(e) {
-    setLoading(true);
-    e.preventDefault();
-    if (
-      fullName &&
-      address &&
-      date &&
-      phone &&
-      email &&
-      username &&
-      password &&
-      idcard &&
-      // bankacc &&
-      // banknum &&
-      role
-    ) {
-      getNama(fullName);
-      let user = {
-        name: name,
-        fullName: fullName,
-        address: address,
-        birthDate: date,
-        phoneNumber: phone,
-        email: email,
-        username: username,
-        password: password,
-        //IDCard: idcard,
-        // bankAccount: bankacc,
-        // bankNumber: banknum,
-        role: role
-      };
-      try {
-        // let hasil = await axios.post("/auth/register", user);
-        console.log(user);
-        setSuccess(true);
-      } catch (e) {
-        switch (e.response) {
-          case 406:
-            console.log(e.response.message);
-            break;
-          case 500:
-            console.log(e.reponse.message);
-            setValid(true);
-            break;
-          default:
-            console.log("berhasil");
-            break;
-        }
-      }
-    } else {
-      setValid(true);
-    }
-    setLoading(false);
-  }
+  // async function handleSubmit(e) {
+  //   setLoading(true);
+  //   e.preventDefault();
+  //   if (
+  //     fullName &&
+  //     address &&
+  //     date &&
+  //     phone &&
+  //     email &&
+  //     username &&
+  //     password &&
+  //     idcard &&
+  //     // bankacc &&
+  //     // banknum &&
+  //     role
+  //   ) {
+  //     getNama(fullName);
+  //     let user = {
+  //       name: name,
+  //       fullName: fullName,
+  //       address: address,
+  //       birthDate: date,
+  //       phoneNumber: phone,
+  //       email: email,
+  //       username: username,
+  //       password: password,
+  //       //IDCard: idcard,
+  //       // bankAccount: bankacc,
+  //       // bankNumber: banknum,
+  //       role: role,
+  //     };
+  //     try {
+  //       // let hasil = await axios.post("/auth/register", user);
+  //       console.log(user);
+  //       setSuccess(true);
+  //     } catch (e) {
+  //       switch (e.response) {
+  //         case 406:
+  //           console.log(e.response.message);
+  //           break;
+  //         case 500:
+  //           console.log(e.reponse.message);
+  //           setValid(true);
+  //           break;
+  //         default:
+  //           console.log("berhasil");
+  //           break;
+  //       }
+  //     }
+  //   } else {
+  //     setValid(true);
+  //   }
+  //   setLoading(false);
+  // }
 
   return (
-    <div className="register">
-    <Container>
+    <div id="register">
+      <Container>
         <div className="judulregister">Register</div>
         {success ? (
           <div className="card" style={{ backgroundColor: "#f5f5f5" }}>
@@ -196,7 +163,7 @@ export default function Register() {
                   }}
                 >
                   Login Sekarang
-                </Button>
+                </Button>,
               ]}
             />
           </div>
@@ -204,80 +171,17 @@ export default function Register() {
           <div>
             <div className="stepper">
               <Stepper activeStep={step} alternativeLabel>
-                {steps.map(label => (
+                {steps.map((label) => (
                   <Step key={label}>
                     <StepLabel>{label}</StepLabel>
                   </Step>
                 ))}
               </Stepper>
             </div>
-            <div>
-              {step === steps.length - 1 ? (
-                //Step 4
-                <div>
-                  <div className="card" style={{ backgroundColor: "#f5f5f5" }}>
-                    <div>
-                      {valid ? (
-                        <Alert
-                          message="Tolong lengkapi data anda"
-                          closable
-                          afterClose={handleClose}
-                          type="warning"
-                          showIcon
-                          style={{ margin: "2% 13%" }}
-                        />
-                      ) : null}
-                    </div>
-                    <div className="formregister">{getContent(step)}</div>
-                    <div className="buttonmulti">
-                    <Button
-                      onClick={handleBack}
-                      className="btn_tertiary"
-                    >
-                    Kembali
-                    </Button>
-                      <Button
-                        type="primary"
-                        size="large"
-                        htmlType="submit"
-                        className="btn_primary"
-                        onClick={e => {
-                          handleSubmit(e);
-                        }}
-                      >
-                        Selesai
-                      </Button>
-                    </div>
-                  </div>
-                </div>
-              ) : ( 
-                // Step 123
-                <div className="card" style={{ backgroundColor: "#f5f5f5" }}>
-                  <div className="formregister">{getContent(step)}</div>
-                  <div className="buttonmulti">
-                    <Button
-                      disabled={step === 0 ? true : false}
-                      onClick={handleBack}
-                      className="btn_tertiary"
-                    >
-                    Kembali
-                    </Button>
-                    <Button
-                      type="primary"
-                      size="large"
-                      htmlType="submit"
-                      className="btn_primary"
-                      onClick= {handleNext}
-                    >
-                      Selanjutnya
-                    </Button>
-                  </div>
-                </div>
-              )}
-            </div>
+            <div className="register-content">{getContent(step)}</div>
           </div>
         )}
-        </Container>
+      </Container>
     </div>
   );
 }
