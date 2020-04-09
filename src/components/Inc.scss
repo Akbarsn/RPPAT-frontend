@@ -54,14 +54,14 @@
 }
 
 .btn_tertiary:hover {
-  background-color: $color-black !important;
-  color: $color-white !important;
+  background-color: $color-black !important ;
+  color: $color-white;
   border: solid 2px $color-black !important;
 }
 
 .btn_tertiary:disabled {
   background-color: white !important;
-  color: $color-black;
+  color: $color-black !important;
   font-size: 20px;
   width: auto;
   height: auto;
