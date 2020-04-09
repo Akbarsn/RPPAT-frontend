@@ -23,7 +23,7 @@ function getRole(role) {
       name = "Pemasok Kemasan";
       break;
     case 2:
-      name = "Pemasok Bahan Tambah";
+      name = "Pemasok Bahan Tambahan";
       break;
     case 3:
       name = "UMKM";
@@ -185,9 +185,9 @@ function getMenu(role) {
               </Row>
             }
           >
-            <Menu.Item className="secondary">Petani Apel</Menu.Item>
-            <Menu.Item className="secondary">Pemasok Bahan Tambah</Menu.Item>
-            <Menu.Item className="secondary">Pemasok Kemasan</Menu.Item>
+            <Menu.Item className="secondary">Bahan Baku</Menu.Item>
+            <Menu.Item className="secondary">Bahan Tambahan</Menu.Item>
+            <Menu.Item className="secondary">Kemasan</Menu.Item>
           </SubMenu>
 
           <Menu.Item className="item primary">
