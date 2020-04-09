@@ -24,7 +24,6 @@ export default function DetailPembayaran(props) {
         <Row>
           <Col span={23}>
             <Table
-              pagination={[5, 10, 15]}
               columns={props.columns}
               rows={props.rows}
               togglePagination={false}

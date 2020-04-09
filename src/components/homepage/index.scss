@@ -1,10 +1,18 @@
 @import "../Root.scss";
-
 .homepage {
+  margin-bottom: 4rem;
+  
   .title {
     font-family: $font-header;
     font-size: 52px;
     color: $color-black;
+  }
+
+  .stock{
+    font-family: $font-sub;
+    font-size: 24px;
+    margin-top: 12px;
+    margin-bottom: 12px;
   }
 
   .card .title {

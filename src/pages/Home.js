@@ -5,30 +5,85 @@ import Sidebar from "../components/Sidebar";
 import { Layout } from "antd";
 
 export default function Home() {
-  const column = [
+  const stocks = [
     {
-      title: "Transaksi",
-      dataIndex: "transaksi",
-      key: "transaksi"
+      item: "Kripik Apel",
+      qty: 200,
     },
     {
-      title: "Total",
-      dataIndex: "total",
-      key: "total"
-    }
+      item: "Kripik Apel",
+      qty: 200,
+    },
+    {
+      item: "Kripik Apel",
+      qty: 200,
+    },
   ];
 
-  const data = [
+  const columns = [
     {
-      key: "1",
-      transaksi: "Pembelian Kripik Apel",
-      total: "Rp. 5.000.000"
+      align: "center",
+      name: "No",
     },
     {
-      key: "2",
-      transaksi: "Penjualan Kripik Apel",
-      total: "Rp. 6.000.000"
-    }
+      align: "left",
+      name: "Transaksi",
+    },
+    {
+      align: "center",
+      name: "Total",
+    },
+  ];
+
+  const rows = [
+    {
+      data: [
+        {
+          value: "1",
+          align: "center",
+        },
+        {
+          value: "Pembelian Kripik Apel",
+          align: "left",
+        },
+        {
+          value: 1_000_000,
+          align: "center",
+        },
+      ],
+    },
+    {
+      data: [
+        {
+          value: "2",
+          align: "center",
+        },
+        {
+          value: "Pembelian Kripik Apel",
+          align: "left",
+        },
+        {
+          value: 1_000_000,
+          align: "center",
+        },
+      ],
+    },
+    {
+      data: [
+        {
+          value: "3",
+          align: "center",
+        },
+        {
+          value: "Pembelian Kripik Apel",
+          align: "left",
+        },
+        {
+          value: 1_000_000,
+          align: "center",
+        },
+      ],
+    },
   ];
 
   return (
@@ -36,11 +91,17 @@ export default function Home() {
       <Navbar name={"Akbar"} />
       <Layout style={{ marginTop: 64, marginLeft: 280 }}>
         <Sidebar role={4} />
-        <Layout.Content style={{ minHeight: "100vh", backgroundColor:"white"}}>
+        <Layout.Content
+          style={{ minHeight: "100vh", backgroundColor: "white" }}
+        >
           <Homepage
-            card1={{ title: "Total Stok", content: "20.000 Unit" }}
-            card2={{ title: "Keuntungan", content: "Rp. 6.000.000" }}
-            table={{ title: "Riwayat Transaksi", column: column, data: data }}
+            stocks={stocks}
+            unit="Unit"
+            buying={1_000_000}
+            selling={2_000_000}
+            shopping={3_000_000}
+            columns={columns}
+            rows={rows}
           ></Homepage>
         </Layout.Content>
       </Layout>

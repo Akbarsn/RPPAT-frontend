@@ -17,7 +17,7 @@ export default function Tabel(props) {
     let i = 0;
     let isThereTotal = false;
     columns.map(column => {
-      if (column.name === "Total Harga") {
+      if (column.name === "Total") {
         index = i;
         isThereTotal = true;
       }
@@ -38,7 +38,11 @@ export default function Tabel(props) {
     
   };
   const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(props.pagination[0]);
+  let temp = null
+  if(props.pagination){
+    temp = props.pagination[0];
+  }
+  const [rowsPerPage, setRowsPerPage] = useState(temp);
   const [total, setTotal] = useState(hitungTotal(props.rows, props.columns));
 
   const StyledTableCell = withStyles(theme => ({
