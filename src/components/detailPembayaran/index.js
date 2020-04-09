@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Row, Col, Card, Button } from "antd";
+import { Row, Col, Card, Button, Radio, Form } from "antd";
 import Table from "../Table";
 
 import "./index.scss";
@@ -9,13 +9,15 @@ export default function DetailPembayaran(props) {
   const [bankName, setbankName] = useState(props.bankAccount[0].name);
   const bankDetail = props.bankDetail;
 
-  const handleIndex = e => {
-    setIndex(e.currentTarget.value);
-    setbankName(e.currentTarget.dataset.bankname);
+  const handleIndex = (e) => {
+    // console.log(e.target.value);
+    let temp = e.target.value.split("-");
+    setIndex(temp[0]);
+    setbankName(temp[1]);
   };
 
   return (
-    <div style={{ marginLeft: "2rem" }}>
+    <div style={{ marginLeft: "2rem" }} id="detailPembayaran">
       <span className="title">Info Pembayaran</span>
 
       <div style={{ marginTop: "2rem" }}>
@@ -33,27 +35,26 @@ export default function DetailPembayaran(props) {
         </Row>
       </div>
       <div style={{ marginTop: "2rem" }}>
-        <span className="subtitle">Instruksi Pembayaran</span>
+        <span className="subtitle">Channel Pembayaran</span>
         <div style={{ marginBottom: "1rem" }}></div>
         <Row>
-          <Col span={23}>
-            <Row gutter={[24]}>
-              {props.bankAccount.map(bank => {
-                return (
-                  <Col span={2}>
-                    <Button
-                      type="secondary"
-                      className="btn_secondary"
-                      onClick={handleIndex}
-                      value={bank.index}
-                      data-bankName={bank.name}
-                    >
-                      {bank.name}
-                    </Button>
-                  </Col>
-                );
-              })}
-            </Row>
+          <Col span={22}>
+            <Form>
+              <Form.Item>
+                <Radio.Group onChange={handleIndex}>
+                  {props.bankAccount.map((bank) => {
+                    return (
+                      <Radio.Button
+                        value={bank.index + "-" + bank.name}
+                        className="radioButton"
+                      >
+                        {bank.name}
+                      </Radio.Button>
+                    );
+                  })}
+                </Radio.Group>
+              </Form.Item>
+            </Form>
             <Card className="card">
               <span className="paragraph">
                 <span id="highlight">{bankName}</span> <br />
@@ -73,7 +74,11 @@ export default function DetailPembayaran(props) {
       <div className="buttonGroup">
         <Row justify="space-between">
           <Col span={2}>
-            <Button type="secondary" className="btn_secondary" onClick={() => {}}>
+            <Button
+              type="secondary"
+              className="btn_secondary"
+              onClick={() => {}}
+            >
               Back
             </Button>
           </Col>

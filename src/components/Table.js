@@ -8,7 +8,7 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import TablePagination from "@material-ui/core/TablePagination";
-import './Table.scss';
+import "./Table.scss";
 
 export default function Tabel(props) {
   const hitungTotal = (rows, columns) => {
@@ -16,7 +16,7 @@ export default function Tabel(props) {
     let index = 0;
     let i = 0;
     let isThereTotal = false;
-    columns.map(column => {
+    columns.map((column) => {
       if (column.name === "Total") {
         index = i;
         isThereTotal = true;
@@ -24,36 +24,34 @@ export default function Tabel(props) {
       i++;
     });
 
-    if(isThereTotal){
-    rows.map(row => {
-      temp += row.data[index].value;
-    });
-    isThereTotal = false;
+    if (isThereTotal) {
+      rows.map((row) => {
+        temp += row.data[index].value;
+      });
+      isThereTotal = false;
 
-    return temp;
-  }
+      return temp;
+    }
 
-  return props.total;
-
-    
+    return props.total;
   };
   const [page, setPage] = useState(0);
-  let temp = null
-  if(props.pagination){
+  let temp = null;
+  if (props.pagination) {
     temp = props.pagination[0];
   }
   const [rowsPerPage, setRowsPerPage] = useState(temp);
   const [total, setTotal] = useState(hitungTotal(props.rows, props.columns));
 
-  const StyledTableCell = withStyles(theme => ({
+  const StyledTableCell = withStyles((theme) => ({
     head: {
       backgroundColor: "#1DC6C6",
       color: theme.palette.common.white,
-      fontSize: 20
+      fontSize: 20,
     },
     body: {
-      fontSize: 16
-    }
+      fontSize: 16,
+    },
   }))(TableCell);
 
   function handleChangePage(event, newPage) {
@@ -71,7 +69,7 @@ export default function Tabel(props) {
         <Table>
           <TableHead>
             <TableRow>
-              {props.columns.map(column => {
+              {props.columns.map((column) => {
                 return (
                   <StyledTableCell align={column.align}>
                     {column.name}
@@ -87,27 +85,38 @@ export default function Tabel(props) {
                   page * rowsPerPage + rowsPerPage
                 )
               : props.rows
-            ).map(row => (
+            ).map((row) => (
               <TableRow key={row}>
-                {row.data.map(data => {
-                  return (
-                    <StyledTableCell align={data.align}>
-                      {data.value}
-                    </StyledTableCell>
-                  );
+                {row.data.map((data) => {
+                  if (typeof data.value == "number") {
+                    return (
+                      <StyledTableCell align={data.align}>
+                        Rp. {data.value}
+                      </StyledTableCell>
+                    );
+                  } else {
+                    return (
+                      <StyledTableCell align={data.align}>
+                        {data.value}
+                      </StyledTableCell>
+                    );
+                  }
                 })}
               </TableRow>
             ))}
 
             {props.toggleTotal ? (
               <TableRow>
-                <StyledTableCell align="center"></StyledTableCell>
-                <StyledTableCell align="center"></StyledTableCell>
-                <StyledTableCell align="center"><p className="totaltable">Total</p></StyledTableCell>
-                <StyledTableCell align="left"><p className="totaltable">{total}</p></StyledTableCell>
+                <StyledTableCell colSpan={props.columns.length - 2}></StyledTableCell>
+                <StyledTableCell align="center">
+                  <p className="totaltable">Total</p>
+                </StyledTableCell>
+                <StyledTableCell align="right">
+                  <p className="totaltable">Rp. {total}</p>
+                </StyledTableCell>
               </TableRow>
             ) : (
-              <Fragment/>
+              <Fragment />
             )}
           </TableBody>
         </Table>
