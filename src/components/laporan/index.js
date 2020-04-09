@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { Row, Table, Col, Modal, Form, Input, Select, Button } from "antd";
+import { Row, Col, Modal, Form, Input, Select, Button } from "antd";
+import Table from "../Table";
 
 import { PlusOutlined } from "@ant-design/icons";
 
@@ -46,12 +47,12 @@ export default function Laporan(props) {
     }
 
     //Form Handler
-    const submitHandler = values => {
+    const submitHandler = (values) => {
       alert("Success");
       console.log(values);
     };
 
-    const errorHandler = error => {
+    const errorHandler = (error) => {
       console.log("Failed", error);
     };
 
@@ -78,20 +79,19 @@ export default function Laporan(props) {
               <Form.Item
                 label={props.firstItem}
                 name="item"
-                placeholder="Masukkan barang"
                 rules={[
                   {
                     required: true,
-                    message: "Isi field item ini"
-                  }
+                    message: "Isi nama barang anda",
+                  },
                 ]}
               >
-                <Input />
+                <Input placeholder="Masukkan nama barang" />
               </Form.Item>
             </Col>
           </Row>
           <Row gutter={[48, 32]}>
-            {props.fields.map(field => {
+            {props.fields.map((field) => {
               if (field.type === "select") {
                 return (
                   <Col span={11}>
@@ -102,12 +102,12 @@ export default function Laporan(props) {
                       rules={[
                         {
                           required: true,
-                          message: "Isi field ini"
-                        }
+                          message: "Pilih grade apel anda",
+                        },
                       ]}
                     >
-                      <Select placeholder="Masukkan Grade">
-                        {field.options.map(option => {
+                      <Select placeholder="Pilih grade apel anda">
+                        {field.options.map((option) => {
                           return (
                             <Select.Option
                               key={option.value}
@@ -122,6 +122,7 @@ export default function Laporan(props) {
                   </Col>
                 );
               }
+              const placeholder = `Masukkan ${field.label}`;
               return (
                 <Col span={11}>
                   <Form.Item
@@ -131,11 +132,11 @@ export default function Laporan(props) {
                     rules={[
                       {
                         required: true,
-                        message: "Isi field ini"
-                      }
+                        message: `Isi ${field.label} anda`,
+                      },
                     ]}
                   >
-                    <Input type={field.type} />
+                    <Input type={field.type} placeholder={placeholder} />
                   </Form.Item>
                 </Col>
               );
@@ -171,7 +172,7 @@ export default function Laporan(props) {
 
   return (
     <React.Fragment>
-      <div style={{marginLeft:"1.5rem"}}>
+      <div style={{ marginLeft: "1.5rem" }}>
         <span className="title">Laporan {props.name}</span>
 
         <Row justify="space-between" style={{ marginBottom: "1rem" }}>
@@ -185,11 +186,11 @@ export default function Laporan(props) {
         <Row justify="start">
           <Col span={23}>
             <Table
+              pagination={[5, 10, 15]}
               columns={props.table.columns}
-              dataSource={props.table.data}
-              style={{
-                fontSize: "16px!important"
-              }}
+              rows={props.table.rows}
+              togglePagination={props.table.isPaginate}
+              toggleTotal={props.table.isTotal}
             ></Table>
           </Col>
         </Row>

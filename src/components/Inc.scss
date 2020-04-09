@@ -40,6 +40,12 @@
   border: solid 2px $color-white !important;
 }
 
+.btn_secondary:active {
+  background-color: $color-primary !important;
+  color: $color-white !important;
+  border: solid 2px $color-white !important;
+}
+
 .btn_tertiary {
   background-color: white !important;
   color: $color-black;
