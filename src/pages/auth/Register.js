@@ -84,90 +84,10 @@ export default function Register() {
     }
   }
 
-  // function handleClose() {
-  //   setValid(false);
-  // }
-
-  // async function handleSubmit(e) {
-  //   setLoading(true);
-  //   e.preventDefault();
-  //   if (
-  //     fullName &&
-  //     address &&
-  //     date &&
-  //     phone &&
-  //     email &&
-  //     username &&
-  //     password &&
-  //     idcard &&
-  //     // bankacc &&
-  //     // banknum &&
-  //     role
-  //   ) {
-  //     getNama(fullName);
-  //     let user = {
-  //       name: name,
-  //       fullName: fullName,
-  //       address: address,
-  //       birthDate: date,
-  //       phoneNumber: phone,
-  //       email: email,
-  //       username: username,
-  //       password: password,
-  //       //IDCard: idcard,
-  //       // bankAccount: bankacc,
-  //       // bankNumber: banknum,
-  //       role: role,
-  //     };
-  //     try {
-  //       // let hasil = await axios.post("/auth/register", user);
-  //       console.log(user);
-  //       setSuccess(true);
-  //     } catch (e) {
-  //       switch (e.response) {
-  //         case 406:
-  //           console.log(e.response.message);
-  //           break;
-  //         case 500:
-  //           console.log(e.reponse.message);
-  //           setValid(true);
-  //           break;
-  //         default:
-  //           console.log("berhasil");
-  //           break;
-  //       }
-  //     }
-  //   } else {
-  //     setValid(true);
-  //   }
-  //   setLoading(false);
-  // }
-
   return (
     <div id="register">
       <Container>
         <div className="judulregister">Register</div>
-        {success ? (
-          <div className="card" style={{ backgroundColor: "#f5f5f5" }}>
-            <Result
-              status="success"
-              title="Akun Anda Telah Terdaftar"
-              extra={[
-                <Button
-                  type="primary"
-                  size="large"
-                  htmlType="submit"
-                  className="btn_primary"
-                  onClick={() => {
-                    window.location.replace("/login");
-                  }}
-                >
-                  Login Sekarang
-                </Button>,
-              ]}
-            />
-          </div>
-        ) : (
           <div>
             <div className="stepper">
               <Stepper activeStep={step} alternativeLabel>
@@ -180,7 +100,6 @@ export default function Register() {
             </div>
             <div className="register-content">{getContent(step)}</div>
           </div>
-        )}
       </Container>
     </div>
   );
