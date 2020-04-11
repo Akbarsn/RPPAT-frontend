@@ -11,14 +11,15 @@ import TablePagination from "@material-ui/core/TablePagination";
 import "./Table.scss";
 
 export default function Tabel(props) {
+  let indexTotal = 0;
+
   const hitungTotal = (rows, columns) => {
     let temp = 0;
-    let index = 0;
     let i = 0;
     let isThereTotal = false;
     columns.map((column) => {
       if (column.name === "Total") {
-        index = i;
+        indexTotal = i;
         isThereTotal = true;
       }
       i++;
@@ -26,7 +27,7 @@ export default function Tabel(props) {
 
     if (isThereTotal) {
       rows.map((row) => {
-        temp += row.data[index].value;
+        temp += row.data[indexTotal].value;
       });
       isThereTotal = false;
 
@@ -35,11 +36,13 @@ export default function Tabel(props) {
 
     return props.total;
   };
-  const [page, setPage] = useState(0);
+
   let temp = null;
   if (props.pagination) {
     temp = props.pagination[0];
   }
+
+  const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(temp);
   const [total, setTotal] = useState(hitungTotal(props.rows, props.columns));
 
@@ -87,11 +90,14 @@ export default function Tabel(props) {
               : props.rows
             ).map((row) => (
               <TableRow key={row}>
-                {row.data.map((data) => {
-                  if (typeof data.value == "number") {
+                {row.data.map((data, index) => {
+                  if (typeof data.value == "number" && index != 0) {
                     return (
                       <StyledTableCell align={data.align}>
-                        Rp. {data.value}
+                        Rp.{" "}
+                        {data.value
+                          .toString()
+                          .replace(/\B(?=(\d{3})+(?!\d))/g, ".")}
                       </StyledTableCell>
                     );
                   } else {
@@ -107,12 +113,20 @@ export default function Tabel(props) {
 
             {props.toggleTotal ? (
               <TableRow>
-                <StyledTableCell colSpan={props.columns.length - 2}></StyledTableCell>
+                <StyledTableCell
+                  colSpan={
+                    props.columns[props.columns.length - 1].name != "Total"
+                      ? props.columns.length - 3
+                      : props.columns.length - 2
+                  }
+                ></StyledTableCell>
                 <StyledTableCell align="center">
                   <p className="totaltable">Total</p>
                 </StyledTableCell>
                 <StyledTableCell align="right">
-                  <p className="totaltable">Rp. {total}</p>
+                  <p className="totaltable">
+                    Rp. {total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}
+                  </p>
                 </StyledTableCell>
               </TableRow>
             ) : (

@@ -1,0 +1,20 @@
+@import "../Root.scss";
+
+#tambah_kasir {
+  margin-left: 1rem;
+  .title {
+    font-family: $font-header;
+    font-size: 64px;
+  }
+
+  .subtitle {
+    font-family: $font-sub;
+    font-weight: 500;
+    font-size: 36px;
+  }
+
+  .center {
+    display: flex;
+    justify-content: center;
+  }
+}

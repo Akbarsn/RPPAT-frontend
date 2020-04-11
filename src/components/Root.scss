@@ -13,10 +13,24 @@ $break-large: 1024px;
 $break-medium: 768px;
 
 //Font Size
-$font-header-large:64px;
-$font-header-medium:48px;
-$font-header-small:24px;
+$font-header-large: 64px;
+$font-header-medium: 36px;
+$font-header-small: 24px;
 
-$font-sub-large:48px;
-$font-sub-medium:32px;
-$font-sub-small:16px;
+$font-sub-large: 48px;
+$font-sub-medium: 32px;
+$font-sub-small: 16px;
+
+// @media screen and (min-width: $break-large) {
+//   $font-head-size: 64px;
+//   $font-sub-size: 48px;
+//   $font-paragraph-size: 24px;
+// }
+
+// @media screen and (min-width: $break-medium) {
+//     $font-head-size: 64px;
+//   $font-sub-size: 48px;
+//   $font-paragraph-size: 24px;
+// }
+
+
