@@ -36,6 +36,7 @@ export default function DetailPembayaran(props) {
       </div>
       <div style={{ marginTop: "2rem" }}>
         <span className="subtitle">Channel Pembayaran</span>
+        <div className="paragraph">Pilih salah satu pembayaran dibawah ini</div>
         <div style={{ marginBottom: "1rem" }}></div>
         <Row>
           <Col span={22}>
@@ -77,13 +78,13 @@ export default function DetailPembayaran(props) {
             <Button
               type="secondary"
               className="btn_secondary"
-              onClick={() => {}}
+              onClick={() => { }}
             >
               Back
             </Button>
           </Col>
           <Col span={2}>
-            <Button type="primary" className="btn_primary" onClick={() => {}}>
+            <Button type="primary" className="btn_primary" onClick={() => { }}>
               Selesai
             </Button>
           </Col>

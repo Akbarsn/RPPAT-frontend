@@ -64,7 +64,7 @@ export default function RiwayatTransaksi() {
           align: "center"
         },
         {
-          value: "Rp. 2.000.000",
+          value: 2000000,
           align: "center"
         },
         {
@@ -88,7 +88,7 @@ export default function RiwayatTransaksi() {
           align: "center"
         },
         {
-          value: "Rp. 2.000.000",
+          value: 2000000,
           align: "center"
         },
         {
@@ -112,7 +112,7 @@ export default function RiwayatTransaksi() {
           align: "center"
         },
         {
-          value: "Rp. 2.000.000",
+          value: 2000000,
           align: "center"
         },
         {
@@ -136,7 +136,7 @@ export default function RiwayatTransaksi() {
           align: "center"
         },
         {
-          value: "Rp. 2.000.000",
+          value: 2000000,
           align: "center"
         },
         {
