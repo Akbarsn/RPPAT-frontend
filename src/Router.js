@@ -15,6 +15,7 @@ import DetailPembayaran from './pages/DetailPembayaran';
 import DetailToko from './pages/DetailToko';
 import DaftarBarang from './pages/kasir/DaftarBarang';
 import Notif from './pages/Notifikasi';
+import Transaksi from './pages/kasir/Transaksi';
 
 export default function Router() {
     return (
@@ -47,6 +48,8 @@ export default function Router() {
                 <Route exact path="/register" render={props => <Register {...props} />} />
                 
                 <Route exact path="/riwayat" render={props => <RiwayatTransaksi {...props} />} />
+
+                <Route exact path="/transaksi" render={props => <Transaksi {...props} />} />
 
                 <Route exact path="/detail-pembayaran">
                     <DetailPembayaran />

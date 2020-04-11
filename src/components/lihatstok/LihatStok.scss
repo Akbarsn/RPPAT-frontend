@@ -7,13 +7,15 @@
     font-family: $font-header;
     color: black;
     font-size: 52px;
+    margin: 1% 2%;
     
 }
 
 .sectitle{
     font-family: $font-sub;
-    font-size: 28px;
+    font-size: $font-sub-medium;
     font-weight: bold;
+    margin: 1% 2%;
 }
 .tablestok{
     margin: 1% 2%;
