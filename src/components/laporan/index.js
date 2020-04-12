@@ -4,7 +4,7 @@ import Table from "../Table";
 
 import { PlusOutlined } from "@ant-design/icons";
 
-import "./index.scss";
+import "./Laporan.scss";
 import "../Inc.scss";
 
 export default function Laporan(props) {
@@ -17,8 +17,12 @@ export default function Laporan(props) {
     if (isThereButton) {
       const text = (
         <Row align="middle">
-          <PlusOutlined className="icon" />
-          <span className="button-text">Tambah</span>
+          <Col>
+            <PlusOutlined className="icon" />
+          </Col>
+          <Col>
+            <span className="button-text">Tambah</span>
+          </Col>
         </Row>
       );
       const button = (
@@ -171,17 +175,19 @@ export default function Laporan(props) {
   }
 
   return (
-    <React.Fragment>
+    <div id="laporan">
       <div style={{ marginLeft: "1.5rem" }}>
         <span className="title">Laporan {props.name}</span>
 
-        <Row justify="space-between" style={{ marginBottom: "1rem" }}>
-          <Col span={4}>
-            <span className="subtitle">{props.name}</span>
-          </Col>
+        <Col span={24}>
+          <Row justify="space-between" style={{ marginBottom: "1rem" }}>
+            <Col span={4}>
+              <span className="subtitle">{props.name}</span>
+            </Col>
 
-          <Col span={4}>{checkButton(props.isThereButton)}</Col>
-        </Row>
+            <Col span={4}>{checkButton(props.isThereButton)}</Col>
+          </Row>
+        </Col>
 
         <Row justify="start">
           <Col span={23}>
@@ -197,6 +203,6 @@ export default function Laporan(props) {
 
         {checkModal(props)}
       </div>
-    </React.Fragment>
+    </div>
   );
 }

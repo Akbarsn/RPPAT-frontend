@@ -8,50 +8,50 @@ export default function DetailPembayaran() {
   const account = [
     {
       index: 0,
-      name: "BCA"
+      name: "BCA",
     },
     {
       index: 1,
-      name: "BNI"
+      name: "BNI",
     },
     {
       index: 2,
-      name: "BRI"
-    }
+      name: "BRI",
+    },
   ];
 
   const detail = [
     {
       number: "0781257912",
-      name: "Budi Setyanto"
+      name: "Budi Setyanto",
     },
     {
       number: "0781257912",
-      name: "Andi Setyanto"
+      name: "Andi Setyanto",
     },
     {
       number: "0781257912",
-      name: "Siti Setyanto"
-    }
+      name: "Siti Setyanto",
+    },
   ];
 
   const columns = [
     {
       align: "center",
-      name: "No"
+      name: "No",
     },
     {
       align: "left",
-      name: "Barang"
+      name: "Barang",
     },
     {
       align: "center",
-      name: "Qty"
+      name: "Qty",
     },
     {
-      align: "left",
-      name: "Total Harga"
-    }
+      align: "right",
+      name: "Total",
+    },
   ];
 
   const rows = [
@@ -59,44 +59,42 @@ export default function DetailPembayaran() {
       data: [
         {
           value: "1",
-          align: "center"
+          align: "center",
         },
         {
           value: "Natrium Benzoat 100g",
-          align: "left"
+          align: "left",
         },
         {
           value: "5",
-          align: "center"
+          align: "center",
         },
         {
           value: 50000,
-          align: "left",
-          type: 1
-        }
-      ]
+          align: "right",
+        },
+      ],
     },
     {
       data: [
         {
           value: "2",
-          align: "center"
+          align: "center",
         },
         {
           value: "Natrium Benzoat 100g",
-          align: "left"
+          align: "left",
         },
         {
           value: "5",
-          align: "center"
+          align: "center",
         },
         {
           value: 50000,
-          align: "left",
-          type: 1
-        }
-      ]
-    }
+          align: "right",
+        },
+      ],
+    },
   ];
 
   return (

@@ -1,0 +1,27 @@
+@import "../Root.scss";
+
+#detailtoko {
+  @media screen and(min-width: $break-large) {
+    .titlepage {
+      font-size: 64px;
+    }
+  }
+
+  @media screen and(min-width: $break-medium) {
+    .titlepage {
+      font-size: 48px;
+    }
+  }
+
+  .titlepage {
+    font-family: $font-header;
+    color: $color-black;
+  }
+
+  .buttongroupbeli {
+    display: flex;
+    justify-content: space-between;
+    margin: 0% 2%;
+    margin-top: auto;
+  }
+}

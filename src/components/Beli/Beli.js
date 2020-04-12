@@ -1,10 +1,9 @@
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import "./Beli.scss";
 import { Input, Card, Row, Col, Pagination } from "antd";
 import Isi from "./Card";
 
 export default function Beli(props) {
-
   const data = props.data;
 
   const [minValue, setMinValue] = useState(0);
@@ -12,33 +11,32 @@ export default function Beli(props) {
   const [searchTerm, setSearchTerm] = useState("");
   const [searchResults, setSearchResults] = useState(data);
 
-  function handleChange(page, pageSize){
-    if (page <=1){
+  function handleChange(page, pageSize) {
+    if (page <= 1) {
       setMinValue(0);
       setMaxValue(9);
-    }
-    else {
+    } else {
       setMinValue(maxValue);
-      setMaxValue(page*9)
+      setMaxValue(page * 9);
     }
   }
 
   useEffect(() => {
-    const results = data.filter(datas =>{ 
-      const lower = datas.stok.map(stocks => {
+    const results = data.filter((datas) => {
+      const lower = datas.stok.map((stocks) => {
         const baranglower = stocks.barang.toLowerCase();
-          if(baranglower.toString().includes(searchTerm.toLowerCase())){
-            return baranglower;
+        if (baranglower.toString().includes(searchTerm.toLowerCase())) {
+          return baranglower;
         }
-      return null;
-      })
+        return null;
+      });
       return lower.toString().includes(searchTerm.toLowerCase());
-    })
+    });
     setSearchResults(results);
   }, [searchTerm]);
 
   return (
-    <div className="beli">
+    <div id="beli">
       <p className="titlepage" style={{ margin: "1% 2% 1% 2%" }}>
         Beli {props.nama}
       </p>
@@ -48,14 +46,18 @@ export default function Beli(props) {
           style={{ margin: "1% 2% 2% 2%", width: 500 }}
           enterButton
           size="large"
-          onChange={data=> setSearchTerm(data.target.value)}
+          onChange={(data) => setSearchTerm(data.target.value)}
         />
       </div>
       <div className="toko">
         <Row gutter={16} style={{ marginLeft: "1.5%" }}>
-          {searchResults.slice(minValue, maxValue).map(datas => {
+          {searchResults.slice(minValue, maxValue).map((datas) => {
             return (
-              <Col className="gutter-row" span={7} style={{ marginBottom: "1%" }}>
+              <Col
+                className="gutter-row"
+                span={7}
+                style={{ marginBottom: "1%" }}
+              >
                 <Card key={datas}>
                   <Isi data={datas} />
                 </Card>

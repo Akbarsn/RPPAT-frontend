@@ -1,0 +1,80 @@
+@import "../Root.scss";
+
+#detailPembayaran {
+  @media screen and (min-width: $break-large) {
+    .title {
+      font-size: 64px;
+    }
+
+    .subtitle {
+      font-size: 36px;
+    }
+
+    .paragraph {
+      font-size: 24px;
+    }
+
+    #highlight {
+      font-size: 32px !important;
+    }
+
+    .radioButton {
+      font-size: 32px;
+    }
+  }
+
+  @media screen and (min-width: $break-medium) {
+    .title {
+      font-size: 48px;
+    }
+
+    .subtitle {
+      font-size: 36px;
+    }
+
+    .paragraph {
+      font-size: 16px;
+    }
+
+    #highlight {
+      font-size: 24px !important;
+    }
+
+    .radioButton {
+      font-size: 24px;
+    }
+  }
+
+  .title {
+    font-family: $font-header;
+  }
+
+  .subtitle {
+    font-family: $font-sub;
+    font-weight: 500;
+  }
+
+  #highlight {
+    font-weight: 500;
+  }
+
+  .radioButton {
+    width: auto;
+    height: auto;
+    padding: 8px 16px;
+    background-color: $color-white;
+  }
+
+  .radioButton:hover {
+    border: 3px solid $color-primary;
+    color: $color-primary;
+  }
+
+  .card {
+    margin-bottom: 2rem;
+  }
+
+  .buttonGroup {
+    margin-bottom: 2rem;
+  }
+}

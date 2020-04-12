@@ -1,27 +1,45 @@
-@import '../Root';
+@import "../Root";
 
-.contentpage{
+#lihatstok {
+  @media screen and (min-width: $break-large) {
+    .titlepage {
+      font-size: 64px !important;
+    }
+
+    .sectitle {
+      font-size: 36px !important;
+    }
+  }
+
+  @media screen and (min-width: $break-medium) {
+    .titlepage {
+      font-size: 48px;
+    }
+
+    .sectitle {
+      font-size: 32px;
+    }
+  }
+
+  .contentpage {
     background-color: white;
-}
-.titlepage{
+  }
+  .titlepage {
     font-family: $font-header;
     color: black;
-    font-size: 47px;
-    
-}
+  }
 
-.sectitle{
+  .sectitle {
     font-family: $font-sub;
-    font-size: 28px;
     font-weight: bold;
-}
-.tablestok{
+  }
+  .tablestok {
     margin: 1% 2%;
-}
-.ant-table-wrapper{
-    .ant-table-thead{
-    background-color: blue;
-    color: blueviolet;
+  }
+  .ant-table-wrapper {
+    .ant-table-thead {
+      background-color: blue;
+      color: blueviolet;
     }
+  }
 }
-

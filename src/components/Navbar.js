@@ -13,25 +13,38 @@ export default function Navbar(props) {
       </Menu.Item>
 
       <Menu.Item key="logOut" className="dropdownMenu">
-        <Link to="/edit-profile">Keluar</Link>
+        <Link to="/keluar">Keluar</Link>
       </Menu.Item>
     </Menu>
   );
 
   return (
-    <Layout.Header style={{ position: "fixed", zIndex: 1, width: "100%" }}>
+    <Layout.Header id="navbar">
       <Row justify="space-between">
-        <Col span={3}>
-          <span id="navHeader">RPPAT</span>
-        </Col>
-        <Col span={3}>
-          <Dropdown overlay={menu}>
-            <Row align="middle" id="helloNav">
-              <BellOutlined style={{ fontSize: "24px", marginRight:"24px" }} />
-              Hello {props.name}{" "}
-              <DownOutlined style={{ fontSize: "24px", marginLeft: "8px" }} />
-            </Row>
-          </Dropdown>
+        <Col span={22}>
+          <Row justify="space-between">
+            <Col span={3}>
+              <span className="navHeader">RPPAT</span>
+            </Col>
+            <Col xs={10} md={6} sm={9}>
+              <Row align="middle" justify="space-around">
+                <Col flex={1}>
+                  <BellOutlined className="icon" style={{}} />
+                </Col>
+
+                <Col flex={2}>
+                  <Dropdown overlay={menu}>
+                    <Row align="middle" justify="space-between" id="helloNav">
+                      <Col className="navHeader">Hello {props.name}</Col>
+                      <Col>
+                        <DownOutlined className="icon" />
+                      </Col>
+                    </Row>
+                  </Dropdown>
+                </Col>
+              </Row>
+            </Col>
+          </Row>
         </Col>
       </Row>
     </Layout.Header>

@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
 import "./LihatStok.scss";
 import Tabel from "../Table";
 
 export default function Index(props) {
   return (
-    <div className="lihatstok">
+    <div id="lihatstok">
       <p className="titlepage" style={{ margin: "1% 2% 3.5% 2%" }}>
         Lihat Stok
       </p>

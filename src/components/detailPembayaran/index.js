@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Row, Col, Card, Button, Radio, Form } from "antd";
 import Table from "../Table";
 
-import "./index.scss";
+import "./DetailPembayaran.scss";
 
 export default function DetailPembayaran(props) {
   const [index, setIndex] = useState(0);
@@ -73,22 +73,24 @@ export default function DetailPembayaran(props) {
       </div>
 
       <div className="buttonGroup">
-        <Row justify="space-between">
-          <Col span={2}>
-            <Button
-              type="secondary"
-              className="btn_secondary"
-              onClick={() => { }}
-            >
-              Back
-            </Button>
-          </Col>
-          <Col span={2}>
-            <Button type="primary" className="btn_primary" onClick={() => { }}>
-              Selesai
-            </Button>
-          </Col>
-        </Row>
+        <Col span={22}>
+          <Row justify="space-between">
+            <Col span={2}>
+              <Button
+                type="secondary"
+                className="btn_secondary"
+                onClick={() => {}}
+              >
+                Back
+              </Button>
+            </Col>
+            <Col span={2}>
+              <Button type="primary" className="btn_primary" onClick={() => {}}>
+                Selesai
+              </Button>
+            </Col>
+          </Row>
+        </Col>
       </div>
     </div>
   );
