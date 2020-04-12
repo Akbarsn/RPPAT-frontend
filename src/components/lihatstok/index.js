@@ -8,7 +8,7 @@ export default function Index(props) {
       <p className="titlepage" style={{ margin: "1% 2% 3.5% 2%" }}>
         Lihat Stok
       </p>
-      <p className="sectitle" style={{ margin: "1% 2%" }}>
+      <p className="sectitle">
         {props.title}
       </p>
       <div className="tablestok">

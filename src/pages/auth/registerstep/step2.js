@@ -1,7 +1,6 @@
 import React from "react";
 import { Form, Input, DatePicker, Upload, Button, Row, Col } from "antd";
 import { UploadOutlined } from "@ant-design/icons";
-import moment from "moment";
 import "./step2.scss";
 
 export default function Step2(props) {

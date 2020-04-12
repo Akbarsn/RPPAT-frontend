@@ -1,5 +1,6 @@
 import React from "react";
 import { Menu, Layout, Avatar, Col, Row } from "antd";
+import { Link } from "react-router-dom";
 import "./Sidebar.scss";
 
 import {
@@ -9,7 +10,7 @@ import {
   ShoppingCartOutlined,
   TransactionOutlined,
   UserAddOutlined,
-  UnorderedListOutlined
+  UnorderedListOutlined,
 } from "@ant-design/icons";
 import SubMenu from "antd/lib/menu/SubMenu";
 
@@ -34,8 +35,8 @@ function getRole(role) {
     case 5:
       name = "Kasir";
       break;
-      default:
-      name="Not found";
+    default:
+      name = "Not found";
       break;
   }
   return name;
@@ -46,40 +47,52 @@ function getMenu(role) {
   switch (role) {
     case 0:
       menu = (
-        <Menu defaultSelectedKeys={["1"]} mode="inline" id="sidebar">
+        <Menu mode="inline" id="sidebar">
           <SubMenu
             key="laporan"
             className="item"
             title={
               <Row align="middle">
                 <BookOutlined className="primary" />
-                <span className="primary text">Laporan</span>
+                <span className="primary text"></span>
               </Row>
             }
           >
-            <Menu.Item className="secondary">Penjualan</Menu.Item>
-            <Menu.Item className="secondary">Stok Panen</Menu.Item>
+            <Menu.Item className="secondary">
+              <Link className="link" to="/petani-apel/laporan/penjualan">
+                Penjualan
+              </Link>
+            </Menu.Item>
+            <Menu.Item className="secondary">
+              <Link className="link" to="/petani-apel/laporan/stok-panen">
+                Stok Panen
+              </Link>
+            </Menu.Item>
           </SubMenu>
 
           <Menu.Item className="item primary">
-            <Row align="middle">
-              <InfoCircleOutlined className="primary" />
-              Lihat Stok
-            </Row>
+            <Link className="link" to="/petani-apel/lihat-stok">
+              <Row align="middle">
+                <InfoCircleOutlined className="primary" />
+                Lihat Stok
+              </Row>
+            </Link>
           </Menu.Item>
 
           <Menu.Item className="item primary">
-            <Row align="middle">
-              <TransactionOutlined className="primary" />
-              Riwayat Transaksi
-            </Row>
+            <Link className="link" to="/petani-apel/riwayat-transaksi">
+              <Row align="middle">
+                <TransactionOutlined className="primary" />
+                Riwayat Transaksi
+              </Row>
+            </Link>
           </Menu.Item>
         </Menu>
       );
       break;
     case 1:
       menu = (
-        <Menu defaultSelectedKeys={["1"]} mode="inline" id="sidebar">
+        <Menu mode="inline" id="sidebar">
           <SubMenu
             key="laporan"
             className="item"
@@ -90,29 +103,41 @@ function getMenu(role) {
               </Row>
             }
           >
-            <Menu.Item className="secondary">Penjualan</Menu.Item>
-            <Menu.Item className="secondary">Stok Kemasan</Menu.Item>
+            <Menu.Item className="secondary">
+              <Link className="link" to="/pemasok-kemasan/laporan/penjualan">
+                Penjualan
+              </Link>
+            </Menu.Item>
+            <Menu.Item className="secondary">
+              <Link className="link" to="/pemasok-kemasan/laporan/stok-kemasan">
+                Stok Kemasan
+              </Link>
+            </Menu.Item>
           </SubMenu>
 
           <Menu.Item className="item primary">
-            <Row align="middle">
-              <InfoCircleOutlined className="primary" />
-              Lihat Stok
-            </Row>
+            <Link className="link" to="/pemasok-kemasan/lihat-stok">
+              <Row align="middle">
+                <InfoCircleOutlined className="primary" />
+                Lihat Stok
+              </Row>
+            </Link>
           </Menu.Item>
 
           <Menu.Item className="item primary">
-            <Row align="middle">
-              <TransactionOutlined className="primary" />
-              Riwayat Transaksi
-            </Row>
+            <Link className="link" to="/pemasok-kemasan/riwayat-transaksi">
+              <Row align="middle">
+                <TransactionOutlined className="primary" />
+                Riwayat Transaksi
+              </Row>
+            </Link>
           </Menu.Item>
         </Menu>
       );
       break;
     case 2:
       menu = (
-        <Menu defaultSelectedKeys={["1"]} mode="inline" id="sidebar">
+        <Menu mode="inline" id="sidebar">
           <SubMenu
             key="laporan"
             className="item"
@@ -123,29 +148,47 @@ function getMenu(role) {
               </Row>
             }
           >
-            <Menu.Item className="secondary">Penjualan</Menu.Item>
-            <Menu.Item className="secondary">Pembelian</Menu.Item>
+            <Menu.Item className="secondary">
+              <Link
+                className="link"
+                to="/pemasok-bahan-tambahan/laporan/penjualan"
+              >
+                Penjualan
+              </Link>
+            </Menu.Item>
+            <Menu.Item className="secondary">
+              <Link
+                className="link"
+                to="/pemasok-bahan-tambahan/laporan/pembelian"
+              >
+                Pembelian
+              </Link>
+            </Menu.Item>
           </SubMenu>
 
           <Menu.Item className="item primary">
-            <Row align="middle">
-              <InfoCircleOutlined className="primary" />
-              Lihat Stok
-            </Row>
+            <Link className="link" to="/pemasok-bahan-tambah/lihat-stok">
+              <Row align="middle">
+                <InfoCircleOutlined className="primary" />
+                Lihat Stok
+              </Row>
+            </Link>
           </Menu.Item>
 
           <Menu.Item className="item primary">
-            <Row align="middle">
-              <TransactionOutlined className="primary" />
-              Riwayat Transaksi
-            </Row>
+            <Link className="link" to="/pemasok-bahan-tambah/riwayat-transaksi">
+              <Row align="middle">
+                <TransactionOutlined className="primary" />
+                Riwayat Transaksi
+              </Row>
+            </Link>
           </Menu.Item>
         </Menu>
       );
       break;
     case 3:
       menu = (
-        <Menu defaultSelectedKeys={["1"]} mode="inline" id="sidebar">
+        <Menu mode="inline" id="sidebar">
           <SubMenu
             key="laporan"
             className="item"
@@ -156,9 +199,21 @@ function getMenu(role) {
               </Row>
             }
           >
-            <Menu.Item className="secondary">Penjualan</Menu.Item>
-            <Menu.Item className="secondary">Pembelian</Menu.Item>
-            <Menu.Item className="secondary">Produksi</Menu.Item>
+            <Menu.Item className="secondary">
+              <Link className="link" to="/umkm/laporan/penjualan">
+                Penjualan
+              </Link>
+            </Menu.Item>
+            <Menu.Item className="secondary">
+              <Link className="link" to="/umkm/laporan/pembelian">
+                Pembelian
+              </Link>
+            </Menu.Item>
+            <Menu.Item className="secondary">
+              <Link className="link" to="/umkm/laporan/produksi">
+                Produksi
+              </Link>
+            </Menu.Item>
           </SubMenu>
 
           <SubMenu
@@ -171,8 +226,16 @@ function getMenu(role) {
               </Row>
             }
           >
-            <Menu.Item className="secondary">Bahan</Menu.Item>
-            <Menu.Item className="secondary">Produk</Menu.Item>
+            <Menu.Item className="secondary">
+              <Link className="link" to="/umkm/lihat-stok/bahan">
+                Bahan
+              </Link>
+            </Menu.Item>
+            <Menu.Item className="secondary">
+              <Link className="link" to="/umkm/lihat-stok/produk">
+                Produk
+              </Link>
+            </Menu.Item>
           </SubMenu>
 
           <SubMenu
@@ -185,23 +248,37 @@ function getMenu(role) {
               </Row>
             }
           >
-            <Menu.Item className="secondary">Bahan Baku</Menu.Item>
-            <Menu.Item className="secondary">Bahan Tambahan</Menu.Item>
-            <Menu.Item className="secondary">Kemasan</Menu.Item>
+            <Menu.Item className="secondary">
+              <Link className="link" to="/umkm/beli/bahan-baku">
+                Bahan Baku
+              </Link>
+            </Menu.Item>
+            <Menu.Item className="secondary">
+              <Link className="link" to="/umkm/beli/bahan-tambahan">
+                Bahan Tambahan
+              </Link>
+            </Menu.Item>
+            <Menu.Item className="secondary">
+              <Link className="link" to="/umkm/beli/kemasan">
+                Kemasan
+              </Link>
+            </Menu.Item>
           </SubMenu>
 
           <Menu.Item className="item primary">
-            <Row align="middle">
-              <TransactionOutlined className="primary" />
-              Riwayat Transaksi
-            </Row>
+            <Link className="link" to="/umkm/riwayat-transaksi">
+              <Row align="middle">
+                <TransactionOutlined className="primary" />
+                Riwayat Transaksi
+              </Row>
+            </Link>
           </Menu.Item>
         </Menu>
       );
       break;
     case 4:
       menu = (
-        <Menu defaultSelectedKeys={["1"]} mode="inline" id="sidebar">
+        <Menu mode="inline" id="sidebar">
           <SubMenu
             key="laporan"
             className="item"
@@ -212,55 +289,75 @@ function getMenu(role) {
               </Row>
             }
           >
-            <Menu.Item className="secondary">Penjualan</Menu.Item>
-            <Menu.Item className="secondary">Pembelian</Menu.Item>
+            <Menu.Item className="secondary">
+              <Link className="link" to="/outlet/laporan/penjualan">
+                Penjualan
+              </Link>
+            </Menu.Item>
+            <Menu.Item className="secondary">
+              <Link className="link" to="/outlet/laporan/pembelian">
+                Pembelian
+              </Link>
+            </Menu.Item>
           </SubMenu>
 
           <Menu.Item className="item primary">
-            <Row align="middle">
-              <InfoCircleOutlined className="primary" />
-              Lihat Stok
-            </Row>
+            <Link className="link" to="/outlet/lihat-stok">
+              <Row align="middle">
+                <InfoCircleOutlined className="primary" />
+                Lihat Stok
+              </Row>
+            </Link>
           </Menu.Item>
 
           <Menu.Item className="item primary">
-            <Row align="middle">
-              <ShoppingCartOutlined className="primary" />
-              Beli Stok
-            </Row>
+            <Link classname="link" to="/outlet/beli-stok">
+              <Row align="middle">
+                <ShoppingCartOutlined className="primary" />
+                Beli Stok
+              </Row>
+            </Link>
           </Menu.Item>
 
           <Menu.Item className="item primary">
-            <Row align="middle">
-              <TransactionOutlined className="primary" />
-              Riwayat Transaksi
-            </Row>
+            <Link className="link" to="/outlet/riwayat-transaksi">
+              <Row align="middle">
+                <TransactionOutlined className="primary" />
+                Riwayat Transaksi
+              </Row>
+            </Link>
           </Menu.Item>
 
           <Menu.Item className="item primary">
-            <Row align="middle">
-              <UserAddOutlined className="primary" />
-              Tambah Kasir
-            </Row>
+            <Link className="link" to="/outlet/tambah-kasir">
+              <Row align="middle">
+                <UserAddOutlined className="primary" />
+                Tambah Kasir
+              </Row>
+            </Link>
           </Menu.Item>
         </Menu>
       );
       break;
     case 5:
       menu = (
-        <Menu defaultSelectedKeys={["1"]} mode="inline" id="sidebar">
+        <Menu mode="inline" id="sidebar">
           <Menu.Item className="item primary">
-            <Row align="middle">
-              <TransactionOutlined className="primary" />
-              Transaksi
-            </Row>
+            <Link className="link" to="/kasir/transaksi">
+              <Row align="middle">
+                <TransactionOutlined className="primary" />
+                Transaksi
+              </Row>
+            </Link>
           </Menu.Item>
 
           <Menu.Item className="item primary">
-            <Row align="middle">
-              <UnorderedListOutlined className="primary" />
-              Daftar Barang
-            </Row>
+            <Link className="link" to="/kasir/daftar-barang">
+              <Row align="middle">
+                <UnorderedListOutlined className="primary" />
+                Daftar Barang
+              </Row>
+            </Link>
           </Menu.Item>
         </Menu>
       );
@@ -275,7 +372,7 @@ export default function Sidebar(props) {
       style={{
         minHeight: "100vh",
         position: "fixed",
-        left: 0
+        left: 0,
       }}
       width="280"
       id="sidebar"
@@ -297,7 +394,6 @@ export default function Sidebar(props) {
       </div>
 
       {getMenu(props.role)}
-
     </Layout.Sider>
   );
 }
