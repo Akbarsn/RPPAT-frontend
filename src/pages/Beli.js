@@ -233,7 +233,6 @@ export default function Beli() {
         </Layout.Sider>
         <Layout.Content style={{ backgroundColor: "white" }}>
         <BeliBahan nama="Produk" search="Cari produk disini" data={data} />
-          
         </Layout.Content>
       </Layout>
     </Layout>

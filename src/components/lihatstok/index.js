@@ -5,10 +5,10 @@ import Tabel from "../Table";
 export default function Index(props) {
   return (
     <div className="lihatstok">
-      <p className="titlepage" style={{ margin: "1% 2% 3.5% 2%" }}>
+      <p className="titlepage">
         Lihat Stok
       </p>
-      <p className="sectitle" style={{ margin: "1% 2%" }}>
+      <p className="sectitle">
         {props.title}
       </p>
       <div className="tablestok">

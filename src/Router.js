@@ -3,14 +3,15 @@ import { BrowserRouter as Brow, Route, Switch } from "react-router-dom";
 import Homepage from "./pages/Home";
 import Laporan from "./pages/Laporan";
 import Login from "./pages/auth/Login";
-import Register from "./pages/auth/Register";
-import LihatStok from "./pages/LihatStok";
-import RiwayatTransaksi from "./pages/RiwayatTransaksi";
-import Beli from "./pages/Beli";
-import DetailPembayaran from "./pages/DetailPembayaran";
-import DetailToko from "./pages/DetailToko";
-import DaftarBarang from "./pages/kasir/DaftarBarang";
-import Notif from "./pages/Notifikasi";
+import Register from './pages/auth/Register';
+import LihatStok from './pages/LihatStok';
+import RiwayatTransaksi from './pages/RiwayatTransaksi';
+import Beli from './pages/Beli';
+import DetailPembayaran from './pages/DetailPembayaran';
+import DetailToko from './pages/DetailToko';
+import DaftarBarang from './pages/kasir/DaftarBarang';
+import Notif from './pages/Notifikasi';
+import Transaksi from './pages/kasir/Transaksi';
 import TambahKasir from "./pages/TambahKasir";
 
 export default function Router() {
@@ -66,6 +67,8 @@ export default function Router() {
           path="/register"
           render={(props) => <Register {...props} />}
         />
+
+        <Route exact path="/transaksi" render={props => <Transaksi {...props} />} />
 
         <Route
           exact
