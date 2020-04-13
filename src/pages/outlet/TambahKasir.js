@@ -1,37 +1,22 @@
 import React from "react";
-import Homepage from "../../components/homepage";
+import Konten from "../../components/TambahKasir";
 import Navbar from "../../components/Navbar";
 import Sidebar from "../../components/Sidebar";
 import { Layout } from "antd";
 
-export default function Home() {
-  const stocks = [
-    {
-      item: "Kripik Apel",
-      qty: 200,
-    },
-    {
-      item: "Kripik Apel",
-      qty: 200,
-    },
-    {
-      item: "Kripik Apel",
-      qty: 200,
-    },
-  ];
-
+export default function TambahKasir() {
   const columns = [
     {
       align: "center",
       name: "No",
     },
     {
-      align: "left",
-      name: "Transaksi",
+      align: "center",
+      name: "Nama Lengkap",
     },
     {
       align: "center",
-      name: "Total",
+      name: "Username",
     },
   ];
 
@@ -43,11 +28,11 @@ export default function Home() {
           align: "center",
         },
         {
-          value: "Pembelian Kripik Apel",
-          align: "left",
+          value: "Budi Setiadi",
+          align: "center",
         },
         {
-          value: 1_000_000,
+          value: "budi123",
           align: "center",
         },
       ],
@@ -55,15 +40,15 @@ export default function Home() {
     {
       data: [
         {
-          value: "2",
+          value: "1",
           align: "center",
         },
         {
-          value: "Pembelian Kripik Apel",
-          align: "left",
+          value: "Budi Setiadi",
+          align: "center",
         },
         {
-          value: 1_000_000,
+          value: "budi123",
           align: "center",
         },
       ],
@@ -71,15 +56,15 @@ export default function Home() {
     {
       data: [
         {
-          value: "3",
+          value: "1",
           align: "center",
         },
         {
-          value: "Pembelian Kripik Apel",
-          align: "left",
+          value: "Budi Setiadi",
+          align: "center",
         },
         {
-          value: 1_000_000,
+          value: "budi123",
           align: "center",
         },
       ],
@@ -90,19 +75,11 @@ export default function Home() {
     <Layout style={{ backgroundColor: "#ffffff" }}>
       <Navbar name={"Akbar"} />
       <Layout style={{ marginTop: 64, marginLeft: 280 }}>
-        <Sidebar role={2} />
+        <Sidebar role={4} />
         <Layout.Content
           style={{ minHeight: "100vh", backgroundColor: "white" }}
         >
-          <Homepage
-            stocks={stocks}
-            unit="Unit"
-            buying={1_000_000}
-            selling={2_000_000}
-            shopping={3_000_000}
-            columns={columns}
-            rows={rows}
-          ></Homepage>
+          <Konten columns={columns} rows={rows}></Konten>
         </Layout.Content>
       </Layout>
     </Layout>

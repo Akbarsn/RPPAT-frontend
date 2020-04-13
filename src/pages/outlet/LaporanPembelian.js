@@ -1,104 +1,143 @@
 import React from "react";
-import Konten from "../components/laporan";
-import Navbar from "../components/Navbar";
-import Sidebar from "../components/Sidebar";
+import Konten from "../../components/laporan";
+import Navbar from "../../components/Navbar";
+import Sidebar from "../../components/Sidebar";
 import { Layout } from "antd";
 
-export default function LaporanPenjualan() {
-  const column = [
+export default function LaporanPembelian() {
+  const columns = [
     {
-      title: "No",
-      dataIndex: "no",
-      key: "no",
-      render: (value, record) => (
-        <span style={{ fontSize: record.size }}>{value}</span>
-      )
+      align: "center",
+      name: "No",
     },
     {
-      title: "Barang",
-      dataIndex: "item",
-      key: "item",
-      render: (value, record) => (
-        <span style={{ fontSize: record.size }}>{value}</span>
-      )
+      align: "center",
+      name: "Jenis Apel",
     },
     {
-      title: "Satuan",
-      dataIndex: "unit",
-      key: "unit",
-      render: (value, record) => (
-        <span style={{ fontSize: record.size }}>{value}</span>
-      )
+      align: "center",
+      name: "Grade",
     },
     {
-      title: "Jumlah",
-      dataIndex: "qty",
-      key: "qty",
-      render: (value, record) => (
-        <span style={{ fontSize: record.size }}>{value}</span>
-      )
+      align: "center",
+      name: "Jumlah",
     },
     {
-      title: "Harga Beli",
-      dataIndex: "buyPrice",
-      key: "buyPrice",
-      render: (value, record) => (
-        <span style={{ fontSize: record.size }}>{value}</span>
-      )
+      align: "center",
+      name: "Satuan",
     },
     {
-      title: "Harga Jual",
-      dataIndex: "sellPrice",
-      key: "sellPrice",
-      render: (value, record) => (
-        <span style={{ fontSize: record.size }}>{value}</span>
-      )
-    }
+      align: "right",
+      name: "Total",
+    },
   ];
 
-  const data = [
+  const rows = [
     {
-      key: "1",
-      no: "1",
-      item: "Kripik Apel",
-      qty: "200",
-      unit: "500 gr",
-      buyPrice: "Rp. 10.000",
-      sellPrice: "Rp. 12.000",
-      size: 20
+      data: [
+        {
+          value: "1",
+          align: "center",
+        },
+        {
+          value: "Apel Manalagi",
+          align: "center",
+        },
+        {
+          value: "A",
+          align: "center",
+        },
+        {
+          value: "200",
+          align: "center",
+        },
+        {
+          value: "Kilogram",
+          align: "center",
+        },
+        {
+          value: 1_000_000,
+          align: "right",
+        },
+      ],
     },
     {
-      key: "2",
-      no: "2",
-      item: "Pai Apel",
-      qty: "100",
-      unit: "800 gr",
-      buyPrice: "Rp. 20.000",
-      sellPrice: "RP. 22.000",
-      size: 20
+      data: [
+        {
+          value: "1",
+          align: "center",
+        },
+        {
+          value: "Apel Manalagi",
+          align: "center",
+        },
+        {
+          value: "A",
+          align: "center",
+        },
+        {
+          value: "200",
+          align: "center",
+        },
+        {
+          value: "Kilogram",
+          align: "center",
+        },
+        {
+          value: 1_000_000,
+          align: "right",
+        },
+      ],
     },
     {
-      key: "3",
-      no: "3",
-      item: "Dodol",
-      qty: "70",
-      unit: "200 gr",
-      buyPrice: "Rp. 5.000",
-      sellPrice: "RP. 7.000",
-      size: 20
-    }
+      data: [
+        {
+          value: "1",
+          align: "center",
+        },
+        {
+          value: "Apel Manalagi",
+          align: "center",
+        },
+        {
+          value: "A",
+          align: "center",
+        },
+        {
+          value: "200",
+          align: "center",
+        },
+        {
+          value: "Kilogram",
+          align: "center",
+        },
+        {
+          value: 1_000_000,
+          align: "right",
+        },
+      ],
+    },
   ];
+
+  const handleSubmit = () => {};
 
   return (
     <Layout style={{ backgroundColor: "#ffffff" }}>
       <Navbar name={"Akbar"} />
       <Layout style={{ marginTop: 64, marginLeft: 280 }}>
         <Sidebar role={4} />
-        <Layout.Content style={{  minHeight: "100vh" }}>
+        <Layout.Content
+          style={{ minHeight: "100vh", backgroundColor: "white" }}
+        >
           <Konten
             name="Pembelian"
+            table={{
+              columns: columns,
+              rows: rows,
+              isPaginate: true,
+              isTotal: true,
+            }}
             isThereButton={false}
-            table={{ columns: column, data: data }}
           ></Konten>
         </Layout.Content>
       </Layout>

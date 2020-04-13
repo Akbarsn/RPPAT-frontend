@@ -1,143 +1,171 @@
 import React from "react";
-import Konten from "../components/laporan";
-import Navbar from "../components/Navbar";
-import Sidebar from "../components/Sidebar";
+import Konten from "../../components/laporan";
+import Navbar from "../../components/Navbar";
+import Sidebar from "../../components/Sidebar";
 import { Layout } from "antd";
 
 export default function LaporanStokKemasan() {
-  const column = [
+  const columns = [
     {
-      title: "No",
-      dataIndex: "no",
-      key: "no",
-      render: (value, record) => (
-        <span style={{ fontSize: record.fontSize }}>{value}</span>
-      )
+      align: "center",
+      name: "No",
     },
     {
-      title: "Barang",
-      dataIndex: "item",
-      key: "item",
-      render: (value, record) => (
-        <span style={{ fontSize: record.fontSize }}>{value}</span>
-      )
+      align: "center",
+      name: "Jenis Apel",
     },
     {
-      title: "Ukuran",
-      dataIndex: "size",
-      key: "size",
-      render: (value, record) => (
-        <span style={{ fontSize: record.fontSize }}>{value}</span>
-      )
+      align: "center",
+      name: "Grade",
     },
     {
-      title: "Jumlah",
-      dataIndex: "qty",
-      key: "qty",
-      render: (value, record) => (
-        <span style={{ fontSize: record.fontSize }}>{value}</span>
-      )
+      align: "center",
+      name: "Jumlah",
     },
     {
-      title: "Satuan",
-      dataIndex: "unit",
-      key: "unit",
-      render: (value, record) => (
-        <span style={{ fontSize: record.fontSize }}>{value}</span>
-      )
+      align: "center",
+      name: "Satuan",
     },
     {
-      title: "Harga Beli",
-      dataIndex: "buyPrice",
-      key: "buyPrice",
-      render: (value, record) => (
-        <span style={{ fontSize: record.fontSize }}>{value}</span>
-      )
+      align: "right",
+      name: "Total",
     },
-    {
-      title: "Harga Jual",
-      dataIndex: "sellPrice",
-      key: "sellPrice",
-      render: (value, record) => (
-        <span style={{ fontSize: record.fontSize }}>{value}</span>
-      )
-    }
   ];
 
-  const data = [
+  const rows = [
     {
-      key: "1",
-      no: "1",
-      item: "Kemasan Plastik 4 x 4",
-      size: "cm",
-      qty: "200",
-      unit: "lembar",
-      buyPrice: "Rp. 200",
-      sellPrice: "Rp. 210",
-      fontSize: 20
+      data: [
+        {
+          value: "1",
+          align: "center",
+        },
+        {
+          value: "Apel Manalagi",
+          align: "center",
+        },
+        {
+          value: "A",
+          align: "center",
+        },
+        {
+          value: "200",
+          align: "center",
+        },
+        {
+          value: "Kilogram",
+          align: "center",
+        },
+        {
+          value: 1_000_000,
+          align: "right",
+        },
+      ],
     },
     {
-      key: "2",
-      no: "2",
-      item: "Kemasan Karton 15 x 15",
-      size: "cm",
-      qty: "200",
-      unit: "lembar",
-      buyPrice: "Rp. 200",
-      sellPrice: "Rp. 210",
-      fontSize: 20
+      data: [
+        {
+          value: "1",
+          align: "center",
+        },
+        {
+          value: "Apel Manalagi",
+          align: "center",
+        },
+        {
+          value: "A",
+          align: "center",
+        },
+        {
+          value: "200",
+          align: "center",
+        },
+        {
+          value: "Kilogram",
+          align: "center",
+        },
+        {
+          value: 1_000_000,
+          align: "right",
+        },
+      ],
     },
     {
-      key: "3",
-      no: "3",
-      item: "Kemasan Plastik 10 x 10",
-      size: "cm",
-      qty: "200",
-      unit: "lembar",
-      buyPrice: "Rp. 200",
-      sellPrice: "Rp. 210",
-      fontSize: 20
-    }
+      data: [
+        {
+          value: "1",
+          align: "center",
+        },
+        {
+          value: "Apel Manalagi",
+          align: "center",
+        },
+        {
+          value: "A",
+          align: "center",
+        },
+        {
+          value: "200",
+          align: "center",
+        },
+        {
+          value: "Kilogram",
+          align: "center",
+        },
+        {
+          value: 1_000_000,
+          align: "right",
+        },
+      ],
+    },
   ];
+
+  const handleSubmit = () => {};
 
   return (
     <Layout style={{ backgroundColor: "#ffffff" }}>
       <Navbar name={"Akbar"} />
       <Layout style={{ marginTop: 64, marginLeft: 280 }}>
-        <Sidebar role={0} />
-        <Layout.Content style={{  minHeight: "100vh" }}>
+        <Sidebar role={2} />
+        <Layout.Content
+          style={{ minHeight: "100vh", backgroundColor: "white" }}
+        >
           <Konten
             name="Stok Kemasan"
-            isThereButton={true}
-            table={{ columns: column, data: data }}
+            table={{
+              columns: columns,
+              rows: rows,
+              isPaginate: true,
+              isTotal: true,
+            }}
             handleSubmit={handleSubmit}
+            isThereButton={true}
             firstItem="Jenis Kemasan"
             fields={[
               {
                 label: "Ukuran",
                 name: "size",
-                type: "text"
-              },
-              {
-                label: "Harga Belu",
-                name: "buyPrice",
-                type: "number"
+                type: "text",
               },
               {
                 label: "Satuan",
                 name: "unit",
-                type: "text"
-              },
-              {
-                label: "Harga Belu",
-                name: "buyPrice",
-                type: "number"
+                type: "text",
               },
               {
                 label: "Jumlah",
                 name: "qty",
-                type: "number"
-              }
+                type: "number",
+              },
+              {
+                label: "Harga Beli",
+                name: "buyPrice",
+                type: "number",
+              },
+              {
+                label: "Harga Jual",
+                name: "sellPrice",
+                type: "number",
+              },
             ]}
           ></Konten>
         </Layout.Content>

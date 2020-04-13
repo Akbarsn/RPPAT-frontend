@@ -1,127 +1,166 @@
 import React from "react";
-import Konten from "../components/laporan";
-import Navbar from "../components/Navbar";
-import Sidebar from "../components/Sidebar";
+import Konten from "../../components/laporan";
+import Navbar from "../../components/Navbar";
+import Sidebar from "../../components/Sidebar";
 import { Layout } from "antd";
 
 export default function LaporanPembelian() {
-  const column = [
+  const columns = [
     {
-      title: "No",
-      dataIndex: "no",
-      key: "no",
-      render: (value, record) => (
-        <span style={{ fontSize: record.size }}>{value}</span>
-      )
+      align: "center",
+      name: "No",
     },
     {
-      title: "Barang",
-      dataIndex: "item",
-      key: "item",
-      render: (value, record) => (
-        <span style={{ fontSize: record.size }}>{value}</span>
-      )
+      align: "center",
+      name: "Jenis Apel",
     },
     {
-      title: "Jumlah",
-      dataIndex: "qty",
-      key: "qty",
-      render: (value, record) => (
-        <span style={{ fontSize: record.size }}>{value}</span>
-      )
+      align: "center",
+      name: "Grade",
     },
     {
-      title: "Satuan",
-      dataIndex: "unit",
-      key: "unit",
-      render: (value, record) => (
-        <span style={{ fontSize: record.size }}>{value}</span>
-      )
+      align: "center",
+      name: "Jumlah",
     },
     {
-      title: "Harga Beli",
-      dataIndex: "buyPrice",
-      key: "buyPrice",
-      render: (value, record) => (
-        <span style={{ fontSize: record.size }}>{value}</span>
-      )
+      align: "center",
+      name: "Satuan",
     },
     {
-      title: "Harga Jual",
-      dataIndex: "sellPrice",
-      key: "sellPrice",
-      render: (value, record) => (
-        <span style={{ fontSize: record.size }}>{value}</span>
-      )
-    }
+      align: "right",
+      name: "Total",
+    },
   ];
 
-  const data = [
+  const rows = [
     {
-      key: "1",
-      no: "1",
-      item: "Natrium Benzoat",
-      qty: "10",
-      unit: "Kilogram",
-      buyPrice: "Rp. 10.000",
-      sellPrice: "Rp. 12.000",
-      size: 20
+      data: [
+        {
+          value: "1",
+          align: "center",
+        },
+        {
+          value: "Apel Manalagi",
+          align: "center",
+        },
+        {
+          value: "A",
+          align: "center",
+        },
+        {
+          value: "200",
+          align: "center",
+        },
+        {
+          value: "Kilogram",
+          align: "center",
+        },
+        {
+          value: 1_000_000,
+          align: "right",
+        },
+      ],
     },
     {
-      key: "2",
-      no: "2",
-      item: "Minyak Goreng",
-      qty: "80",
-      unit: "Liter",
-      buyPrice: "Rp. 20.000",
-      sellPrice: "Rp. 22.000",
-      size: 20
+      data: [
+        {
+          value: "1",
+          align: "center",
+        },
+        {
+          value: "Apel Manalagi",
+          align: "center",
+        },
+        {
+          value: "A",
+          align: "center",
+        },
+        {
+          value: "200",
+          align: "center",
+        },
+        {
+          value: "Kilogram",
+          align: "center",
+        },
+        {
+          value: 1_000_000,
+          align: "right",
+        },
+      ],
     },
     {
-      key: "3",
-      no: "3",
-      item: "Sorbitol",
-      qty: "100",
-      unit: "gram",
-      buyPrice: "Rp. 15.000",
-      sellPrice: "Rp. 17.000",
-      size: 20
-    }
+      data: [
+        {
+          value: "1",
+          align: "center",
+        },
+        {
+          value: "Apel Manalagi",
+          align: "center",
+        },
+        {
+          value: "A",
+          align: "center",
+        },
+        {
+          value: "200",
+          align: "center",
+        },
+        {
+          value: "Kilogram",
+          align: "center",
+        },
+        {
+          value: 1_000_000,
+          align: "right",
+        },
+      ],
+    },
   ];
+
+  const handleSubmit = () => {};
 
   return (
     <Layout style={{ backgroundColor: "#ffffff" }}>
-      <Navbar name={"Bahan Tambah"} />
-      <Layout style={{ marginTop: 64, marginLeft:280}}>
+      <Navbar name={"Akbar"} />
+      <Layout style={{ marginTop: 64, marginLeft: 280 }}>
         <Sidebar role={2} />
-        <Layout.Content style={{ minHeight: "100vh" }}>
+        <Layout.Content
+          style={{ minHeight: "100vh", backgroundColor: "white" }}
+        >
           <Konten
             name="Pembelian"
-            isThereButton={true}
-            table={{ columns: column, data: data }}
+            table={{
+              columns: columns,
+              rows: rows,
+              isPaginate: true,
+              isTotal: true,
+            }}
             handleSubmit={handleSubmit}
-            firstItem="Jenis Bahan Tambah : "
+            isThereButton={true}
+            firstItem="Nama Bahan Tambahan"
             fields={[
               {
                 label: "Satuan",
                 name: "unit",
-                type: "text"
-              },
-              {
-                label: "Harga Beli",
-                name: "buyPrice",
-                type: "number"
+                type: "text",
               },
               {
                 label: "Jumlah",
                 name: "qty",
-                type: "number"
+                type: "number",
               },
               {
-                label: "Harga Jual",
+                label: "Harga Beli",
+                name: "buyPrice",
+                type: "number",
+              },
+              {
+                label: "Harga Beli",
                 name: "sellPrice",
-                type: "number"
-              }
+                type: "number",
+              },
             ]}
           ></Konten>
         </Layout.Content>

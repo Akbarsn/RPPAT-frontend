@@ -1,22 +1,37 @@
 import React from "react";
-import Homepage from "../../components/homepage";
 import Navbar from "../../components/Navbar";
 import Sidebar from "../../components/Sidebar";
+import Konten from "../../components/detailPembayaran";
 import { Layout } from "antd";
 
-export default function Home() {
-  const stocks = [
+export default function DetailPembayaran() {
+  const account = [
     {
-      item: "Kripik Apel",
-      qty: 200,
+      index: 0,
+      name: "BCA",
     },
     {
-      item: "Kripik Apel",
-      qty: 200,
+      index: 1,
+      name: "BNI",
     },
     {
-      item: "Kripik Apel",
-      qty: 200,
+      index: 2,
+      name: "BRI",
+    },
+  ];
+
+  const detail = [
+    {
+      number: "0781257912",
+      name: "Budi Setyanto",
+    },
+    {
+      number: "0781257912",
+      name: "Andi Setyanto",
+    },
+    {
+      number: "0781257912",
+      name: "Siti Setyanto",
     },
   ];
 
@@ -27,10 +42,14 @@ export default function Home() {
     },
     {
       align: "left",
-      name: "Transaksi",
+      name: "Barang",
     },
     {
       align: "center",
+      name: "Qty",
+    },
+    {
+      align: "right",
       name: "Total",
     },
   ];
@@ -43,12 +62,16 @@ export default function Home() {
           align: "center",
         },
         {
-          value: "Pembelian Kripik Apel",
+          value: "Natrium Benzoat 100g",
           align: "left",
         },
         {
-          value: 1_000_000,
+          value: "5",
           align: "center",
+        },
+        {
+          value: 50000,
+          align: "right",
         },
       ],
     },
@@ -59,28 +82,16 @@ export default function Home() {
           align: "center",
         },
         {
-          value: "Pembelian Kripik Apel",
+          value: "Natrium Benzoat 100g",
           align: "left",
         },
         {
-          value: 1_000_000,
-          align: "center",
-        },
-      ],
-    },
-    {
-      data: [
-        {
-          value: "3",
+          value: "5",
           align: "center",
         },
         {
-          value: "Pembelian Kripik Apel",
-          align: "left",
-        },
-        {
-          value: 1_000_000,
-          align: "center",
+          value: 50000,
+          align: "right",
         },
       ],
     },
@@ -90,19 +101,16 @@ export default function Home() {
     <Layout style={{ backgroundColor: "#ffffff" }}>
       <Navbar name={"Akbar"} />
       <Layout style={{ marginTop: 64, marginLeft: 280 }}>
-        <Sidebar role={2} />
+        <Sidebar role={3} />
         <Layout.Content
           style={{ minHeight: "100vh", backgroundColor: "white" }}
         >
-          <Homepage
-            stocks={stocks}
-            unit="Unit"
-            buying={1_000_000}
-            selling={2_000_000}
-            shopping={3_000_000}
+          <Konten
+            bankAccount={account}
+            bankDetail={detail}
             columns={columns}
             rows={rows}
-          ></Homepage>
+          ></Konten>
         </Layout.Content>
       </Layout>
     </Layout>

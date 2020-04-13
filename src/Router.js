@@ -1,26 +1,65 @@
 import React from "react";
 import { BrowserRouter as Brow, Route, Switch } from "react-router-dom";
+
 import Homepage from "./pages/Home";
 import Laporan from "./pages/Laporan";
 import Login from "./pages/auth/Login";
-import Register from './pages/auth/Register';
-import LihatStok from './pages/LihatStok';
-import RiwayatTransaksi from './pages/RiwayatTransaksi';
-import Beli from './pages/Beli';
-import DetailPembayaran from './pages/DetailPembayaran';
-import DetailToko from './pages/DetailToko';
-import DaftarBarang from './pages/kasir/DaftarBarang';
-import Notif from './pages/Notifikasi';
-import Transaksi from './pages/kasir/Transaksi';
+import Register from "./pages/auth/Register";
+import LihatStok from "./pages/LihatStok";
+import RiwayatTransaksi from "./pages/RiwayatTransaksi";
+import Beli from "./pages/Beli";
+import DetailPembayaran from "./pages/DetailPembayaran";
+import DetailToko from "./pages/DetailToko";
+import DaftarBarang from "./pages/kasir/DaftarBarang";
+import Notif from "./pages/Notifikasi";
+import Transaksi from "./pages/kasir/Transaksi";
 import TambahKasir from "./pages/TambahKasir";
+
+import OutletRouter from "./pages/outlet";
+import PetaniRouter from "./pages/petani";
+import UMKMRouter from "./pages/umkm";
+import KemasanRouter from "./pages/kemasan";
+import BahanTambahanRouter from "./pages/bahanTambahan";
+import KasirRouter from "./pages/kasir";
 
 export default function Router() {
   return (
     <Brow>
       <Switch>
+        {/* Production Path */}
         <Route exact path="/">
-          Hello World!!
+          <Login />
         </Route>
+
+        <Route exact path="/register">
+          <Register />
+        </Route>
+
+        {PetaniRouter.map((props) => (
+          <Route exact {...props}></Route>
+        ))}
+
+        {KemasanRouter.map((props) => (
+          <Route exact {...props}></Route>
+        ))}
+
+        {BahanTambahanRouter.map((props) => (
+          <Route exact {...props}></Route>
+        ))}
+
+        {OutletRouter.map((props) => (
+          <Route exact {...props}></Route>
+        ))}
+
+        {UMKMRouter.map((props) => (
+          <Route exact {...props}></Route>
+        ))}
+
+        {KasirRouter.map((props) => (
+          <Route exact {...props}></Route>
+        ))}
+
+        {/* Development Route */}
 
         <Route
           exact
@@ -68,7 +107,11 @@ export default function Router() {
           render={(props) => <Register {...props} />}
         />
 
-        <Route exact path="/transaksi" render={props => <Transaksi {...props} />} />
+        <Route
+          exact
+          path="/transaksi"
+          render={(props) => <Transaksi {...props} />}
+        />
 
         <Route
           exact
