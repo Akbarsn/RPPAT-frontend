@@ -67,12 +67,20 @@ export default function Transaksi(props) {
 
   function handleInputChange(data, index) {
     const values = [...list];
+    const addData = [...datas];
     if (data > 0) {
       values[index].qty = data;
     } else {
+      addData.push({
+        nama: values[index].nama,
+        berat: values[index].berat,
+        harga: values[index].harga,
+        qty: 0,
+      });
       values.splice(index, 1);
     }
     setList(values);
+    setDatas(addData)
   }
 
   useEffect(() => {

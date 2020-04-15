@@ -6,6 +6,45 @@
 }
 
 .titlenotif{
-    font-size: 25px;
+    font-size: 28px;
     font-weight: bold;
+}
+.body-pembayaran{
+  font-family: $font-sub;
+  font-size: 22px;
+}
+.tombol-lihatdetail{
+  font-size: 18px;
+}
+.namabank-pembayaran{
+  font-family: $font-sub;
+  font-size: 26px;
+  font-weight: bold;
+}
+
+.title-modalpembayaran{
+  font-family: $font-sub;
+  font-size: 36px;
+  font-weight: bold;
+}
+
+@media screen and (min-width: $break-large) {
+  .titlepage {
+    font-size: 64px !important;
+  }
+
+  .sectitle {
+    font-size: 36px !important;
+  }
+}
+
+@media screen and (min-width: $break-medium) {
+  .titlepage {
+    font-family: $font-header;
+    font-size: 48px;
+  }
+
+  .sectitle {
+    font-size: 32px;
+  }
 }
