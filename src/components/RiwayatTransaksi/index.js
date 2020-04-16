@@ -4,6 +4,8 @@ import Tabel from "../Table";
 import { Row, Col, Button, Modal } from "antd";
 
 export default function Index(props) {
+  const [visible, setVisible] = useState(0);
+  
   return (
     <div id="riwayattransaksi">
       <p className="titlepage" style={{ margin: "1% 2% 2% 2%" }}>
