@@ -1,28 +1,72 @@
-import React from "react";
+import React, {useState} from "react";
 import Navbar from "../components/Navbar";
 import Sidebar from "../components/Sidebar";
 import { Layout, Modal, Button } from "antd";
 import Riwayat from '../components/RiwayatTransaksi/index';
+import Tabel from '../components/Table';
 
 export default function RiwayatTransaksi() {
+  const [visible, setVisible] = useState(0);
 
-  function DataModal(content) {
-    Modal.info({
-      title: "Detail Transaksi",
-      content: (
-        <div>
-          {content}
+  function close(){
+    setVisible(null)
+  }
+
+  function DataModal(id, content) {
+      return (
+      <Modal
+        title={[<div className="title-modalpembayaran">Detail Transaksi</div>]}
+        footer={ 
+        <div style={{ textAlign: "right" }}>
+          <Button className="btn_primary" onClick={close}>
+            Kembali
+          </Button>
         </div>
+      }
+        visible={visible === id}
+        onCancel={close}
+        centered
+      >
+        <div className="isiModal-notif">
+        <Tabel
+          columns={columns2}
+          rows={content}
+          togglePagination={false}
+          toggleTotal={true}
+        />
+      </div>
+      </Modal>
       )
-    })}
+    }
 
-  function detail (data) { 
+  function detail (id, data) { 
     return (
     <div>
-      <Button className="btn_primary" onClick={()=>DataModal(data)}>Lihat Detail</Button>
+      <Button className="btn_primary" onClick={() => setVisible(id)}>Lihat Detail</Button>
+      {DataModal(id, data)}
     </div>
   )
   }
+
+  const columns2 = [
+    {
+      align: "center",
+      name: "No",
+    },
+    {
+      align: "left",
+      name: "Barang",
+    },
+    {
+      align: "center",
+      name: "Qty",
+    },
+    {
+      align: "right",
+      name: "Total",
+    },
+  ];
+
 
   const columns = [
     {
@@ -68,7 +112,48 @@ export default function RiwayatTransaksi() {
           align: "center"
         },
         {
-          value: detail("Membeli Apel Manalagi"),
+          value: detail(1, [
+            {
+              data: [
+                {
+                  value: "1",
+                  align: "center",
+                },
+                {
+                  value: "Natrium Benzoat 100g",
+                  align: "left",
+                },
+                {
+                  value: "5",
+                  align: "center",
+                },
+                {
+                  value: 50000,
+                  align: "right",
+                },
+              ],
+            },
+            {
+              data: [
+                {
+                  value: "2",
+                  align: "center",
+                },
+                {
+                  value: "Natrium Benzoat 100g",
+                  align: "left",
+                },
+                {
+                  value: "5",
+                  align: "center",
+                },
+                {
+                  value: 50000,
+                  align: "right",
+                },
+              ],
+            },
+          ]),
           align: "center"
         }
       ]
@@ -92,7 +177,48 @@ export default function RiwayatTransaksi() {
           align: "center"
         },
         {
-          value: detail("Membeli Apel Manalagi"),
+          value: detail(2, [
+            {
+              data: [
+                {
+                  value: "1",
+                  align: "center",
+                },
+                {
+                  value: "Natrium Benzoat 100g",
+                  align: "left",
+                },
+                {
+                  value: "5",
+                  align: "center",
+                },
+                {
+                  value: 50000,
+                  align: "right",
+                },
+              ],
+            },
+            {
+              data: [
+                {
+                  value: "2",
+                  align: "center",
+                },
+                {
+                  value: "Natrium Benzoat 100g",
+                  align: "left",
+                },
+                {
+                  value: "5",
+                  align: "center",
+                },
+                {
+                  value: 50000,
+                  align: "right",
+                },
+              ],
+            },
+          ]),
           align: "center"
         }
       ]
@@ -116,7 +242,48 @@ export default function RiwayatTransaksi() {
           align: "center"
         },
         {
-          value: detail("Membeli Apel Manalagi"),
+          value: detail(3, [
+            {
+              data: [
+                {
+                  value: "1",
+                  align: "center",
+                },
+                {
+                  value: "Natrium Benzoat 100g",
+                  align: "left",
+                },
+                {
+                  value: "5",
+                  align: "center",
+                },
+                {
+                  value: 50000,
+                  align: "right",
+                },
+              ],
+            },
+            {
+              data: [
+                {
+                  value: "2",
+                  align: "center",
+                },
+                {
+                  value: "Natrium Benzoat 100g",
+                  align: "left",
+                },
+                {
+                  value: "5",
+                  align: "center",
+                },
+                {
+                  value: 50000,
+                  align: "right",
+                },
+              ],
+            },
+          ]),
           align: "center"
         }
       ]
@@ -140,13 +307,56 @@ export default function RiwayatTransaksi() {
           align: "center"
         },
         {
-          value: detail("Membeli Apel Manalagi"),
+          value: detail(4, [
+            {
+              data: [
+                {
+                  value: "1",
+                  align: "center",
+                },
+                {
+                  value: "Natrium Benzoat 100g",
+                  align: "left",
+                },
+                {
+                  value: "5",
+                  align: "center",
+                },
+                {
+                  value: 50000,
+                  align: "right",
+                },
+              ],
+            },
+            {
+              data: [
+                {
+                  value: "2",
+                  align: "center",
+                },
+                {
+                  value: "Natrium Benzoat 100g",
+                  align: "left",
+                },
+                {
+                  value: "5",
+                  align: "center",
+                },
+                {
+                  value: 50000,
+                  align: "right",
+                },
+              ],
+            },
+          ]),
           align: "center"
         }
       ]
     }
 
   ]
+
+
 
   return (
     <Layout>

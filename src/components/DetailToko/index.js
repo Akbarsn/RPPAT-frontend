@@ -1,6 +1,7 @@
 import React from "react";
 import "./DetailToko.scss";
-import { Button } from "antd";
+import { Button, Avatar } from "antd";
+import { UserOutlined } from '@ant-design/icons';
 import Tabel from "../Table";
 
 export default function Index(props) {
@@ -8,8 +9,12 @@ export default function Index(props) {
 
   return (
     <div id="detailtoko">
-      <div className="titlepage" style={{ margin: "1% 2% 2% 2%" }}>
+      <div className="titlepage">
         <p>Detail {props.nama}</p>
+      </div>
+      <div className="namatoko">
+        <div style={{display:"inline"}}><Avatar size={80} icon={<UserOutlined />} /></div>
+        <div style={{display:"inline", marginLeft:"2%"}}>Toko Budi</div>
       </div>
       <div className="tablestok">
         <Tabel
