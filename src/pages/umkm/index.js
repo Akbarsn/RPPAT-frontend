@@ -5,15 +5,19 @@ import LaporanProduksi from "./LaporanProduksi";
 import LihatStokBahan from "./LihatStokBahan";
 import LihatStokProduk from "./LihatStokProduk";
 import RiwayatTransaksi from "./RiwayatTransaksi";
-import Beli from "./Beli";
+import BeliBahanBaku from "./BeliBahanBaku";
+import BeliBahanTambahan from "./BeliBahanTambahan";
+import BeliKemasan from "./BeliKemasan";
 
 export default [
-  { path: "/outlet", component: Home },
-  { path: "/outlet/laporan/pembelian", component: LaporanPembelian },
-  { path: "/outlet/laporan/penjualan", component: LaporanPenjualan },
-  { path: "/outlet/laporan/produksi", component: LaporanProduksi },
-  { path: "/outlet/lihat-stok/bahan", component: LihatStokBahan },
-  { path: "/outlet/lihat-stok/produk", component: LihatStokProduk },
-  { path: "/outlet/riwayat-transaksi", component: RiwayatTransaksi },
-  { path: "/outlet/beli-stok", component: Beli },
+  { path: "/umkm", component: Home },
+  { path: "/umkm/laporan/pembelian", component: LaporanPembelian },
+  { path: "/umkm/laporan/penjualan", component: LaporanPenjualan },
+  { path: "/umkm/laporan/produksi", component: LaporanProduksi },
+  { path: "/umkm/lihat-stok/bahan", component: LihatStokBahan },
+  { path: "/umkm/lihat-stok/produk", component: LihatStokProduk },
+  { path: "/umkm/riwayat-transaksi", component: RiwayatTransaksi },
+  { path: "/umkm/beli-stok/bahan-baku", component: BeliBahanBaku },
+  { path: "/umkm/beli-stok/bahan-tambahan", component: BeliBahanTambahan },
+  { path: "/umkm/beli-stok/kemasan", component: BeliKemasan },
 ];
