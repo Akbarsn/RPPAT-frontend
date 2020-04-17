@@ -8,7 +8,6 @@ import API from "../API";
 export default function Home() {
   const [stocks, setStocks] = useState([]);
   const [rows, setRows] = useState([]);
-  const [loading, setLoading] = useState(true);
   let buying = 0;
   let selling = 0;
   let shopping = 0;
@@ -17,11 +16,20 @@ export default function Home() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const result = await API.get("/umkm", {
-        headers: {
-          Authorization: `bearer ${token}`,
-        },
-      });
+      let result;
+      try {
+        result = await API.get("/umkm", {
+          headers: {
+            Authorization: `bearer ${token}`,
+          },
+        });
+      } catch (e) {
+        switch (e.response) {
+          case 403:
+            alert("Silahkan Login terlebih dahulu")
+            window.location.replace("/");
+        }
+      }
 
       console.log(result);
 
@@ -42,7 +50,7 @@ export default function Home() {
       result.data.data.history.map((item) => {
         let inside = [];
         let temp;
-        for (let i = 0; i < 3; i++) {
+        for (let i = 1; i <= 3; i++) {
           switch (i) {
             case 1:
               temp = {
@@ -72,8 +80,11 @@ export default function Home() {
       });
 
       setRows(history);
+
+      buying = result.data.data.buying;
+      selling = result.data.data.selling;
+      shopping = result.data.data.shopping;
     };
-    setLoading(false);
     fetchData();
   }, []);
 

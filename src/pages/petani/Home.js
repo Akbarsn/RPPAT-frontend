@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import Homepage from "../../components/homepage";
 import Navbar from "../../components/Navbar";
 import Sidebar from "../../components/Sidebar";
@@ -8,12 +8,11 @@ import API from "../API";
 export default function Home() {
   const [stocks, setStocks] = useState([]);
   const [rows, setRows] = useState([]);
-  const [loading, setLoading] = useState(true);
   let buying = 0;
   let selling = 0;
   let shopping = 0;
   const token =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Miwicm9sZSI6MywiaWF0IjoxNTg3MDkzMzk4fQ.7ebbcyp6H9SxRaDjgiUdBKZk6m80lqkn37R6o0OU47M";
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Mywicm9sZSI6MCwiaWF0IjoxNTg3MTA2MDI3fQ.kj1O6_Kyw0vNdKYPP5CNWKBABHqSmNSjHW_b5WonTz0";
 
   useEffect(() => {
     const fetchData = async () => {
@@ -42,7 +41,7 @@ export default function Home() {
       result.data.data.history.map((item) => {
         let inside = [];
         let temp;
-        for (let i = 0; i < 3; i++) {
+        for (let i = 1; i <= 3; i++) {
           switch (i) {
             case 1:
               temp = {
@@ -72,8 +71,11 @@ export default function Home() {
       });
 
       setRows(history);
+
+      buying = result.data.data.buying;
+      selling = result.data.data.selling;
+      shopping = result.data.data.shopping;
     };
-    setLoading(false);
     fetchData();
   }, []);
 
@@ -96,7 +98,7 @@ export default function Home() {
     <Layout style={{ backgroundColor: "#ffffff" }}>
       <Navbar name={"Akbar"} />
       <Layout style={{ marginTop: 64, marginLeft: 280 }}>
-        <Sidebar role={1} />
+        <Sidebar role={0} />
         <Layout.Content
           style={{ minHeight: "100vh", backgroundColor: "white" }}
         >

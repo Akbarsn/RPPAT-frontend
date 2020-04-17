@@ -8,7 +8,6 @@ import API from "../API";
 export default function Home() {
   const [stocks, setStocks] = useState([]);
   const [rows, setRows] = useState([]);
-  const [loading, setLoading] = useState(true);
   let buying = 0;
   let selling = 0;
   let shopping = 0;
@@ -17,7 +16,8 @@ export default function Home() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const result = await API.get("/petani", {
+      console.log("GET");
+      const result = await API.get("/kemasan", {
         headers: {
           Authorization: `bearer ${token}`,
         },
@@ -27,7 +27,7 @@ export default function Home() {
 
       let stocks = [];
 
-      result.data.data.allStock.map((item) => {
+      result.data.data.trans.allStock.map((item) => {
         const temp = {
           item: item.item,
           qty: item.qty,
@@ -39,10 +39,10 @@ export default function Home() {
 
       const history = [];
       let no = 0;
-      result.data.data.history.map((item) => {
+      result.data.data.trans.history.map((item) => {
         let inside = [];
         let temp;
-        for (let i = 0; i < 3; i++) {
+        for (let i = 1; i <= 3; i++) {
           switch (i) {
             case 1:
               temp = {
@@ -72,8 +72,11 @@ export default function Home() {
       });
 
       setRows(history);
+
+      buying = result.data.data.buying;
+      selling = result.data.data.selling;
+      shopping = result.data.data.shopping;
     };
-    setLoading(false);
     fetchData();
   }, []);
 
