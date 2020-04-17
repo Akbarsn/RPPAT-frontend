@@ -50,12 +50,6 @@ export default function Laporan(props) {
       setVisible(false);
     }
 
-    //Form Handler
-    const submitHandler = (values) => {
-      alert("Success");
-      console.log(values);
-    };
-
     const errorHandler = (error) => {
       console.log("Failed", error);
     };
@@ -75,7 +69,7 @@ export default function Laporan(props) {
         <Form
           name="addStock"
           layout="vertical"
-          onFinish={submitHandler}
+          onFinish={props.handleSubmit}
           onFinishFailed={errorHandler}
         >
           <Row>
@@ -158,6 +152,7 @@ export default function Laporan(props) {
             </Button>
 
             <Button
+              loading={props.loading}
               type="primary"
               size="large"
               htmlType="submit"

@@ -54,24 +54,24 @@ function getMenu(role) {
             title={
               <Row align="middle">
                 <BookOutlined className="primary" />
-                <span className="primary text"></span>
+                <span className="primary text">Laporan</span>
               </Row>
             }
           >
             <Menu.Item className="secondary">
-              <Link className="link" to="/petani-apel/laporan/penjualan">
+              <Link className="link" to="/petani/laporan/penjualan">
                 Penjualan
               </Link>
             </Menu.Item>
             <Menu.Item className="secondary">
-              <Link className="link" to="/petani-apel/laporan/stok-panen">
+              <Link className="link" to="/petani/laporan/stok-panen">
                 Stok Panen
               </Link>
             </Menu.Item>
           </SubMenu>
 
           <Menu.Item className="item primary">
-            <Link className="link" to="/petani-apel/lihat-stok">
+            <Link className="link" to="/petani/lihat-stok">
               <Row align="middle">
                 <InfoCircleOutlined className="primary" />
                 Lihat Stok
@@ -80,7 +80,7 @@ function getMenu(role) {
           </Menu.Item>
 
           <Menu.Item className="item primary">
-            <Link className="link" to="/petani-apel/riwayat-transaksi">
+            <Link className="link" to="/petani/riwayat-transaksi">
               <Row align="middle">
                 <TransactionOutlined className="primary" />
                 Riwayat Transaksi

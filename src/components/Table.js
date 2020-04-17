@@ -91,7 +91,11 @@ export default function Tabel(props) {
             ).map((row) => (
               <TableRow key={row}>
                 {row.data.map((data, index) => {
-                  if (typeof data.value == "number" && index != 0) {
+                  if (
+                    typeof data.value == "number" &&
+                    index != 0 &&
+                    (index != 2 && index != 3)
+                  ) {
                     return (
                       <StyledTableCell align={data.align}>
                         Rp.{" "}

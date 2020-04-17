@@ -1,10 +1,88 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Konten from "../../components/laporan";
 import Navbar from "../../components/Navbar";
 import Sidebar from "../../components/Sidebar";
 import { Layout } from "antd";
+import API from "../API";
 
 export default function LaporanStokPanen() {
+  const [rows, setRows] = useState([]);
+  const [loading, setLoading] = useState(false);
+
+  const token =
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Mywicm9sZSI6MCwiaWF0IjoxNTg3MTA2MDI3fQ.kj1O6_Kyw0vNdKYPP5CNWKBABHqSmNSjHW_b5WonTz0";
+  useEffect(() => {
+    const fetchData = async () => {
+      const result = await API.get("/petani/laporan/stok-panen", {
+        headers: {
+          Authorization: `bearer ${token}`,
+        },
+      });
+
+      console.log(result);
+
+      let stock = [];
+      let no = 0;
+      result.data.data.map((item) => {
+        let inside = [];
+        let temp = {};
+
+        for (let i = 0; i < 6; i++) {
+          switch (i) {
+            case 0:
+              temp = {
+                value: ++no,
+                align: "center",
+              };
+              inside.push(temp);
+              break;
+            case 1:
+              temp = {
+                value: item.item,
+                align: "center",
+              };
+              inside.push(temp);
+              break;
+            case 2:
+              temp = {
+                value: item.grade,
+                align: "center",
+              };
+              inside.push(temp);
+              break;
+            case 3:
+              temp = {
+                value: item.qty,
+                align: "center",
+              };
+              inside.push(temp);
+              break;
+            case 4:
+              temp = {
+                value: item.unit,
+                align: "center",
+              };
+              inside.push(temp);
+              break;
+            case 5:
+              temp = {
+                value: item.price,
+                align: "right",
+              };
+              inside.push(temp);
+              break;
+          }
+        }
+        stock.push({data:inside});
+      });
+
+      console.log(stock)
+
+      setRows(stock);
+    };
+    fetchData();
+  }, []);
+
   const columns = [
     {
       align: "center",
@@ -27,99 +105,29 @@ export default function LaporanStokPanen() {
       name: "Satuan",
     },
     {
-      align: "right",
-      name: "Total",
+      align: "center",
+      name: "Harga per Satuan",
     },
   ];
 
-  const rows = [
-    {
-      data: [
-        {
-          value: "1",
-          align: "center",
+  const handleSubmit = async (value) => {
+    try {
+      setLoading(true)
+      const result = await API.post("/petani/laporan", value, {
+        headers: {
+          'Authorization': `bearer ${token}`,
+          "content-type": "application/json",
         },
-        {
-          value: "Apel Manalagi",
-          align: "center",
-        },
-        {
-          value: "A",
-          align: "center",
-        },
-        {
-          value: "200",
-          align: "center",
-        },
-        {
-          value: "Kilogram",
-          align: "center",
-        },
-        {
-          value: 1_000_000,
-          align: "right",
-        },
-      ],
-    },
-    {
-      data: [
-        {
-          value: "1",
-          align: "center",
-        },
-        {
-          value: "Apel Manalagi",
-          align: "center",
-        },
-        {
-          value: "A",
-          align: "center",
-        },
-        {
-          value: "200",
-          align: "center",
-        },
-        {
-          value: "Kilogram",
-          align: "center",
-        },
-        {
-          value: 1_000_000,
-          align: "right",
-        },
-      ],
-    },
-    {
-      data: [
-        {
-          value: "1",
-          align: "center",
-        },
-        {
-          value: "Apel Manalagi",
-          align: "center",
-        },
-        {
-          value: "A",
-          align: "center",
-        },
-        {
-          value: "200",
-          align: "center",
-        },
-        {
-          value: "Kilogram",
-          align: "center",
-        },
-        {
-          value: 1_000_000,
-          align: "right",
-        },
-      ],
-    },
-  ];
+      });
 
-  const handleSubmit = () => {};
+      console.log(result)
+
+      if(result.status){
+        window.location.reload()
+        setLoading(false)
+      }
+    } catch (e) {}
+  };
 
   return (
     <Layout style={{ backgroundColor: "#ffffff" }}>
@@ -135,9 +143,10 @@ export default function LaporanStokPanen() {
               columns: columns,
               rows: rows,
               isPaginate: true,
-              isTotal: true,
+              isTotal: false,
             }}
             handleSubmit={handleSubmit}
+            loading={loading}
             isThereButton={true}
             firstItem="Jenis Apel"
             fields={[

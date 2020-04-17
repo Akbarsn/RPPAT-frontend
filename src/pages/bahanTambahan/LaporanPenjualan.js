@@ -1,10 +1,81 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Konten from "../../components/laporan";
 import Navbar from "../../components/Navbar";
 import Sidebar from "../../components/Sidebar";
 import { Layout } from "antd";
+import API from "../API";
 
 export default function LaporanPenjualan() {
+  const [rows, setrows] = useState([]);
+  const token =
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwicm9sZSI6MSwiaWF0IjoxNTg3MTEwMTIxfQ.qjlk2sLXjhoVu7re-h3YaKYkFzxMbVZ6qHjGqs1YJp0";
+  useEffect(() => {
+    const fetchData = async () => {
+      let result;
+      result = await API.get("/bahan-tambahan/laporan/penjualan", {
+        headers: {
+          Authorization: `bearer ${token}`,
+        },
+      });
+
+      console.log(result);
+
+      let buying = [];
+      let no = 0;
+      result.data.data.map((item) => {
+        const allItem = JSON.parse(item.itemDetail);
+        let temp;
+        let inside = [];
+        allItem.map((item) => {
+          for (let i = 0; i < 5; i++) {
+            switch (i) {
+              case 0:
+                temp = {
+                  value: ++no,
+                  align: "center",
+                };
+                inside.push(temp);
+                break;
+              case 1:
+                temp = {
+                  value: item.item,
+                  align: "center",
+                };
+                inside.push(temp);
+                break;
+              case 2:
+                temp = {
+                  value: item.qty,
+                  align: "center",
+                };
+                inside.push(temp);
+                break;
+              case 3:
+                temp = {
+                  value: item.unit,
+                  align: "center",
+                };
+                inside.push(temp);
+                break;
+              case 4:
+                temp = {
+                  value: item.sellPrice * item.qty,
+                  align: "right",
+                };
+                inside.push(temp);
+                break;
+            }
+          }
+        });
+        buying.push({ data: inside });
+      });
+
+      setrows(buying);
+    };
+
+    fetchData();
+  }, []);
+
   const columns = [
     {
       align: "center",
@@ -12,11 +83,7 @@ export default function LaporanPenjualan() {
     },
     {
       align: "center",
-      name: "Jenis Apel",
-    },
-    {
-      align: "center",
-      name: "Grade",
+      name: "Nama Barang",
     },
     {
       align: "center",
@@ -29,93 +96,6 @@ export default function LaporanPenjualan() {
     {
       align: "right",
       name: "Total",
-    },
-  ];
-
-  const rows = [
-    {
-      data: [
-        {
-          value: "1",
-          align: "center",
-        },
-        {
-          value: "Apel Manalagi",
-          align: "center",
-        },
-        {
-          value: "A",
-          align: "center",
-        },
-        {
-          value: "200",
-          align: "center",
-        },
-        {
-          value: "Kilogram",
-          align: "center",
-        },
-        {
-          value: 1_000_000,
-          align: "right",
-        },
-      ],
-    },
-    {
-      data: [
-        {
-          value: "1",
-          align: "center",
-        },
-        {
-          value: "Apel Manalagi",
-          align: "center",
-        },
-        {
-          value: "A",
-          align: "center",
-        },
-        {
-          value: "200",
-          align: "center",
-        },
-        {
-          value: "Kilogram",
-          align: "center",
-        },
-        {
-          value: 1_000_000,
-          align: "right",
-        },
-      ],
-    },
-    {
-      data: [
-        {
-          value: "1",
-          align: "center",
-        },
-        {
-          value: "Apel Manalagi",
-          align: "center",
-        },
-        {
-          value: "A",
-          align: "center",
-        },
-        {
-          value: "200",
-          align: "center",
-        },
-        {
-          value: "Kilogram",
-          align: "center",
-        },
-        {
-          value: 1_000_000,
-          align: "right",
-        },
-      ],
     },
   ];
 

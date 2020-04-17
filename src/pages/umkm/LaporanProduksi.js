@@ -1,10 +1,88 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Konten from "../../components/laporan";
 import Navbar from "../../components/Navbar";
 import Sidebar from "../../components/Sidebar";
 import { Layout } from "antd";
+import API from "../API";
 
 export default function LaporanProduksi() {
+  const [rows, setrows] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const token =
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Miwicm9sZSI6MywiaWF0IjoxNTg3MTA0OTUwfQ.7YBVRXsEtVh7MBnE_fmFyfV2rHOIBi8H8z9HU_ZprUk";
+  useEffect(() => {
+    const fetchData = async () => {
+      let result;
+      result = await API.get("/umkm/laporan/produksi", {
+        headers: {
+          Authorization: `bearer ${token}`,
+        },
+      });
+
+      console.log(result);
+
+      let stock = [];
+      let no = 0;
+      let temp = 0;
+      result.data.data.map((item) => {
+        let inside = [];
+        for (let i = 0; i < 6; i++) {
+          switch (i) {
+            case 0:
+              temp = {
+                value: ++no,
+                align: "center",
+              };
+              inside.push(temp);
+              break;
+            case 1:
+              temp = {
+                value: item.item,
+                align: "center",
+              };
+              inside.push(temp);
+              break;
+            case 2:
+              temp = {
+                value: item.qty,
+                align: "center",
+              };
+              inside.push(temp);
+              break;
+            case 3:
+              temp = {
+                value: item.weight,
+                align: "center",
+              };
+              inside.push(temp);
+              break;
+            case 4:
+              temp = {
+                value: item.buyPrice,
+                align: "left",
+              };
+              inside.push(temp);
+              break;
+            case 5:
+              temp = {
+                value: item.sellPrice,
+                align: "left",
+              };
+              inside.push(temp);
+              break;
+          }
+        }
+        stock.push({
+          data: inside,
+        });
+      });
+
+      setrows(stock);
+    };
+
+    fetchData();
+  }, []);
+
   const columns = [
     {
       align: "center",
@@ -12,11 +90,7 @@ export default function LaporanProduksi() {
     },
     {
       align: "center",
-      name: "Jenis Apel",
-    },
-    {
-      align: "center",
-      name: "Grade",
+      name: "Nama Produk",
     },
     {
       align: "center",
@@ -24,102 +98,31 @@ export default function LaporanProduksi() {
     },
     {
       align: "center",
-      name: "Satuan",
+      name: "Satuan Kemasan",
     },
     {
-      align: "right",
-      name: "Total",
+      align: "left",
+      name: "Harga Beli Per Kemasan",
+    },
+    {
+      align: "left",
+      name: "Harga Jual Per Kemasan",
     },
   ];
 
-  const rows = [
-    {
-      data: [
-        {
-          value: "1",
-          align: "center",
+  const handleSubmit = async (value) => {
+    try {
+      console.log(value)
+      const result = await API.post("/umkm/laporan", value, {
+        headers: {
+          Authorization: `bearer ${token}`,
+          "content-type": "application/json",
         },
-        {
-          value: "Apel Manalagi",
-          align: "center",
-        },
-        {
-          value: "A",
-          align: "center",
-        },
-        {
-          value: "200",
-          align: "center",
-        },
-        {
-          value: "Kilogram",
-          align: "center",
-        },
-        {
-          value: 1_000_000,
-          align: "right",
-        },
-      ],
-    },
-    {
-      data: [
-        {
-          value: "1",
-          align: "center",
-        },
-        {
-          value: "Apel Manalagi",
-          align: "center",
-        },
-        {
-          value: "A",
-          align: "center",
-        },
-        {
-          value: "200",
-          align: "center",
-        },
-        {
-          value: "Kilogram",
-          align: "center",
-        },
-        {
-          value: 1_000_000,
-          align: "right",
-        },
-      ],
-    },
-    {
-      data: [
-        {
-          value: "1",
-          align: "center",
-        },
-        {
-          value: "Apel Manalagi",
-          align: "center",
-        },
-        {
-          value: "A",
-          align: "center",
-        },
-        {
-          value: "200",
-          align: "center",
-        },
-        {
-          value: "Kilogram",
-          align: "center",
-        },
-        {
-          value: 1_000_000,
-          align: "right",
-        },
-      ],
-    },
-  ];
+      });
 
-  const handleSubmit = () => {};
+      console.log(result);
+    } catch (e) {}
+  };
 
   return (
     <Layout style={{ backgroundColor: "#ffffff" }}>
@@ -135,15 +138,15 @@ export default function LaporanProduksi() {
               columns: columns,
               rows: rows,
               isPaginate: true,
-              isTotal: true,
+              isTotal: false,
             }}
             handleSubmit={handleSubmit}
             isThereButton={true}
             firstItem="Jenis Produk Olahan"
             fields={[
               {
-                label: "Satuan",
-                name: "unit",
+                label: "Satuan Kemasan",
+                name: "weight",
                 type: "text",
               },
               {
@@ -152,8 +155,13 @@ export default function LaporanProduksi() {
                 type: "number",
               },
               {
-                label: "Harga per Satuan",
-                name: "price",
+                label: "Harga Jual",
+                name: "buyPrice",
+                type: "number",
+              },
+              {
+                label: "Harga Beli",
+                name: "sellPrice",
                 type: "number",
               },
             ]}
