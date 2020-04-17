@@ -29,8 +29,8 @@ export default function Home() {
 
       result.data.data.allStock.map((item) => {
         const temp = {
-          item: item.item + " " + item.weight,
-          qty: item.qty,
+          item: item.item + " Grade " + item.grade,
+          qty: item.qty + " " + item.unit,
         };
         stocks.push(temp);
       });

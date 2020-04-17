@@ -29,7 +29,7 @@ export default function Home() {
 
       result.data.data.allStock.map((item) => {
         const temp = {
-          item: item.item + " " + item.weight,
+          item: item.item,
           qty: item.qty,
         };
         stocks.push(temp);
