@@ -1,24 +1,81 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Homepage from "../../components/homepage";
 import Navbar from "../../components/Navbar";
 import Sidebar from "../../components/Sidebar";
 import { Layout } from "antd";
+import API from "../API";
 
 export default function Home() {
-  const stocks = [
-    {
-      item: "Kripik Apel",
-      qty: 200,
-    },
-    {
-      item: "Kripik Apel",
-      qty: 200,
-    },
-    {
-      item: "Kripik Apel",
-      qty: 200,
-    },
-  ];
+  const [stocks, setStocks] = useState([]);
+  const [rows, setRows] = useState([]);
+  const [loading, setLoading] = useState(true);
+  let buying = 0;
+  let selling = 0;
+  let shopping = 0;
+  const token =
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Miwicm9sZSI6MywiaWF0IjoxNTg3MDkzMzk4fQ.7ebbcyp6H9SxRaDjgiUdBKZk6m80lqkn37R6o0OU47M";
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const result = await API.get("/umkm", {
+        headers: {
+          Authorization: `bearer ${token}`,
+        },
+      });
+
+      console.log(result);
+
+      let stocks = [];
+
+      result.data.data.allStock.map((item) => {
+        const temp = {
+          item: item.item + " " + item.weight,
+          qty: item.qty,
+        };
+        stocks.push(temp);
+      });
+
+      setStocks(stocks);
+
+      const history = [];
+      let no = 0;
+      result.data.data.history.map((item) => {
+        let inside = [];
+        let temp;
+        for (let i = 0; i < 3; i++) {
+          switch (i) {
+            case 1:
+              temp = {
+                value: ++no,
+                align: "Center",
+              };
+              inside.push(temp);
+              break;
+            case 2:
+              temp = {
+                value: item.name,
+                align: "Left",
+              };
+              inside.push(temp);
+              break;
+            case 3:
+              temp = {
+                value: item.total,
+                align: "Center",
+              };
+              inside.push(temp);
+              break;
+          }
+        }
+
+        history.push({ data: inside });
+      });
+
+      setRows(history);
+    };
+    setLoading(false);
+    fetchData();
+  }, []);
 
   const columns = [
     {
@@ -35,57 +92,6 @@ export default function Home() {
     },
   ];
 
-  const rows = [
-    {
-      data: [
-        {
-          value: "1",
-          align: "center",
-        },
-        {
-          value: "Pembelian Kripik Apel",
-          align: "left",
-        },
-        {
-          value: 1_000_000,
-          align: "center",
-        },
-      ],
-    },
-    {
-      data: [
-        {
-          value: "2",
-          align: "center",
-        },
-        {
-          value: "Pembelian Kripik Apel",
-          align: "left",
-        },
-        {
-          value: 1_000_000,
-          align: "center",
-        },
-      ],
-    },
-    {
-      data: [
-        {
-          value: "3",
-          align: "center",
-        },
-        {
-          value: "Pembelian Kripik Apel",
-          align: "left",
-        },
-        {
-          value: 1_000_000,
-          align: "center",
-        },
-      ],
-    },
-  ];
-
   return (
     <Layout style={{ backgroundColor: "#ffffff" }}>
       <Navbar name={"Akbar"} />
@@ -97,9 +103,9 @@ export default function Home() {
           <Homepage
             stocks={stocks}
             unit="Unit"
-            buying={1_000_000}
-            selling={2_000_000}
-            shopping={3_000_000}
+            buying={buying}
+            selling={selling}
+            shopping={shopping}
             columns={columns}
             rows={rows}
           ></Homepage>
