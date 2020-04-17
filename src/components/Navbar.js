@@ -9,7 +9,7 @@ export default function Navbar(props) {
   const menu = (
     <Menu>
       <Menu.Item key="editProfile" className="dropdownMenu">
-        <Link to="/edit-profile">Ganti Profile</Link>
+        <Link to="/ganti-profile">Ganti Profile</Link>
       </Menu.Item>
 
       <Menu.Item key="logOut" className="dropdownMenu">
@@ -29,7 +29,9 @@ export default function Navbar(props) {
             <Col xs={10} md={6} sm={9}>
               <Row align="middle" justify="space-around">
                 <Col flex={1}>
-                  <BellOutlined className="icon" style={{}} />
+                  <Link to="/notifikasi">
+                    <BellOutlined className="icon" style={{}} />
+                  </Link>
                 </Col>
 
                 <Col flex={2}>

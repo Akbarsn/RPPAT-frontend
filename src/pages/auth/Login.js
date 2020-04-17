@@ -106,7 +106,7 @@ export default function Login(props) {
           </Form>
           <p className="keregister">
             Tidak memiliki akun ?{" "}
-            <a className="link" href="/register" style={{ color: "#1DC6C6" }}>
+            <a className="reg-link" href="/register" style={{ color: "#1DC6C6" }}>
               Register Sekarang
             </a>
           </p>

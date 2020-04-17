@@ -14,6 +14,7 @@ import DaftarBarang from "./pages/kasir/DaftarBarang";
 import Notif from "./pages/Notifikasi";
 import Transaksi from "./pages/kasir/Transaksi";
 import TambahKasir from "./pages/TambahKasir";
+import GantiProfile from "./pages/GantiProfile";
 
 import OutletRouter from "./pages/outlet";
 import PetaniRouter from "./pages/petani";
@@ -33,6 +34,10 @@ export default function Router() {
 
         <Route exact path="/register">
           <Register />
+        </Route>
+
+        <Route exact path="/ganti-profile">
+          <GantiProfile />
         </Route>
 
         {PetaniRouter.map((props) => (

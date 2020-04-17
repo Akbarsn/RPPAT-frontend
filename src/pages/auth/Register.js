@@ -59,8 +59,8 @@ export default function Register() {
   };
 
   const onStep4 = (values) => {
-    const data = { ...step1, ...step2, ...step3, ...values };
-    data.birthDate = data.birthDate.format("YYYY-MM-DD");
+    const data = { ...step1, ...step2, ...bank, ...values };
+    // data.birthDate = data.birthDate.format("YYYY-MM-DD");
     console.log(data);
     setSuccess(true);
   };
