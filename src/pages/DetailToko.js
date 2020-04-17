@@ -1,93 +1,34 @@
 import React from "react";
 import Navbar from "../components/Navbar";
 import Sidebar from "../components/Sidebar";
-import { Layout, Input, Select } from "antd";
+import { Layout } from "antd";
 import Toko from "../components/DetailToko/index";
 
 export default function DetailToko() {
 
-  const datainput = [
+  const dummy = [
     {
-      value: "gr",
-      text: "gr"
+      id: 1,
+      nama: "Minyak Goreng",
+      stok: 1000,
+      harga: "Rp. 11.000",
+      label:"minyakgoreng"
     },
     {
-      value: "kg",
-      text: "kg"
-    }
-  ];
+      id: 2,
+      nama: "Natrium Benzoat",
+      stok: 2000,
+      harga: "Rp. 1.100",
+      label:"natriumbenzoat"
+    },
+    {
+        id: 3,
+        nama: "Sorbitol",
+        stok: 500,
+        harga: "Rp. 700",
+        label:"sorbitol"
+      },
 
-  const columns = [
-    {
-      align: "left",
-      name: "Nama Bahan Tambah"
-    },
-    {
-      align: "center",
-      name: "Stok"
-    },
-    {
-      align: "center",
-      name: "Harga"
-    },
-    {
-      align: "center",
-      name: "Beli"
-    }
-  ];
-
-  const input = (
-    <div>
-      <Input
-        type="number"
-        className="inputbeli"
-        style={{ display: "inline-block", width: 100 }}
-        placeholder="ex: 100"
-      />
-    </div>
-  );
-
-  const rows = [
-    {
-      data: [
-        {
-          value: "Natrium Benzoat",
-          align: "left"
-        },
-        {
-          value: "1000 gr",
-          align: "center"
-        },
-        {
-          value: "Rp. 20.0000 / gr",
-          align: "center"
-        },
-        {
-          value: input,
-          align: "center"
-        }
-      ]
-    },
-    {
-      data: [
-        {
-          value: "Sorbitol",
-          align: "left"
-        },
-        {
-          value: "100 gr",
-          align: "center"
-        },
-        {
-          value: "Rp. 35.000 / gr",
-          align: "center"
-        },
-        {
-          value: input,
-          align: "center"
-        }
-      ]
-    }
   ];
   
   return (
@@ -100,7 +41,7 @@ export default function DetailToko() {
           <Sidebar role={4} />
         </Layout.Sider>
         <Layout.Content style={{ backgroundColor: "white" }}>
-          <Toko nama = "Toko" rows={rows} columns={columns}/>
+          <Toko nama = "Toko" data={dummy}/>
         </Layout.Content>
       </Layout>
     </Layout>

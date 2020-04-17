@@ -13,6 +13,7 @@ import DaftarBarang from './pages/kasir/DaftarBarang';
 import Notif from './pages/Notifikasi';
 import Transaksi from './pages/kasir/Transaksi';
 import TambahKasir from "./pages/TambahKasir";
+import NotFound from './pages/NotFound';
 
 export default function Router() {
   return (
@@ -21,24 +22,24 @@ export default function Router() {
         <Route exact path="/">
           Hello World!!
         </Route>
+        <Route exact path="/login"><Login/></Route>
+        <Route
+          exact
+          path="/register"><Register /></Route>
+
 
         <Route
           exact
-          path="/beli-bahan"
-          render={(props) => <Beli {...props} />}
-        />
+          path="/beli-bahan"> <Beli/> </Route>
 
         <Route
           exact
           path="/daftar-barang"
-          render={(props) => <DaftarBarang {...props} />}
-        />
+        ><DaftarBarang /></Route>
 
         <Route
           exact
-          path="/detail-toko"
-          render={(props) => <DetailToko {...props} />}
-        />
+          path="/detail-toko/:id"><DetailToko /></Route>
 
         <Route exact path="/homepage">
           <Homepage />
@@ -48,33 +49,19 @@ export default function Router() {
           <Laporan />
         </Route>
 
-        <Route exact path="/login" render={(props) => <Login {...props} />} />
+        <Route
+          exact
+          path="/lihatstok"><LihatStok/></Route>
 
         <Route
           exact
-          path="/lihatstok"
-          render={(props) => <LihatStok {...props} />}
-        />
+          path="/notifikasi"><Notif /></Route>
+
+        <Route exact path="/transaksi"><Transaksi/></Route>
 
         <Route
           exact
-          path="/notifikasi"
-          render={(props) => <Notif {...props} />}
-        />
-
-        <Route
-          exact
-          path="/register"
-          render={(props) => <Register {...props} />}
-        />
-
-        <Route exact path="/transaksi" render={props => <Transaksi {...props} />} />
-
-        <Route
-          exact
-          path="/riwayat"
-          render={(props) => <RiwayatTransaksi {...props} />}
-        />
+          path="/riwayat"> <RiwayatTransaksi /></Route>
 
         <Route exact path="/detail-pembayaran">
           <DetailPembayaran />
@@ -83,6 +70,8 @@ export default function Router() {
         <Route exact path="/tambah-kasir">
           <TambahKasir />
         </Route>
+
+        <Route path="*"><NotFound/> </Route>
       </Switch>
     </Brow>
   );

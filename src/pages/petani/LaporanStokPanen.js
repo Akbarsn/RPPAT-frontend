@@ -1,10 +1,24 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import Konten from "../components/laporan";
 import Navbar from "../components/Navbar";
 import Sidebar from "../components/Sidebar";
 import { Layout } from "antd";
+import axios from 'axios';
 
 export default function LaporanStokPanen() {
+
+  const [data, setData] = useState([]);
+  const [newData, setNewData] = useState();
+
+  useEffect(() => {
+    (async () => {
+      const respone = await axios.get(
+        '/petani/laporan/penjualan'
+      );
+      setData(respone.data);
+    })(data);
+  }, [data]);
+  
   const column = [
     {
       title: "No",
@@ -56,7 +70,7 @@ export default function LaporanStokPanen() {
     }
   ];
 
-  const data = [
+  const datas = [
     {
       key: "1",
       no: "1",
@@ -89,7 +103,20 @@ export default function LaporanStokPanen() {
     }
   ];
 
-  const handleSubmit = () => {};
+  async function handleSubmit () {
+    try {
+      let hasil = await axios.post(
+        "http://31.220.50.154:5000//petani/laporan",
+        newData
+      );
+    } catch (e) {
+      switch (e.response) {
+        default:
+          console.log("berhasil");
+          break;
+      }
+    }
+  };
 
   return (
     <Layout style={{ backgroundColor: "#ffffff" }}>
@@ -100,8 +127,9 @@ export default function LaporanStokPanen() {
           <Konten
             name="Stok Panen"
             isThereButton={true}
-            table={{ columns: column, data: data }}
+            table={{ columns: column, data: datas }}
             handleSubmit={handleSubmit}
+            onFinishForm={data=>setNewData(data)}
             firstItem="Jenis Apel"
             fields={[
               {

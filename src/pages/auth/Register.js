@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Stepper from "@material-ui/core/Stepper";
 import Step from "@material-ui/core/Step";
 import StepLabel from "@material-ui/core/StepLabel";
-import { Result, Button, Row, Col, Form } from "antd";
+import { Result, Button } from "antd";
 import Step1 from "./registerstep/step1";
 import Step2 from "./registerstep/step2";
 import Step3 from "./registerstep/step3";
@@ -58,11 +58,45 @@ export default function Register() {
     setStep((prevStep) => prevStep + 1);
   };
 
-  const onStep4 = (values) => {
+  function getNama(data) {	 
+    let nama = data.split(" ");	
+    return nama[0];
+  }
+
+  async function onStep4 (values) {
+    setLoading(true);
     const data = { ...step1, ...step2, ...step3, ...values };
     data.birthDate = data.birthDate.format("YYYY-MM-DD");
-    console.log(data);
-    setSuccess(true);
+    let nama = getNama(data.fullName);
+    try {
+      let form = new FormData();
+      form.append('name',nama);
+      form.append('fullName', data.fullName);
+      form.append('address', data.address);
+      form.append('birthDate', data.birthDate);
+      form.append('phoneNumber', data.phoneNumber);
+      form.append('email', data.email);
+      form.append('username', data.username);
+      form.append('password', data.password);
+      form.append('IDCard', data.upload[0]);
+      form.append('bankAccount', data.bankAcc);
+      form.append('bankNumber', data.bankNumber); 
+      form.append('role', data.role);
+      console.log(...form)
+      let hasil = await axios.post('http://31.220.50.154:5000/auth/register', form, {
+        headers: {
+            'Content-Type': 'application/json'
+        }
+      })
+      switch(hasil.response.status){
+        case 200:console.log('berhasil'); break;
+        default: console.log("ya");
+      }
+    }catch (err){
+      
+      console.log(err);
+    }
+    setLoading(false);
   };
 
   function getContent(stepindex) {
@@ -78,16 +112,41 @@ export default function Register() {
           <Step3 handleBack={handleBack} onFinishStep3={onStep3} data={bank} />
         );
       case 3:
-        return <Step4 handleBack={handleBack} onFinishStep4={onStep4} />;
+        return <Step4 handleBack={handleBack} onFinishStep4={onStep4} loading = {loading}/>;
       default:
         return "";
     }
   }
 
   return (
+    <div>
+       {localStorage.getItem("token") ? (
+        window.history.back() ) :
+      (
     <div id="register">
       <Container>
         <div className="judulregister">Register</div>
+        {success ? (	
+          <div className="card" style={{ backgroundColor: "#f5f5f5" }}>	
+            <Result	
+              status="success"	
+              title="Akun Anda Telah Terdaftar"	
+              extra={[	
+                <Button	
+                  type="primary"	
+                  size="large"	
+                  htmlType="submit"	
+                  className="btn_primary"	
+                  onClick={() => {	
+                    window.location.replace("/login");	
+                  }}	
+                >	
+                  Login Sekarang	
+                </Button>,	
+              ]}	
+            />	
+          </div>	
+        ) : (
           <div>
             <div className="stepper">
               <Stepper activeStep={step} alternativeLabel>
@@ -100,7 +159,10 @@ export default function Register() {
             </div>
             <div className="register-content">{getContent(step)}</div>
           </div>
+        )}
       </Container>
+    </div>
+    )}
     </div>
   );
 }

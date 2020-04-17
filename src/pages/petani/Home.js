@@ -1,10 +1,22 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import Homepage from "../components/homepage";
 import Navbar from "../components/Navbar";
 import Sidebar from "../components/Sidebar";
+import axios from 'axios';
 import { Layout } from "antd";
 
 export default function Home() {
+  const[data, setData] = useState([]);
+
+  useEffect(() => {
+    (async () => {
+      const respone = await axios.get(
+        '/petani/homepage'
+      );
+      setData(respone.data);
+    })(data);
+  }, [data]);
+
   const column = [
     {
       title: "Transaksi",
@@ -18,7 +30,7 @@ export default function Home() {
     }
   ];
 
-  const data = [
+  const datas = [
     {
       key: "1",
       transaksi: "Penjualan Apel Manalagi Grade A",
@@ -40,7 +52,7 @@ export default function Home() {
           <Homepage
             card1={{ title: "Total Stok", content: "20.000 Unit" }}
             card2={{ title: "Keuntungan", content: "Rp. 6.000.000" }}
-            table={{ title: "Riwayat Transaksi", column: column, data: data }}
+            table={{ title: "Riwayat Transaksi", column: column, data: datas }}
           ></Homepage>
         </Layout.Content>
       </Layout>

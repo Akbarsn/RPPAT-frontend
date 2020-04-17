@@ -1,7 +1,8 @@
-import React from "react";
+import React, {useState} from "react";
 import { Form, Input, Row, Col, Button } from "antd";
 
 export default function Step4(props) {
+  const [loading, setLoading] = useState(props.loading);
   const onFinish = (values) => {
     console.log("Success:", values);
   };
@@ -60,6 +61,7 @@ export default function Step4(props) {
                   type="primary"
                   size="large"
                   className="btn_primary"
+                  loading = {loading}
                 >
                   Kirim
                 </Button>

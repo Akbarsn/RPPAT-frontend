@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Row, Col, Modal, Form, Input, Select, Button } from "antd";
+import { Row, Col, Modal, Form, Input, Select, Button, message } from "antd";
 import Table from "../Table";
 
 import { PlusOutlined } from "@ant-design/icons";
@@ -52,7 +52,8 @@ export default function Laporan(props) {
 
     //Form Handler
     const submitHandler = (values) => {
-      alert("Success");
+      message.success('Data telah ditambah');
+      props.onFinishForm(values);
       console.log(values);
     };
 
@@ -181,7 +182,7 @@ export default function Laporan(props) {
 
         <Col span={24}>
           <Row justify="space-between" style={{ marginBottom: "1rem" }}>
-            <Col span={4}>
+            <Col span={6}>
               <span className="subtitle">{props.name}</span>
             </Col>
 

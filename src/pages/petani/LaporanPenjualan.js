@@ -1,10 +1,22 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import Konten from "../components/laporan";
 import Navbar from "../components/Navbar";
 import Sidebar from "../components/Sidebar";
 import { Layout } from "antd";
+import axios from 'axios';
 
 export default function LaporanPenjualan() {
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    (async () => {
+      const respone = await axios.get(
+        '/petani/laporan/penjualan'
+      );
+      setData(respone.data);
+    })(data);
+  }, [data]);
+
   const column = [
     {
       title: "No",
@@ -56,7 +68,7 @@ export default function LaporanPenjualan() {
     }
   ];
 
-  const data = [
+  const datas = [
     {
       key: "1",
       no: "1",
@@ -98,7 +110,7 @@ export default function LaporanPenjualan() {
           <Konten
             name="Penjualan"
             isThereButton={false}
-            table={{ columns: column, data: data }}
+            table={{ columns: column, data: datas }}
           ></Konten>
         </Layout.Content>
       </Layout>
