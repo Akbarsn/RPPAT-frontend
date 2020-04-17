@@ -44,19 +44,6 @@ export default function DetailToko() {
         style={{ display: "inline-block", width: 100 }}
         placeholder="ex: 100"
       />
-      <Select
-        defaultValue={datainput[0].value}
-        className="optionbeli"
-        style={{ width: 70, display: "inline-block" }}
-      >
-        {datainput.map(data => {
-          return (
-            <Select.Option key={data} value={data.value}>
-              {data.text}
-            </Select.Option>
-          );
-        })}
-      </Select>
     </div>
   );
 

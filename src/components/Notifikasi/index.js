@@ -68,14 +68,14 @@ export default function Notif(props) {
           <Form>
           <Form.Item
           name="upload"
-          label="Upload Bukti Pembayaran"
+          label={<div className="tombol-lihatdetail">Upload Bukti Pembayaran</div>}
           valuePropName="fileList"
           getValueFromEvent={normFile}
           extra="Pastikan file dalam format .pdf, .png, atau .jpeg"
         >
           <Upload name="logo" listType="picture" accept=".pdf,.png,.jpeg">
             <Button>
-              <UploadOutlined /> Klik untuk Upload
+              <UploadOutlined />Klik untuk Upload
             </Button>
           </Upload>
         </Form.Item>
@@ -97,7 +97,7 @@ export default function Notif(props) {
       content = (
         <div>
         <br/>
-          <div className="titlenotif">Detail Pembayaran</div>
+          <div className="titlenotif">Bukti Pembayaran</div>
           <Card
     hoverable
     style={{ width: 400 }}
@@ -121,9 +121,8 @@ export default function Notif(props) {
         title={[<div className="title-modalpembayaran">Detail Transaksi</div>]}
         footer={footer}
         visible={visible === metodeBayar.id}
-        width="600"
         onCancel={close}
-        style={{ top: 0 }}
+        centered
       >
         <div className="isiModal-notif">
         <Tabel
@@ -167,7 +166,7 @@ export default function Notif(props) {
                 />
                 <div>
                   <Button onClick={() => handleChange(item)}>
-                    <div className="tombol-lihatdetail">Lihat Detail</div>
+                    {item.modalType === 1 ? "Upload Bukti Pembayaran":"Konfirmasi Pembayaran"}
                   </Button>
                 </div>
                 {getModal(item.detail, item)}
