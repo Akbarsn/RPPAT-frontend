@@ -1,104 +1,121 @@
-import React from "react";
-import Konten from "../components/laporan";
-import Navbar from "../components/Navbar";
-import Sidebar from "../components/Sidebar";
+import React, { useEffect, useState } from "react";
+import Konten from "../../components/laporan";
+import Navbar from "../../components/Navbar";
+import Sidebar from "../../components/Sidebar";
 import { Layout } from "antd";
+import API from "../API";
 
 export default function LaporanPenjualan() {
-  const column = [
-    {
-      title: "No",
-      dataIndex: "no",
-      key: "no",
-      render: (value, record) => (
-        <span style={{ fontSize: record.fontSize }}>{value}</span>
-      )
-    },
-    {
-      title: "Barang",
-      dataIndex: "item",
-      key: "item",
-      render: (value, record) => (
-        <span style={{ fontSize: record.fontSize }}>{value}</span>
-      )
-    },
-    {
-      title: "Ukuran",
-      dataIndex: "size",
-      key: "size",
-      render: (value, record) => (
-        <span style={{ fontSize: record.fontSize }}>{value}</span>
-      )
-    },
-    {
-      title: "Jumlah",
-      dataIndex: "qty",
-      key: "qty",
-      render: (value, record) => (
-        <span style={{ fontSize: record.fontSize }}>{value}</span>
-      )
-    },
-    {
-      title: "Satuan",
-      dataIndex: "unit",
-      key: "unit",
-      render: (value, record) => (
-        <span style={{ fontSize: record.fontSize }}>{value}</span>
-      )
-    },
-    {
-      title: "Total Harga",
-      dataIndex: "total",
-      key: "total",
-      render: (value, record) => (
-        <span style={{ fontSize: record.fontSize }}>{value}</span>
-      )
-    }
-  ];
+  const [rows, setrows] = useState([]);
+  const token =
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwicm9sZSI6MSwiaWF0IjoxNTg3MTEwMTIxfQ.qjlk2sLXjhoVu7re-h3YaKYkFzxMbVZ6qHjGqs1YJp0";
+  useEffect(() => {
+    const fetchData = async () => {
+      let result;
+      result = await API.get("/kemasan/laporan/penjualan", {
+        headers: {
+          Authorization: `bearer ${token}`,
+        },
+      });
 
-  const data = [
+      console.log(result);
+
+      let buying = [];
+      let no = 0;
+      result.data.data.map((item) => {
+        const allItem = JSON.parse(item.itemDetail);
+        let temp;
+        let inside = [];
+        allItem.map((item) => {
+          for (let i = 0; i < 5; i++) {
+            switch (i) {
+              case 0:
+                temp = {
+                  value: ++no,
+                  align: "center",
+                };
+                inside.push(temp);
+                break;
+              case 1:
+                temp = {
+                  value: item.item,
+                  align: "center",
+                };
+                inside.push(temp);
+                break;
+              case 2:
+                temp = {
+                  value: item.qty,
+                  align: "center",
+                };
+                inside.push(temp);
+                break;
+              case 3:
+                temp = {
+                  value: item.unit,
+                  align: "center",
+                };
+                inside.push(temp);
+                break;
+              case 4:
+                temp = {
+                  value: item.sellPrice * item.qty,
+                  align: "right",
+                };
+                inside.push(temp);
+                break;
+            }
+          }
+        });
+        buying.push({data:inside});
+      });
+
+      setrows(buying);
+    };
+
+    fetchData();
+  }, []);
+
+  const columns = [
     {
-      key: "1",
-      no: "1",
-      item: "Kemasan Plastik 4 x 4",
-      size: "cm",
-      qty: "200",
-      unit: "lembar",
-      total: "Rp. 20.000",
-      fontSize: 20
+      align: "center",
+      name: "No",
     },
     {
-      key: "2",
-      no: "2",
-      item: "Kemasan Karton 15 x 15",
-      size: "cm",
-      qty: "200",
-      unit: "lembar",
-      total: "Rp. 10.000",
-      fontSize: 20
+      align: "center",
+      name: "Nama Barang",
     },
     {
-      key: "3",
-      no: "3",
-      item: "Kemasan Plastik 10 x 10",
-      size: "cm",
-      qty: "200",
-      unit: "lembar",
-      total: "Rp. 6.000",
-      fontSize: 20
-    }
+      align: "center",
+      name: "Jumlah",
+    },
+    {
+      align: "center",
+      name: "Satuan",
+    },
+    {
+      align: "right",
+      name: "Total",
+    },
   ];
 
   return (
     <Layout style={{ backgroundColor: "#ffffff" }}>
       <Navbar name={"Akbar"} />
       <Layout style={{ marginTop: 64, marginLeft: 280 }}>
-        <Sidebar role={0} />
-        <Layout.Content style={{  minHeight: "100vh" }}>
+        <Sidebar role={1} />
+        <Layout.Content
+          style={{ minHeight: "100vh", backgroundColor: "white" }}
+        >
           <Konten
             name="Penjualan"
+            table={{
+              columns: columns,
+              rows: rows,
+              isPaginate: true,
+              isTotal: true,
+            }}
             isThereButton={false}
-            table={{ columns: column, data: data }}
           ></Konten>
         </Layout.Content>
       </Layout>

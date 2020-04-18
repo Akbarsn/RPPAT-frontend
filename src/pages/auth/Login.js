@@ -4,7 +4,7 @@ import jwt from "jsonwebtoken";
 import "./Login.scss";
 import axios from "axios";
 
-export default function Login() {
+export default function Login(props) {
   let [uname, setUname] = useState("");
   let [password, setPassword] = useState("");
   let [loading, setLoading] = useState(false);

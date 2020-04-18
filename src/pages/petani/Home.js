@@ -1,58 +1,115 @@
-import React, {useState, useEffect} from "react";
-import Homepage from "../components/homepage";
-import Navbar from "../components/Navbar";
-import Sidebar from "../components/Sidebar";
-import axios from 'axios';
+import React, { useEffect, useState } from "react";
+import Homepage from "../../components/homepage";
+import Navbar from "../../components/Navbar";
+import Sidebar from "../../components/Sidebar";
 import { Layout } from "antd";
+import API from "../API";
 
 export default function Home() {
-  const[data, setData] = useState([]);
+  const [stocks, setStocks] = useState([]);
+  const [rows, setRows] = useState([]);
+  let buying = 0;
+  let selling = 0;
+  let shopping = 0;
+  const token =
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Mywicm9sZSI6MCwiaWF0IjoxNTg3MTA2MDI3fQ.kj1O6_Kyw0vNdKYPP5CNWKBABHqSmNSjHW_b5WonTz0";
 
   useEffect(() => {
-    (async () => {
-      const respone = await axios.get(
-        '/petani/homepage'
-      );
-      setData(respone.data);
-    })(data);
-  }, [data]);
+    const fetchData = async () => {
+      const result = await API.get("/petani", {
+        headers: {
+          Authorization: `bearer ${token}`,
+        },
+      });
 
-  const column = [
+      console.log(result);
+
+      let stocks = [];
+
+      result.data.data.allStock.map((item) => {
+        const temp = {
+          item: item.item + " Grade " + item.grade,
+          qty: item.qty + " " + item.unit,
+        };
+        stocks.push(temp);
+      });
+
+      setStocks(stocks);
+
+      const history = [];
+      let no = 0;
+      result.data.data.history.map((item) => {
+        let inside = [];
+        let temp;
+        for (let i = 1; i <= 3; i++) {
+          switch (i) {
+            case 1:
+              temp = {
+                value: ++no,
+                align: "Center",
+              };
+              inside.push(temp);
+              break;
+            case 2:
+              temp = {
+                value: item.name,
+                align: "Left",
+              };
+              inside.push(temp);
+              break;
+            case 3:
+              temp = {
+                value: item.total,
+                align: "Center",
+              };
+              inside.push(temp);
+              break;
+          }
+        }
+
+        history.push({ data: inside });
+      });
+
+      setRows(history);
+
+      buying = result.data.data.buying;
+      selling = result.data.data.selling;
+      shopping = result.data.data.shopping;
+    };
+    fetchData();
+  }, []);
+
+  const columns = [
     {
-      title: "Transaksi",
-      dataIndex: "transaksi",
-      key: "transaksi"
+      align: "center",
+      name: "No",
     },
     {
-      title: "Total",
-      dataIndex: "total",
-      key: "total"
-    }
-  ];
-
-  const datas = [
-    {
-      key: "1",
-      transaksi: "Penjualan Apel Manalagi Grade A",
-      total: "Rp. 5.000.000"
+      align: "left",
+      name: "Transaksi",
     },
     {
-      key: "2",
-      transaksi: "Penjualan Apel Rome Beauty Grade D",
-      total: "Rp. 6.000.000"
-    }
+      align: "center",
+      name: "Total",
+    },
   ];
 
   return (
     <Layout style={{ backgroundColor: "#ffffff" }}>
       <Navbar name={"Akbar"} />
       <Layout style={{ marginTop: 64, marginLeft: 280 }}>
-        <Sidebar role={4} />
-        <Layout.Content style={{ minHeight: "100vh" }}>
+        <Sidebar role={0} />
+        <Layout.Content
+          style={{ minHeight: "100vh", backgroundColor: "white" }}
+        >
           <Homepage
-            card1={{ title: "Total Stok", content: "20.000 Unit" }}
-            card2={{ title: "Keuntungan", content: "Rp. 6.000.000" }}
-            table={{ title: "Riwayat Transaksi", column: column, data: datas }}
+            stocks={stocks}
+            unit="Unit"
+            buying={buying}
+            selling={selling}
+            shopping={shopping}
+            columns={columns}
+            rows={rows}
           ></Homepage>
         </Layout.Content>
       </Layout>

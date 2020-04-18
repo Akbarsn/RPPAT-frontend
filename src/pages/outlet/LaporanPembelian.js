@@ -1,92 +1,102 @@
-import React from "react";
-import Konten from "../components/laporan";
-import Navbar from "../components/Navbar";
-import Sidebar from "../components/Sidebar";
+import React, { useEffect, useState } from "react";
+import Konten from "../../components/laporan";
+import Navbar from "../../components/Navbar";
+import Sidebar from "../../components/Sidebar";
 import { Layout } from "antd";
+import API from "../API";
 
-export default function LaporanPenjualan() {
-  const column = [
-    {
-      title: "No",
-      dataIndex: "no",
-      key: "no",
-      render: (value, record) => (
-        <span style={{ fontSize: record.size }}>{value}</span>
-      )
-    },
-    {
-      title: "Barang",
-      dataIndex: "item",
-      key: "item",
-      render: (value, record) => (
-        <span style={{ fontSize: record.size }}>{value}</span>
-      )
-    },
-    {
-      title: "Satuan",
-      dataIndex: "unit",
-      key: "unit",
-      render: (value, record) => (
-        <span style={{ fontSize: record.size }}>{value}</span>
-      )
-    },
-    {
-      title: "Jumlah",
-      dataIndex: "qty",
-      key: "qty",
-      render: (value, record) => (
-        <span style={{ fontSize: record.size }}>{value}</span>
-      )
-    },
-    {
-      title: "Harga Beli",
-      dataIndex: "buyPrice",
-      key: "buyPrice",
-      render: (value, record) => (
-        <span style={{ fontSize: record.size }}>{value}</span>
-      )
-    },
-    {
-      title: "Harga Jual",
-      dataIndex: "sellPrice",
-      key: "sellPrice",
-      render: (value, record) => (
-        <span style={{ fontSize: record.size }}>{value}</span>
-      )
-    }
-  ];
+export default function LaporanPembelian() {
+  const [rows, setrows] = useState([]);
+  const token =
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6NCwiaWF0IjoxNTg3MTA3NzEzfQ.M86Vr0Kw5u1MV-n7Dz-UM74BOpO0u-PvUv9khyu0c6s";
+  useEffect(() => {
+    const fetchData = async () => {
+      let result;
+      result = await API.get("/outlet/laporan/pembelian", {
+        headers: {
+          Authorization: `bearer ${token}`,
+        },
+      });
 
-  const data = [
+      console.log(result);
+
+      let buying = [];
+      let no = 0;
+      result.data.data.map((item) => {
+        const allItem = JSON.parse(item.itemDetail);
+        let temp;
+        let inside = [];
+        allItem.map((item) => {
+          for (let i = 0; i < 5; i++) {
+            switch (i) {
+              case 0:
+                temp = {
+                  value: ++no,
+                  align: "center",
+                };
+                inside.push(temp);
+                break;
+              case 1:
+                temp = {
+                  value: item.item,
+                  align: "center",
+                };
+                inside.push(temp);
+                break;
+              case 2:
+                temp = {
+                  value: item.qty,
+                  align: "center",
+                };
+                inside.push(temp);
+                break;
+              case 3:
+                temp = {
+                  value: item.unit,
+                  align: "center",
+                };
+                inside.push(temp);
+                break;
+              case 4:
+                temp = {
+                  value: (item.price ? item.price : item.sellPrice) * item.qty,
+                  align: "right",
+                };
+                inside.push(temp);
+                break;
+            }
+          }
+        });
+        buying.push({data:inside});
+      });
+
+      setrows(buying);
+    };
+
+    fetchData();
+  }, []);
+
+  const columns = [
     {
-      key: "1",
-      no: "1",
-      item: "Kripik Apel",
-      qty: "200",
-      unit: "500 gr",
-      buyPrice: "Rp. 10.000",
-      sellPrice: "Rp. 12.000",
-      size: 20
+      align: "center",
+      name: "No",
     },
     {
-      key: "2",
-      no: "2",
-      item: "Pai Apel",
-      qty: "100",
-      unit: "800 gr",
-      buyPrice: "Rp. 20.000",
-      sellPrice: "RP. 22.000",
-      size: 20
+      align: "center",
+      name: "Nama Barang",
     },
     {
-      key: "3",
-      no: "3",
-      item: "Dodol",
-      qty: "70",
-      unit: "200 gr",
-      buyPrice: "Rp. 5.000",
-      sellPrice: "RP. 7.000",
-      size: 20
-    }
+      align: "center",
+      name: "Jumlah",
+    },
+    {
+      align: "center",
+      name: "Satuan",
+    },
+    {
+      align: "center",
+      name: "Total",
+    },
   ];
 
   return (
@@ -94,11 +104,18 @@ export default function LaporanPenjualan() {
       <Navbar name={"Akbar"} />
       <Layout style={{ marginTop: 64, marginLeft: 280 }}>
         <Sidebar role={4} />
-        <Layout.Content style={{  minHeight: "100vh" }}>
+        <Layout.Content
+          style={{ minHeight: "100vh", backgroundColor: "white" }}
+        >
           <Konten
             name="Pembelian"
+            table={{
+              columns: columns,
+              rows: rows,
+              isPaginate: true,
+              isTotal: true,
+            }}
             isThereButton={false}
-            table={{ columns: column, data: data }}
           ></Konten>
         </Layout.Content>
       </Layout>

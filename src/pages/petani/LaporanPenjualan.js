@@ -1,104 +1,102 @@
-import React, {useState, useEffect} from "react";
-import Konten from "../components/laporan";
-import Navbar from "../components/Navbar";
-import Sidebar from "../components/Sidebar";
+import React, { useEffect, useState } from "react";
+import Konten from "../../components/laporan";
+import Navbar from "../../components/Navbar";
+import Sidebar from "../../components/Sidebar";
 import { Layout } from "antd";
-import axios from 'axios';
+import API from "../API";
 
 export default function LaporanPenjualan() {
-  const [data, setData] = useState([]);
-
+  const [rows, setrows] = useState([]);
+  const token =
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Mywicm9sZSI6MCwiaWF0IjoxNTg3MTA2MDI3fQ.kj1O6_Kyw0vNdKYPP5CNWKBABHqSmNSjHW_b5WonTz0";
   useEffect(() => {
-    (async () => {
-      const respone = await axios.get(
-        '/petani/laporan/penjualan'
-      );
-      setData(respone.data);
-    })(data);
-  }, [data]);
+    const fetchData = async () => {
+      let result;
+      result = await API.get("/petani/laporan/penjualan", {
+        headers: {
+          Authorization: `bearer ${token}`,
+        },
+      });
 
-  const column = [
-    {
-      title: "No",
-      dataIndex: "no",
-      key: "no",
-      render: (value, record) => (
-        <span style={{ fontSize: record.size }}>{value}</span>
-      )
-    },
-    {
-      title: "Jenis Apel",
-      dataIndex: "item",
-      key: "item",
-      render: (value, record) => (
-        <span style={{ fontSize: record.size }}>{value}</span>
-      )
-    },
-    {
-      title: "Grade",
-      dataIndex: "grade",
-      key: "grade",
-      render: (value, record) => (
-        <span style={{ fontSize: record.size }}>{value}</span>
-      )
-    },
-    {
-      title: "Jumlah",
-      dataIndex: "qty",
-      key: "qty",
-      render: (value, record) => (
-        <span style={{ fontSize: record.size }}>{value}</span>
-      )
-    },
-    {
-      title: "Satuan",
-      dataIndex: "unit",
-      key: "unit",
-      render: (value, record) => (
-        <span style={{ fontSize: record.size }}>{value}</span>
-      )
-    },
-    {
-      title: "Total Harga",
-      dataIndex: "total",
-      key: "total",
-      render: (value, record) => (
-        <span style={{ fontSize: record.size }}>{value}</span>
-      )
-    }
-  ];
+      console.log(result);
 
-  const datas = [
+      let buying = [];
+      let no = 0;
+      result.data.data.map((item) => {
+        const allItem = JSON.parse(item.itemDetail);
+        let temp;
+        let inside = [];
+        allItem.map((item) => {
+          for (let i = 0; i < 5; i++) {
+            switch (i) {
+              case 0:
+                temp = {
+                  value: ++no,
+                  align: "center",
+                };
+                inside.push(temp);
+                break;
+              case 1:
+                temp = {
+                  value: item.item,
+                  align: "center",
+                };
+                inside.push(temp);
+                break;
+              case 2:
+                temp = {
+                  value: item.qty,
+                  align: "center",
+                };
+                inside.push(temp);
+                break;
+              case 3:
+                temp = {
+                  value: item.unit,
+                  align: "center",
+                };
+                inside.push(temp);
+                break;
+              case 4:
+                temp = {
+                  value: (item.price ? item.price : item.sellPrice) * item.qty,
+                  align: "right",
+                };
+                inside.push(temp);
+                break;
+            }
+          }
+        });
+        buying.push({data:inside});
+      });
+
+      setrows(buying);
+    };
+
+    fetchData();
+  }, []);
+
+  const columns = [
     {
-      key: "1",
-      no: "1",
-      item: "Apel Manalagi",
-      grade: "A",
-      qty: "200",
-      unit: "Kilogram",
-      total: "Rp. 2.000.000",
-      size: 20
+      align: "center",
+      name: "No",
     },
     {
-      key: "2",
-      no: "2",
-      item: "Apel Fuji",
-      grade: "B",
-      qty: "100",
-      unit: "Kilogram",
-      total: "Rp. 750.000",
-      size: 20
+      align: "center",
+      name: "Nama Barang",
     },
     {
-      key: "3",
-      no: "3",
-      item: "Apel Rome Beauty",
-      grade: "D",
-      qty: "300",
-      unit: "Kilogram",
-      total: "Rp. 1.000.000",
-      size: 20
-    }
+      align: "center",
+      name: "Jumlah",
+    },
+    {
+      align: "center",
+      name: "Satuan",
+    },
+    {
+      align: "right",
+      name: "Total",
+    },
   ];
 
   return (
@@ -106,11 +104,18 @@ export default function LaporanPenjualan() {
       <Navbar name={"Akbar"} />
       <Layout style={{ marginTop: 64, marginLeft: 280 }}>
         <Sidebar role={0} />
-        <Layout.Content style={{  minHeight: "100vh" }}>
+        <Layout.Content
+          style={{ minHeight: "100vh", backgroundColor: "white" }}
+        >
           <Konten
             name="Penjualan"
+            table={{
+              columns: columns,
+              rows: rows,
+              isPaginate: true,
+              isTotal: true,
+            }}
             isThereButton={false}
-            table={{ columns: column, data: datas }}
           ></Konten>
         </Layout.Content>
       </Layout>

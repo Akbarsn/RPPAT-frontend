@@ -1,5 +1,17 @@
 import Home from "./Home";
 import LaporanPembelian from "./LaporanPembelian";
 import LaporanPenjualan from "./LaporanPenjualan";
+import LihatStok from "./LihatStok";
+import RiwayatTransaksi from "./RiwayatTransaksi";
+import TambahKasir from "./TambahKasir";
+import Beli from "./Beli";
 
-module.exports = { Home, LaporanPembelian, LaporanPenjualan };
+export default [
+  { path: "/outlet", component: Home },
+  { path: "/outlet/laporan/pembelian", component: LaporanPembelian },
+  { path: "/outlet/laporan/penjualan", component: LaporanPenjualan },
+  { path: "/outlet/lihat-stok", component: LihatStok },
+  { path: "/outlet/riwayat-transaksi", component: RiwayatTransaksi },
+  { path: "/outlet/tambah-kasir", component: TambahKasir },
+  { path: "/outlet/beli-stok", component: Beli },
+];

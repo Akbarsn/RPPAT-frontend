@@ -2,10 +2,6 @@ import React, {useState} from "react";
 import { Form, Input, Row, Col, Button } from "antd";
 
 export default function Step4(props) {
-  const [loading, setLoading] = useState(props.loading);
-  const onFinish = (values) => {
-    console.log("Success:", values);
-  };
 
   const layout = {
     labelCol: { span: 8 },

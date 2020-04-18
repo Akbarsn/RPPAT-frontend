@@ -1,143 +1,183 @@
-import React from "react";
-import Konten from "../components/laporan";
-import Navbar from "../components/Navbar";
-import Sidebar from "../components/Sidebar";
+import React, { useState, useEffect } from "react";
+import Konten from "../../components/laporan";
+import Navbar from "../../components/Navbar";
+import Sidebar from "../../components/Sidebar";
 import { Layout } from "antd";
+import API from "../API";
 
 export default function LaporanStokKemasan() {
-  const column = [
+  const [rows, setRows] = useState([]);
+  const [loading, setLoading] = useState(false);
+
+  const token =
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Mywicm9sZSI6MCwiaWF0IjoxNTg3MTA2MDI3fQ.kj1O6_Kyw0vNdKYPP5CNWKBABHqSmNSjHW_b5WonTz0";
+  useEffect(() => {
+    const fetchData = async () => {
+      const result = await API.get("/kemasan/laporan/stok-kemasan", {
+        headers: {
+          Authorization: `bearer ${token}`,
+        },
+      });
+
+      console.log(result);
+
+      let stock = [];
+      let no = 0;
+      result.data.data.map((item) => {
+        let inside = [];
+        let temp = {};
+
+        for (let i = 0; i < 6; i++) {
+          switch (i) {
+            case 0:
+              temp = {
+                value: ++no,
+                align: "center",
+              };
+              inside.push(temp);
+              break;
+            case 1:
+              temp = {
+                value: item.item,
+                align: "center",
+              };
+              inside.push(temp);
+              break;
+            case 2:
+              temp = {
+                value: item.qty,
+                align: "center",
+              };
+              inside.push(temp);
+              break;
+            case 3:
+              temp = {
+                value: item.unit,
+                align: "center",
+              };
+              inside.push(temp);
+              break;
+            case 4:
+              temp = {
+                value: item.buyPrice,
+                align: "left",
+              };
+              inside.push(temp);
+              break;
+            case 5:
+              temp = {
+                value: item.sellPrice,
+                align: "left",
+              };
+              inside.push(temp);
+              break;
+          }
+        }
+        stock.push({ data: inside });
+      });
+
+      setRows(stock);
+    };
+    fetchData();
+  }, []);
+
+  const columns = [
     {
-      title: "No",
-      dataIndex: "no",
-      key: "no",
-      render: (value, record) => (
-        <span style={{ fontSize: record.fontSize }}>{value}</span>
-      )
+      align: "center",
+      name: "No",
     },
     {
-      title: "Barang",
-      dataIndex: "item",
-      key: "item",
-      render: (value, record) => (
-        <span style={{ fontSize: record.fontSize }}>{value}</span>
-      )
+      align: "center",
+      name: "Jenis Kemasan",
     },
     {
-      title: "Ukuran",
-      dataIndex: "size",
-      key: "size",
-      render: (value, record) => (
-        <span style={{ fontSize: record.fontSize }}>{value}</span>
-      )
+      align: "center",
+      name: "Jumlah",
     },
     {
-      title: "Jumlah",
-      dataIndex: "qty",
-      key: "qty",
-      render: (value, record) => (
-        <span style={{ fontSize: record.fontSize }}>{value}</span>
-      )
+      align: "center",
+      name: "Satuan",
     },
     {
-      title: "Satuan",
-      dataIndex: "unit",
-      key: "unit",
-      render: (value, record) => (
-        <span style={{ fontSize: record.fontSize }}>{value}</span>
-      )
+      align: "center",
+      name: "Harga Beli per Satuan",
     },
     {
-      title: "Harga Beli",
-      dataIndex: "buyPrice",
-      key: "buyPrice",
-      render: (value, record) => (
-        <span style={{ fontSize: record.fontSize }}>{value}</span>
-      )
+      align: "center",
+      name: "Harga Jual per Satuan",
     },
-    {
-      title: "Harga Jual",
-      dataIndex: "sellPrice",
-      key: "sellPrice",
-      render: (value, record) => (
-        <span style={{ fontSize: record.fontSize }}>{value}</span>
-      )
-    }
   ];
 
-  const data = [
-    {
-      key: "1",
-      no: "1",
-      item: "Kemasan Plastik 4 x 4",
-      size: "cm",
-      qty: "200",
-      unit: "lembar",
-      buyPrice: "Rp. 200",
-      sellPrice: "Rp. 210",
-      fontSize: 20
-    },
-    {
-      key: "2",
-      no: "2",
-      item: "Kemasan Karton 15 x 15",
-      size: "cm",
-      qty: "200",
-      unit: "lembar",
-      buyPrice: "Rp. 200",
-      sellPrice: "Rp. 210",
-      fontSize: 20
-    },
-    {
-      key: "3",
-      no: "3",
-      item: "Kemasan Plastik 10 x 10",
-      size: "cm",
-      qty: "200",
-      unit: "lembar",
-      buyPrice: "Rp. 200",
-      sellPrice: "Rp. 210",
-      fontSize: 20
-    }
-  ];
+  const handleSubmit = async (value) => {
+    try {
+      const data = {
+        item: value.item + " " + value.size,
+        qty: value.qty,
+        unit: value.unit,
+        buyPrice: value.buyPrice,
+        sellPrice: value.sellPrice,
+      };
+
+      const result = await API.post("/kemasan/laporan", data, {
+        headers: {
+          Authorization: `bearer ${token}`,
+          "content-type": "application/json",
+        },
+      });
+
+      console.log(result);
+
+      if (result.status) {
+        window.location.reload();
+      }
+    } catch (e) {}
+  };
 
   return (
     <Layout style={{ backgroundColor: "#ffffff" }}>
       <Navbar name={"Akbar"} />
       <Layout style={{ marginTop: 64, marginLeft: 280 }}>
-        <Sidebar role={0} />
-        <Layout.Content style={{  minHeight: "100vh" }}>
+        <Sidebar role={1} />
+        <Layout.Content
+          style={{ minHeight: "100vh", backgroundColor: "white" }}
+        >
           <Konten
             name="Stok Kemasan"
-            isThereButton={true}
-            table={{ columns: column, data: data }}
+            table={{
+              columns: columns,
+              rows: rows,
+              isPaginate: true,
+              isTotal: false,
+            }}
             handleSubmit={handleSubmit}
+            isThereButton={true}
             firstItem="Jenis Kemasan"
             fields={[
               {
                 label: "Ukuran",
                 name: "size",
-                type: "text"
-              },
-              {
-                label: "Harga Belu",
-                name: "buyPrice",
-                type: "number"
+                type: "text",
               },
               {
                 label: "Satuan",
                 name: "unit",
-                type: "text"
-              },
-              {
-                label: "Harga Belu",
-                name: "buyPrice",
-                type: "number"
+                type: "text",
               },
               {
                 label: "Jumlah",
                 name: "qty",
-                type: "number"
-              }
+                type: "number",
+              },
+              {
+                label: "Harga Beli",
+                name: "buyPrice",
+                type: "number",
+              },
+              {
+                label: "Harga Jual",
+                name: "sellPrice",
+                type: "number",
+              },
             ]}
           ></Konten>
         </Layout.Content>

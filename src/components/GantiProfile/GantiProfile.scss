@@ -1,0 +1,38 @@
+@import "../Root.scss";
+
+#ganti-profile {
+    margin-left: 2rem;
+
+  @media screen and (min-width: $break-large) {
+    .title {
+      font-size: 64px !important;
+    }
+
+    .subtitle {
+      font-size: 36px !important;
+    }
+  }
+
+  @media screen and (min-width: $break-medium) {
+    .title {
+      font-size: 48px;
+    }
+
+    .subtitle {
+      font-size: 32px;
+    }
+  }
+
+  .title {
+    font-family: $font-header;
+    color: $color-black;
+    margin-bottom: 1rem;
+  }
+
+  .subtitle {
+    font-family: $font-sub;
+    font-weight: $font-sub-style;
+    color: $color-black;
+    margin-bottom: 0.5rem;
+  }
+}

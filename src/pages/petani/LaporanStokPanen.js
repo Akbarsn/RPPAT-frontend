@@ -1,121 +1,132 @@
-import React, {useState, useEffect} from "react";
-import Konten from "../components/laporan";
-import Navbar from "../components/Navbar";
-import Sidebar from "../components/Sidebar";
+import React, { useEffect, useState } from "react";
+import Konten from "../../components/laporan";
+import Navbar from "../../components/Navbar";
+import Sidebar from "../../components/Sidebar";
 import { Layout } from "antd";
-import axios from 'axios';
+import API from "../API";
 
 export default function LaporanStokPanen() {
+  const [rows, setRows] = useState([]);
+  const [loading, setLoading] = useState(false);
 
-  const [data, setData] = useState([]);
-  const [newData, setNewData] = useState();
-
+  const token =
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Mywicm9sZSI6MCwiaWF0IjoxNTg3MTA2MDI3fQ.kj1O6_Kyw0vNdKYPP5CNWKBABHqSmNSjHW_b5WonTz0";
   useEffect(() => {
-    (async () => {
-      const respone = await axios.get(
-        '/petani/laporan/penjualan'
-      );
-      setData(respone.data);
-    })(data);
-  }, [data]);
-  
-  const column = [
+    const fetchData = async () => {
+      const result = await API.get("/petani/laporan/stok-panen", {
+        headers: {
+          Authorization: `bearer ${token}`,
+        },
+      });
+
+      console.log(result);
+
+      let stock = [];
+      let no = 0;
+      result.data.data.map((item) => {
+        let inside = [];
+        let temp = {};
+
+        for (let i = 0; i < 6; i++) {
+          switch (i) {
+            case 0:
+              temp = {
+                value: ++no,
+                align: "center",
+              };
+              inside.push(temp);
+              break;
+            case 1:
+              temp = {
+                value: item.item,
+                align: "center",
+              };
+              inside.push(temp);
+              break;
+            case 2:
+              temp = {
+                value: item.grade,
+                align: "center",
+              };
+              inside.push(temp);
+              break;
+            case 3:
+              temp = {
+                value: item.qty,
+                align: "center",
+              };
+              inside.push(temp);
+              break;
+            case 4:
+              temp = {
+                value: item.unit,
+                align: "center",
+              };
+              inside.push(temp);
+              break;
+            case 5:
+              temp = {
+                value: item.price,
+                align: "right",
+              };
+              inside.push(temp);
+              break;
+          }
+        }
+        stock.push({data:inside});
+      });
+
+      console.log(stock)
+
+      setRows(stock);
+    };
+    fetchData();
+  }, []);
+
+  const columns = [
     {
-      title: "No",
-      dataIndex: "no",
-      key: "no",
-      render: (value, record) => (
-        <span style={{ fontSize: record.size }}>{value}</span>
-      )
+      align: "center",
+      name: "No",
     },
     {
-      title: "Jenis Apel",
-      dataIndex: "item",
-      key: "item",
-      render: (value, record) => (
-        <span style={{ fontSize: record.size }}>{value}</span>
-      )
+      align: "center",
+      name: "Jenis Apel",
     },
     {
-      title: "Grade",
-      dataIndex: "grade",
-      key: "grade",
-      render: (value, record) => (
-        <span style={{ fontSize: record.size }}>{value}</span>
-      )
+      align: "center",
+      name: "Grade",
     },
     {
-      title: "Jumlah",
-      dataIndex: "qty",
-      key: "qty",
-      render: (value, record) => (
-        <span style={{ fontSize: record.size }}>{value}</span>
-      )
+      align: "center",
+      name: "Jumlah",
     },
     {
-      title: "Satuan",
-      dataIndex: "unit",
-      key: "unit",
-      render: (value, record) => (
-        <span style={{ fontSize: record.size }}>{value}</span>
-      )
+      align: "center",
+      name: "Satuan",
     },
     {
-      title: "Harga Satuan",
-      dataIndex: "price",
-      key: "price",
-      render: (value, record) => (
-        <span style={{ fontSize: record.size }}>{value}</span>
-      )
-    }
+      align: "center",
+      name: "Harga per Satuan",
+    },
   ];
 
-  const datas = [
-    {
-      key: "1",
-      no: "1",
-      item: "Apel Manalagi",
-      grade: "A",
-      qty: "200",
-      unit: "Kilogram",
-      price: "Rp. 50.000",
-      size: 20
-    },
-    {
-      key: "2",
-      no: "2",
-      item: "Apel Fuji",
-      grade: "B",
-      qty: "100",
-      unit: "Kilogram",
-      price: "Rp. 30.000",
-      size: 20
-    },
-    {
-      key: "3",
-      no: "3",
-      item: "Apel Rome Beauty",
-      grade: "D",
-      qty: "300",
-      unit: "Kilogram",
-      price: "Rp. 10.000",
-      size: 20
-    }
-  ];
-
-  async function handleSubmit () {
+  const handleSubmit = async (value) => {
     try {
-      let hasil = await axios.post(
-        "http://31.220.50.154:5000//petani/laporan",
-        newData
-      );
-    } catch (e) {
-      switch (e.response) {
-        default:
-          console.log("berhasil");
-          break;
+      setLoading(true)
+      const result = await API.post("/petani/laporan", value, {
+        headers: {
+          'Authorization': `bearer ${token}`,
+          "content-type": "application/json",
+        },
+      });
+
+      console.log(result)
+
+      if(result.status){
+        window.location.reload()
+        setLoading(false)
       }
-    }
+    } catch (e) {}
   };
 
   return (
@@ -123,13 +134,20 @@ export default function LaporanStokPanen() {
       <Navbar name={"Akbar"} />
       <Layout style={{ marginTop: 64, marginLeft: 280 }}>
         <Sidebar role={0} />
-        <Layout.Content style={{  minHeight: "100vh" }}>
+        <Layout.Content
+          style={{ minHeight: "100vh", backgroundColor: "white" }}
+        >
           <Konten
             name="Stok Panen"
-            isThereButton={true}
-            table={{ columns: column, data: datas }}
+            table={{
+              columns: columns,
+              rows: rows,
+              isPaginate: true,
+              isTotal: false,
+            }}
             handleSubmit={handleSubmit}
-            onFinishForm={data=>setNewData(data)}
+            loading={loading}
+            isThereButton={true}
             firstItem="Jenis Apel"
             fields={[
               {
@@ -141,24 +159,24 @@ export default function LaporanStokPanen() {
                   { name: "B", value: "B" },
                   { name: "C", value: "C" },
                   { name: "D", value: "D" },
-                  { name: "E", value: "E" }
-                ]
+                  { name: "E", value: "E" },
+                ],
               },
               {
                 label: "Jumlah",
                 name: "qty",
-                type: "number"
+                type: "number",
               },
               {
                 label: "Satuan",
                 name: "unit",
-                type: "text"
+                type: "text",
               },
               {
                 label: "Harga per Satuan",
                 name: "price",
-                type: "number"
-              }
+                type: "number",
+              },
             ]}
           ></Konten>
         </Layout.Content>

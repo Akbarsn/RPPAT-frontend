@@ -25,8 +25,8 @@ export default function Homepage(props) {
               </Row>
               {props.stocks.map((stock) => (
                 <Row className="stock">
-                  <Col>{stock.item}</Col>
-                  <Col style={{fontWeight:700}}>{stock.qty} {props.unit} </Col>
+                  <Col span={14}>{stock.item}</Col>
+                  <Col style={{fontWeight:700}} span={10}>{stock.qty} {props.unit} </Col>
                 </Row>
               ))}
             </Card>

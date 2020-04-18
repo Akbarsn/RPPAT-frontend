@@ -71,7 +71,7 @@ export default function Step3(props) {
                     }}
                     style={{ width: "100%" }}
                   >
-                    <PlusOutlined /> Add field
+                    <PlusOutlined /> Tambah No Rekening
                   </Button>
                 </Form.Item>
               </div>

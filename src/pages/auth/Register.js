@@ -65,8 +65,8 @@ export default function Register() {
 
   async function onStep4 (values) {
     setLoading(true);
-    const data = { ...step1, ...step2, ...step3, ...values };
-    data.birthDate = data.birthDate.format("YYYY-MM-DD");
+    const data = { ...step1, ...step2, ...bank, ...values };
+    // data.birthDate = data.birthDate.format("YYYY-MM-DD");
     let nama = getNama(data.fullName);
     try {
       let form = new FormData();
