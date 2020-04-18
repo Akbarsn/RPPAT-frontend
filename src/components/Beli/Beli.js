@@ -9,9 +9,9 @@ export default function Beli(props) {
   const [minValue, setMinValue] = useState(0);
   const [maxValue, setMaxValue] = useState(9);
   const [searchTerm, setSearchTerm] = useState("");
-  const [searchResults, setSearchResults] = useState(data);
+  const [searchResults, setSearchResults] = useState([]);
 
-  function handleChange(page, pageSize) {
+  function handleChange(page) {
     if (page <= 1) {
       setMinValue(0);
       setMaxValue(9);
@@ -21,14 +21,23 @@ export default function Beli(props) {
     }
   }
 
+  function checkData() {
+    if (searchTerm) {
+      return true;
+    }
+    return false;
+  }
+
   useEffect(() => {
-    const results = data.filter((datas) => {
+    const results = props.data.filter((datas) => {
       const lower = datas.stok.map((stocks) => {
         const baranglower = stocks.barang.toLowerCase();
         if (baranglower.toString().includes(searchTerm.toLowerCase())) {
+          console.log("1");
           return baranglower;
         }
-        return null;
+        console.log("2");
+        return [];
       });
       return lower.toString().includes(searchTerm.toLowerCase());
     });
@@ -43,7 +52,7 @@ export default function Beli(props) {
       <div className="searchbox">
         <Input.Search
           placeholder={props.search}
-          style={{ margin: "1% 2% 2% 2%", width: 500 }}
+          style={{ margin: "1% 2% 2% 2%", width: 500, zIndex: -1 }}
           enterButton
           size="large"
           onChange={(data) => setSearchTerm(data.target.value)}
@@ -51,28 +60,42 @@ export default function Beli(props) {
       </div>
       <div className="toko">
         <Row gutter={16} style={{ marginLeft: "1.5%" }}>
-          {searchResults.slice(minValue, maxValue).map((datas) => {
-            return (
-              <Col
-                className="gutter-row"
-                span={7}
-                style={{ marginBottom: "1%" }}
-              >
-                <Card key={datas}>
-                  <Isi data={datas} />
-                </Card>
-              </Col>
-            );
-          })}
+          {checkData()
+            ? searchResults.slice(minValue, maxValue).map((datas) => {
+                return (
+                  <Col
+                    className="gutter-row"
+                    span={7}
+                    style={{ marginBottom: "1%" }}
+                  >
+                    <Card key={datas}>
+                      <Isi data={datas} />
+                    </Card>
+                  </Col>
+                );
+              })
+            : data.map((datas) => {
+                return (
+                  <Col
+                    className="gutter-row"
+                    span={7}
+                    style={{ marginBottom: "1%" }}
+                  >
+                    <Card key={datas}>
+                      <Isi data={datas} />
+                    </Card>
+                  </Col>
+                );
+              })}
         </Row>
       </div>
       <div className="custompagination">
         <Pagination
-          showTotal={(total, range) =>
-            `${range[0]}-${range[1]} dari ${total} toko`
-          }
+          // showTotal={(total, range) =>
+          //   `${range[0]}-${range[1]} dari ${total} toko`
+          // }
           onChange={handleChange}
-          total={searchResults.length}
+          total={checkData() ? searchResults.length : data.length}
           defaultPageSize={9}
         />
       </div>

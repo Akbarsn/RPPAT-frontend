@@ -1,226 +1,56 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Navbar from "../../components/Navbar";
 import Sidebar from "../../components/Sidebar";
 import { Layout } from "antd";
 import BeliBahan from "../../components/Beli/Beli";
 import { useRouteMatch, BrowserRouter as Route, Link } from "react-router-dom";
+import API from "../API";
 
 export default function Beli() {
-  const data = [
-    {
-      nama: "Toko Budi",
-      stok: [
-        {
-          barang: "Kripik Apel",
-          jumlah: 100,
+  const [cardData, setCardData] = useState([]);
+  const token =
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Miwicm9sZSI6MywiaWF0IjoxNTg3MjExNDMxfQ.N4EQoL37I4yqkFROaUyHw31X2ykIG9ypVrNT3LWi7uI";
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const result = await API.get("/outlet/beli-stok", {
+        headers: {
+          Authorization: `bearer ${token}`,
         },
-        {
-          barang: "Dodol",
-          jumlah: 200,
-        },
-        {
-          barang: "Sari Buah",
-          jumlah: 75,
-        },
-      ],
-    },
-    {
-      nama: "Toko Cantika",
-      stok: [
-        {
-          barang: "Kripik Apel",
-          jumlah: 100,
-        },
-        {
-          barang: "Dodol",
-          jumlah: 200,
-        },
-        {
-          barang: "Sari Buah",
-          jumlah: 75,
-        },
-      ],
-    },
-    {
-      nama: "Toko Budi",
-      stok: [
-        {
-          barang: "Kripik Apel",
-          jumlah: 100,
-        },
-        {
-          barang: "Dodol",
-          jumlah: 200,
-        },
-        {
-          barang: "Sari Buah",
-          jumlah: 75,
-        },
-      ],
-    },
-    {
-      nama: "Toko Budi",
-      stok: [
-        {
-          barang: "Kripik Apel",
-          jumlah: 100,
-        },
-        {
-          barang: "Dodol",
-          jumlah: 200,
-        },
-        {
-          barang: "Sari Buah",
-          jumlah: 75,
-        },
-      ],
-    },
-    {
-      nama: "Toko Budi",
-      stok: [
-        {
-          barang: "Kripik Apel",
-          jumlah: 100,
-        },
-        {
-          barang: "Dodol",
-          jumlah: 200,
-        },
-        {
-          barang: "Sari Buah",
-          jumlah: 75,
-        },
-      ],
-    },
-    {
-      nama: "Toko Budi",
-      stok: [
-        {
-          barang: "Kripik Apel",
-          jumlah: 100,
-        },
-        {
-          barang: "Dodol",
-          jumlah: 200,
-        },
-        {
-          barang: "Sari Buah",
-          jumlah: 75,
-        },
-      ],
-    },
-    {
-      nama: "Toko Budi",
-      stok: [
-        {
-          barang: "Kripik Apel",
-          jumlah: 100,
-        },
-        {
-          barang: "Dodol",
-          jumlah: 200,
-        },
-        {
-          barang: "Sari Buah",
-          jumlah: 75,
-        },
-      ],
-    },
-    {
-      nama: "Toko Budi",
-      stok: [
-        {
-          barang: "Kripik Apel",
-          jumlah: 100,
-        },
-        {
-          barang: "Dodol",
-          jumlah: 200,
-        },
-        {
-          barang: "Sari Buah",
-          jumlah: 75,
-        },
-      ],
-    },
-    {
-      nama: "Toko Budi",
-      stok: [
-        {
-          barang: "Kripik Apel",
-          jumlah: 100,
-        },
-      ],
-    },
-    {
-      nama: "Toko Budi",
-      stok: [
-        {
-          barang: "Kripik Apel",
-          jumlah: 100,
-        },
-        {
-          barang: "Dodol",
-          jumlah: 200,
-        },
-        {
-          barang: "Sari Buah",
-          jumlah: 75,
-        },
-      ],
-    },
-    {
-      nama: "Toko Budi",
-      stok: [
-        {
-          barang: "Kripik Apel",
-          jumlah: 100,
-        },
-        {
-          barang: "Dodol",
-          jumlah: 200,
-        },
-        {
-          barang: "Sari Buah",
-          jumlah: 75,
-        },
-      ],
-    },
-    {
-      nama: "Toko Budi",
-      stok: [
-        {
-          barang: "Kripik Apel",
-          jumlah: 100,
-        },
-        {
-          barang: "Dodol",
-          jumlah: 200,
-        },
-        {
-          barang: "Sari Buah",
-          jumlah: 75,
-        },
-      ],
-    },
-    {
-      nama: "Toko Budi",
-      stok: [
-        {
-          barang: "Kripik Apel",
-          jumlah: 100,
-        },
-        {
-          barang: "Dodol",
-          jumlah: 200,
-        },
-        {
-          barang: "Sari Buah",
-          jumlah: 75,
-        },
-      ],
-    },
-  ];
+      });
+
+      console.log(result);
+
+      let card = [];
+
+      let temp = {};
+      result.data.data.map((store) => {
+        let stocks = [];
+        let count = 0;
+        store.apples.map((stock) => {
+          if (count == 3) {
+          } else {
+            temp = {
+              barang: stock.item,
+              jumlah: stock.qty,
+            };
+            stocks.push(temp);
+            count++;
+          }
+        });
+        temp = {
+          nama: store.name,
+          stok: stocks,
+        };
+
+        card.push(temp);
+      });
+
+      setCardData(card);
+    };
+
+    fetchData();
+  }, []);
 
   return (
     <Layout>
@@ -232,7 +62,7 @@ export default function Beli() {
           <Sidebar role={4} />
         </Layout.Sider>
         <Layout.Content style={{ backgroundColor: "white" }}>
-          <BeliBahan nama="Produk" search="Cari produk disini" data={data} />
+          <BeliBahan nama="Produk" search="Cari produk disini" data={cardData} />
         </Layout.Content>
       </Layout>
     </Layout>

@@ -249,17 +249,17 @@ function getMenu(role) {
             }
           >
             <Menu.Item className="secondary">
-              <Link className="link" to="/umkm/beli/bahan-baku">
+              <Link className="link" to="/umkm/beli-stok/bahan-baku">
                 Bahan Baku
               </Link>
             </Menu.Item>
             <Menu.Item className="secondary">
-              <Link className="link" to="/umkm/beli/bahan-tambahan">
+              <Link className="link" to="/umkm/beli-stok/bahan-tambahan">
                 Bahan Tambahan
               </Link>
             </Menu.Item>
             <Menu.Item className="secondary">
-              <Link className="link" to="/umkm/beli/kemasan">
+              <Link className="link" to="/umkm/beli-stok/kemasan">
                 Kemasan
               </Link>
             </Menu.Item>
