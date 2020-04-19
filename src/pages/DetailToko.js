@@ -30,6 +30,10 @@ export default function DetailToko() {
       },
 
   ];
+
+  const test= (data) => {
+    console.log("databayar" + data);
+  }
   
   return (
     <Layout>
@@ -41,7 +45,7 @@ export default function DetailToko() {
           <Sidebar role={4} />
         </Layout.Sider>
         <Layout.Content style={{ backgroundColor: "white" }}>
-          <Toko nama = "Toko" data={dummy}/>
+          <Toko nama = "Toko" data={dummy} dataBayar={test}/>
         </Layout.Content>
       </Layout>
     </Layout>

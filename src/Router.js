@@ -23,6 +23,8 @@ import KemasanRouter from "./pages/kemasan";
 import BahanTambahanRouter from "./pages/bahanTambahan";
 import KasirRouter from "./pages/kasir";
 
+import NotFound from './pages/NotFound';
+
 export default function Router() {
   return (
     <Brow>

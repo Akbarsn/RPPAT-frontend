@@ -1,10 +1,16 @@
 import React, { useState } from "react";
 import { Row, Col, Card, Button, Radio, Form } from "antd";
 import Table from "../Table";
+import {useSelector } from 'react-redux';
 
 import "./DetailPembayaran.scss";
 
-export default function DetailPembayaran(props) {
+function DetailPembayaran(props) {
+  let data = useSelector(state=>state);
+
+  console.log(data)
+  
+
   const [index, setIndex] = useState(0);
   const [bankName, setbankName] = useState(props.bankAccount[0].name);
   const bankDetail = props.bankDetail;
@@ -95,3 +101,7 @@ export default function DetailPembayaran(props) {
     </div>
   );
 }
+
+export default DetailPembayaran;
+
+

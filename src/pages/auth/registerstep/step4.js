@@ -57,7 +57,7 @@ export default function Step4(props) {
                   type="primary"
                   size="large"
                   className="btn_primary"
-                  loading = {loading}
+                  loading = {props.loading}
                 >
                   Kirim
                 </Button>

@@ -12,19 +12,25 @@ import Paper from "@material-ui/core/Paper";
 import TablePagination from "@material-ui/core/TablePagination";
 import { Button, Avatar, Form, InputNumber } from "antd";
 import { UserOutlined } from '@ant-design/icons';
+import { useSelector, useDispatch } from 'react-redux';
+import handleData from '../../actions/counterActions';
 
-export default function Index(props) {
+const Index = (props) => {
+  const dispatch = useDispatch();
+
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
+  const [boughtItems, setBoughtItems] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   const StyledTableCell = withStyles((theme) => ({
     head: {
       backgroundColor: "#1DC6C6",
       color: theme.palette.common.white,
-      fontSize: 20,
+      fontSize: 22,
     },
     body: {
-      fontSize: 16,
+      fontSize: 18,
     },
   }))(TableCell);
 
@@ -37,11 +43,26 @@ export default function Index(props) {
     setPage(0);
   }
 
-  function finish(value){
-      console.log(value);
-  }
-
   const data = props.data;
+
+async function finish (value) {
+    setBoughtItems(null);
+    setLoading(true);
+    let no=0;
+      for(let i = 0; i < data.length; i++){
+        if(value[i] != null || value[i] != undefined){
+          boughtItems.push({
+            no: ++no,
+            nama : data[i].nama,
+            qty: value[i],
+            harga: data[i].harga*value[i],
+          })
+        }
+      }
+      console.log(boughtItems);
+      dispatch(handleData(boughtItems))
+      setLoading(false);
+  }
 
 
   return (
@@ -52,7 +73,7 @@ export default function Index(props) {
       </div>
       <div className="namatoko">
         <div style={{display:"inline"}}><Avatar size={75} icon={<UserOutlined />} /></div>
-        <div style={{display:"inline", marginLeft:"2%"}}>Toko Budi</div>
+        <div style={{display:"inline", marginLeft:"2%"}}>Toko {props.toko}</div>
       </div>
       <div className="tablestok">
       <TableContainer component={Paper}>
@@ -73,13 +94,13 @@ export default function Index(props) {
                     page * rowsPerPage + rowsPerPage
                   )
                 : data
-              ).map((row) => (
+              ).map((row, index) => (
                 <TableRow key={row}>
                   <StyledTableCell align="left">{row.nama}</StyledTableCell>
                   <StyledTableCell align="center">{row.stok}</StyledTableCell>
                   <StyledTableCell align="center">{row.harga}</StyledTableCell>
                   <StyledTableCell align="center">
-                    <Form.Item name={row.label}>
+                    <Form.Item name={index}>
                       <InputNumber
                         style={{ display: "inline-block", width: 100 }}
                         placeholder="ex: 100"
@@ -101,13 +122,18 @@ export default function Index(props) {
         onChangeRowsPerPage={handleChangeRowsPerPage}
       />
       </div>
+      <Form.Item>
       <div className="buttongroupbeli">
+      
         <Button className="btn_secondary">Kembali</Button>
-        <Form.Item>
-        <Button className="btn_primary" htmlType="submit">Selanjutnya</Button>
-        </Form.Item>
+        <Button className="btn_primary" htmlType="submit" loading = {loading}>Selanjutnya</Button>
+        
       </div>
+      </Form.Item>
       </Form>
     </div>
   );
 }
+
+export default Index;
+
