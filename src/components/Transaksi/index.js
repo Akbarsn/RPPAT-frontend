@@ -208,7 +208,7 @@ export default function Transaksi(props) {
             </div>
             <div className="date-kasir">{tanggal}</div>
             <hr className="hr-kasir-2" />
-            <div style={{ overflowY: "scroll", height: "30vh" }}>
+            <div style={{ overflowY: "scroll", height: "40vh" }}>
               {list.map((data, index) => {
                 return (
                   <div className="listbarang-kasir" key={data.nama}>

@@ -2,6 +2,7 @@
 
 .bodykasir{
     width: 80vw;
+    height: 90vh;
     position: fixed;
     font-family: $font-header;
 }
@@ -10,11 +11,13 @@
     width: 40vw;
     float: left;
     margin: 0px;
+    height: 70vh;
     border-right: 3px solid black;
 }
 
 .kasir-right{
     width:40vw;
+    height: 70vh;
     float: right;
 }
 
@@ -40,18 +43,18 @@
 }
 
 .namabarang-kasir{
-    font-size: $font-sub-medium;
+    font-size: 2vw;
     margin-top: 1%;
 }
 
 .beratbarang-kasir{
-    font-size: $font-header-small;
+    font-size: 1.5vw;
     margin-top: 1%;
 
 }
 
 .form-kasir{
-    font-size: $font-sub-medium;
+    font-size: 2vw;
     margin-top: 1%;
 }
 
@@ -61,7 +64,7 @@
 }
 
 .date-kasir{
-    font-size: $font-header-small;
+    font-size: 1.5vw;
     margin-bottom: 1%;
 }
 
@@ -70,16 +73,16 @@
 }
 
 .namabarang-transaksi{
-    font-size: 20px;
+    font-size: 1.5vw;
     margin-bottom: 1%;
 }
 
 .beratbarang-transaksi{
-    font-size: 18px;
+    font-size: 1.3vw;
 }
 
 .total-kasir{
-    font-size: $font-sub-medium;
+    font-size: 2vw;
     font-weight: bold;
     display: flex;
     justify-content: space-between;
@@ -88,14 +91,14 @@
 }
 
 .modal-kasir{
-    font-size: $font-header-small;
+    font-size: 1.5vw;
     font-family: $font-header;
     display: flex;
     justify-content: space-between;
     margin-bottom: 2%;
 }
 .titlemodal-kasir{
-    font-size: $font-sub-medium;
+    font-size: 2vw;
     font-weight: bold;
     font-family: $font-header;
     margin-bottom: 5%;

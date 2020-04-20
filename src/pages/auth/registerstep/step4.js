@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import { Form, Input, Row, Col, Button } from "antd";
 
 export default function Step4(props) {
@@ -57,6 +57,7 @@ export default function Step4(props) {
                   type="primary"
                   size="large"
                   className="btn_primary"
+                  loading = {props.loading}
                 >
                   Kirim
                 </Button>
