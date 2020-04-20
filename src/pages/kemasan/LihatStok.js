@@ -27,45 +27,52 @@ export default function LihatStok() {
       let inside = [];
       result.data.data.map((item) => {
         let temp;
-          for (let i = 0; i < 5; i++) {
-            switch (i) {
-              case 0:
-                temp = {
-                  value: ++no,
-                  align: "center",
-                };
-                inside.push(temp);
-                break;
-              case 1:
-                temp = {
-                  value: item.item,
-                  align: "left",
-                };
-                inside.push(temp);
-                break;
-              case 2:
-                temp = {
-                  value: item.qty,
-                  align: "center",
-                };
-                inside.push(temp);
-                break;
-              case 3:
-                temp = {
-                  value: item.weight,
-                  align: "center",
-                };
-                inside.push(temp);
-                break;
-              case 4:
-                temp = {
-                  value: item.sellPrice,
-                  align: "center",
-                };
-                inside.push(temp);
-                break;
-            }
+        for (let i = 0; i < 6; i++) {
+          switch (i) {
+            case 0:
+              temp = {
+                value: ++no,
+                align: "center",
+              };
+              inside.push(temp);
+              break;
+            case 1:
+              temp = {
+                value: item.item,
+                align: "left",
+              };
+              inside.push(temp);
+              break;
+            case 2:
+              temp = {
+                value: item.qty,
+                align: "center",
+              };
+              inside.push(temp);
+              break;
+            case 3:
+              temp = {
+                value: item.unit,
+                align: "center",
+              };
+              inside.push(temp);
+              break;
+            case 4:
+              temp = {
+                value: item.buyPrice,
+                align: "left",
+              };
+              inside.push(temp);
+              break;
+              case 5:
+              temp = {
+                value: item.sellPrice,
+                align: "left",
+              };
+              inside.push(temp);
+              break;
           }
+        }
         });
       stok.push({data:inside});
 
@@ -82,19 +89,23 @@ export default function LihatStok() {
     },
     {
       align: "left",
-      name: "Barang"
+      name: "Nama Produk"
     },
     {
       align: "center",
-      name: "Stok"
+      name: "Jumlah"
     },
     {
       align: "center",
-      name: "Satuan per Kemasan"
+      name: "Satuan Kemasan"
     },
     {
-      align: "center",
-      name: "Harga per Kemasan"
+      align: "left",
+      name: "Harga Beli per Kemasan"
+    },
+    {
+      align: "left",
+      name: "Harga Jual per Kemasan"
     }
   ];
 
