@@ -343,7 +343,7 @@ function getMenu(role) {
       menu = (
         <Menu mode="inline" id="sidebar">
           <Menu.Item className="item primary">
-            <Link className="link" to="/kasir/transaksi">
+            <Link className="link" to="/kasir">
               <Row align="middle">
                 <TransactionOutlined className="primary" />
                 Transaksi

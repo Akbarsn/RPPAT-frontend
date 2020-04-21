@@ -3,29 +3,6 @@ import { Row, Col, Select, InputNumber, Form, Button, Modal } from "antd";
 import "./index.scss";
 
 export default function Transaksi(props) {
-  const data = [
-    {
-      nama: "Kripik Apel",
-      berat: "500 gr",
-      harga: 25000,
-    },
-    {
-      nama: "Kripik Nanas",
-      berat: "400 gr",
-      harga: 10000,
-    },
-    {
-      nama: "Sari Buah",
-      berat: "10 liter",
-      harga: 15000,
-    },
-    {
-      nama: "Kerupuk",
-      berat: "1000 gr",
-      harga: 20000,
-    },
-  ];
-
   const arrbulan = [
     "Januari",
     "Februari",
@@ -54,7 +31,7 @@ export default function Transaksi(props) {
   const day = today.getDay();
   const month = today.getMonth();
 
-  const [datas, setDatas] = useState(data);
+  const [datas, setDatas] = useState(props.data);
   const [visible, setVisible] = useState(false);
   const [detail, setDetail] = useState(null);
   const [list, setList] = useState([]);
@@ -72,19 +49,20 @@ export default function Transaksi(props) {
 
   function searchDetail(value) {
     const results = datas.filter((data) => {
-      const namalower = data.nama.toLowerCase();
+      const namalower = data.item.toLowerCase();
       return namalower.includes(value.toLowerCase());
     });
     setDetail(results);
   }
 
   function handleAddFields(value) {
-    const getIndexArray = datas.map((e) => e.nama).indexOf(detail[0].nama);
+    const getIndexArray = datas.map((e) => e.item).indexOf(detail[0].item);
     const values = [...list];
     values.push({
-      nama: detail[0].nama,
-      berat: detail[0].berat,
-      harga: detail[0].harga,
+      id: detail[0].id,
+      item: detail[0].item,
+      weight: detail[0].weight,
+      price: detail[0].sellPrice,
       qty: value.qty,
     });
     setList(values);
@@ -101,9 +79,9 @@ export default function Transaksi(props) {
       values[index].qty = data;
     } else {
       addData.push({
-        nama: values[index].nama,
-        berat: values[index].berat,
-        harga: values[index].harga,
+        item: values[index].item,
+        weight: values[index].weight,
+        price: values[index].sellPrice,
         qty: 0,
       });
       values.splice(index, 1);
@@ -115,7 +93,7 @@ export default function Transaksi(props) {
   useEffect(() => {
     let count = 0;
     list.map((e) => {
-      count += e.harga * e.qty;
+      count += e.price * e.qty;
       return count;
     });
     setTotal(count);
@@ -148,7 +126,7 @@ export default function Transaksi(props) {
             >
               {datas.map((data) => {
                 return (
-                  <Select.Option value={data.nama}>{data.nama}</Select.Option>
+                  <Select.Option value={data.item}>{data.item}</Select.Option>
                 );
               })}
             </Select>
@@ -162,11 +140,11 @@ export default function Transaksi(props) {
               <Fragment />
             ) : (
               <div>
-                <div className="namabarang-kasir">{detail[0].nama}</div>
-                <div className="beratbarang-kasir">{detail[0].berat}</div>
+                <div className="namabarang-kasir">{detail[0].item}</div>
+                <div className="beratbarang-kasir">{detail[0].weight}</div>
                 <div className="namabarang-kasir">
                   Rp{" "}
-                  {detail[0].harga
+                  {detail[0].sellPrice
                     .toString()
                     .replace(/\B(?=(\d{3})+(?!\d))/g, ".")}
                 </div>
@@ -211,19 +189,19 @@ export default function Transaksi(props) {
             <div style={{ overflowY: "scroll", height: "40vh" }}>
               {list.map((data, index) => {
                 return (
-                  <div className="listbarang-kasir" key={data.nama}>
+                  <div className="listbarang-kasir" key={data.item}>
                     <Row justify="space-between" align="middle">
                       <Col span={12}>
-                        <div className="namabarang-transaksi">{data.nama}</div>
+                        <div className="namabarang-transaksi">{data.item}</div>
                         <div className="beratbarang-transaksi">
-                          {data.berat}
+                          {data.weight}
                         </div>
                         <div
                           className="namabarang-transaksi"
                           style={{ fontWeight: "bold" }}
                         >
                           Rp{" "}
-                          {(data.harga * data.qty)
+                          {(data.price * data.qty)
                             .toString()
                             .replace(/\B(?=(\d{3})+(?!\d))/g, ".")}
                         </div>
@@ -259,7 +237,12 @@ export default function Transaksi(props) {
               </div>
             </div>
             <div style={{ textAlign: "right" }}>
-              <Button className="btn_primary" onClick={() => setVisible(true)}>
+              <Button
+                className="btn_primary"
+                onClick={() => {
+                  setVisible(true);
+                }}
+              >
                 Bayar
               </Button>
             </div>
@@ -279,7 +262,7 @@ export default function Transaksi(props) {
               className="btn_primary"
               onClick={() => {
                 setVisible(false);
-                
+                props.handleSubmit({ items: list, total });
               }}
               disabled={kembalian < 0 || kembalian === null ? true : false}
             >

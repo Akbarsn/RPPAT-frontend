@@ -10,7 +10,7 @@ export default function LaporanStokPanen() {
   const [loading, setLoading] = useState(false);
 
   const token =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Mywicm9sZSI6MCwiaWF0IjoxNTg3MTA2MDI3fQ.kj1O6_Kyw0vNdKYPP5CNWKBABHqSmNSjHW_b5WonTz0";
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Mywicm9sZSI6MCwiaWF0IjoxNTg3NDUxNzQzfQ.UUmruA6QJEKYL03Uk5plqsUALHltoBrVFeqL6Om-dj4";
   useEffect(() => {
     const fetchData = async () => {
       const result = await API.get("/petani/laporan/stok-panen", {

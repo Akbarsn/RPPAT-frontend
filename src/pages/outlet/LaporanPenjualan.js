@@ -59,7 +59,7 @@ export default function LaporanPenjualan() {
                 break;
               case 4:
                 temp = {
-                  value: item.sellPrice * item.qty,
+                  value: item.price * item.qty,
                   align: "right",
                 };
                 inside.push(temp);

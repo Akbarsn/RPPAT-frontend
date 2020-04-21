@@ -1,13 +1,12 @@
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import Navbar from "../../components/Navbar";
 import Sidebar from "../../components/Sidebar";
 import { Layout, Modal, Button } from "antd";
-import Riwayat from '../../components/RiwayatTransaksi';
-import Tabel from '../../components/Table';
-import API from '../API';
+import Riwayat from "../../components/RiwayatTransaksi";
+import Tabel from "../../components/Table";
+import API from "../API";
 
 export default function RiwayatTransaksi() {
-
   const [visible, setVisible] = useState(0);
   const [rows, setRows] = useState([]);
 
@@ -66,7 +65,7 @@ export default function RiwayatTransaksi() {
               };
               inside.push(temp);
               break;
-              case 5:
+            case 5:
               temp = {
                 value: item.price,
                 align: "right",
@@ -75,8 +74,8 @@ export default function RiwayatTransaksi() {
               break;
           }
         }
-        });
-      stok.push({data:inside});
+      });
+      stok.push({ data: inside });
       let inside2 = [];
       let stok2 = [];
       let no2 = 0;
@@ -121,49 +120,50 @@ export default function RiwayatTransaksi() {
               break;
           }
         }
-        });
-        stok2.push({data:inside2});
+      });
+      stok2.push({ data: inside2 });
       setRows(stok2);
     };
 
     fetchData();
   }, []);
 
-
   function DataModal(id, content) {
-      return (
+    return (
       <Modal
         title={[<div className="title-modalpembayaran">Detail Transaksi</div>]}
-        footer={ 
-        <div style={{ textAlign: "right" }}>
-          <Button className="btn_primary" onClick={()=>setVisible(null)}>
-            Kembali
-          </Button>
-        </div>
-      }
+        footer={
+          <div style={{ textAlign: "right" }}>
+            <Button className="btn_primary" onClick={() => setVisible(null)}>
+              Kembali
+            </Button>
+          </div>
+        }
         visible={visible === id}
-        onCancel={()=>setVisible(null)}
+        onCancel={() => setVisible(null)}
         centered
       >
         <div className="isiModal-notif">
-        <Tabel
-          columns={columns2}
-          rows={content}
-          togglePagination={false}
-          toggleTotal={true}
-        />
-      </div>
+          <Tabel
+            columns={columns2}
+            rows={content}
+            togglePagination={false}
+            toggleTotal={true}
+          />
+        </div>
       </Modal>
-      )
-    }
+    );
+  }
 
-  function detail (id, data) { 
+  function detail(id, data) {
     return (
-    <div>
-      <Button className="btn_primary" onClick={() => setVisible(id)}>Lihat Detail</Button>
-      {DataModal(id, data)}
-    </div>
-  )
+      <div>
+        <Button className="btn_primary" onClick={() => setVisible(id)}>
+          Lihat Detail
+        </Button>
+        {DataModal(id, data)}
+      </div>
+    );
   }
 
   const columns2 = [
@@ -185,28 +185,27 @@ export default function RiwayatTransaksi() {
     },
   ];
 
-
   const columns = [
     {
       align: "center",
-      name: "No"
+      name: "No",
     },
     {
       align: "left",
-      name: "Transaksi"
+      name: "Transaksi",
     },
     {
       align: "center",
-      name: "Tipe"
+      name: "Tipe",
     },
     {
       align: "center",
-      name: "Total"
+      name: "Total",
     },
     {
       align: "center",
-      name: "Aksi"
-    }
+      name: "Aksi",
+    },
   ];
 
   return (
@@ -219,7 +218,12 @@ export default function RiwayatTransaksi() {
           <Sidebar role={4} />
         </Layout.Sider>
         <Layout.Content style={{ backgroundColor: "white" }}>
-          <Riwayat rows={rows} columns = {columns} total = "Rp. 8.000.000" masuk="1.000.000"/>
+          <Riwayat
+            rows={rows}
+            columns={columns}
+            total="Rp. 8.000.000"
+            masuk="1.000.000"
+          />
         </Layout.Content>
       </Layout>
     </Layout>

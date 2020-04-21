@@ -12,11 +12,11 @@ export default function Index(props) {
     <Avatar size={90}  /> 
     </div>
     <div className="namaberat">
-        <p className="titlebarang">{data.nama}</p>
-        <p className="beratbarang">{data.berat}</p>
+        <p className="titlebarang">{data.item}</p>
+        <p className="beratbarang">{data.weight}</p>
         </div>
         <div className="hargabarang">
-            <p className="hargabarang">Rp. {data.harga}</p>
+            <p className="hargabarang">Rp. {data.sellPrice}</p>
         </div>
     </div>
   );

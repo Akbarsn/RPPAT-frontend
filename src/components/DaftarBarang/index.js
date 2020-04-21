@@ -23,7 +23,7 @@ export default function Index(props) {
 
   useEffect(() => {
     const results = data.filter((datas) => {
-      const namalower = datas.nama.toLowerCase();
+      const namalower = datas.item.toLowerCase();
       return namalower.toString().includes(searchTerm.toLowerCase());
     });
     setSearchResults(results);
