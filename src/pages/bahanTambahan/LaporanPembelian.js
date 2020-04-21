@@ -9,8 +9,7 @@ export default function LaporanPembelian() {
   const [rows, setRows] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  const token =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Mywicm9sZSI6MCwiaWF0IjoxNTg3MTA2MDI3fQ.kj1O6_Kyw0vNdKYPP5CNWKBABHqSmNSjHW_b5WonTz0";
+  const token = localStorage.getItem("token");
   useEffect(() => {
     const fetchData = async () => {
       const result = await API.get("/bahan-tambahan/laporan/pembelian", {

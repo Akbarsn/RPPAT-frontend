@@ -6,10 +6,11 @@ import "./Navbar.scss";
 import { DownOutlined, BellOutlined } from "@ant-design/icons";
 
 export default function Navbar(props) {
+  const name = localStorage.getItem('name')
 
   function handleLogOut() {
-      localStorage.clear();
-      window.location.replace("/")
+    localStorage.clear();
+    window.location.replace("/");
   }
   const menu = (
     <Menu>
@@ -42,7 +43,7 @@ export default function Navbar(props) {
                 <Col flex={2}>
                   <Dropdown overlay={menu}>
                     <Row align="middle" justify="space-between" id="helloNav">
-                      <Col className="navHeader">Hello {props.name}</Col>
+                      <Col className="navHeader">Hello {name}</Col>
                       <Col>
                         <DownOutlined className="icon" />
                       </Col>

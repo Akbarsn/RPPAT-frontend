@@ -5,6 +5,8 @@ import Konten from "../../components/detailPembayaran";
 import { Layout } from "antd";
 
 export default function DetailPembayaran() {
+  const token = localStorage.getItem("token");
+
   const account = [
     {
       index: 0,

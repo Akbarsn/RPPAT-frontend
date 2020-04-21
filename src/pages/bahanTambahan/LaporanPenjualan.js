@@ -7,8 +7,8 @@ import API from "../API";
 
 export default function LaporanPenjualan() {
   const [rows, setrows] = useState([]);
-  const token =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwicm9sZSI6MSwiaWF0IjoxNTg3MTEwMTIxfQ.qjlk2sLXjhoVu7re-h3YaKYkFzxMbVZ6qHjGqs1YJp0";
+  const token = localStorage.getItem("token");
+
   useEffect(() => {
     const fetchData = async () => {
       let result;

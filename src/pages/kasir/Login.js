@@ -99,7 +99,7 @@ export default function Login(props) {
               size="large"
               htmlType="submit"
               className="btn_primary"
-              style={{marginBottom: "2rem"}}
+              style={{ marginBottom: "2rem" }}
               onClick={(e) => {
                 submit(e);
               }}

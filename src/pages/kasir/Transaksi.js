@@ -7,7 +7,7 @@ import API from "../API";
 
 export default function Transaction() {
   const [data, setdata] = useState([]);
-  const token = "";
+  const token = localStorage.getItem("token")
 
   useEffect(() => {
     const fetchData = async () => {
