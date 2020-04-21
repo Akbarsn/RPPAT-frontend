@@ -65,11 +65,16 @@ export default function Register() {
 
   async function onStep4 (values) {
     setLoading(true);
-    let bankacc = [];
-    let banknum = [];
+    let bankacc = "";
+    let banknum = "";
     for(let i = 0; i < bank.banks.length; i++){
-      bankacc.push(bank.banks[i].bankAcc);
-      banknum.push(bank.banks[i].bankNumber);
+      if(i === 0){
+        bankacc+=(bank.banks[i].bankAcc);
+      banknum+=(bank.banks[i].bankNumber);
+      } else {
+      bankacc+="-"+(bank.banks[i].bankAcc);
+      banknum+="-"+(bank.banks[i].bankNumber);
+      }
     }
     const data = { ...step1, ...step2, ...values };
     data.birthDate = data.birthDate.format("YYYY-MM-DD");
@@ -85,8 +90,8 @@ export default function Register() {
       form.append('username', data.username);
       form.append('password', data.password);
       form.append('IDCard', data.upload[0].originFileObj);
-      form.append('bankAccount', JSON.stringify(bankacc));
-      form.append('bankNumber', JSON.stringify(banknum)); 
+      form.append('bankAccount',bankacc);
+      form.append('bankNumber', banknum); 
       form.append('role', data.role);
       console.log(...form)
       let hasil = await axios.post('http://31.220.50.154:5000/auth/register', form, {

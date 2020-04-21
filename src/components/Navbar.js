@@ -6,14 +6,19 @@ import "./Navbar.scss";
 import { DownOutlined, BellOutlined } from "@ant-design/icons";
 
 export default function Navbar(props) {
+
+  function handleLogOut() {
+      localStorage.clear();
+      window.location.replace("/")
+  }
   const menu = (
     <Menu>
       <Menu.Item key="editProfile" className="dropdownMenu">
         <Link to="/ganti-profile">Ganti Profile</Link>
       </Menu.Item>
 
-      <Menu.Item key="logOut" className="dropdownMenu">
-        <Link to="/keluar">Keluar</Link>
+      <Menu.Item key="logOut" className="dropdownMenu" onClick={handleLogOut}>
+        Keluar
       </Menu.Item>
     </Menu>
   );

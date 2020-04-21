@@ -157,7 +157,7 @@ export default function Laporan(props) {
               size="large"
               htmlType="submit"
               className="btn_primary"
-              onClick={() => {loading ? setVisible(true):
+              onClick={() => {props.loading ? setVisible(true):
                 setVisible(false);
               }}
             >

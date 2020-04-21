@@ -28,13 +28,14 @@ export default function Login(props) {
         localStorage.setItem("token", hasil.data.token);
         var decoded = jwt.decode(hasil.data.token);
         console.log(decoded);
+        localStorage.setItem("role", decoded.role);
+        localStorage.setItem("id", decoded.id)
         switch(decoded.role){
-          case 0: window.location.replace("/register"); break;
-          case 1: window.location.replace("/register"); break;
-          case 2: window.location.replace("/register"); break;
-          case 3: window.location.replace("/register"); break;
-          case 4: window.location.replace("/register"); break;
-          case 5: window.location.replace("/register"); break;
+          case 0: window.location.replace("/petani"); break;
+          case 1: window.location.replace("/pemasok-kemasan"); break;
+          case 2: window.location.replace("/pemasok-bahan-tambahan"); break;
+          case 3: window.location.replace("/umkm"); break;
+          case 4: window.location.replace("/outlet"); break;
         }
       } catch (e) {
         switch (e.response) {

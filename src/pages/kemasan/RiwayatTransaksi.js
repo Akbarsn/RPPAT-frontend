@@ -13,121 +13,148 @@ export default function RiwayatTransaksi() {
 
   const token =
     "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Miwicm9sZSI6MywiaWF0IjoxNTg3MDkzMzk4fQ.7ebbcyp6H9SxRaDjgiUdBKZk6m80lqkn37R6o0OU47M";
-  useEffect(() => {
-    const fetchData = async () => {
-      let result;
-      result = await API.get("/kemasan/riwayat-transaksi", {
-        headers: {
-          Authorization: `bearer ${token}`,
-        },
-      });
-
-      console.log(result);
-
-      let stok = [];
-      let no = 0;
-      let inside = [];
-      result.data.data.itemDetail.map((item) => {
-        let temp;
-        for (let i = 0; i < 6; i++) {
-          switch (i) {
-            case 0:
-              temp = {
-                value: ++no,
-                align: "center",
-              };
-              inside.push(temp);
-              break;
-            case 1:
-              temp = {
-                value: item.item,
-                align: "left",
-              };
-              inside.push(temp);
-              break;
-            case 2:
-              temp = {
-                value: item.grade,
-                align: "center",
-              };
-              inside.push(temp);
-              break;
-            case 3:
-              temp = {
-                value: item.qty,
-                align: "center",
-              };
-              inside.push(temp);
-              break;
-            case 4:
-              temp = {
-                value: item.unit,
-                align: "center",
-              };
-              inside.push(temp);
-              break;
-              case 5:
-              temp = {
-                value: item.price,
-                align: "right",
-              };
-              inside.push(temp);
-              break;
-          }
-        }
+    useEffect(() => {
+      const fetchData = async () => {
+        let result;
+        result = await API.get("/kemasan/riwayat-transaksi", {
+          headers: {
+            Authorization: `bearer ${token}`,
+          },
         });
-      stok.push({data:inside});
-      let inside2 = [];
-      let stok2 = [];
-      let no2 = 0;
-      result.data.data.map((item) => {
-        let temp;
-        for (let i = 0; i < 6; i++) {
-          switch (i) {
-            case 0:
-              temp = {
-                value: ++no2,
-                align: "center",
-              };
-              inside2.push(temp);
-              break;
-            case 1:
-              temp = {
-                value: item.name,
-                align: "left",
-              };
-              inside2.push(temp);
-              break;
-            case 2:
-              temp = {
-                value: item.status,
-                align: "center",
-              };
-              inside2.push(temp);
-              break;
-            case 3:
-              temp = {
-                value: item.total,
-                align: "center",
-              };
-              inside2.push(temp);
-              break;
-            case 4:
-              temp = {
-                value: detail(no, stok),
-                align: "center",
-              };
-              inside2.push(temp);
-              break;
+  
+        console.log(result);
+  
+        let stok = [];
+        let no = 0;
+        let inside = [];
+        let inside2 = [];
+        let stok2 = [];
+        result.data.data.map((item) => {
+          const allItem = JSON.parse(item.itemDetail);
+          let temp;
+          allItem.map((item) => {
+          for (let i = 0; i < 6; i++) {
+            switch (i) {
+              case 0:
+                temp = {
+                  value: ++no,
+                  align: "center",
+                };
+                inside.push(temp);
+                break;
+              case 1:
+                temp = {
+                  value: item.item,
+                  align: "left",
+                };
+                inside.push(temp);
+                break;
+              case 2:
+                temp = {
+                  value: item.qty,
+                  align: "center",
+                };
+                inside.push(temp);
+                break;
+              case 3:
+                temp = {
+                  value: item.unit,
+                  align: "center",
+                };
+                inside.push(temp);
+                break;
+              case 4:
+                temp = {
+                  value: item.sellPrice,
+                  align: "center",
+                };
+                inside.push(temp);
+                break;
+                case 5:
+                temp = {
+                  value: item.sellPrice*item.qty,
+                  align: "right",
+                };
+                inside.push(temp);
+                break;
+            }
           }
-        }
-        });
-        stok2.push({data:inside2});
-      setRows(stok2);
-    };
-
-    fetchData();
-  }, []);
+          stok.push({data:inside});
+          });
+        let no2 = 0;
+          for (let i = 0; i < 6; i++) {
+            switch (i) {
+              case 0:
+                temp = {
+                  value: ++no2,
+                  align: "center",
+                };
+                inside2.push(temp);
+                break;
+              case 1:
+                temp = {
+                  value: item.name,
+                  align: "left",
+                };
+                inside2.push(temp);
+                break;
+              case 2:
+                temp = {
+                  value: item.status,
+                  align: "center",
+                };
+                inside2.push(temp);
+                break;
+              case 3:
+                temp = {
+                  value: item.total,
+                  align: "center",
+                };
+                inside2.push(temp);
+                break;
+              case 4:
+                temp = {
+                  value: detail(no, stok),
+                  align: "center",
+                };
+                inside2.push(temp);
+                break;
+            }
+          }
+          stok2.push({data:inside2});
+          });
+        setRows(stok2);
+      };
+  
+      fetchData();
+    }, []);
+  
+    const columns2 = [
+      {
+        align: "center",
+        name: "No",
+      },
+      {
+        align: "left",
+        name: "Nama Produk",
+      },
+      {
+        align: "center",
+        name: "Stok",
+      },
+      {
+        align: "center",
+        name: "Satuan Kemasan",
+      },
+      {
+        align: "center",
+        name: "Harga Satuan",
+      },
+      {
+        align: "right",
+        name: "Total",
+      },
+    ];
 
 
   function DataModal(id, content) {
@@ -165,25 +192,6 @@ export default function RiwayatTransaksi() {
     </div>
   )
   }
-
-  const columns2 = [
-    {
-      align: "center",
-      name: "No",
-    },
-    {
-      align: "left",
-      name: "Barang",
-    },
-    {
-      align: "center",
-      name: "Qty",
-    },
-    {
-      align: "right",
-      name: "Total",
-    },
-  ];
 
 
   const columns = [
