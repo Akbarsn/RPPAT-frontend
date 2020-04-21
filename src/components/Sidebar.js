@@ -11,6 +11,7 @@ import {
   TransactionOutlined,
   UserAddOutlined,
   UnorderedListOutlined,
+  HomeOutlined,
 } from "@ant-design/icons";
 import SubMenu from "antd/lib/menu/SubMenu";
 
@@ -48,6 +49,14 @@ function getMenu(role) {
     case 0:
       menu = (
         <Menu mode="inline" id="sidebar">
+          <Menu.Item className="item primary">
+            <Link className="link" to="/petani">
+              <Row align="middle">
+                <HomeOutlined className="primary" />
+                Beranda
+              </Row>
+            </Link>
+          </Menu.Item>
           <SubMenu
             key="laporan"
             className="item"
@@ -63,6 +72,7 @@ function getMenu(role) {
                 Penjualan
               </Link>
             </Menu.Item>
+
             <Menu.Item className="secondary">
               <Link className="link" to="/petani/laporan/stok-panen">
                 Stok Panen
@@ -93,6 +103,14 @@ function getMenu(role) {
     case 1:
       menu = (
         <Menu mode="inline" id="sidebar">
+          <Menu.Item className="item primary">
+            <Link className="link" to="/pemasok-kemasan">
+              <Row align="middle">
+                <HomeOutlined className="primary" />
+                Beranda
+              </Row>
+            </Link>
+          </Menu.Item>
           <SubMenu
             key="laporan"
             className="item"
@@ -138,6 +156,14 @@ function getMenu(role) {
     case 2:
       menu = (
         <Menu mode="inline" id="sidebar">
+          <Menu.Item className="item primary">
+            <Link className="link" to="/pemasok-bahan-tambahan">
+              <Row align="middle">
+                <HomeOutlined className="primary" />
+                Beranda
+              </Row>
+            </Link>
+          </Menu.Item>
           <SubMenu
             key="laporan"
             className="item"
@@ -189,6 +215,14 @@ function getMenu(role) {
     case 3:
       menu = (
         <Menu mode="inline" id="sidebar">
+          <Menu.Item className="item primary">
+            <Link className="link" to="/umkm">
+              <Row align="middle">
+                <HomeOutlined className="primary" />
+                Beranda
+              </Row>
+            </Link>
+          </Menu.Item>
           <SubMenu
             key="laporan"
             className="item"
@@ -279,6 +313,14 @@ function getMenu(role) {
     case 4:
       menu = (
         <Menu mode="inline" id="sidebar">
+          <Menu.Item className="item primary">
+            <Link className="link" to="/outlet">
+              <Row align="middle">
+                <HomeOutlined className="primary" />
+                Beranda
+              </Row>
+            </Link>
+          </Menu.Item>
           <SubMenu
             key="laporan"
             className="item"
@@ -342,6 +384,14 @@ function getMenu(role) {
     case 5:
       menu = (
         <Menu mode="inline" id="sidebar">
+          <Menu.Item className="item primary">
+            <Link className="link" to="/kasir">
+              <Row align="middle">
+                <HomeOutlined className="primary" />
+                Beranda
+              </Row>
+            </Link>
+          </Menu.Item>
           <Menu.Item className="item primary">
             <Link className="link" to="/kasir">
               <Row align="middle">

@@ -9,8 +9,8 @@ export default function LaporanStokPanen() {
   const [rows, setRows] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  const token =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Mywicm9sZSI6MCwiaWF0IjoxNTg3NDUxNzQzfQ.UUmruA6QJEKYL03Uk5plqsUALHltoBrVFeqL6Om-dj4";
+  const token = localStorage.getItem("token");
+
   useEffect(() => {
     const fetchData = async () => {
       const result = await API.get("/petani/laporan/stok-panen", {
@@ -73,10 +73,10 @@ export default function LaporanStokPanen() {
               break;
           }
         }
-        stock.push({data:inside});
+        stock.push({ data: inside });
       });
 
-      console.log(stock)
+      console.log(stock);
 
       setRows(stock);
     };
@@ -112,19 +112,19 @@ export default function LaporanStokPanen() {
 
   const handleSubmit = async (value) => {
     try {
-      setLoading(true)
+      setLoading(true);
       const result = await API.post("/petani/laporan", value, {
         headers: {
-          'Authorization': `bearer ${token}`,
+          Authorization: `bearer ${token}`,
           "content-type": "application/json",
         },
       });
 
-      console.log(result)
+      console.log(result);
 
-      if(result.status){
-        window.location.reload()
-        setLoading(false)
+      if (result.status) {
+        window.location.reload();
+        setLoading(false);
       }
     } catch (e) {}
   };

@@ -8,8 +8,7 @@ import API from "../API";
 export default function LaporanProduksi() {
   const [rows, setrows] = useState([]);
   const [loading, setLoading] = useState(false);
-  const token =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Miwicm9sZSI6MywiaWF0IjoxNTg3MTA0OTUwfQ.7YBVRXsEtVh7MBnE_fmFyfV2rHOIBi8H8z9HU_ZprUk";
+  const token = localStorage.getItem("token");
   useEffect(() => {
     const fetchData = async () => {
       let result;
@@ -112,7 +111,7 @@ export default function LaporanProduksi() {
 
   const handleSubmit = async (value) => {
     try {
-      console.log(value)
+      console.log(value);
       const result = await API.post("/umkm/laporan", value, {
         headers: {
           Authorization: `bearer ${token}`,

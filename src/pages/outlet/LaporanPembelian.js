@@ -7,8 +7,8 @@ import API from "../API";
 
 export default function LaporanPembelian() {
   const [rows, setrows] = useState([]);
-  const token =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6NCwiaWF0IjoxNTg3MTA3NzEzfQ.M86Vr0Kw5u1MV-n7Dz-UM74BOpO0u-PvUv9khyu0c6s";
+  const token = localStorage.getItem("token");
+
   useEffect(() => {
     const fetchData = async () => {
       let result;
@@ -67,7 +67,7 @@ export default function LaporanPembelian() {
             }
           }
         });
-        buying.push({data:inside});
+        buying.push({ data: inside });
       });
 
       setrows(buying);

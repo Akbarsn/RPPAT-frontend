@@ -8,10 +8,9 @@ import API from "../API";
 export default function LihatStok() {
   const [rows, setRows] = useState([]);
   const [visible, setVisible] = useState(0);
-  const [something, setSomething] = useState(0);
 
-  const token =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Mywicm9sZSI6MCwiaWF0IjoxNTg3NDUxNzQzfQ.UUmruA6QJEKYL03Uk5plqsUALHltoBrVFeqL6Om-dj4";
+  const token = localStorage.getItem("token");
+
   useEffect(() => {
     const fetchData = async () => {
       let result;
@@ -73,13 +72,13 @@ export default function LihatStok() {
               };
               inside.push(temp);
               break;
-            case 6:
-              temp = {
-                value: detail(no, item),
-                align: "center",
-              };
-              inside.push(temp);
-              break;
+            // case 6:
+            //   temp = {
+            //     value: detail(no, item),
+            //     align: "center",
+            //   };
+            //   inside.push(temp);
+            //   break;
           }
         }
         stok.push({ data: inside });
@@ -115,160 +114,157 @@ export default function LihatStok() {
       align: "center",
       name: "Harga per Satuan",
     },
-    {
-      align: "center",
-      name: "Edit Stok",
-    },
+    // {
+    //   align: "center",
+    //   name: "Edit Stok",
+    // },
   ];
 
-  const handleSubmit = (value) => {};
+  // const handleSubmit = (value) => {};
 
-  function DataModal(id, content) {
-    return (
-      <Modal
-        title={[<div className="title-modalpembayaran">Rubah Stok</div>]}
-        footer={false}
-        visible={visible === id}
-        onCancel={() => setVisible(null)}
-        centered
-      >
-        <div className="isiModal-notif">
-          <Form
-            layout="vertical"
-            onFinish={handleSubmit}
-            initialValues={content}
-          >
-            <Form.Item
-              label="Jenis apel"
-              name="item"
-              rules={[
-                {
-                  required: true,
-                  message: "Isi jenis apel",
-                },
-              ]}
-            >
-              <Input />
-            </Form.Item>
+  // function DataModal(id, content) {
+  //   return (
+  //     <Modal
+  //       title={[<div className="title-modalpembayaran">Rubah Stok</div>]}
+  //       footer={false}
+  //       visible={visible === id}
+  //       onCancel={() => setVisible(null)}
+  //       centered
+  //     >
+  //       <div className="isiModal-notif">
+  //         <Form
+  //           layout="vertical"
+  //           onFinish={handleSubmit}
+  //           initialValues={content}
+  //         >
+  //           <Form.Item
+  //             label="Jenis apel"
+  //             name="item"
+  //             rules={[
+  //               {
+  //                 required: true,
+  //                 message: "Isi jenis apel",
+  //               },
+  //             ]}
+  //           >
+  //             <Input />
+  //           </Form.Item>
 
-            <Row justify="space-around" gutter={[24, 24]}>
-              <Col span={12}>
-                <Form.Item
-                  key="grade"
-                  label="Grade"
-                  name="grade"
-                  rules={[
-                    {
-                      required: true,
-                      message: "Pilih grade apel anda",
-                    },
-                  ]}
-                >
-                  <Select>
-                    <Select.Option key="A" value="A">
-                      A
-                    </Select.Option>
-                    <Select.Option key="B" value="B">
-                      B
-                    </Select.Option>
-                    <Select.Option key="C" value="C">
-                      C
-                    </Select.Option>
-                    <Select.Option key="D" value="D">
-                      D
-                    </Select.Option>
-                    <Select.Option key="E" value="E">
-                      E
-                    </Select.Option>
-                  </Select>
-                </Form.Item>
-              </Col>
-              <Col span={12}>
-                <Form.Item
-                  label="Jumlah Stok"
-                  name="qty"
-                  rules={[
-                    {
-                      required: true,
-                      message: "Isi jumlah stok anda",
-                    },
-                  ]}
-                >
-                  <Input />
-                </Form.Item>
-              </Col>
-              <Col span={12}>
-                <Form.Item
-                  label="Harga per Satuan"
-                  name="price"
-                  rules={[
-                    {
-                      required: true,
-                      message: "Isi Harga per satuan anda",
-                    },
-                  ]}
-                >
-                  <Input type="number" />
-                </Form.Item>
-              </Col>
-              <Col span={12}>
-                <Form.Item
-                  label="Satuan"
-                  name="unit"
-                  rules={[
-                    {
-                      required: true,
-                      message: "Isi satuan stok anda",
-                    },
-                  ]}
-                >
-                  <Input />
-                </Form.Item>
-              </Col>
-            </Row>
-          </Form>
+  //           <Row justify="space-around" gutter={[24, 24]}>
+  //             <Col span={12}>
+  //               <Form.Item
+  //                 key="grade"
+  //                 label="Grade"
+  //                 name="grade"
+  //                 rules={[
+  //                   {
+  //                     required: true,
+  //                     message: "Pilih grade apel anda",
+  //                   },
+  //                 ]}
+  //               >
+  //                 <Select>
+  //                   <Select.Option key="A" value="A">
+  //                     A
+  //                   </Select.Option>
+  //                   <Select.Option key="B" value="B">
+  //                     B
+  //                   </Select.Option>
+  //                   <Select.Option key="C" value="C">
+  //                     C
+  //                   </Select.Option>
+  //                   <Select.Option key="D" value="D">
+  //                     D
+  //                   </Select.Option>
+  //                   <Select.Option key="E" value="E">
+  //                     E
+  //                   </Select.Option>
+  //                 </Select>
+  //               </Form.Item>
+  //             </Col>
+  //             <Col span={12}>
+  //               <Form.Item
+  //                 label="Jumlah Stok"
+  //                 name="qty"
+  //                 rules={[
+  //                   {
+  //                     required: true,
+  //                     message: "Isi jumlah stok anda",
+  //                   },
+  //                 ]}
+  //               >
+  //                 <Input />
+  //               </Form.Item>
+  //             </Col>
+  //             <Col span={12}>
+  //               <Form.Item
+  //                 label="Harga per Satuan"
+  //                 name="price"
+  //                 rules={[
+  //                   {
+  //                     required: true,
+  //                     message: "Isi Harga per satuan anda",
+  //                   },
+  //                 ]}
+  //               >
+  //                 <Input type="number" />
+  //               </Form.Item>
+  //             </Col>
+  //             <Col span={12}>
+  //               <Form.Item
+  //                 label="Satuan"
+  //                 name="unit"
+  //                 rules={[
+  //                   {
+  //                     required: true,
+  //                     message: "Isi satuan stok anda",
+  //                   },
+  //                 ]}
+  //               >
+  //                 <Input />
+  //               </Form.Item>
+  //             </Col>
+  //           </Row>
+  //         </Form>
 
-          <Row justify="space-around">
-            <Button
-              type="secondary"
-              size="large"
-              onClick={() => setVisible(null)}
-              className="btn_secondary"
-            >
-              Batal
-            </Button>
+  //         <Row justify="space-around">
+  //           <Button
+  //             type="secondary"
+  //             size="large"
+  //             onClick={() => setVisible(null)}
+  //             className="btn_secondary"
+  //           >
+  //             Batal
+  //           </Button>
 
-            <Button
-              type="primary"
-              size="large"
-              htmlType="submit"
-              className="btn_primary"
-            >
-              Submit
-            </Button>
-          </Row>
-        </div>
-      </Modal>
-    );
-  }
+  //           <Button
+  //             type="primary"
+  //             size="large"
+  //             htmlType="submit"
+  //             className="btn_primary"
+  //           >
+  //             Submit
+  //           </Button>
+  //         </Row>
+  //       </div>
+  //     </Modal>
+  //   );
+  // }
 
-  function detail(id, data) {
-    return (
-      <div>
-        <Button
-          className="btn_primary"
-          onClick={async () => {
-            const done = await setVisible(id);
-            console.log(visible);
-          }}
-        >
-          Lihat Detail
-        </Button>
+  // function detail(id, data) {
+  //   return (
+  //     <div>
+  //       <Button
+  //         className="btn_primary"
+  //         onClick={(id)=>setVisible(id)}
+  //       >
+  //         Lihat Detail
+  //       </Button>
 
-        {DataModal(id, data)}
-      </div>
-    );
-  }
+  //       {DataModal(id, data)}
+  //     </div>
+  //   );
+  // }
 
   return (
     <Layout>

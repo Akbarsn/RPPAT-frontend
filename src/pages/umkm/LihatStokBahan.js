@@ -1,16 +1,14 @@
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import Navbar from "../../components/Navbar";
 import Sidebar from "../../components/Sidebar";
 import { Layout } from "antd";
 import Lihat from "../../components/lihatstok";
-import API from '../API'
+import API from "../API";
 
 export default function LihatStokBahan() {
-
   const [rows, setRows] = useState([]);
 
-  const token =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Miwicm9sZSI6MywiaWF0IjoxNTg3MDkzMzk4fQ.7ebbcyp6H9SxRaDjgiUdBKZk6m80lqkn37R6o0OU47M";
+  const token = localStorage.getItem("token");
   useEffect(() => {
     const fetchData = async () => {
       let result;
@@ -64,7 +62,7 @@ export default function LihatStokBahan() {
               };
               inside.push(temp);
               break;
-              case 5:
+            case 5:
               temp = {
                 value: item.sellPrice,
                 align: "left",
@@ -73,8 +71,8 @@ export default function LihatStokBahan() {
               break;
           }
         }
-        });
-      stok.push({data:inside});
+      });
+      stok.push({ data: inside });
 
       setRows(stok);
     };
@@ -85,28 +83,28 @@ export default function LihatStokBahan() {
   const columns = [
     {
       align: "center",
-      name: "No"
+      name: "No",
     },
     {
       align: "left",
-      name: "Nama Produk"
+      name: "Nama Produk",
     },
     {
       align: "center",
-      name: "Jumlah"
+      name: "Jumlah",
     },
     {
       align: "center",
-      name: "Satuan Kemasan"
+      name: "Satuan Kemasan",
     },
     {
       align: "left",
-      name: "Harga Beli per Kemasan"
+      name: "Harga Beli per Kemasan",
     },
     {
       align: "left",
-      name: "Harga Jual per Kemasan"
-    }
+      name: "Harga Jual per Kemasan",
+    },
   ];
 
   return (

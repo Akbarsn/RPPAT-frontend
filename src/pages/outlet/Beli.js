@@ -8,8 +8,7 @@ import API from "../API";
 
 export default function Beli() {
   const [cardData, setCardData] = useState([]);
-  const token =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Miwicm9sZSI6MywiaWF0IjoxNTg3MjExNDMxfQ.N4EQoL37I4yqkFROaUyHw31X2ykIG9ypVrNT3LWi7uI";
+  const token = localStorage.getItem("token");
 
   useEffect(() => {
     const fetchData = async () => {
@@ -62,7 +61,11 @@ export default function Beli() {
           <Sidebar role={4} />
         </Layout.Sider>
         <Layout.Content style={{ backgroundColor: "white" }}>
-          <BeliBahan nama="Produk" search="Cari produk disini" data={cardData} />
+          <BeliBahan
+            nama="Produk"
+            search="Cari produk disini"
+            data={cardData}
+          />
         </Layout.Content>
       </Layout>
     </Layout>

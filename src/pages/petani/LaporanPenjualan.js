@@ -7,8 +7,8 @@ import API from "../API";
 
 export default function LaporanPenjualan() {
   const [rows, setrows] = useState([]);
-  const token =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Mywicm9sZSI6MCwiaWF0IjoxNTg3MTA2MDI3fQ.kj1O6_Kyw0vNdKYPP5CNWKBABHqSmNSjHW_b5WonTz0";
+  const token = localStorage.getItem("token");
+
   useEffect(() => {
     const fetchData = async () => {
       let result;
@@ -67,7 +67,7 @@ export default function LaporanPenjualan() {
             }
           }
         });
-        buying.push({data:inside});
+        buying.push({ data: inside });
       });
 
       setrows(buying);

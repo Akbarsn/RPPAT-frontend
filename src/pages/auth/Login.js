@@ -25,17 +25,29 @@ export default function Login(props) {
           "http://31.220.50.154:5000/auth/login",
           user
         );
-        localStorage.setItem("token", hasil.data.token);
-        localStorage.setItem("name", hasil.user.name);
         var decoded = jwt.decode(hasil.data.token);
         console.log(decoded);
+        localStorage.setItem("token", hasil.data.token);
         localStorage.setItem("role", decoded.role);
-        switch(decoded.role){
-          case 0: window.location.replace("/petani"); break;
-          case 1: window.location.replace("/pemasok-kemasan"); break;
-          case 2: window.location.replace("/pemasok-bahan-tambahan"); break;
-          case 3: window.location.replace("/umkm"); break;
-          case 4: window.location.replace("/outlet"); break;
+        localStorage.setItem("id", decoded.id);
+        localStorage.setItem("name", hasil.user.name);
+
+        switch (decoded.role) {
+          case 0:
+            window.location.replace("/petani");
+            break;
+          case 1:
+            window.location.replace("/pemasok-kemasan");
+            break;
+          case 2:
+            window.location.replace("/pemasok-bahan-tambahan");
+            break;
+          case 3:
+            window.location.replace("/umkm");
+            break;
+          case 4:
+            window.location.replace("/outlet");
+            break;
         }
       } catch (e) {
         switch (e.response) {

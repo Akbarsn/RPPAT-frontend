@@ -11,8 +11,7 @@ export default function Home() {
   let buying = 0;
   let selling = 0;
   let shopping = 0;
-  const token =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Miwicm9sZSI6MywiaWF0IjoxNTg3MDkzMzk4fQ.7ebbcyp6H9SxRaDjgiUdBKZk6m80lqkn37R6o0OU47M";
+  const token = localStorage.getItem("token");
 
   useEffect(() => {
     const fetchData = async () => {
@@ -26,7 +25,7 @@ export default function Home() {
       } catch (e) {
         switch (e.response) {
           case 403:
-            alert("Silahkan Login terlebih dahulu")
+            alert("Silahkan Login terlebih dahulu");
             window.location.replace("/");
         }
       }

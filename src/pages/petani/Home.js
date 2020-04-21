@@ -11,8 +11,7 @@ export default function Home() {
   let buying = 0;
   let selling = 0;
   let shopping = 0;
-  const token =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Mywicm9sZSI6MCwiaWF0IjoxNTg3MTA2MDI3fQ.kj1O6_Kyw0vNdKYPP5CNWKBABHqSmNSjHW_b5WonTz0";
+  const token = localStorage.getItem("token");
 
   useEffect(() => {
     const fetchData = async () => {
