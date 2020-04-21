@@ -105,7 +105,7 @@ export default function LaporanStokPanen() {
       name: "Satuan",
     },
     {
-      align: "center",
+      align: "right",
       name: "Harga per Satuan",
     },
   ];

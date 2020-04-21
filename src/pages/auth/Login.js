@@ -27,7 +27,15 @@ export default function Login(props) {
         );
         localStorage.setItem("token", hasil.data.token);
         var decoded = jwt.decode(hasil.data.token);
-        window.location.replace("/register");
+        console.log(decoded);
+        switch(decoded.role){
+          case 0: window.location.replace("/register"); break;
+          case 1: window.location.replace("/register"); break;
+          case 2: window.location.replace("/register"); break;
+          case 3: window.location.replace("/register"); break;
+          case 4: window.location.replace("/register"); break;
+          case 5: window.location.replace("/register"); break;
+        }
       } catch (e) {
         switch (e.response) {
           case 406:

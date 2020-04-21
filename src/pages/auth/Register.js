@@ -65,8 +65,14 @@ export default function Register() {
 
   async function onStep4 (values) {
     setLoading(true);
-    const data = { ...step1, ...step2, ...bank, ...values };
-    // data.birthDate = data.birthDate.format("YYYY-MM-DD");
+    let bankacc = [];
+    let banknum = [];
+    for(let i = 0; i < bank.banks.length; i++){
+      bankacc.push(bank.banks[i].bankAcc);
+      banknum.push(bank.banks[i].bankNumber);
+    }
+    const data = { ...step1, ...step2, ...values };
+    data.birthDate = data.birthDate.format("YYYY-MM-DD");
     let nama = getNama(data.fullName);
     try {
       let form = new FormData();
@@ -78,9 +84,9 @@ export default function Register() {
       form.append('email', data.email);
       form.append('username', data.username);
       form.append('password', data.password);
-      form.append('IDCard', data.upload[0]);
-      form.append('bankAccount', data.bankAcc);
-      form.append('bankNumber', data.bankNumber); 
+      form.append('IDCard', data.upload[0].originFileObj);
+      form.append('bankAccount', JSON.stringify(bankacc));
+      form.append('bankNumber', JSON.stringify(banknum)); 
       form.append('role', data.role);
       console.log(...form)
       let hasil = await axios.post('http://31.220.50.154:5000/auth/register', form, {
@@ -89,7 +95,7 @@ export default function Register() {
         }
       })
       switch(hasil.response.status){
-        case 200:console.log('berhasil'); break;
+        case 200:console.log(form); break;
         default: console.log("ya");
       }
     }catch (err){
