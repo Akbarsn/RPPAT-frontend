@@ -257,7 +257,10 @@ export default function LihatStok() {
       <div>
         <Button
           className="btn_primary"
-          onClick={(id)=>setVisible(id)}
+          onClick={async () => {
+            const done = await setVisible(id);
+            console.log(visible);
+          }}
         >
           Lihat Detail
         </Button>

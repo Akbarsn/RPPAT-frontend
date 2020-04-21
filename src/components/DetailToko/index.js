@@ -60,7 +60,7 @@ async function finish (value) {
         }
       }
       console.log(boughtItems);
-      dispatch(handleData(boughtItems))
+      dispatch({type:"ADD_DATA", payload:"yey"})
       setLoading(false);
   }
 
@@ -126,7 +126,7 @@ async function finish (value) {
       <div className="buttongroupbeli">
       
         <Button className="btn_secondary">Kembali</Button>
-        <Button className="btn_primary" htmlType="submit" loading = {loading}>Selanjutnya</Button>
+        <Button className="btn_primary" htmlType="submit" loading = {loading} onClick={()=>window.location.replace("/detail-pembayaran")}>Selanjutnya</Button>
         
       </div>
       </Form.Item>

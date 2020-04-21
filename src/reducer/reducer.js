@@ -1,11 +1,15 @@
-const dataBeli = (state = {}, action) => {
-  switch(action.type){
+const initialState={
+data: {nama:"yey"}
+}
+
+const dataBeli = (state = initialState, {type,payload}) => {
+  switch(type){
     case "ADD_DATA":
       return{
-        data: action.payload
+        data:payload
       }
       default : 
-      return state
+      return payload
   }
 }
 

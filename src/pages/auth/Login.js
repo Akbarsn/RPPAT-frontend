@@ -26,10 +26,10 @@ export default function Login(props) {
           user
         );
         localStorage.setItem("token", hasil.data.token);
+        localStorage.setItem("name", hasil.user.name);
         var decoded = jwt.decode(hasil.data.token);
         console.log(decoded);
         localStorage.setItem("role", decoded.role);
-        localStorage.setItem("id", decoded.id)
         switch(decoded.role){
           case 0: window.location.replace("/petani"); break;
           case 1: window.location.replace("/pemasok-kemasan"); break;
