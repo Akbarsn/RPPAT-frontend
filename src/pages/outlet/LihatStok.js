@@ -119,7 +119,7 @@ export default function LihatStok() {
           <Sidebar role={4} />
         </Layout.Sider>
         <Layout.Content style={{ backgroundColor: "white" }}>
-          <Lihat title="Stok Produk" rows={rows} columns={columns} />
+        <Lihat title="Stok Produk" rows={rows} columns={columns} />
         </Layout.Content>
       </Layout>
     </Layout>

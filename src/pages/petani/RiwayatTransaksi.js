@@ -27,8 +27,12 @@ export default function RiwayatTransaksi() {
       let stok = [];
       let no = 0;
       let inside = [];
-      result.data.data.itemDetail.map((item) => {
+      let inside2 = [];
+      let stok2 = [];
+      result.data.data.map((item) => {
+        const allItem = JSON.parse(item.itemDetail);
         let temp;
+        allItem.map((item) => {
         for (let i = 0; i < 6; i++) {
           switch (i) {
             case 0:
@@ -68,20 +72,16 @@ export default function RiwayatTransaksi() {
               break;
               case 5:
               temp = {
-                value: item.price,
+                value: item.price*item.qty,
                 align: "right",
               };
               inside.push(temp);
               break;
           }
         }
+        stok.push({data:inside});
         });
-      stok.push({data:inside});
-      let inside2 = [];
-      let stok2 = [];
       let no2 = 0;
-      result.data.data.map((item) => {
-        let temp;
         for (let i = 0; i < 6; i++) {
           switch (i) {
             case 0:
@@ -121,13 +121,40 @@ export default function RiwayatTransaksi() {
               break;
           }
         }
-        });
         stok2.push({data:inside2});
+        });
       setRows(stok2);
     };
 
     fetchData();
   }, []);
+
+  const columns2 = [
+    {
+      align: "center",
+      name: "No",
+    },
+    {
+      align: "left",
+      name: "Nama Produk",
+    },
+    {
+      align: "center",
+      name: "Grade",
+    },
+    {
+      align: "center",
+      name: "Stok",
+    },
+    {
+      align: "center",
+      name: "Satuan Kemasan",
+    },
+    {
+      align: "right",
+      name: "Total",
+    },
+  ];
 
 
   function DataModal(id, content) {
@@ -165,25 +192,6 @@ export default function RiwayatTransaksi() {
     </div>
   )
   }
-
-  const columns2 = [
-    {
-      align: "center",
-      name: "No",
-    },
-    {
-      align: "left",
-      name: "Barang",
-    },
-    {
-      align: "center",
-      name: "Qty",
-    },
-    {
-      align: "right",
-      name: "Total",
-    },
-  ];
 
 
   const columns = [
