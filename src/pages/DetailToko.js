@@ -11,22 +11,22 @@ export default function DetailToko() {
       id: 1,
       nama: "Minyak Goreng",
       stok: 1000,
-      harga: "Rp. 11.000",
-      label:"minyakgoreng"
+      harga: 11000,
+      qty: 0
     },
     {
       id: 2,
       nama: "Natrium Benzoat",
       stok: 2000,
-      harga: "Rp. 1.100",
-      label:"natriumbenzoat"
+      harga: 1100,
+      qty: 0
     },
     {
         id: 3,
         nama: "Sorbitol",
         stok: 500,
-        harga: "Rp. 700",
-        label:"sorbitol"
+        harga: 700,
+        qty: 0
       },
 
   ];

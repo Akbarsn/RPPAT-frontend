@@ -1,19 +1,67 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Row, Col, Card, Button, Radio, Form } from "antd";
 import Table from "../Table";
-import {useSelector } from 'react-redux';
+import {useSelector, useDispatch } from 'react-redux';
+import {useHistory} from 'react-router-dom';
 
 import "./DetailPembayaran.scss";
 
 function DetailPembayaran(props) {
-  let data = useSelector(state=>state);
+  let data = useSelector(state=>state.data);
+  const dispatch = useDispatch();
 
-  console.log(data)
-  
+  const history = useHistory();
 
   const [index, setIndex] = useState(0);
   const [bankName, setbankName] = useState(props.bankAccount[0].name);
   const bankDetail = props.bankDetail;
+  const [rows, setRows] = useState([]);
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+      let stok = [];
+      let inside = [];
+      let no =0;
+      for(let k = 0; k < data.length; k++) {
+        let temp;
+          for (let i = 0; i < 4; i++) {
+            switch (i) {
+              case 0:
+                temp = {
+                  value: data[k].no,
+                  align: "center",
+                };
+                inside.push(temp);
+                break;
+              case 1:
+                temp = {
+                  value: data[k].nama,
+                  align: "left",
+                };
+                inside.push(temp);
+                break;
+              case 2:
+                temp = {
+                  value: data[k].qty,
+                  align: "center",
+                };
+                inside.push(temp);
+                break;
+              case 3:
+                temp = {
+                  value: data[k].harga,
+                  align: "right",
+                };
+                inside.push(temp);
+                break;
+            }
+          }
+          stok.push({data:inside});
+          inside = [];
+        };
+        ++no;
+      setRows(stok);
+  }, []);
 
   const handleIndex = (e) => {
     // console.log(e.target.value);
@@ -21,6 +69,13 @@ function DetailPembayaran(props) {
     setIndex(temp[0]);
     setbankName(temp[1]);
   };
+
+  async function handleSelesai(){
+    setLoading(true)
+    props.handleSubmit();
+    dispatch({type:"DELETE_DATA"})
+    setLoading(false)
+  }
 
   return (
     <div style={{ marginLeft: "2rem" }} id="detailPembayaran">
@@ -33,7 +88,7 @@ function DetailPembayaran(props) {
           <Col span={23}>
             <Table
               columns={props.columns}
-              rows={props.rows}
+              rows={rows}
               togglePagination={false}
               toggleTotal={true}
             ></Table>
@@ -85,13 +140,13 @@ function DetailPembayaran(props) {
               <Button
                 type="secondary"
                 className="btn_secondary"
-                onClick={() => {}}
+                onClick={() => history.push('/detail-toko/1')}
               >
                 Back
               </Button>
             </Col>
             <Col span={2}>
-              <Button type="primary" className="btn_primary" onClick={() => {}}>
+              <Button type="primary" className="btn_primary" loading = {loading} onClick={handleSelesai}>
                 Selesai
               </Button>
             </Col>
