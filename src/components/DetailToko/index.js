@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./DetailToko.scss";
 import "../Table.scss";
 import { withStyles } from "@material-ui/core/styles";
@@ -13,15 +13,46 @@ import TablePagination from "@material-ui/core/TablePagination";
 import { Button, Avatar, Form, InputNumber } from "antd";
 import { UserOutlined } from '@ant-design/icons';
 import { useSelector, useDispatch } from 'react-redux';
-import handleData from '../../actions/counterActions';
+import {useHistory} from 'react-router-dom';
 
 const Index = (props) => {
+  const history=useHistory();
+  let coba = useSelector(state=>state.data);
   const dispatch = useDispatch();
+
+  let datas = props.data;
+
+  let values = {0:0, 1:0}
+
+  useEffect(() => {
+    let newData = datas;
+    let newValue = [];
+      if(coba === undefined){
+        newData.map((qty,index) => {
+          newValue.push(qty);
+        })
+      }
+      else{
+        for(let i = 0; i < newData.length; i++){
+          for(let k = 0; k < coba.length; k++){
+            if(newData[i].nama === coba[k].nama){
+              newData[i].qty = coba[k].qty;
+              break;
+            }
+          }
+          newValue.push(newData[i].qty)
+        }
+        values = Object.assign(values,...newValue);
+        datas = newData;
+        console.log(values);
+      }
+  }, [])
 
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [boughtItems, setBoughtItems] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [data, setData] = useState(datas);
 
   const StyledTableCell = withStyles((theme) => ({
     head: {
@@ -43,8 +74,6 @@ const Index = (props) => {
     setPage(0);
   }
 
-  const data = props.data;
-
 async function finish (value) {
     setBoughtItems(null);
     setLoading(true);
@@ -60,14 +89,18 @@ async function finish (value) {
         }
       }
       console.log(boughtItems);
-      dispatch({type:"ADD_DATA", payload:"yey"})
+      dispatch({type:"ADD_DATA", payload:boughtItems})
       setLoading(false);
+      console.log("ya")
+      console.log(values)
+      console.log(value)
+      history.push(props.link)
   }
 
 
   return (
     <div id="detailtoko">
-    <Form onFinish = {finish}>
+    <Form onFinish = {finish} initialValues={values}>
       <div className="titlepage">
         <p>Detail {props.nama}</p>
       </div>
@@ -98,7 +131,7 @@ async function finish (value) {
                 <TableRow key={row}>
                   <StyledTableCell align="left">{row.nama}</StyledTableCell>
                   <StyledTableCell align="center">{row.stok}</StyledTableCell>
-                  <StyledTableCell align="center">{row.harga}</StyledTableCell>
+                  <StyledTableCell align="center">Rp. {row.harga}</StyledTableCell>
                   <StyledTableCell align="center">
                     <Form.Item name={index}>
                       <InputNumber
@@ -126,7 +159,7 @@ async function finish (value) {
       <div className="buttongroupbeli">
       
         <Button className="btn_secondary">Kembali</Button>
-        <Button className="btn_primary" htmlType="submit" loading = {loading} onClick={()=>window.location.replace("/detail-pembayaran")}>Selanjutnya</Button>
+        <Button className="btn_primary" htmlType="submit" loading = {loading} >Selanjutnya</Button>
         
       </div>
       </Form.Item>

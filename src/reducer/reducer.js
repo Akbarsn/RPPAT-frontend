@@ -1,5 +1,5 @@
 const initialState={
-data: {nama:"yey"}
+data: ["1","2"]
 }
 
 const dataBeli = (state = initialState, {type,payload}) => {
@@ -8,8 +8,12 @@ const dataBeli = (state = initialState, {type,payload}) => {
       return{
         data:payload
       }
+    case "DELETE_DATA":
+      return{
+        data:undefined
+      }
       default : 
-      return payload
+      return state
   }
 }
 
