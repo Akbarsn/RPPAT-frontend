@@ -1,66 +1,75 @@
 import React, { useState, useEffect } from "react";
-import { Row, Col, Card, Button, Radio, Form } from "antd";
+import { Row, Col, Card, Button, Radio, Form, message } from "antd";
 import Table from "../Table";
-import {useSelector, useDispatch } from 'react-redux';
-import {useHistory} from 'react-router-dom';
+import { useSelector, useDispatch } from "react-redux";
+import { useHistory } from "react-router-dom";
+import API from '../../pages/API';
 
 import "./DetailPembayaran.scss";
 
 function DetailPembayaran(props) {
-  let data = useSelector(state=>state.data);
+  let data = useSelector((state) => state.data);
   const dispatch = useDispatch();
 
   const history = useHistory();
+  const jenisToko = localStorage.getItem("store");
 
   const [index, setIndex] = useState(0);
   const [bankName, setbankName] = useState(props.bankAccount[0].name);
   const bankDetail = props.bankDetail;
   const [rows, setRows] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [total, setTotal] = useState(0);
 
   useEffect(() => {
+    const fetchData = async () => {
       let stok = [];
       let inside = [];
-      let no =0;
-      for(let k = 0; k < data.length; k++) {
+      let total = 0;
+      for (let k = 0; k < data.length; k++) {
         let temp;
-          for (let i = 0; i < 4; i++) {
-            switch (i) {
-              case 0:
-                temp = {
-                  value: data[k].no,
-                  align: "center",
-                };
-                inside.push(temp);
-                break;
-              case 1:
-                temp = {
-                  value: data[k].nama,
-                  align: "left",
-                };
-                inside.push(temp);
-                break;
-              case 2:
-                temp = {
-                  value: data[k].qty,
-                  align: "center",
-                };
-                inside.push(temp);
-                break;
-              case 3:
-                temp = {
-                  value: data[k].harga,
-                  align: "right",
-                };
-                inside.push(temp);
-                break;
-            }
+        let harga =
+          (jenisToko === "baku" ? data[k].price : data[k].sellPrice) *
+          data[k].inputdata;
+        for (let i = 0; i < 4; i++) {
+          switch (i) {
+            case 0:
+              temp = {
+                value: data[k].id,
+                align: "center",
+              };
+              inside.push(temp);
+              break;
+            case 1:
+              temp = {
+                value: data[k].item,
+                align: "left",
+              };
+              inside.push(temp);
+              break;
+            case 2:
+              temp = {
+                value: data[k].inputdata,
+                align: "center",
+              };
+              inside.push(temp);
+              break;
+            case 3:
+              temp = {
+                value: harga,
+                align: "right",
+              };
+              inside.push(temp);
+              break;
           }
-          stok.push({data:inside});
-          inside = [];
-        };
-        ++no;
+        }
+        total += harga;
+        stok.push({ data: inside });
+        inside = [];
+      }
       setRows(stok);
+    };
+    fetchData();
   }, []);
 
   const handleIndex = (e) => {
@@ -70,11 +79,36 @@ function DetailPembayaran(props) {
     setbankName(temp[1]);
   };
 
-  async function handleSelesai(){
-    setLoading(true)
-    props.handleSubmit();
-    dispatch({type:"DELETE_DATA"})
-    setLoading(false)
+  async function handleSelesai() {
+    let postvalue = {
+      from: props.from,
+      total: total,
+      items: data,
+    };
+    setLoading(true);
+    try {
+      const result = await API.post(props.linkpost, postvalue, {
+        headers: {
+          Authorization: `bearer ${props.token}`,
+          "content-type": "application/json",
+        },
+      });
+      console.log(result)
+      if(result.status == 200){
+        message.info("Silahkan cek notifikasi anda untuk melanjutkan pembayaran")
+        localStorage.removeItem("store");
+        localStorage.removeItem("idtoko");
+        dispatch({ type: "DELETE_DATA" });
+        history.push(props.linkselesai);
+      }
+      else {
+        message.error("Pesanan anda gagal diproses");
+      }
+      
+    } catch (e){
+      console.log(e)
+    }
+    setLoading(false);
   }
 
   return (
@@ -140,13 +174,18 @@ function DetailPembayaran(props) {
               <Button
                 type="secondary"
                 className="btn_secondary"
-                onClick={() => history.push('/detail-toko/1')}
+                onClick={() => history.push(props.linkback)}
               >
                 Back
               </Button>
             </Col>
             <Col span={2}>
-              <Button type="primary" className="btn_primary" loading = {loading} onClick={handleSelesai}>
+              <Button
+                type="primary"
+                className="btn_primary"
+                loading={loading}
+                onClick={handleSelesai}
+              >
                 Selesai
               </Button>
             </Col>
@@ -158,5 +197,3 @@ function DetailPembayaran(props) {
 }
 
 export default DetailPembayaran;
-
-

@@ -1,42 +1,54 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Navbar from "../../components/Navbar";
 import Sidebar from "../../components/Sidebar";
 import Konten from "../../components/detailPembayaran";
 import { Layout } from "antd";
+import API from '../API';
 
 export default function DetailPembayaran() {
+  const [bankAccount, setBankAccount] = useState([]);
+  const [bankDetail, setBankDetail] = useState([]);
+
   const token = localStorage.getItem("token");
+  const id = localStorage.getItem("idtoko");
 
-  const account = [
-    {
-      index: 0,
-      name: "BCA",
-    },
-    {
-      index: 1,
-      name: "BNI",
-    },
-    {
-      index: 2,
-      name: "BRI",
-    },
-  ];
-
-  const detail = [
-    {
-      number: "0781257912",
-      name: "Budi Setyanto",
-    },
-    {
-      number: "0781257912",
-      name: "Andi Setyanto",
-    },
-    {
-      number: "0781257912",
-      name: "Siti Setyanto",
-    },
-  ];
-
+  useEffect(() => {
+    const fetchData = async () => {
+      let result;
+      result = await API.get(`/outlet/detail-toko/${id}`, {
+        headers: {
+          Authorization: `bearer ${token}`,
+        },
+      });
+      console.log(result);
+      let account = result.data.data.bankAccount.split("-");
+      let no = 0;
+      let insideacc = [];
+        account.map((item) => {
+          let temp;
+          temp = {
+            index : ++no,
+            name : item
+          };
+          insideacc.push(temp);
+        });
+      let number = result.data.data.bankNumber.split("-");
+      let inside = [];
+      number.map((item) => {
+        let temp2 = item.split("_")
+        let temp;
+        temp = {
+          number: temp2[0],
+      name: temp2[1],
+        };
+        inside.push(temp);
+      });
+      setBankDetail(inside)
+      setBankAccount(insideacc);
+    };
+    fetchData();
+  }, []);
+  
   const columns = [
     {
       align: "center",
@@ -44,11 +56,11 @@ export default function DetailPembayaran() {
     },
     {
       align: "left",
-      name: "Barang",
+      name: "Nama Produk",
     },
     {
       align: "center",
-      name: "Qty",
+      name: "Kuantitas",
     },
     {
       align: "right",
@@ -56,62 +68,24 @@ export default function DetailPembayaran() {
     },
   ];
 
-  const rows = [
-    {
-      data: [
-        {
-          value: "1",
-          align: "center",
-        },
-        {
-          value: "Natrium Benzoat 100g",
-          align: "left",
-        },
-        {
-          value: "5",
-          align: "center",
-        },
-        {
-          value: 50000,
-          align: "right",
-        },
-      ],
-    },
-    {
-      data: [
-        {
-          value: "2",
-          align: "center",
-        },
-        {
-          value: "Natrium Benzoat 100g",
-          align: "left",
-        },
-        {
-          value: "5",
-          align: "center",
-        },
-        {
-          value: 50000,
-          align: "right",
-        },
-      ],
-    },
-  ];
 
   return (
     <Layout style={{ backgroundColor: "#ffffff" }}>
       <Navbar name={"Akbar"} />
       <Layout style={{ marginTop: 64, marginLeft: 280 }}>
-        <Sidebar role={4} />
+        <Sidebar role={3} />
         <Layout.Content
           style={{ minHeight: "100vh", backgroundColor: "white" }}
         >
           <Konten
-            bankAccount={account}
-            bankDetail={detail}
+            bankAccount={bankAccount}
+            bankDetail={bankDetail}
             columns={columns}
-            rows={rows}
+            linkback = {`/outlet/detail-toko/${id}`}
+            linkselesai = "/outlet"
+            linkpost = "/outlet/beli-produk"
+            from = {id}
+            token = {token}
           ></Konten>
         </Layout.Content>
       </Layout>
