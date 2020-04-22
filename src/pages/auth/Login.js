@@ -19,18 +19,21 @@ export default function Login(props) {
         username: uname,
         password: password,
       };
-      console.log(user);
       try {
         let hasil = await axios.post(
           "http://31.220.50.154:5000/auth/login",
           user
         );
-        var decoded = jwt.decode(hasil.data.token);
+
+        console.log(hasil);
+
+        var decoded = jwt.decode(hasil.data.data);
         console.log(decoded);
+        console.log("t");
         localStorage.setItem("token", hasil.data.token);
         localStorage.setItem("role", decoded.role);
         localStorage.setItem("id", decoded.id);
-        localStorage.setItem("name", hasil.user.name);
+        localStorage.setItem("name", hasil.data.user.name);
 
         switch (decoded.role) {
           case 0:
@@ -76,71 +79,71 @@ export default function Login(props) {
   };
   return (
     <div>
-      {localStorage.getItem("token") ? (
+      {/* {localStorage.getItem("token") ? (
         window.history.back()
-      ) : (
-        <div className="login">
-          <div className="cardlogin">
-            <p className="titlelogin">Masuk</p>
+      ) : ( */}
+      <div className="login">
+        <div className="cardlogin">
+          <p className="titlelogin">Masuk</p>
 
-            <Form {...layout} name="basic">
-              {visible ? (
-                <Alert
-                  message={error}
-                  type="error"
-                  showIcon
-                  closable
-                  onClose={handleClose}
-                  style={{ margin: "1.5rem" }}
-                />
-              ) : (
-                <Fragment />
-              )}
-              <Form.Item
-                label="Username"
-                name="username"
-                rules={[
-                  { required: true, message: "Tolong masukkan username anda!" },
-                ]}
-              >
-                <Input onChange={(data) => setUname(data.target.value)} />
-              </Form.Item>
+          <Form {...layout} name="basic">
+            {visible ? (
+              <Alert
+                message={error}
+                type="error"
+                showIcon
+                closable
+                onClose={handleClose}
+                style={{ margin: "1.5rem" }}
+              />
+            ) : (
+              <Fragment />
+            )}
+            <Form.Item
+              label="Username"
+              name="username"
+              rules={[
+                { required: true, message: "Tolong masukkan username anda!" },
+              ]}
+            >
+              <Input onChange={(data) => setUname(data.target.value)} />
+            </Form.Item>
 
-              <Form.Item
-                label="Password"
-                name="password"
-                rules={[
-                  { required: true, message: "Tolong masukkan password anda!" },
-                ]}
+            <Form.Item
+              label="Password"
+              name="password"
+              rules={[
+                { required: true, message: "Tolong masukkan password anda!" },
+              ]}
+            >
+              <Input.Password
+                onChange={(data) => setPassword(data.target.value)}
+              />
+            </Form.Item>
+            <div className="buttonlogin">
+              <Button
+                type="primary"
+                size="large"
+                htmlType="submit"
+                className="btn_primary"
+                onClick={(e) => {
+                  submit(e);
+                }}
+                loading={loading}
               >
-                <Input.Password
-                  onChange={(data) => setPassword(data.target.value)}
-                />
-              </Form.Item>
-              <div className="buttonlogin">
-                <Button
-                  type="primary"
-                  size="large"
-                  htmlType="submit"
-                  className="btn_primary"
-                  onClick={(e) => {
-                    submit(e);
-                  }}
-                  loading={loading}
-                >
-                  Submit
-                </Button>
-              </div>
-            </Form>
-            <p className="keregister">
-              Tidak memiliki akun ?{" "}
-              <a href="/register" style={{ color: "#1dc6c6" }}>
-                Register Sekarang
-              </a>
-            </p>
-          </div>
+                Submit
+              </Button>
+            </div>
+          </Form>
+          <p className="keregister">
+            Tidak memiliki akun ?{" "}
+            <a href="/register" style={{ color: "#1dc6c6" }}>
+              Register Sekarang
+            </a>
+          </p>
         </div>
-      )}
+      </div>
+      {/* )} */}
     </div>
   );
 }
