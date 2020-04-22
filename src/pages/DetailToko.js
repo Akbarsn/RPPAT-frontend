@@ -9,31 +9,27 @@ export default function DetailToko() {
   const dummy = [
     {
       id: 1,
-      nama: "Minyak Goreng",
-      stok: 1000,
-      harga: 11000,
-      qty: 0
+      item: "Minyak Goreng",
+      qty: 1000,
+      sellPrice: 11000,
+      inputdata: 0
     },
     {
       id: 2,
-      nama: "Natrium Benzoat",
-      stok: 2000,
-      harga: 1100,
-      qty: 0
+      item: "Natrium Benzoat",
+      qty: 2000,
+      sellPrice: 1100,
+      inputdata: 0
     },
     {
         id: 3,
-        nama: "Sorbitol",
-        stok: 500,
-        harga: 700,
-        qty: 0
+        item: "Sorbitol",
+        qty: 500,
+        sellPrice: 700,
+        inputdata: 0
       },
 
   ];
-
-  const test= (data) => {
-    console.log("databayar" + data);
-  }
   
   return (
     <Layout>
@@ -45,7 +41,7 @@ export default function DetailToko() {
           <Sidebar role={4} />
         </Layout.Sider>
         <Layout.Content style={{ backgroundColor: "white" }}>
-          <Toko nama = "Toko" data={dummy} dataBayar={test}/>
+          <Toko nama = "Budi" data={dummy} link="/detail-pembayaran" initial={{0:0}}/>
         </Layout.Content>
       </Layout>
     </Layout>

@@ -22,30 +22,29 @@ const Index = (props) => {
 
   let datas = props.data;
 
-  let values = {0:0, 1:0}
-
   useEffect(() => {
+    const fetchData = async () => {
     let newData = datas;
     let newValue = [];
       if(coba === undefined){
         newData.map((qty,index) => {
-          newValue.push(qty);
+          newValue.push(qty.inputdata);
         })
       }
       else{
         for(let i = 0; i < newData.length; i++){
           for(let k = 0; k < coba.length; k++){
-            if(newData[i].nama === coba[k].nama){
-              newData[i].qty = coba[k].qty;
+            if(newData[i].item === coba[k].item){
+              newData[i].inputdata = coba[k].inputdata;
               break;
             }
           }
-          newValue.push(newData[i].qty)
+          newValue.push(newData[i].inputdata)
         }
-        values = Object.assign(values,...newValue);
         datas = newData;
-        console.log(values);
       }
+    }
+    fetchData();
   }, [])
 
   const [page, setPage] = useState(0);
@@ -80,19 +79,14 @@ async function finish (value) {
     let no=0;
       for(let i = 0; i < data.length; i++){
         if(value[i] != null || value[i] != undefined){
-          boughtItems.push({
-            no: ++no,
-            nama : data[i].nama,
-            qty: value[i],
-            harga: data[i].harga*value[i],
-          })
+          data[i].inputdata = value[i];
+          boughtItems.push(data[i])
         }
       }
       console.log(boughtItems);
       dispatch({type:"ADD_DATA", payload:boughtItems})
       setLoading(false);
       console.log("ya")
-      console.log(values)
       console.log(value)
       history.push(props.link)
   }
@@ -100,20 +94,17 @@ async function finish (value) {
 
   return (
     <div id="detailtoko">
-    <Form onFinish = {finish} initialValues={values}>
-      <div className="titlepage">
-        <p>Detail {props.nama}</p>
-      </div>
+    <Form onFinish = {finish} initialValues={props.initial}>
       <div className="namatoko">
-        <div style={{display:"inline"}}><Avatar size={75} icon={<UserOutlined />} /></div>
-        <div style={{display:"inline", marginLeft:"2%"}}>Toko {props.toko}</div>
+        <div style={{display:"inline"}}><Avatar size={75} icon={props.gambar==null ? <UserOutlined /> : <img src={props.gambar}/>} /></div>
+        <div style={{display:"inline", marginLeft:"2%"}}>Toko {props.nama}</div>
       </div>
       <div className="tablestok">
       <TableContainer component={Paper}>
         <Table>
           <TableHead>
             <TableRow>
-              <StyledTableCell align="left">Nama Bahan Tambah</StyledTableCell>
+              <StyledTableCell align="left">Nama Produk</StyledTableCell>
               <StyledTableCell align="center">Stok</StyledTableCell>
               <StyledTableCell align="center">Harga</StyledTableCell>
               <StyledTableCell align="center">Beli</StyledTableCell>
@@ -129,9 +120,9 @@ async function finish (value) {
                 : data
               ).map((row, index) => (
                 <TableRow key={row}>
-                  <StyledTableCell align="left">{row.nama}</StyledTableCell>
-                  <StyledTableCell align="center">{row.stok}</StyledTableCell>
-                  <StyledTableCell align="center">Rp. {row.harga}</StyledTableCell>
+                  <StyledTableCell align="left">{row.item}</StyledTableCell>
+                  <StyledTableCell align="center">{row.qty}</StyledTableCell>
+                  <StyledTableCell align="center">Rp. {localStorage.getItem("store") === "baku" ? row.price : row.sellPrice}</StyledTableCell>
                   <StyledTableCell align="center">
                     <Form.Item name={index}>
                       <InputNumber
@@ -159,7 +150,7 @@ async function finish (value) {
       <div className="buttongroupbeli">
       
         <Button className="btn_secondary">Kembali</Button>
-        <Button className="btn_primary" htmlType="submit" loading = {loading} >Selanjutnya</Button>
+        <Button className="btn_primary" htmlType="submit" loading ={loading}>Selanjutnya</Button>
         
       </div>
       </Form.Item>

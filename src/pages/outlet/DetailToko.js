@@ -1,108 +1,51 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Navbar from "../../components/Navbar";
 import Sidebar from "../../components/Sidebar";
-import { Layout, Input, Select } from "antd";
-import Toko from "../../components/DetailToko";
+import { Layout } from "antd";
+import Toko from "../../components/DetailToko/index";
+import API from "../API";
 
 export default function DetailToko() {
+  let nama = "";
+  let gambar = "";
+  const [rows, setRows] = useState([]);
 
-  const datainput = [
-    {
-      value: "gr",
-      text: "gr"
-    },
-    {
-      value: "kg",
-      text: "kg"
-    }
-  ];
+  const token = localStorage.getItem("token");
+  const id = localStorage.getItem("idtoko");
 
-  const columns = [
-    {
-      align: "left",
-      name: "Nama Bahan Tambah"
-    },
-    {
-      align: "center",
-      name: "Stok"
-    },
-    {
-      align: "center",
-      name: "Harga"
-    },
-    {
-      align: "center",
-      name: "Beli"
-    }
-  ];
+  useEffect(() => {
+    const fetchData = async () => {
+      let result;
+      result = await API.get(`/outlet/detail-toko/${id}`, {
+        headers: {
+          Authorization: `bearer ${token}`,
+        },
+      });
+      console.log(result);
+      let no = 0;
+      let inside = [];
+      result.data.data.products.map((item) => {
+        let temp;
+        temp = {
+          id: ++no,
+          item: item.item,
+          itemImage: item.itemImage,
+          qty: item.qty,
+          weight: item.weight,
+          buyPrice: item.buyPrice,
+          sellPrice: item.sellPrice,
+          owner: item.owner,
+          inputdata: 0,
+        };
+        inside.push(temp);
+      });
+      setRows(inside);
+      nama = result.data.data.name;
+      gambar = result.data.data.profilImage;
+    };
+    fetchData();
+  }, []);
 
-  const input = (
-    <div>
-      <Input
-        type="number"
-        className="inputbeli"
-        style={{ display: "inline-block", width: 100 }}
-        placeholder="ex: 100"
-      />
-      <Select
-        defaultValue={datainput[0].value}
-        className="optionbeli"
-        style={{ width: 70, display: "inline-block" }}
-      >
-        {datainput.map(data => {
-          return (
-            <Select.Option key={data} value={data.value}>
-              {data.text}
-            </Select.Option>
-          );
-        })}
-      </Select>
-    </div>
-  );
-
-  const rows = [
-    {
-      data: [
-        {
-          value: "Natrium Benzoat",
-          align: "left"
-        },
-        {
-          value: "1000 gr",
-          align: "center"
-        },
-        {
-          value: "Rp. 20.0000 / gr",
-          align: "center"
-        },
-        {
-          value: input,
-          align: "center"
-        }
-      ]
-    },
-    {
-      data: [
-        {
-          value: "Sorbitol",
-          align: "left"
-        },
-        {
-          value: "100 gr",
-          align: "center"
-        },
-        {
-          value: "Rp. 35.000 / gr",
-          align: "center"
-        },
-        {
-          value: input,
-          align: "center"
-        }
-      ]
-    }
-  ];
-  
   return (
     <Layout>
       <Layout.Header>
@@ -113,7 +56,7 @@ export default function DetailToko() {
           <Sidebar role={4} />
         </Layout.Sider>
         <Layout.Content style={{ backgroundColor: "white" }}>
-          <Toko nama = "Toko" rows={rows} columns={columns}/>
+          <Toko nama={nama} data={rows} link="/outlet/detail-pembayaran" />
         </Layout.Content>
       </Layout>
     </Layout>
