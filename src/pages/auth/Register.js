@@ -36,6 +36,7 @@ export default function Register() {
   };
 
   const onStep2 = (values) => {
+    console.log(values)
     setStep2(values);
     setStep((prevStep) => prevStep + 1);
   };
@@ -80,6 +81,7 @@ export default function Register() {
     data.birthDate = data.birthDate.format("YYYY-MM-DD");
     let nama = getNama(data.fullName);
     try {
+      console.log(data.upload[0]);
       let form = new FormData();
       form.append('name',nama);
       form.append('fullName', data.fullName);
@@ -89,25 +91,27 @@ export default function Register() {
       form.append('email', data.email);
       form.append('username', data.username);
       form.append('password', data.password);
-      form.append('IDCard', data.upload[0].originFileObj);
+      form.append('IDcard', data.upload[0].originFileObj);
       form.append('bankAccount',bankacc);
       form.append('bankNumber', banknum); 
       form.append('role', data.role);
       console.log(...form)
       let hasil = await axios.post('http://31.220.50.154:5000/auth/register', form, {
         headers: {
-            'Content-Type': 'application/json'
+            'content-type': 'multipart/form-data'
         }
       })
-      switch(hasil.response.status){
+
+      console.log(hasil)
+      switch(hasil.status){
         case 200:console.log(form); break;
         default: console.log("ya");
       }
     }catch (err){
-      
       console.log(err);
     }
     setLoading(false);
+    setSuccess(true);
   };
 
   function getContent(stepindex) {
