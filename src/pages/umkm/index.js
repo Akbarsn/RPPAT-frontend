@@ -8,6 +8,8 @@ import RiwayatTransaksi from "./RiwayatTransaksi";
 import BeliBahanBaku from "./BeliBahanBaku";
 import BeliBahanTambahan from "./BeliBahanTambahan";
 import BeliKemasan from "./BeliKemasan";
+import DetailPembayaran from './DetailPembayaran';
+import DetailToko from './DetailToko';
 
 export default [
   { path: "/umkm", component: Home },
@@ -20,4 +22,6 @@ export default [
   { path: "/umkm/beli-stok/bahan-baku", component: BeliBahanBaku },
   { path: "/umkm/beli-stok/bahan-tambahan", component: BeliBahanTambahan },
   { path: "/umkm/beli-stok/kemasan", component: BeliKemasan },
+  { path: "/umkm/detail-pembayaran", component: DetailPembayaran },
+  { path: "/umkm/detail-toko/:id", component: DetailToko },
 ];
