@@ -3,6 +3,7 @@ import { Alert, Form, Input, Button } from "antd";
 import jwt from "jsonwebtoken";
 import "./Login.scss";
 import axios from "axios";
+import { Link, useHistory } from "react-router-dom";
 
 export default function Login(props) {
   let [uname, setUname] = useState("");
@@ -10,6 +11,7 @@ export default function Login(props) {
   let [loading, setLoading] = useState(false);
   let [error, setError] = useState("");
   const [visible, setVisible] = useState(false);
+  const history = useHistory();
 
   async function submit(e) {
     e.preventDefault();
@@ -30,28 +32,12 @@ export default function Login(props) {
         var decoded = jwt.decode(hasil.data.data);
         console.log(decoded);
         console.log("t");
-        localStorage.setItem("token", hasil.data.token);
+        localStorage.setItem("token", hasil.data.data);
         localStorage.setItem("role", decoded.role);
         localStorage.setItem("id", decoded.id);
         localStorage.setItem("name", hasil.data.user.name);
 
-        switch (decoded.role) {
-          case 0:
-            window.location.replace("/petani");
-            break;
-          case 1:
-            window.location.replace("/pemasok-kemasan");
-            break;
-          case 2:
-            window.location.replace("/pemasok-bahan-tambahan");
-            break;
-          case 3:
-            window.location.replace("/umkm");
-            break;
-          case 4:
-            window.location.replace("/outlet");
-            break;
-        }
+        Redirect(hasil.data.data);
       } catch (e) {
         switch (e.response) {
           case 406:
@@ -73,77 +59,100 @@ export default function Login(props) {
     setVisible(false);
   };
 
+  const Redirect = (token) => {
+
+    const decoded =  jwt.decode(token);
+
+    switch (decoded.role) {
+      case 0:
+        window.location.replace("/petani");
+        break;
+      case 1:
+        window.location.replace("/pemasok-kemasan");
+        break;
+      case 2:
+        window.location.replace("/pemasok-bahan-tambahan");
+        break;
+      case 3:
+        window.location.replace("/umkm");
+        break;
+      case 4:
+        window.location.replace("/outlet");
+        break;
+    }
+  };
+
   const layout = {
     labelCol: { span: 6 },
     wrapperCol: { span: 16 },
   };
   return (
     <div>
-      {/* {localStorage.getItem("token") ? (
-        window.history.back()
-      ) : ( */}
-      <div className="login">
-        <div className="cardlogin">
-          <p className="titlelogin">Masuk</p>
+      {localStorage.getItem("token") ? (
+        Redirect(localStorage.getItem("token"))
+      ) : (
+        <div className="login">
+          <div className="cardlogin">
+            <p className="titlelogin">Masuk</p>
 
-          <Form {...layout} name="basic">
-            {visible ? (
-              <Alert
-                message={error}
-                type="error"
-                showIcon
-                closable
-                onClose={handleClose}
-                style={{ margin: "1.5rem" }}
-              />
-            ) : (
-              <Fragment />
-            )}
-            <Form.Item
-              label="Username"
-              name="username"
-              rules={[
-                { required: true, message: "Tolong masukkan username anda!" },
-              ]}
-            >
-              <Input onChange={(data) => setUname(data.target.value)} />
-            </Form.Item>
-
-            <Form.Item
-              label="Password"
-              name="password"
-              rules={[
-                { required: true, message: "Tolong masukkan password anda!" },
-              ]}
-            >
-              <Input.Password
-                onChange={(data) => setPassword(data.target.value)}
-              />
-            </Form.Item>
-            <div className="buttonlogin">
-              <Button
-                type="primary"
-                size="large"
-                htmlType="submit"
-                className="btn_primary"
-                onClick={(e) => {
-                  submit(e);
-                }}
-                loading={loading}
+            <Form {...layout} name="basic">
+              {visible ? (
+                <Alert
+                  message={error}
+                  type="error"
+                  showIcon
+                  closable
+                  onClose={handleClose}
+                  style={{ margin: "1.5rem" }}
+                />
+              ) : (
+                <Fragment />
+              )}
+              <Form.Item
+                label="Username"
+                name="username"
+                rules={[
+                  { required: true, message: "Tolong masukkan username anda!" },
+                ]}
               >
-                Submit
-              </Button>
-            </div>
-          </Form>
-          <p className="keregister">
-            Tidak memiliki akun ?{" "}
-            <a href="/register" style={{ color: "#1dc6c6" }}>
-              Register Sekarang
-            </a>
-          </p>
+                <Input onChange={(data) => setUname(data.target.value)} />
+              </Form.Item>
+
+              <Form.Item
+                label="Password"
+                name="password"
+                rules={[
+                  { required: true, message: "Tolong masukkan password anda!" },
+                ]}
+              >
+                <Input.Password
+                  onChange={(data) => setPassword(data.target.value)}
+                />
+              </Form.Item>
+              <div className="buttonlogin">
+                <Button
+                  type="primary"
+                  size="large"
+                  htmlType="submit"
+                  className="btn_primary"
+                  onClick={(e) => {
+                    submit(e);
+                  }}
+                  loading={loading}
+                >
+                  Submit
+                </Button>
+              </div>
+            </Form>
+            <p className="keregister">
+              Tidak memiliki akun ?{" "}
+              <a style={{ color: "#1dc6c6" }}>
+                <Link to="/register">Register Sekarang</Link>
+              </a>
+            </p>
+          </div>
         </div>
-      </div>
-      {/* )} */}
+      )}
     </div>
   );
 }
