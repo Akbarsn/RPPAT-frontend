@@ -49,7 +49,7 @@ export default function Step3(props) {
                       >
                         <Input
                           size="large"
-                          placeholder="Isi disini dengan nomor rekening dari bank"
+                          placeholder="Eg. 06123123_John Doe"
                         />
                       </Form.Item>
                     </Col>

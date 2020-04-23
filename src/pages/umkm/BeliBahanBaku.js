@@ -37,6 +37,7 @@ export default function Beli() {
           }
         });
         temp = {
+          link: "/umkm/detail-toko/baku/"+store.id,
           nama: store.name,
           stok: stocks,
         };

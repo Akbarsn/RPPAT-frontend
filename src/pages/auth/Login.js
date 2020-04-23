@@ -31,7 +31,6 @@ export default function Login(props) {
 
         var decoded = jwt.decode(hasil.data.data);
         console.log(decoded);
-        console.log("t");
         localStorage.setItem("token", hasil.data.data);
         localStorage.setItem("role", decoded.role);
         localStorage.setItem("id", decoded.id);

@@ -23,5 +23,4 @@ export default [
   { path: "/umkm/beli-stok/bahan-tambahan", component: BeliBahanTambahan },
   { path: "/umkm/beli-stok/kemasan", component: BeliKemasan },
   { path: "/umkm/detail-pembayaran", component: DetailPembayaran },
-  { path: "/umkm/detail-toko/:id", component: DetailToko },
 ];

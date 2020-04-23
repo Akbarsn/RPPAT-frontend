@@ -5,19 +5,23 @@ import {
   Button,
   Modal,
   Pagination,
-  Tabs,
   Form,
   Upload,
   Card,
+  Input,
 } from "antd";
 import Tabel from "../Table";
 import { UploadOutlined } from "@ant-design/icons";
+import API from "../../pages/API";
 
 export default function Notif(props) {
   const [minValue, setMinValue] = useState(0);
   const [maxValue, setMaxValue] = useState(9);
   const [visible, setVisible] = useState(0);
   const [typeModal, setTypeModal] = useState(3);
+  const [loading, setLoading] = useState(false);
+  const role = props.identifier;
+  const token = localStorage.getItem("token");
 
   function handleChange(page, pageSize) {
     if (page <= 1) {
@@ -37,48 +41,51 @@ export default function Notif(props) {
     return e && e.fileList;
   };
 
+  const PembayaranHandler = async (e) => {
+    setLoading(true);
+    const id = e.target.value;
+    const result = await API.post(
+      `/${role}/konfirmasi-pembayaran`,
+      { id: id },
+      {
+        headers: {
+          Authorization: `bearer ${token}`,
+          "content-type": "application/json",
+        },
+      }
+    );
+
+    if (result.status == 200) {
+      setVisible(null);
+    }
+  };
+
+  const PenerimaanHandler = (e) => {
+    console.log(e.target.value);
+  };
+
+  const UploadBukti = (value) => {
+    console.log(value);
+  };
+
   function getModal(detail, metodeBayar) {
     let footer, content;
+    let imagesrc = "http://31.220.50.154:5000/" + metodeBayar.proof;
     if (typeModal === 1) {
-      footer = (
-        <div style={{ display: "flex", justifyContent: "space-between" }}>
-          <Button className="btn_tertiary" onClick={close}>
-            Kembali
-          </Button>
-          <Button className="btn_primary" onClick={close}>
-            Simpan
-          </Button>
-        </div>
-      );
+      footer = false;
       content = (
         <div>
           <br />
           <div className="titlenotif">Info Pembayaran</div>
-          <div className="body-pembayaran">
-            Silahkan pilih salah satu metode pembayaran di bawah ini :
+          <div>
+            <h3>{metodeBayar.metodePembayaran}</h3>
           </div>
-          <Tabs defaultActiveKey="1">
-            {metodeBayar.metodePembayaran.map((metode) => {
-              return (
-                <Tabs.TabPane
-                  tab={
-                    <div className="tombol-lihatdetail">{metode.bankacc}</div>
-                  }
-                  key={metode.index}
-                >
-                  <div className="namabank-pembayaran">{metode.bankacc}</div>
-                  <div className="body-pembayaran">
-                    Silahkan Transfer ke no Rekening berikut :
-                  </div>
-                  <div className="namabank-pembayaran">
-                    {metode.banknum} atas nama {metode.bankname}
-                  </div>
-                </Tabs.TabPane>
-              );
-            })}
-          </Tabs>
           <br />
-          <Form>
+          <Form onFinish={UploadBukti}>
+            <Form.Item name="id">
+              <Input type="hidden" value={metodeBayar.id} />
+            </Form.Item>
+
             <Form.Item
               name="upload"
               label={
@@ -97,6 +104,15 @@ export default function Notif(props) {
                 </Button>
               </Upload>
             </Form.Item>
+
+            <div style={{ display: "flex", justifyContent: "space-between" }}>
+              <Button className="btn_tertiary" onClick={close}>
+                Kembali
+              </Button>
+              <Button className="btn_primary" htmlType="submit">
+                Simpan
+              </Button>
+            </div>
           </Form>
         </div>
       );
@@ -107,8 +123,10 @@ export default function Notif(props) {
             Tutup
           </Button>
           <Button
+            loading={loading}
             className="btn_primary"
-            onClick={props.KonfirmasiPembayaranHandler}
+            onClick={PembayaranHandler}
+            value={metodeBayar.id}
           >
             Konfirmasi
           </Button>
@@ -121,12 +139,7 @@ export default function Notif(props) {
           <Card
             hoverable
             style={{ width: 400 }}
-            cover={
-              <img
-                alt="example"
-                src="https://static01.nyt.com/images/2019/09/04/business/04chinaclone-01/merlin_160087014_de761d9a-4360-402d-a15b-ddeff775760d-superJumbo.jpg"
-              />
-            }
+            cover={<img alt="example" src={imagesrc} />}
           />
         </div>
       );
@@ -138,7 +151,8 @@ export default function Notif(props) {
           </Button>
           <Button
             className="btn_primary"
-            onClick={props.KonfirmasiPenerimaanHandler}
+            onClick={PenerimaanHandler}
+            value={metodeBayar.id}
           >
             Konfirmasi
           </Button>
@@ -182,6 +196,17 @@ export default function Notif(props) {
     setVisible(null);
   }
 
+  function ModalType(type) {
+    switch (type) {
+      case 1:
+        return "Upload Bukti Pembayaran";
+      case 2:
+        return "Konfirmasi Pembayaran";
+      case 3:
+        return "Konfirmasi Penerimaan";
+    }
+  }
+
   return (
     <div className="notif">
       <p className="titlepage" style={{ margin: "1% 2% 1% 2%" }}>
@@ -198,9 +223,7 @@ export default function Notif(props) {
                 />
                 <div>
                   <Button onClick={() => handleChange(item)}>
-                    {item.modalType === 1
-                      ? "Upload Bukti Pembayaran"
-                      : "Konfirmasi Pembayaran"}
+                    {ModalType(item.modalType)}
                   </Button>
                 </div>
                 {getModal(item.detail, item)}

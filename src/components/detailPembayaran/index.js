@@ -9,14 +9,16 @@ import "./DetailPembayaran.scss";
 
 function DetailPembayaran(props) {
   let data = useSelector((state) => state.data);
+  let bankacc = useSelector((state) => state.bankacc);
+  let bankdetail = useSelector((state) => state.bankdetail)
   const dispatch = useDispatch();
 
   const history = useHistory();
-  const jenisToko = localStorage.getItem("store");
+  const jenisToko = props.store;
 
   const [index, setIndex] = useState(0);
-  const [bankName, setbankName] = useState(props.bankAccount[0].name);
-  const bankDetail = props.bankDetail;
+  const [bankName, setbankName] = useState(bankacc[0].name);
+  const bankDetail = bankdetail;
   const [rows, setRows] = useState([]);
   const [loading, setLoading] = useState(false);
   const [total, setTotal] = useState(0);
@@ -70,7 +72,7 @@ function DetailPembayaran(props) {
       setRows(stok);
     };
     fetchData();
-  }, []);
+  }, [data]);
 
   const handleIndex = (e) => {
     // console.log(e.target.value);
@@ -80,6 +82,7 @@ function DetailPembayaran(props) {
   };
 
   async function handleSelesai() {
+    let banks = [];
     let postvalue = {
       from: props.from,
       total: total,
@@ -96,8 +99,6 @@ function DetailPembayaran(props) {
       console.log(result)
       if(result.status == 200){
         message.info("Silahkan cek notifikasi anda untuk melanjutkan pembayaran")
-        localStorage.removeItem("store");
-        localStorage.removeItem("idtoko");
         dispatch({ type: "DELETE_DATA" });
         history.push(props.linkselesai);
       }
@@ -138,7 +139,7 @@ function DetailPembayaran(props) {
             <Form>
               <Form.Item>
                 <Radio.Group onChange={handleIndex}>
-                  {props.bankAccount.map((bank) => {
+                  {bankacc.map((bank) => {
                     return (
                       <Radio.Button
                         value={bank.index + "-" + bank.name}

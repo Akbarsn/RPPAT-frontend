@@ -4,15 +4,21 @@ import Sidebar from "../../components/Sidebar";
 import { Layout } from "antd";
 import Toko from "../../components/DetailToko/index";
 import API from "../API";
+import { useParams } from "react-router-dom";
 
 export default function DetailToko() {
-  let nama = "";
+  const[nama, setNama] = useState('')
   let gambar = "";
   const [rows, setRows] = useState([]);
+  const [bankAccount, setBankAccount] = useState([]);
+  const [bankDetail, setBankDetail] = useState([]);
 
+  // const id = localStorage.getItem("idtoko");
+  // const jenisToko = localStorage.getItem("store");
   const token = localStorage.getItem("token");
-  const id = localStorage.getItem("idtoko");
-  const jenisToko = localStorage.getItem("store");
+  const { id, store } = useParams();
+  const jenisToko = store;
+  const link = `/umkm/detail-pembayaran/${store}/${id}`;
 
   useEffect(() => {
     const fetchData = async () => {
@@ -23,13 +29,40 @@ export default function DetailToko() {
         },
       });
       console.log(result);
+      let account = result.data.data.bankAccount.split("-");
+      console.log(account);
       let no = 0;
+      let insideacc = [];
+      for(let i = 0; i < account.length; i++){
+        let temp;
+        temp = {
+          index: ++no,
+          name: account[i]
+        }
+        insideacc.push(temp)
+      }
+      console.log(insideacc)
+      let number = result.data.data.bankNumber.split("-");
+      let insidenum = [];
+      number.map((item) => {
+        let temp2 = item.split("_")
+        let temp;
+        temp = {
+          number: temp2[0],
+      name: temp2[1],
+        };
+        insidenum.push(temp);
+      });
+      setBankDetail(insidenum)
+      setBankAccount(insideacc);
+      no = 0;
       let inside = [];
       if (jenisToko === "baku") {
         result.data.data.apples.map((item) => {
           let temp;
           temp = {
-            id: ++no,
+            no: ++no,
+            id: item.id,
             item: item.item,
             grade: item.grade,
             qty: item.qty,
@@ -44,7 +77,7 @@ export default function DetailToko() {
         result.data.data.materials.map((item) => {
           let temp;
           temp = {
-            id: ++no,
+            id: item.id,
             item: item.item,
             qty: item.qty,
             unit: item.unit,
@@ -59,7 +92,7 @@ export default function DetailToko() {
         result.data.data.packages.map((item) => {
           let temp;
           temp = {
-            id: ++no,
+            id: item.id,
             item: item.item,
             qty: item.qty,
             sellPrice: item.sellPrice,
@@ -72,9 +105,12 @@ export default function DetailToko() {
         });
       }
       setRows(inside);
-      nama = result.data.data.name;
+      let namaa = result.data.data.name;
+      setNama(namaa);
+      console.log(nama);
       gambar = result.data.data.profilImage;
     };
+
     fetchData();
   }, []);
 
@@ -88,7 +124,7 @@ export default function DetailToko() {
           <Sidebar role={3} />
         </Layout.Sider>
         <Layout.Content style={{ backgroundColor: "white" }}>
-          <Toko nama={nama} data={rows} link="/umkm/detail-pembayaran" />
+          <Toko nama={nama} data={rows} link={link} store={store} bankName={bankAccount} bankDetail={bankDetail}/>
         </Layout.Content>
       </Layout>
     </Layout>

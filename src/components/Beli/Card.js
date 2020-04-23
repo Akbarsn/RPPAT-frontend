@@ -1,6 +1,7 @@
 import React from "react";
 import "./Card.scss";
 import { Button, Avatar } from "antd";
+import { Link } from "react-router-dom";
 
 export default function Beli(props) {
   const data = props.data;
@@ -33,7 +34,9 @@ export default function Beli(props) {
       </div>
       <div style={{ textAlign: "center" }}>
         <Button className="btn_primary">
-          Lihat
+          <Link to={data.link}>
+            Lihat
+          </Link>
         </Button>
       </div>
     </div>

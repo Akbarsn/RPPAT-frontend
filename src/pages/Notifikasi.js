@@ -8,30 +8,29 @@ import API from "./API";
 export default function Notifikasi() {
   const [data, setData] = useState([]);
   const token = localStorage.getItem("token");
-  // const role = localStorage.getItem("role");
-  const role = 1;
-  const roleName = () => {
-    let name;
+  const role = localStorage.getItem("role");
+
+  console.log(role);
+
+  function roleName(role) {
+    console.log(role);
     switch (role) {
-      case 0:
-        name = "petani";
-        break;
-      case 1:
-        name = "kemasan";
-        break;
-      case 2:
-        name = "bahan-tambahan";
-        break;
-      case 3:
-        name = "umkm";
-        break;
-      case 4:
-        name = "outlet";
-        break;
+      case "0":
+        return "petani";
+      case "1":
+        return "kemasan";
+      case "2":
+        return "bahan-tambahan";
+      case "3":
+        return "umkm";
+      case "4":
+        return "outlet";
+      default:
+        return "Duar";
     }
-    return name;
-  };
-  const identifier = roleName();
+  }
+  const identifier = roleName(role);
+  console.log(identifier);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -42,11 +41,63 @@ export default function Notifikasi() {
       });
 
       if (result) {
-        let notif = [];
+        let allNotif = [];
+        result.data.data.map((notif) => {
+          let no = 0;
+          let stocks = [];
+          notif.itemDetail.map((item) => {
+            let inside = [];
+            for (let i = 0; i < 4; i++) {
+              let temp;
+              switch (i) {
+                case 0:
+                  temp = {
+                    value: ++no,
+                    align: "center",
+                  };
+                  inside.push(temp);
+                  break;
+                case 1:
+                  temp = {
+                    value: item.item,
+                    align: "left",
+                  };
+                  inside.push(temp);
+                  break;
+                case 2:
+                  temp = {
+                    value: item.inputdata,
+                    align: "center",
+                  };
+                  inside.push(temp);
+                  break;
+                case 3:
+                  temp = {
+                    value: item.total,
+                    align: "left",
+                  };
+                  inside.push(temp);
+                  break;
+              }
+            }
 
-        result.data.data.from.map((item) => {});
+            stocks.push({ data: inside });
+          });
 
-        result.data.data.from.map((item) => {});
+          let temp = {
+            id: notif.id,
+            content: notif.name,
+            date: "",
+            modalType: notif.status - 1,
+            detail: stocks,
+            metodePembayaran: notif.payment,
+            identifier: identifier,
+          };
+
+          allNotif.push(temp);
+        });
+
+        setData(data);
       }
     };
 
@@ -101,172 +152,9 @@ export default function Notifikasi() {
           ],
         },
       ],
-      metodePembayaran: [
-        { index: 1, bankacc: "BCA", banknum: "098978788", bankname: "Anjing" },
-        { index: 2, bankacc: "BNI", banknum: "098978781", bankname: "Gatau" },
-        { index: 3, bankacc: "Mandiri", banknum: "098978783", bankname: "Asu" },
-      ],
+      metodePembayaran: "Sesuatu",
+      identifier: identifier,
     },
-    // {
-    //   id: 2,
-    //   content: "Pembelian Apel dari Toko Budi (Upload Bukti)",
-    //   date: "3 hari yang lalu",
-    //   detail: [
-    //     {
-    //       data: [
-    //         {
-    //           value: "1",
-    //           align: "center",
-    //         },
-    //         {
-    //           value: "Natrium Benzoat 100g",
-    //           align: "left",
-    //         },
-    //         {
-    //           value: "5",
-    //           align: "center",
-    //         },
-    //         {
-    //           value: 50000,
-    //           align: "right",
-    //         },
-    //       ],
-    //     },
-    //     {
-    //       data: [
-    //         {
-    //           value: "2",
-    //           align: "center",
-    //         },
-    //         {
-    //           value: "Natrium Benzoat 100g",
-    //           align: "left",
-    //         },
-    //         {
-    //           value: "5",
-    //           align: "center",
-    //         },
-    //         {
-    //           value: 50000,
-    //           align: "right",
-    //         },
-    //       ],
-    //     },
-    //   ],
-    //   modalType: 1,
-    //   metodePembayaran: [
-    //     { index: 1, bankacc: "BCA", banknum: "098978788", bankname: "Anjing" },
-    //     { index: 2, bankacc: "BNI", banknum: "098978781", bankname: "Gatau" },
-    //     { index: 3, bankacc: "Mandiri", banknum: "098978783", bankname: "Asu" },
-    //   ],
-    // },
-    // {
-    //   id: 3,
-    //   content:
-    //     "Pembelian Natrium Benzoat dari Toko Budi (Konfirmasi Pembayaran)",
-    //   date: "4 hari yang lalu",
-    //   detail: [
-    //     {
-    //       data: [
-    //         {
-    //           value: "1",
-    //           align: "center",
-    //         },
-    //         {
-    //           value: "Natrium Benzoat 100g",
-    //           align: "left",
-    //         },
-    //         {
-    //           value: "5",
-    //           align: "center",
-    //         },
-    //         {
-    //           value: 50000,
-    //           align: "right",
-    //         },
-    //       ],
-    //     },
-    //     {
-    //       data: [
-    //         {
-    //           value: "2",
-    //           align: "center",
-    //         },
-    //         {
-    //           value: "Natrium Benzoat 100g",
-    //           align: "left",
-    //         },
-    //         {
-    //           value: "5",
-    //           align: "center",
-    //         },
-    //         {
-    //           value: 50000,
-    //           align: "right",
-    //         },
-    //       ],
-    //     },
-    //   ],
-    //   modalType: 3,
-    //   metodePembayaran: [
-    //     { index: 1, bankacc: "BCA", banknum: "098978788", bankname: "Anjing" },
-    //     { index: 2, bankacc: "BNI", banknum: "098978781", bankname: "Gatau" },
-    //     { index: 3, bankacc: "Mandiri", banknum: "098978783", bankname: "Asu" },
-    //   ],
-    // },
-    // {
-    //   id: 4,
-    //   content: "Pembelian Kripik Apel dari Toko Budi",
-    //   date: "10 hari yang lalu",
-    //   detail: [
-    //     {
-    //       data: [
-    //         {
-    //           value: "1",
-    //           align: "center",
-    //         },
-    //         {
-    //           value: "Natrium Benzoat 100g",
-    //           align: "left",
-    //         },
-    //         {
-    //           value: "5",
-    //           align: "center",
-    //         },
-    //         {
-    //           value: 50000,
-    //           align: "right",
-    //         },
-    //       ],
-    //     },
-    //     {
-    //       data: [
-    //         {
-    //           value: "2",
-    //           align: "center",
-    //         },
-    //         {
-    //           value: "Natrium Benzoat 100g",
-    //           align: "left",
-    //         },
-    //         {
-    //           value: "5",
-    //           align: "center",
-    //         },
-    //         {
-    //           value: 50000,
-    //           align: "right",
-    //         },
-    //       ],
-    //     },
-    //   ],
-    //   modalType: 2,
-    //   metodePembayaran: [
-    //     { index: 1, bankacc: "BCA", banknum: "098978788", bankname: "Anjing" },
-    //     { index: 2, bankacc: "BNI", banknum: "098978781", bankname: "Gatau" },
-    //     { index: 3, bankacc: "Mandiri", banknum: "098978783", bankname: "Asu" },
-    //   ],
-    // },
   ];
 
   const columns = [
@@ -288,26 +176,17 @@ export default function Notifikasi() {
     },
   ];
 
-  const PembayaranHandler = () => {};
-
-  const PenerimaanHandler = () => {};
-
   return (
     <Layout>
       <Layout.Header>
-        <Navbar name={"Akbar"} />
+        <Navbar />
       </Layout.Header>
       <Layout>
         <Layout.Sider width={280}>
-          <Sidebar role={0} />
+          <Sidebar role={role} />
         </Layout.Sider>
         <Layout.Content style={{ backgroundColor: "white" }}>
-          <Konten
-            data={datas}
-            columns={columns}
-            KonfirmasiPembayaranHandler={PembayaranHandler}
-            KonfirmasiPenerimaannHandler={PenerimaanHandler}
-          />
+          <Konten data={datas} columns={columns} identifier={identifier} />
         </Layout.Content>
       </Layout>
     </Layout>

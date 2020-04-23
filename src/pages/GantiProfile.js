@@ -22,8 +22,8 @@ export default function GantiProfile() {
       });
 
       if (result) {
-        const bankAcc = result.data.bankAcc.split;
-        const bankNum = result.data.bankNum.split;
+        const bankAcc = result.data.bankAcc.split("-");
+        const bankNum = result.data.bankNum.split("-");
         let banks = [];
 
         for (let i = 0; i < bankAcc.length; i++) {

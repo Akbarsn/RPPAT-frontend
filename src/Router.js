@@ -3,13 +3,11 @@ import { BrowserRouter as Brow, Route, Switch } from "react-router-dom";
 
 import Homepage from "./pages/Home";
 import Laporan from "./pages/Laporan";
-import Login from "./pages/auth/Login";
-import Register from "./pages/auth/Register";
 import LihatStok from "./pages/LihatStok";
 import RiwayatTransaksi from "./pages/RiwayatTransaksi";
 import Beli from "./pages/Beli";
-import DetailPembayaran from "./pages/DetailPembayaran";
-import DetailToko from "./pages/DetailToko";
+// import DetailPembayaran from "./pages/DetailPembayaran";
+// import DetailToko from "./pages/DetailToko";
 import DaftarBarang from "./pages/kasir/DaftarBarang";
 import Notif from "./pages/Notifikasi";
 import Transaksi from "./pages/kasir/Transaksi";
@@ -22,8 +20,14 @@ import UMKMRouter from "./pages/umkm";
 import KemasanRouter from "./pages/kemasan";
 import BahanTambahanRouter from "./pages/bahanTambahan";
 import KasirRouter from "./pages/kasir";
-
-import NotFound from './pages/NotFound';
+import NotFound from "./pages/NotFound";
+import Login from "./pages/auth/Login";
+import Register from "./pages/auth/Register";
+import Notifikasi from "./pages/Notifikasi";
+import UMKMDetailToko from "./pages/umkm/DetailToko";
+import UMKMDetailPembayaran from "./pages/umkm/DetailPembayaran";
+import OutletDetailToko from "./pages/outlet/DetailToko";
+import OutletDetailPembayaran from "./pages/outlet/DetailPembayaran";
 
 export default function Router() {
   return (
@@ -37,15 +41,30 @@ export default function Router() {
         <Route exact path="/register">
           <Register />
         </Route>
-        <Route exact path="/login"><Login/></Route>
-        <Route
-          exact
-          path="/register"><Register /></Route>
-
 
         <Route exact path="/ganti-profile">
           <GantiProfile />
         </Route>
+
+        <Route exact path="/notifikasi">
+          <Notifikasi />
+        </Route>
+
+        <Route
+          path="/umkm/detail-toko/:store/:id"
+          children={<UMKMDetailToko />}
+        />
+
+        <Route
+          exact path="/umkm/detail-pembayaran/:store/:id"
+        ><UMKMDetailPembayaran /></Route>
+
+        <Route path="/outlet/detail-toko/:id" children={<OutletDetailToko />} />
+
+        <Route
+          path="/outlet/detail-pembayaran/:id"
+          children={<OutletDetailPembayaran />}
+        />
 
         {PetaniRouter.map((props) => (
           <Route exact {...props}></Route>
@@ -59,11 +78,11 @@ export default function Router() {
           <Route exact {...props}></Route>
         ))}
 
-        {OutletRouter.map((props) => (
+        {UMKMRouter.map((props) => (
           <Route exact {...props}></Route>
         ))}
 
-        {UMKMRouter.map((props) => (
+        {OutletRouter.map((props) => (
           <Route exact {...props}></Route>
         ))}
 
@@ -73,18 +92,18 @@ export default function Router() {
 
         {/* Development Route */}
 
-        <Route
-          exact
-          path="/beli-bahan"> <Beli/> </Route>
+        <Route exact path="/beli-bahan">
+          {" "}
+          <Beli />{" "}
+        </Route>
 
-        <Route
-          exact
-          path="/daftar-barang"
-        ><DaftarBarang /></Route>
+        <Route exact path="/daftar-barang">
+          <DaftarBarang />
+        </Route>
 
-        <Route
-          exact
-          path="/detail-toko/:id"><DetailToko /></Route>
+        {/* <Route exact path="/detail-toko/:id">
+          <DetailToko />
+        </Route> */}
 
         <Route exact path="/homepage">
           <Homepage />
@@ -94,13 +113,13 @@ export default function Router() {
           <Laporan />
         </Route>
 
-        <Route
-          exact
-          path="/lihatstok"><LihatStok/></Route>
+        <Route exact path="/lihatstok">
+          <LihatStok />
+        </Route>
 
-        <Route
-          exact
-          path="/notifikasi"><Notif /></Route>
+        <Route exact path="/notifikasi">
+          <Notif />
+        </Route>
 
         <Route
           exact
@@ -114,19 +133,22 @@ export default function Router() {
           render={(props) => <Transaksi {...props} />}
         />
 
-        <Route
-          exact
-          path="/riwayat"> <RiwayatTransaksi /></Route>
-
-        <Route exact path="/detail-pembayaran">
-          <DetailPembayaran />
+        <Route exact path="/riwayat">
+          {" "}
+          <RiwayatTransaksi />
         </Route>
+
+        {/* <Route exact path="/detail-pembayaran">
+          <DetailPembayaran />
+        </Route> */}
 
         <Route exact path="/tambah-kasir">
           <TambahKasir />
         </Route>
 
-        <Route path="*"><NotFound/> </Route>
+        <Route path="*">
+          <NotFound />{" "}
+        </Route>
       </Switch>
     </Brow>
   );
