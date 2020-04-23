@@ -32,19 +32,19 @@ export default function Step1(props) {
           ]}
         >
           <Radio.Group style={{ fontWeight: "650" }}>
-            <Radio style={radioStyle} value={1}>
+            <Radio style={radioStyle} value={0}>
               Petani Apel
             </Radio>
             <Radio style={radioStyle} value={2}>
               Pemasok Bahan Tambahan
             </Radio>
-            <Radio style={radioStyle} value={3}>
+            <Radio style={radioStyle} value={1}>
               Pemasok Kemasan
             </Radio>
-            <Radio style={radioStyle} value={4}>
+            <Radio style={radioStyle} value={3}>
               UMKM Pengolah Apel
             </Radio>
-            <Radio style={radioStyle} value={5}>
+            <Radio style={radioStyle} value={4}>
               Retail & Outlet Produk Olahan Apel
             </Radio>
           </Radio.Group>

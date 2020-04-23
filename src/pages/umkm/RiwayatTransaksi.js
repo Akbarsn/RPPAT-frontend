@@ -31,7 +31,7 @@ export default function RiwayatTransaksi() {
         const allItem = JSON.parse(item.itemDetail);
         let temp;
         allItem.map((item) => {
-          for (let i = 0; i < 6; i++) {
+          for (let i = 0; i < 7; i++) {
             switch (i) {
               case 0:
                 temp = {
@@ -47,30 +47,37 @@ export default function RiwayatTransaksi() {
                 };
                 inside.push(temp);
                 break;
-              case 2:
+                case 2:
                 temp = {
-                  value: item.qty,
+                  value: item.grade,
                   align: "center",
                 };
                 inside.push(temp);
                 break;
               case 3:
                 temp = {
-                  value: item.unit,
+                  value: item.qty,
                   align: "center",
                 };
                 inside.push(temp);
                 break;
               case 4:
                 temp = {
-                  value: item.sellPrice,
+                  value: item.unit,
                   align: "center",
                 };
                 inside.push(temp);
                 break;
               case 5:
                 temp = {
-                  value: item.sellPrice * item.qty,
+                  value: item.price,
+                  align: "center",
+                };
+                inside.push(temp);
+                break;
+              case 6:
+                temp = {
+                  value: item.price * item.qty,
                   align: "right",
                 };
                 inside.push(temp);
@@ -135,6 +142,10 @@ export default function RiwayatTransaksi() {
     {
       align: "left",
       name: "Nama Produk",
+    },
+    {
+      align: "center",
+      name: "Grade",
     },
     {
       align: "center",

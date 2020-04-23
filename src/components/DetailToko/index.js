@@ -17,37 +17,8 @@ import { useHistory } from "react-router-dom";
 
 const Index = (props) => {
   const history = useHistory();
-  let coba = useSelector((state) => state.data);
+  let coba = useSelector((state) => state.formValue);
   const dispatch = useDispatch();
-
-  let datas = props.data;
-
-  useEffect(() => {
-    console.log(props);
-    const fetchData = () => {
-      let newData = datas;
-      let newValue = [];
-      if (coba === undefined) {
-        newData.map((qty, index) => {
-          newValue.push(qty.inputdata);
-        });
-      } else {
-        for (let i = 0; i < newData.length; i++) {
-          for (let k = 0; k < coba.length; k++) {
-            if (newData[i].item === coba[k].item) {
-              newData[i].inputdata = coba[k].inputdata;
-              break;
-            }
-          }
-          newValue.push(newData[i].inputdata);
-        }
-        // datas = newData;
-        // console.log(newData);
-        // setData(newData);
-      }
-    };
-    fetchData();
-  }, []);
 
   const data = props.data;
   const [page, setPage] = useState(0);
@@ -78,32 +49,26 @@ const Index = (props) => {
   }
 
   async function finish(value) {
+    console.log(value)
     setBoughtItems(null);
     setLoading(true);
     let no = 0;
     for (let i = 0; i < data.length; i++) {
-      console.log("data");
-      console.log(data);
-      if (value[i] != null || value[i] != undefined) {
-        data[i].inputdata = value[i];
+      if (value[i+1] != null || value[i+1] != undefined || value[i+1] > 0) {
+        data[i].inputdata = value[i+1];
         boughtItems.push(data[i]);
       }
     }
     console.log("bought");
     console.log(boughtItems);
-    dispatch({type:"ADD_BANK_ACC", payload:props.bankName})
-    dispatch({type:"ADD_BANK_DETAIL", payload:props.bankDetail})
-    dispatch({ type: "ADD_DATA", payload: boughtItems });
-    console.log(props.bankName)
+    dispatch({ type: "ADD_DATA", payload: boughtItems, acc:props.bankName, detail:props.bankDetail });
     history.push(props.link);
     setLoading(false);
   }
 
   return (
     <div id="detailtoko">
-      {/* {console.log(props)}
-      {console.log(data)} */}
-      <Form onFinish={finish} initialValues={props.initial}>
+      <Form onFinish={finish} initialValues={coba}>
         <div className="namatoko">
           <div style={{ display: "inline" }}>
             <Avatar
@@ -152,10 +117,11 @@ const Index = (props) => {
                       Rp. {props.store === "baku" ? row.price : row.sellPrice}
                     </StyledTableCell>
                     <StyledTableCell align="center">
-                      <Form.Item name={index}>
+                      <Form.Item name={row.id}>
                         <InputNumber
                           style={{ display: "inline-block", width: 100 }}
                           placeholder="ex: 100"
+                          min={1}
                         />
                       </Form.Item>
                     </StyledTableCell>

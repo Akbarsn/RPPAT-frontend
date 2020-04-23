@@ -28,6 +28,7 @@ function DetailPembayaran(props) {
       let stok = [];
       let inside = [];
       let total = 0;
+      let no = 0;
       for (let k = 0; k < data.length; k++) {
         let temp;
         let harga =
@@ -37,7 +38,7 @@ function DetailPembayaran(props) {
           switch (i) {
             case 0:
               temp = {
-                value: data[k].id,
+                value: ++no,
                 align: "center",
               };
               inside.push(temp);
@@ -69,26 +70,127 @@ function DetailPembayaran(props) {
         stok.push({ data: inside });
         inside = [];
       }
+      setTotal(total);
       setRows(stok);
     };
-    fetchData();
+    const fetchData2 = async () => {
+      let stok = [];
+      let inside = [];
+      let total = 0;
+      let no = 0;
+      for (let k = 0; k < data.length; k++) {
+        let temp;
+        let harga =
+          (jenisToko === "baku" ? data[k].price : data[k].sellPrice) *
+          data[k].inputdata;
+        for (let i = 0; i < 5; i++) {
+          switch (i) {
+            case 0:
+              temp = {
+                value: ++no,
+                align: "center",
+              };
+              inside.push(temp);
+              break;
+            case 1:
+              temp = {
+                value: data[k].item,
+                align: "left",
+              };
+              inside.push(temp);
+              break;
+              case 2:
+                temp = {
+                  value: data[k].grade,
+                  align: "center",
+                };
+                inside.push(temp);
+                break;
+            case 3:
+              temp = {
+                value: data[k].inputdata,
+                align: "center",
+              };
+              inside.push(temp);
+              break;
+            case 4:
+              temp = {
+                value: harga,
+                align: "right",
+              };
+              inside.push(temp);
+              break;
+          }
+        }
+        total += harga;
+        stok.push({ data: inside });
+        inside = [];
+      }
+      console.log(total)
+      setTotal(total)
+      setRows(stok);
+    };
+    jenisToko === "baku" ? fetchData2() : fetchData();
   }, [data]);
 
   const handleIndex = (e) => {
     // console.log(e.target.value);
     let temp = e.target.value.split("-");
-    setIndex(temp[0]);
+    setIndex(temp[0]-1);
     setbankName(temp[1]);
   };
 
+  function handleBack(){
+    let datform = [];
+    data.map((item)=> {
+      let temp = {[item.id] : item.inputdata};
+      datform.push(temp)
+    })
+    let newDatForm = Object.assign({}, ...datform)
+    dispatch({type:"ADD_FORM_VALUE", payload:newDatForm})
+    history.push(props.linkback)
+  }
+
+  function handleItemDetail(data){
+    console.log(data);
+    let detail = [];
+    data.map((item)=> {
+      let temp;
+      if(jenisToko==="baku"){
+        temp = {
+          id:item.id,
+          item: item.item,
+          grade: item.grade,
+          qty: item.inputdata,
+          price: item.price,
+          unit: item.unit
+        }
+      }
+      else {
+        temp = {
+          id:item.id,
+          item: item.item,
+          unit: (jenisToko === "outlet" ? item.weight : item.unit),
+          qty: item.inputdata,
+          price: item.sellPrice
+        }
+      }
+      detail.push(temp);
+    })
+    return detail;
+  }
+
   async function handleSelesai() {
-    let banks = [];
+    setLoading(true);
+    let itemDetail = handleItemDetail(data);
+    let bank = bankName + "-"+bankDetail[index].number + "-"+bankDetail[index].name;
     let postvalue = {
       from: props.from,
       total: total,
-      items: data,
+      banks: bank,
+      items: itemDetail,
     };
-    setLoading(true);
+    console.log(postvalue);
     try {
       const result = await API.post(props.linkpost, postvalue, {
         headers: {
@@ -126,6 +228,7 @@ function DetailPembayaran(props) {
               rows={rows}
               togglePagination={false}
               toggleTotal={true}
+              total = {total}
             ></Table>
           </Col>
         </Row>
@@ -175,7 +278,7 @@ function DetailPembayaran(props) {
               <Button
                 type="secondary"
                 className="btn_secondary"
-                onClick={() => history.push(props.linkback)}
+                onClick={handleBack}
               >
                 Back
               </Button>

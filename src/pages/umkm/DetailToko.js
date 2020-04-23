@@ -61,7 +61,6 @@ export default function DetailToko() {
         result.data.data.apples.map((item) => {
           let temp;
           temp = {
-            no: ++no,
             id: item.id,
             item: item.item,
             grade: item.grade,
