@@ -91,6 +91,7 @@ export default function Homepage(props) {
                 rows={props.rows}
                 togglePagination={false}
                 toggleTotal={false}
+                empty="Tidak Ada Riwayat Transaksi"
               ></Table>
             </Card>
           </Col>

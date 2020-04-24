@@ -18,6 +18,7 @@ export default function Index(props) {
           rows={props.rows}
           togglePagination={false}
           toggleTotal={false}
+          empty="Tidak Ada Data"
         />
       </div>
     </div>
