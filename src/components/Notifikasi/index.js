@@ -8,11 +8,12 @@ import {
   Form,
   Upload,
   Card,
-  Input,
+  message,
 } from "antd";
 import Tabel from "../Table";
 import { UploadOutlined } from "@ant-design/icons";
 import API from "../../pages/API";
+import { useHistory } from "react-router-dom";
 
 export default function Notif(props) {
   const [minValue, setMinValue] = useState(0);
@@ -20,8 +21,10 @@ export default function Notif(props) {
   const [visible, setVisible] = useState(0);
   const [typeModal, setTypeModal] = useState(3);
   const [loading, setLoading] = useState(false);
+  const [id, setID] = useState(null);
   const role = props.identifier;
   const token = localStorage.getItem("token");
+  const history = useHistory();
 
   function handleChange(page, pageSize) {
     if (page <= 1) {
@@ -56,21 +59,77 @@ export default function Notif(props) {
     );
 
     if (result.status == 200) {
-      setVisible(null);
+      window.location.reload();
     }
   };
 
-  const PenerimaanHandler = (e) => {
-    console.log(e.target.value);
+  const PenerimaanHandler = async (e) => {
+    const id = e.target.value;
+
+    console.log(id);
+
+    const result = await API.post(
+      `/${role}/terima-barang`,
+      {
+        id: id,
+      },
+      {
+        headers: {
+          Authorization: `bearer ${token}`,
+        },
+      }
+    );
+
+    if (result.status == 200) {
+      setLoading(false);
+      window.location.reload();
+    } else {
+      message.error(
+        "Terjadi kesalahan, mohon untuk reload page dan mengulanginya lagi beberapa saat"
+      );
+    }
   };
 
-  const UploadBukti = (value) => {
-    console.log(value);
+  const UploadBukti = async (value) => {
+    setLoading(true);
+    const proof = value.upload[0].originFileObj;
+
+    let form = new FormData();
+    form.append("id", id);
+    form.append("file", proof);
+
+    const result = await API.post(`/${role}/bayar-transaksi`, form, {
+      headers: {
+        Authorization: `bearer ${token}`,
+        "content-type": "multipart/form-data",
+      },
+    });
+
+    if (result.status == 200) {
+      setLoading(false);
+      window.location.reload();
+    } else {
+      setLoading(false);
+      message.error(
+        "Pembayaran gagal, silahkan reload halaman dan mengulanginya"
+      );
+    }
+  };
+
+  const uploadClick = (e) => {
+    setID(e.target.value);
   };
 
   function getModal(detail, metodeBayar) {
     let footer, content;
-    let imagesrc = "http://31.220.50.154:5000/" + metodeBayar.proof;
+    const imagesrc = "http://31.220.50.154:5000/" + metodeBayar.proof;
+
+    console.log(metodeBayar)
+    console.log("link")
+    console.log(imagesrc)
+
+    const banks = metodeBayar.metodePembayaran.split("-");
+
     if (typeModal === 1) {
       footer = false;
       content = (
@@ -78,14 +137,14 @@ export default function Notif(props) {
           <br />
           <div className="titlenotif">Info Pembayaran</div>
           <div>
-            <h3>{metodeBayar.metodePembayaran}</h3>
+            <h3>Silahkan untuk membayar melalui {banks[0]}</h3>
+            <br />
+            <h2>
+              {banks[1]} atas nama {banks[2]}
+            </h2>
           </div>
           <br />
           <Form onFinish={UploadBukti}>
-            <Form.Item name="id">
-              <Input type="hidden" value={metodeBayar.id} />
-            </Form.Item>
-
             <Form.Item
               name="upload"
               label={
@@ -109,7 +168,13 @@ export default function Notif(props) {
               <Button className="btn_tertiary" onClick={close}>
                 Kembali
               </Button>
-              <Button className="btn_primary" htmlType="submit">
+              <Button
+                loading={loading}
+                className="btn_primary"
+                htmlType="submit"
+                value={metodeBayar.id}
+                onClick={uploadClick}
+              >
                 Simpan
               </Button>
             </div>
@@ -150,6 +215,7 @@ export default function Notif(props) {
             Tutup
           </Button>
           <Button
+            loading={loading}
             className="btn_primary"
             onClick={PenerimaanHandler}
             value={metodeBayar.id}
@@ -234,7 +300,6 @@ export default function Notif(props) {
       </div>
       <div style={{ textAlign: "center" }}>
         <Pagination
-          showTotal={(total, range) => `${range[0]}-${range[1]} dari ${total}`}
           onChange={handleChange}
           total={props.data.length}
           defaultPageSize={9}

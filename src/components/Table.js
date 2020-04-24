@@ -30,7 +30,6 @@ export default function Tabel(props) {
         temp += row.data[indexTotal].value;
       });
       isThereTotal = false;
-
       return temp;
     }
 
@@ -44,7 +43,9 @@ export default function Tabel(props) {
 
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(temp);
-  const [total, setTotal] = useState(hitungTotal(props.rows, props.columns));
+  const [total, setTotal] = useState(
+    props.total ? props.total : hitungTotal(props.rows, props.columns)
+  );
 
   const StyledTableCell = withStyles((theme) => ({
     head: {
@@ -94,7 +95,8 @@ export default function Tabel(props) {
                   if (
                     typeof data.value == "number" &&
                     index != 0 &&
-                    (index != 2 && index != 3)
+                    index != 2 &&
+                    index != 3
                   ) {
                     return (
                       <StyledTableCell align={data.align}>
@@ -129,7 +131,7 @@ export default function Tabel(props) {
                 </StyledTableCell>
                 <StyledTableCell align="right">
                   <p className="totaltable">
-                    Rp. {total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}
+                    Rp. {props.total ? props.total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") : total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}
                   </p>
                 </StyledTableCell>
               </TableRow>

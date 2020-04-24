@@ -25,24 +25,26 @@ export default function Beli() {
       result.data.data.map((store) => {
         let stocks = [];
         let count = 0;
-        store.apples.map((stock) => {
-          if (count == 3) {
-          } else {
-            temp = {
-              barang: stock.item,
-              jumlah: stock.qty,
-            };
-            stocks.push(temp);
-            count++;
-          }
-        });
-        temp = {
-          link: "/umkm/detail-toko/kemasan/"+store.id,
-          nama: store.name,
-          stok: stocks,
-        };
+        if (store.packages.length != 0) {
+          store.packages.map((stock) => {
+            if (count == 3) {
+            } else {
+              temp = {
+                barang: stock.item,
+                jumlah: stock.qty,
+              };
+              stocks.push(temp);
+              count++;
+            }
+          });
+          temp = {
+            link: "/umkm/detail-toko/kemasan/" + store.id,
+            nama: store.name,
+            stok: stocks,
+          };
 
-        card.push(temp);
+          card.push(temp);
+        }
       });
 
       setCardData(card);

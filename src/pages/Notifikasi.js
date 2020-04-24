@@ -10,10 +10,7 @@ export default function Notifikasi() {
   const token = localStorage.getItem("token");
   const role = localStorage.getItem("role");
 
-  console.log(role);
-
   function roleName(role) {
-    console.log(role);
     switch (role) {
       case "0":
         return "petani";
@@ -30,7 +27,6 @@ export default function Notifikasi() {
     }
   }
   const identifier = roleName(role);
-  console.log(identifier);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -40,12 +36,16 @@ export default function Notifikasi() {
         },
       });
 
+      console.log(result);
+
       if (result) {
         let allNotif = [];
         result.data.data.map((notif) => {
           let no = 0;
           let stocks = [];
-          notif.itemDetail.map((item) => {
+          const itemDetail = JSON.parse(notif.itemDetail);
+
+          itemDetail.map((item) => {
             let inside = [];
             for (let i = 0; i < 4; i++) {
               let temp;
@@ -66,15 +66,15 @@ export default function Notifikasi() {
                   break;
                 case 2:
                   temp = {
-                    value: item.inputdata,
+                    value: item.qty,
                     align: "center",
                   };
                   inside.push(temp);
                   break;
                 case 3:
                   temp = {
-                    value: item.total,
-                    align: "left",
+                    value: item.price * item.qty,
+                    align: "right",
                   };
                   inside.push(temp);
                   break;
@@ -88,74 +88,76 @@ export default function Notifikasi() {
             id: notif.id,
             content: notif.name,
             date: "",
-            modalType: notif.status - 1,
+            modalType: notif.status + 1,
             detail: stocks,
             metodePembayaran: notif.payment,
             identifier: identifier,
+            proof:notif.proof
           };
 
           allNotif.push(temp);
         });
 
-        setData(data);
+        // console.log(allNotif)
+        setData(allNotif);
       }
     };
 
     fetchData();
   }, []);
 
-  const datas = [
-    {
-      id: 1,
-      content: "Pembelian Kripik Apel dari Toko Budi (Konfirmasi Pembayaran)",
-      date: "1 hari yang lalu",
-      modalType: 2,
-      detail: [
-        {
-          data: [
-            {
-              value: "1",
-              align: "center",
-            },
-            {
-              value: "Natrium Benzoat 100g",
-              align: "left",
-            },
-            {
-              value: "5",
-              align: "center",
-            },
-            {
-              value: 50000,
-              align: "right",
-            },
-          ],
-        },
-        {
-          data: [
-            {
-              value: "2",
-              align: "center",
-            },
-            {
-              value: "Natrium Benzoat 100g",
-              align: "left",
-            },
-            {
-              value: "5",
-              align: "center",
-            },
-            {
-              value: 50000,
-              align: "right",
-            },
-          ],
-        },
-      ],
-      metodePembayaran: "Sesuatu",
-      identifier: identifier,
-    },
-  ];
+  // const datas = [
+  //   {
+  //     id: 1,
+  //     content: "Pembelian Kripik Apel dari Toko Budi (Konfirmasi Pembayaran)",
+  //     date: "1 hari yang lalu",
+  //     modalType: 2,
+  //     detail: [
+  //       {
+  //         data: [
+  //           {
+  //             value: "1",
+  //             align: "center",
+  //           },
+  //           {
+  //             value: "Natrium Benzoat 100g",
+  //             align: "left",
+  //           },
+  //           {
+  //             value: "5",
+  //             align: "center",
+  //           },
+  //           {
+  //             value: 50000,
+  //             align: "right",
+  //           },
+  //         ],
+  //       },
+  //       {
+  //         data: [
+  //           {
+  //             value: "2",
+  //             align: "center",
+  //           },
+  //           {
+  //             value: "Natrium Benzoat 100g",
+  //             align: "left",
+  //           },
+  //           {
+  //             value: "5",
+  //             align: "center",
+  //           },
+  //           {
+  //             value: 50000,
+  //             align: "right",
+  //           },
+  //         ],
+  //       },
+  //     ],
+  //     metodePembayaran: "Sesuatu",
+  //     identifier: identifier,
+  //   },
+  // ];
 
   const columns = [
     {
@@ -183,10 +185,10 @@ export default function Notifikasi() {
       </Layout.Header>
       <Layout>
         <Layout.Sider width={280}>
-          <Sidebar role={role} />
+          <Sidebar role={parseInt(role)} />
         </Layout.Sider>
         <Layout.Content style={{ backgroundColor: "white" }}>
-          <Konten data={datas} columns={columns} identifier={identifier} />
+          <Konten data={data} columns={columns} identifier={identifier} />
         </Layout.Content>
       </Layout>
     </Layout>

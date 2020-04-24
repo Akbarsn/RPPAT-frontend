@@ -191,7 +191,7 @@ export default function Register() {
                       htmlType="submit"
                       className="btn_primary"
                       onClick={() => {
-                        history.push("/login");
+                        history.push("/");
                       }}
                     >
                       Login Sekarang

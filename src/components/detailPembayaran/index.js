@@ -3,14 +3,14 @@ import { Row, Col, Card, Button, Radio, Form, message } from "antd";
 import Table from "../Table";
 import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
-import API from '../../pages/API';
+import API from "../../pages/API";
 
 import "./DetailPembayaran.scss";
 
 function DetailPembayaran(props) {
   let data = useSelector((state) => state.data);
   let bankacc = useSelector((state) => state.bankacc);
-  let bankdetail = useSelector((state) => state.bankdetail)
+  let bankdetail = useSelector((state) => state.bankdetail);
   const dispatch = useDispatch();
 
   const history = useHistory();
@@ -99,13 +99,13 @@ function DetailPembayaran(props) {
               };
               inside.push(temp);
               break;
-              case 2:
-                temp = {
-                  value: data[k].grade,
-                  align: "center",
-                };
-                inside.push(temp);
-                break;
+            case 2:
+              temp = {
+                value: data[k].grade,
+                align: "center",
+              };
+              inside.push(temp);
+              break;
             case 3:
               temp = {
                 value: data[k].inputdata,
@@ -126,8 +126,8 @@ function DetailPembayaran(props) {
         stok.push({ data: inside });
         inside = [];
       }
-      console.log(total)
-      setTotal(total)
+      console.log(total);
+      setTotal(total);
       setRows(stok);
     };
     jenisToko === "baku" ? fetchData2() : fetchData();
@@ -136,57 +136,70 @@ function DetailPembayaran(props) {
   const handleIndex = (e) => {
     // console.log(e.target.value);
     let temp = e.target.value.split("-");
-    setIndex(temp[0]-1);
+    setIndex(temp[0] - 1);
     setbankName(temp[1]);
   };
 
-  function handleBack(){
+  function handleBack() {
     let datform = [];
-    data.map((item)=> {
-      let temp = {[item.id] : item.inputdata};
-      datform.push(temp)
-    })
-    let newDatForm = Object.assign({}, ...datform)
-    dispatch({type:"ADD_FORM_VALUE", payload:newDatForm})
-    history.push(props.linkback)
+    data.map((item) => {
+      let temp = { [item.id]: item.inputdata };
+      datform.push(temp);
+    });
+    let newDatForm = Object.assign({}, ...datform);
+    dispatch({ type: "ADD_FORM_VALUE", payload: newDatForm });
+    history.push(props.linkback);
   }
 
-  function handleItemDetail(data){
+  function handleItemDetail(data) {
     console.log(data);
     let detail = [];
-    data.map((item)=> {
+    data.map((item) => {
       let temp;
-      if(jenisToko==="baku"){
+      if (jenisToko === "baku") {
         temp = {
-          id:item.id,
+          id: item.id,
           item: item.item,
           grade: item.grade,
           qty: item.inputdata,
           price: item.price,
-          unit: item.unit
-        }
-      }
-      else {
+          unit: item.unit,
+        };
+      } else {
         temp = {
-          id:item.id,
+          id: item.id,
           item: item.item,
-          unit: (jenisToko === "outlet" ? item.weight : item.unit),
+          unit: jenisToko === "outlet" ? item.weight : item.unit,
           qty: item.inputdata,
-          price: item.sellPrice
-        }
+          price: item.sellPrice,
+        };
       }
       detail.push(temp);
-    })
+    });
     return detail;
   }
 
   async function handleSelesai() {
     setLoading(true);
     let itemDetail = handleItemDetail(data);
-    let bank = bankName + "-"+bankDetail[index].number + "-"+bankDetail[index].name;
+    let bank =
+      bankName + "-" + bankDetail[index].number + "-" + bankDetail[index].name;
+    let name = "Pembelian ";
+    switch (jenisToko) {
+      case "baku":
+        name += "Bahan Baku";
+        break;
+      case "tambahan":
+        name += "Bahan Tambahan";
+        break;
+      default:
+        name += "Kemasan";
+        break;
+    }
     let postvalue = {
       from: props.from,
       total: total,
+      name: name,
       banks: bank,
       items: itemDetail,
     };
@@ -198,18 +211,18 @@ function DetailPembayaran(props) {
           "content-type": "application/json",
         },
       });
-      console.log(result)
-      if(result.status == 200){
-        message.info("Silahkan cek notifikasi anda untuk melanjutkan pembayaran")
+      console.log(result);
+      if (result.status == 200) {
+        message.info(
+          "Silahkan cek notifikasi anda untuk melanjutkan pembayaran"
+        );
         dispatch({ type: "DELETE_DATA" });
         history.push(props.linkselesai);
-      }
-      else {
+      } else {
         message.error("Pesanan anda gagal diproses");
       }
-      
-    } catch (e){
-      console.log(e)
+    } catch (e) {
+      console.log(e);
     }
     setLoading(false);
   }
@@ -223,12 +236,13 @@ function DetailPembayaran(props) {
 
         <Row>
           <Col span={23}>
+            {console.log(rows)}
             <Table
               columns={props.columns}
               rows={rows}
               togglePagination={false}
               toggleTotal={true}
-              total = {total}
+              total={total}
             ></Table>
           </Col>
         </Row>
