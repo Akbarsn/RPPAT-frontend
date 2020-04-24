@@ -1,27 +1,31 @@
 const initialState={
 data: ["1","2"],
-bankacc:[{index:0, name:"ok"}, {index:0, name:"noo"}],
-bankdetail:["ok","yaa"]
+bankacc:[{index:0, name:"BCA"}, {index:0, name:"BNI"}],
+bankdetail:[{name: "", number: ""}, {name:""}, {number:""}],
+formValue:{},
+modalID:0
 }
 
-const dataBeli = (state = initialState, {type,payload}) => {
+const dataBeli = (state = initialState, {type,payload, acc, detail}) => {
   switch(type){
     case "ADD_DATA":
       return{
-        data:payload
+        data:payload,
+        bankacc:acc,
+        bankdetail:detail
+      }
+    case "ADD_FORM_VALUE":
+      return{
+        formValue:payload
       }
     case "DELETE_DATA":
       return{
-        data:undefined
+        data:initialState.data,
+        bankacc:initialState.bankacc,
+        bankdetail:initialState.bankdetail,
+        formValue:initialState.formValue
       }
-      case "ADD_BANK_ACC":
-      return{
-        bankacc:payload
-      }
-      case "ADD_BANK_DETAIL":
-      return{
-        bankdetail:payload
-      }
+    
       default : 
       return state
   }

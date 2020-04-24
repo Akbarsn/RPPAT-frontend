@@ -3,12 +3,10 @@ import Navbar from "../../components/Navbar";
 import Sidebar from "../../components/Sidebar";
 import Konten from "../../components/detailPembayaran";
 import { Layout } from "antd";
-import API from '../API';
 import { useParams } from "react-router-dom";
 
 export default function DetailPembayaran() {
   const token = localStorage.getItem("token");
-  // const id = localStorage.getItem("idtoko");
   const {id, store} = useParams()
   
   const columns = [
@@ -19,6 +17,29 @@ export default function DetailPembayaran() {
     {
       align: "left",
       name: "Nama Produk",
+    },
+    {
+      align: "center",
+      name: "Kuantitas",
+    },
+    {
+      align: "right",
+      name: "Total",
+    },
+  ];
+
+  const columns2 = [
+    {
+      align: "center",
+      name: "No",
+    },
+    {
+      align: "left",
+      name: "Nama Produk",
+    },
+    {
+      align:"center",
+      name:"Grade"
     },
     {
       align: "center",
@@ -41,7 +62,7 @@ export default function DetailPembayaran() {
         >
           
           <Konten
-            columns={columns}
+            columns={store==="baku" ? columns2 : columns}
             store={store}
             linkback = {`/umkm/detail-toko/${store}/${id}`}
             linkselesai = "/umkm"
