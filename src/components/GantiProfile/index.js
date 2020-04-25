@@ -9,8 +9,12 @@ export default function GantiProfile(props) {
     wrapperCol: { span: 16 },
   };
 
+  const [form] = Form.useForm();
+
   const dateFormat = "YYYY-MM-DD";
   const rules = [{ required: true }];
+
+  console.log(props.data)
 
   return (
     <div id="ganti-profile">
@@ -19,7 +23,7 @@ export default function GantiProfile(props) {
       <Row justify="start">
         <Col span={14}>
           <div className="form">
-            <Form {...layout} onFinish={props.onFinish} initialValues={props.data}>
+            <Form {...layout} onFinish={props.onFinish} form={form} initialValues={form.setFieldsValue(props.data)}>
               <Form.Item
                 label="Nama Lengkap"
                 name="fullName"
@@ -30,7 +34,7 @@ export default function GantiProfile(props) {
                   },
                 ]}
               >
-                <Input />
+                <Input/>
               </Form.Item>
 
               <Form.Item
@@ -111,7 +115,7 @@ export default function GantiProfile(props) {
                 <Input.Password />
               </Form.Item>
 
-              <Col span={14} offset={6}>
+              <Col span={24} offset={6}>
                 <Row>
                   <Col>
                     <span className="subhead">Nama Bank</span>

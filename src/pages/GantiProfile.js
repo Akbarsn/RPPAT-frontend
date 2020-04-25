@@ -8,7 +8,8 @@ import API from "./API";
 import jwt from "jsonwebtoken";
 
 export default function GantiProfile() {
-  const [data, setData] = useState([]);
+
+  const [data, setData] = useState([])
 
   const token = localStorage.getItem("token");
   const role = localStorage.getItem("role");
@@ -21,9 +22,11 @@ export default function GantiProfile() {
         },
       });
 
+      console.log(result)
+
       if (result) {
-        const bankAcc = result.data.bankAcc.split("-");
-        const bankNum = result.data.bankNum.split("-");
+        const bankAcc = result.data.data.bankAccount.split("-");
+        const bankNum = result.data.data.bankNumber.split("-");
         let banks = [];
 
         for (let i = 0; i < bankAcc.length; i++) {
@@ -34,20 +37,19 @@ export default function GantiProfile() {
 
           banks.push(temp);
         }
-        const date = moment(result.data.birthDate);
+        const date = moment(result.data.data.birthDate);
 
         const data = {
-          name: result.data.name,
-          fullName: result.data.fullName,
-          address: result.data.address,
+          name: result.data.data.name,
+          fullName: result.data.data.fullName,
+          address: result.data.data.address,
           birthDate: date,
-          phoneNumber: result.data.phoneNumber,
-          email: result.data.email,
-          username: result.data.username,
-          password: result.data.password,
+          phoneNumber: result.data.data.phoneNumber,
+          email: result.data.data.email,
+          username: result.data.data.username,
+          password: result.data.data.password,
           banks: banks,
         };
-
         setData(data);
       }
     };

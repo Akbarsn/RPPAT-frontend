@@ -8,7 +8,8 @@ import {
   Form,
   Upload,
   Card,
-  message,
+  message, 
+  Empty
 } from "antd";
 import Tabel from "../Table";
 import { UploadOutlined } from "@ant-design/icons";
@@ -280,7 +281,7 @@ export default function Notif(props) {
       </p>
       <div className="listnotif">
         <List>
-          {props.data.slice(minValue, maxValue).map((item) => {
+          {props.data.length < 1 ? <Empty description={<span>Tidak Ada Notifikasi</span>}/> : props.data.slice(minValue, maxValue).map((item) => {
             return (
               <List.Item key={item.id}>
                 <List.Item.Meta

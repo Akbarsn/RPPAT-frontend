@@ -9,6 +9,7 @@ import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import TablePagination from "@material-ui/core/TablePagination";
 import "./Table.scss";
+import { Empty } from 'antd';
 
 export default function Tabel(props) {
   let indexTotal = 0;
@@ -83,7 +84,7 @@ export default function Tabel(props) {
             </TableRow>
           </TableHead>
           <TableBody>
-            {(rowsPerPage > 0
+            {props.rows.length < 1 ? <TableRow><TableCell colSpan={props.columns.length}><Empty description={<span>{props.empty}</span>}/></TableCell></TableRow> : (rowsPerPage > 0
               ? props.rows.slice(
                   page * rowsPerPage,
                   page * rowsPerPage + rowsPerPage

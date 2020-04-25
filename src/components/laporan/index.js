@@ -192,6 +192,7 @@ export default function Laporan(props) {
               rows={props.table.rows}
               togglePagination={props.table.isPaginate}
               toggleTotal={props.table.isTotal}
+              empty="Tidak Ada Data"
             ></Table>
           </Col>
         </Row>

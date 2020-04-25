@@ -240,6 +240,7 @@ function DetailPembayaran(props) {
             <Table
               columns={props.columns}
               rows={rows}
+              empty="Tidak Ada Transaksi"
               togglePagination={false}
               toggleTotal={true}
               total={total}
