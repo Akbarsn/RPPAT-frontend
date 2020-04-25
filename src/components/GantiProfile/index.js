@@ -103,7 +103,7 @@ export default function GantiProfile(props) {
               </Form.Item>
 
               <Form.Item
-                label="Password"
+                label="New Password"
                 name="password"
                 rules={[
                   {

@@ -70,7 +70,7 @@ export default function Notif(props) {
     console.log(id);
 
     const result = await API.post(
-      `/${role}/terima-barang`,
+      `/${role}/konfirmasi-penerimaan`,
       {
         id: id,
       },

@@ -8,8 +8,7 @@ import API from "./API";
 import jwt from "jsonwebtoken";
 
 export default function GantiProfile() {
-
-  const [data, setData] = useState([])
+  const [data, setData] = useState([]);
 
   const token = localStorage.getItem("token");
   const role = localStorage.getItem("role");
@@ -22,7 +21,7 @@ export default function GantiProfile() {
         },
       });
 
-      console.log(result)
+      console.log(result);
 
       if (result) {
         const bankAcc = result.data.data.bankAccount.split("-");
@@ -47,7 +46,6 @@ export default function GantiProfile() {
           phoneNumber: result.data.data.phoneNumber,
           email: result.data.data.email,
           username: result.data.data.username,
-          password: result.data.data.password,
           banks: banks,
         };
         setData(data);
@@ -91,7 +89,11 @@ export default function GantiProfile() {
     const data = { ...value, bankAcc, bankNumber };
 
     delete data.banks;
-    const result = await API.post("/ganti-profile", data);
+    const result = await API.post("/ganti-profile", data, {
+      headers: {
+        Authorization: `bearer ${token}`,
+      },
+    });
 
     if (result) {
       var decoded = jwt.decode(token);
@@ -120,7 +122,7 @@ export default function GantiProfile() {
     <Layout style={{ backgroundColor: "#ffffff" }}>
       <Navbar />
       <Layout style={{ marginTop: 64, marginLeft: 280 }}>
-        <Sidebar role={role} />
+        <Sidebar role={parseInt(role)} />
         <Layout.Content
           style={{ minHeight: "100vh", backgroundColor: "white" }}
         >

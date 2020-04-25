@@ -169,7 +169,7 @@ function DetailPembayaran(props) {
         temp = {
           id: item.id,
           item: item.item,
-          unit: jenisToko === "outlet" ? item.weight : item.unit,
+          unit: jenisToko === "umkm" ? item.weight : item.unit,
           qty: item.inputdata,
           price: item.sellPrice,
         };
@@ -192,9 +192,11 @@ function DetailPembayaran(props) {
       case "tambahan":
         name += "Bahan Tambahan";
         break;
-      default:
+      case "kemasan":
         name += "Kemasan";
         break;
+      case "umkm":
+        name += "Produk";
     }
     let postvalue = {
       from: props.from,

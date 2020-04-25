@@ -13,8 +13,6 @@ export default function DetailToko() {
   const [bankAccount, setBankAccount] = useState([]);
   const [bankDetail, setBankDetail] = useState([]);
 
-  // const id = localStorage.getItem("idtoko");
-  // const jenisToko = localStorage.getItem("store");
   const token = localStorage.getItem("token");
   const { id, store } = useParams();
   const jenisToko = store;

@@ -12,7 +12,7 @@ export default function Beli() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const result = await API.get("/outlet/beli-stok", {
+      const result = await API.get("/outlet/beli-produk", {
         headers: {
           Authorization: `bearer ${token}`,
         },
@@ -26,23 +26,26 @@ export default function Beli() {
       result.data.data.map((store) => {
         let stocks = [];
         let count = 0;
-        store.apples.map((stock) => {
-          if (count == 3) {
-          } else {
-            temp = {
-              barang: stock.item,
-              jumlah: stock.qty,
-            };
-            stocks.push(temp);
-            count++;
-          }
-        });
-        temp = {
-          nama: store.name,
-          stok: stocks,
-        };
+        if (store.products.length != 0) {
+          store.products.map((stock) => {
+            if (count == 3) {
+            } else {
+              temp = {
+                barang: stock.item,
+                jumlah: stock.qty,
+              };
+              stocks.push(temp);
+              count++;
+            }
+          });
+          temp = {
+            link: "/outlet/detail-toko/" + store.id,
+            nama: store.name,
+            stok: stocks,
+          };
 
-        card.push(temp);
+          card.push(temp);
+        }
       });
 
       setCardData(card);

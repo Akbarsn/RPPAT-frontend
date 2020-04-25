@@ -3,13 +3,13 @@ import Navbar from "../../components/Navbar";
 import Sidebar from "../../components/Sidebar";
 import Konten from "../../components/detailPembayaran";
 import { Layout } from "antd";
-import {useParams} from 'react-router-dom';
+import { useParams } from "react-router-dom";
 
 export default function DetailPembayaran() {
   const token = localStorage.getItem("token");
 
-  const { id } = useParams()
-  
+  const { id } = useParams();
+
   const columns = [
     {
       align: "center",
@@ -31,7 +31,7 @@ export default function DetailPembayaran() {
 
   return (
     <Layout style={{ backgroundColor: "#ffffff" }}>
-      <Navbar name={"Akbar"} />
+      <Navbar />
       <Layout style={{ marginTop: 64, marginLeft: 280 }}>
         <Sidebar role={3} />
         <Layout.Content
@@ -39,12 +39,12 @@ export default function DetailPembayaran() {
         >
           <Konten
             columns={columns}
-            store={"outlet"}
-            linkback = {`/outlet/detail-toko/${id}`}
-            linkselesai = "/outlet"
-            linkpost = "/outlet/beli-produk"
-            from = {id}
-            token = {token}
+            store="umkm"
+            linkback={`/outlet/detail-toko/${id}`}
+            linkselesai="/outlet"
+            linkpost="/outlet/beli-produk"
+            from={id}
+            token={token}
           ></Konten>
         </Layout.Content>
       </Layout>
