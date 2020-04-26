@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import Konten from "../../components/laporan";
 import Navbar from "../../components/Navbar";
 import Sidebar from "../../components/Sidebar";
-import { Layout } from "antd";
+import { Layout, Spin } from "antd";
 import API from "../API";
 
 export default function LaporanStokKemasan() {
@@ -141,6 +141,7 @@ export default function LaporanStokKemasan() {
         <Layout.Content
           style={{ minHeight: "100vh", backgroundColor: "white" }}
         >
+        <Spin tip="Loading..." size="large" spinning={loading}>
           <Konten
             name="Stok Kemasan"
             table={{
@@ -180,6 +181,7 @@ export default function LaporanStokKemasan() {
               },
             ]}
           ></Konten>
+          </Spin>
         </Layout.Content>
       </Layout>
     </Layout>

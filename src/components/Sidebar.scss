@@ -1,5 +1,25 @@
 @import "Root";
 
+@media screen and (min-width: $break-large) {
+  #sidebar .primary {
+    font-size: 20px !important;
+  }
+
+  #sidebar .secondary {
+    font-size: 16px !important;
+  }
+}
+
+@media screen and (min-width: $break-medium) {
+  #sidebar .primary {
+    font-size: 18px
+  }
+
+  #sidebar .secondary {
+    font-size: 14px;
+  }
+}
+
 .center {
   display: flex;
   justify-content: center;
@@ -42,7 +62,7 @@
 
 #sidebar .primary {
   font-family: $font-sub;
-  font-size: 23px !important;
+  font-size: 18px !important;
   color: $color-black;
 }
 
@@ -52,7 +72,7 @@
 
 #sidebar .secondary {
   font-family: $font-sub;
-  font-size: 20px !important;
+  font-size: 16px !important;
   color: $color-black;
 }
 

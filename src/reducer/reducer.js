@@ -2,7 +2,7 @@ const initialState={
 data: ["1","2"],
 bankacc:[{index:0, name:"BCA"}, {index:0, name:"BNI"}],
 bankdetail:[{name: "", number: ""}, {name:""}, {number:""}],
-formValue:{}
+formValue:{}                 
 }
 
 const dataBeli = (state = initialState, {type,payload, acc, detail}) => {
