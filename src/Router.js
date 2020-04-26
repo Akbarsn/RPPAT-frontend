@@ -1,6 +1,6 @@
 import React from "react";
 import { BrowserRouter as Brow, Route, Switch } from "react-router-dom";
-
+import ProtectedRoute from './ProtectedRoute';
 import Homepage from "./pages/Home";
 import Laporan from "./pages/Laporan";
 import LihatStok from "./pages/LihatStok";
@@ -9,7 +9,6 @@ import Beli from "./pages/Beli";
 // import DetailPembayaran from "./pages/DetailPembayaran";
 // import DetailToko from "./pages/DetailToko";
 import DaftarBarang from "./pages/kasir/DaftarBarang";
-import Notif from "./pages/Notifikasi";
 import Transaksi from "./pages/kasir/Transaksi";
 import TambahKasir from "./pages/TambahKasir";
 import GantiProfile from "./pages/GantiProfile";
@@ -42,52 +41,49 @@ export default function Router() {
           <Register />
         </Route>
 
-        <Route exact path="/ganti-profile">
-          <GantiProfile />
-        </Route>
+        <ProtectedRoute exact path="/ganti-profile" component={GantiProfile} role={6}/>
 
-        <Route exact path="/notifikasi">
-          <Notifikasi />
-        </Route>
+        <ProtectedRoute exact path="/notifikasi" component = {Notifikasi} role={6}/>
 
-        <Route
+        <ProtectedRoute
           path="/umkm/detail-toko/:store/:id"
-          children={<UMKMDetailToko />}
+          component={UMKMDetailToko}
+          role={3}
         />
 
-        <Route
-          exact path="/umkm/detail-pembayaran/:store/:id"
-        ><UMKMDetailPembayaran /></Route>
+        <ProtectedRoute
+          exact path="/umkm/detail-pembayaran/:store/:id" component={UMKMDetailPembayaran} role={3}/>
 
-        <Route path="/outlet/detail-toko/:id" children={<OutletDetailToko />} />
+        <ProtectedRoute path="/outlet/detail-toko/:id" component={OutletDetailToko} role={4}/>
 
-        <Route
+        <ProtectedRoute
           path="/outlet/detail-pembayaran/:id"
-          children={<OutletDetailPembayaran />}
+          component={OutletDetailPembayaran}
+          role={4}
         />
 
         {PetaniRouter.map((props) => (
-          <Route exact {...props}></Route>
+          <ProtectedRoute exact {...props} role={0}></ProtectedRoute>
         ))}
 
         {KemasanRouter.map((props) => (
-          <Route exact {...props}></Route>
+          <ProtectedRoute exact {...props} role={1}></ProtectedRoute>
         ))}
 
         {BahanTambahanRouter.map((props) => (
-          <Route exact {...props}></Route>
+          <ProtectedRoute exact {...props} role={2}></ProtectedRoute>
         ))}
 
         {UMKMRouter.map((props) => (
-          <Route exact {...props}></Route>
+          <ProtectedRoute exact {...props} role={3}></ProtectedRoute>
         ))}
 
         {OutletRouter.map((props) => (
-          <Route exact {...props}></Route>
+          <ProtectedRoute exact {...props} role={4}></ProtectedRoute>
         ))}
 
         {KasirRouter.map((props) => (
-          <Route exact {...props}></Route>
+          <ProtectedRoute exact {...props} role={5}></ProtectedRoute>
         ))}
 
         {/* Development Route */}
@@ -116,16 +112,6 @@ export default function Router() {
         <Route exact path="/lihatstok">
           <LihatStok />
         </Route>
-
-        <Route exact path="/notifikasi">
-          <Notif />
-        </Route>
-
-        <Route
-          exact
-          path="/register"
-          render={(props) => <Register {...props} />}
-        />
 
         <Route
           exact
