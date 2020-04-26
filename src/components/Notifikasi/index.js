@@ -8,8 +8,8 @@ import {
   Form,
   Upload,
   Card,
-  message, 
-  Empty
+  message,
+  Empty,
 } from "antd";
 import Tabel from "../Table";
 import { UploadOutlined } from "@ant-design/icons";
@@ -42,7 +42,7 @@ export default function Notif(props) {
     if (Array.isArray(e)) {
       return e;
     }
-    message.success("Upload Berhasil")
+    message.success("Upload Berhasil");
     return e && e.fileList;
   };
 
@@ -87,9 +87,11 @@ export default function Notif(props) {
       }
     );
 
+    console.log(result);
+
     if (result.status == 200) {
       setLoading(false);
-      window.location.reload();
+      // window.location.reload();
     } else {
       setLoading(false);
       message.error(
@@ -284,22 +286,26 @@ export default function Notif(props) {
       </p>
       <div className="listnotif">
         <List>
-          {props.data.length < 1 ? <Empty description={<span>Tidak Ada Notifikasi</span>}/> : props.data.slice(minValue, maxValue).map((item) => {
-            return (
-              <List.Item key={item.id}>
-                <List.Item.Meta
-                  title={<p className="titlenotif">{item.content}</p>}
-                  description={item.date}
-                />
-                <div>
-                  <Button onClick={() => handleChange(item)}>
-                    {ModalType(item.modalType)}
-                  </Button>
-                </div>
-                {getModal(item.detail, item)}
-              </List.Item>
-            );
-          })}
+          {props.data.length < 1 ? (
+            <Empty description={<span>Tidak Ada Notifikasi</span>} />
+          ) : (
+            props.data.slice(minValue, maxValue).map((item) => {
+              return (
+                <List.Item key={item.id}>
+                  <List.Item.Meta
+                    title={<p className="titlenotif">{item.content}</p>}
+                    description={item.date}
+                  />
+                  <div>
+                    <Button onClick={() => handleChange(item)}>
+                      {ModalType(item.modalType)}
+                    </Button>
+                  </div>
+                  {getModal(item.detail, item)}
+                </List.Item>
+              );
+            })
+          )}
         </List>
       </div>
       <div style={{ textAlign: "center" }}>

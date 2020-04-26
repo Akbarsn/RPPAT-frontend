@@ -8,6 +8,7 @@ import { DownOutlined, BellOutlined } from "@ant-design/icons";
 
 export default function Navbar() {
   const [number, setNumber] = useState(0);
+  const outletId = localStorage.getItem("outletId");
 
   const name = localStorage.getItem("name");
   const token = localStorage.getItem("token");
@@ -26,7 +27,7 @@ export default function Navbar() {
       case "4":
         return "outlet";
       default:
-        return "Duar";
+        return "-";
     }
   }
   const identifier = roleName(role);
@@ -53,7 +54,13 @@ export default function Navbar() {
     window.location.replace("/");
   }
 
-  const menu = (
+  const menu = outletId ? (
+    <Menu>
+      <Menu.Item key="logOut" className="dropdownMenu" onClick={handleLogOut}>
+        Keluar
+      </Menu.Item>
+    </Menu>
+  ) : (
     <Menu>
       <Menu.Item key="editProfile" className="dropdownMenu">
         <Link to="/ganti-profile">Ganti Profile</Link>

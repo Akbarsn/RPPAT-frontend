@@ -54,7 +54,7 @@ export default function LihatStok() {
           <Sidebar role={4} />
         </Layout.Sider>
         <Layout.Content style={{ backgroundColor: "white" }}>
-          <Lihat title="Stok Produk" data={rows} linkpost="" token={token} />
+          <Lihat title="Stok Produk" data={rows} linkpost="/outlet/lihat-stok" token={token} />
         </Layout.Content>
       </Layout>
     </Layout>

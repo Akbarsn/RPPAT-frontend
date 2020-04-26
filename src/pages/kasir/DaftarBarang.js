@@ -6,24 +6,6 @@ import Daftar from "../../components/DaftarBarang/index";
 import API from "../API";
 
 export default function DaftarBarang() {
-  const [data, setdata] = useState([]);
-  const token = localStorage.getItem("token");
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const result = await API.get("/kasir", {
-        headers: {
-          Authorization: `bearer ${token}`,
-        },
-      });
-
-      if (result) {
-        let items = result.data.data.map;
-        setdata(items);
-      }
-    };
-    fetchData();
-  }, []);
 
   // const data = [
   //     {
@@ -98,7 +80,7 @@ export default function DaftarBarang() {
           <Sidebar role={5} />
         </Layout.Sider>
         <Layout.Content style={{ backgroundColor: "white" }}>
-          <Daftar data={data} />
+          <Daftar />
         </Layout.Content>
       </Layout>
     </Layout>

@@ -6,26 +6,10 @@ import Transaksi from "../../components/Transaksi/index";
 import API from "../API";
 
 export default function Transaction() {
-  const [data, setdata] = useState([]);
   const token = localStorage.getItem("token")
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const result = await API.get("/kasir", {
-        headers: {
-          Authorization: `bearer ${token}`,
-        },
-      });
-
-      if (result) {
-        let items = result.data.data.map;
-        setdata(items);
-      }
-    };
-    fetchData();
-  }, []);
-
   async function handleSubmit(data) {
+    console.log(data);
     const result = await API.post("/kasir", data, {
       headers: {
         Authorization: `bearer ${token}`,
@@ -60,7 +44,7 @@ export default function Transaction() {
           <Sidebar role={5} />
         </Layout.Sider>
         <Layout.Content style={{ backgroundColor: "white" }}>
-          <Transaksi data={data} handleSubmit={handleSubmit} />
+          <Transaksi handleSubmit={handleSubmit} />
         </Layout.Content>
       </Layout>
     </Layout>

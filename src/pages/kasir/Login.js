@@ -2,7 +2,7 @@ import React, { useState, Fragment } from "react";
 import { Alert, Form, Input, Button } from "antd";
 import jwt from "jsonwebtoken";
 import "./Login.scss";
-import axios from "axios";
+import API from "../API";
 
 export default function Login(props) {
   let [uname, setUname] = useState("");
@@ -21,13 +21,12 @@ export default function Login(props) {
       };
       console.log(user);
       try {
-        let hasil = await axios.post(
-          "http://31.220.50.154:5000/kasir/login",
-          user
-        );
-        localStorage.setItem("token", hasil.data.token);
+        let hasil = await API.post("/kasir/login", user);
         var decoded = jwt.decode(hasil.data.token);
         console.log(decoded);
+        localStorage.setItem("token", hasil.data.token);
+        localStorage.setItem("name", hasil.data.data.fullName.split(" ")[0]);
+        localStorage.setItem("outletId", decoded.outletId);
         window.location.replace("/kasir");
       } catch (e) {
         switch (e.response) {

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Konten from "../../components/laporan";
 import Navbar from "../../components/Navbar";
 import Sidebar from "../../components/Sidebar";
-import { Layout, Spin } from "antd";
+import { Layout, Spin, message } from "antd";
 import API from "../API";
 
 export default function LaporanProduksi() {
@@ -111,6 +111,7 @@ export default function LaporanProduksi() {
 
   const handleSubmit = async (value) => {
     try {
+      setLoading(true);
       console.log(value);
       const result = await API.post("/umkm/laporan", value, {
         headers: {
@@ -119,8 +120,14 @@ export default function LaporanProduksi() {
         },
       });
 
-      console.log(result);
-      window.location.reload();
+      if (result.status == 200) {
+        console.log(result);
+        setLoading(false);
+        window.location.reload();
+      } else {
+        setLoading(false);
+        message.error("Terjadi kesalahan, silahkan mengulangi lagi");
+      }
     } catch (e) {}
   };
 
@@ -132,41 +139,41 @@ export default function LaporanProduksi() {
         <Layout.Content
           style={{ minHeight: "100vh", backgroundColor: "white" }}
         >
-        <Spin tip="Loading..." size="large" spinning={loading}>
-          <Konten
-            name="Pembelian"
-            table={{
-              columns: columns,
-              rows: rows,
-              isPaginate: true,
-              isTotal: false,
-            }}
-            handleSubmit={handleSubmit}
-            isThereButton={true}
-            firstItem="Jenis Produk Olahan"
-            fields={[
-              {
-                label: "Satuan Kemasan",
-                name: "weight",
-                type: "text",
-              },
-              {
-                label: "Jumlah",
-                name: "qty",
-                type: "number",
-              },
-              {
-                label: "Harga Jual",
-                name: "buyPrice",
-                type: "number",
-              },
-              {
-                label: "Harga Beli",
-                name: "sellPrice",
-                type: "number",
-              },
-            ]}
-          ></Konten>
+          <Spin tip="Loading..." size="large" spinning={loading}>
+            <Konten
+              name="Produksi"
+              table={{
+                columns: columns,
+                rows: rows,
+                isPaginate: true,
+                isTotal: false,
+              }}
+              handleSubmit={handleSubmit}
+              isThereButton={true}
+              firstItem="Jenis Produk Olahan"
+              fields={[
+                {
+                  label: "Satuan Kemasan",
+                  name: "weight",
+                  type: "text",
+                },
+                {
+                  label: "Jumlah",
+                  name: "qty",
+                  type: "number",
+                },
+                {
+                  label: "Harga Jual",
+                  name: "buyPrice",
+                  type: "number",
+                },
+                {
+                  label: "Harga Beli",
+                  name: "sellPrice",
+                  type: "number",
+                },
+              ]}
+            ></Konten>
           </Spin>
         </Layout.Content>
       </Layout>

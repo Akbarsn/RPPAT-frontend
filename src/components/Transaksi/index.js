@@ -1,6 +1,7 @@
 import React, { useState, Fragment, useEffect } from "react";
 import { Row, Col, Select, InputNumber, Form, Button, Modal } from "antd";
 import "./index.scss";
+import API from "../../pages/API";
 
 export default function Transaksi(props) {
   const arrbulan = [
@@ -31,7 +32,6 @@ export default function Transaksi(props) {
   const day = today.getDay();
   const month = today.getMonth();
 
-  const [datas, setDatas] = useState(props.data);
   const [visible, setVisible] = useState(false);
   const [detail, setDetail] = useState(null);
   const [list, setList] = useState([]);
@@ -46,6 +46,40 @@ export default function Transaksi(props) {
       " " +
       today.getFullYear()
   );
+
+  const [datas, setDatas] = useState([]);
+  const token = localStorage.getItem("token");
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const result = await API.get("/kasir", {
+        headers: {
+          Authorization: `bearer ${token}`,
+        },
+      });
+
+      console.log(result);
+
+      let products = [];
+
+      if (result) {
+        let temp;
+        result.data.data.map((item) => {
+          temp = {
+            id: item.id,
+            item: item.item,
+            qty: item.qty,
+            weight: item.weight,
+            sellPrice: item.sellPrice,
+          };
+
+          products.push(temp);
+        });
+        setDatas(products);
+      }
+    };
+    fetchData();
+  }, []);
 
   function searchDetail(value) {
     const results = datas.filter((data) => {
@@ -104,6 +138,10 @@ export default function Transaksi(props) {
     setKembalian(change);
   }
 
+  const checkQty = () => {
+    setVisible(true)
+  }
+
   return (
     <div className="bodykasir">
       <div className="titlepage">Transaksi</div>
@@ -126,7 +164,9 @@ export default function Transaksi(props) {
             >
               {datas.map((data) => {
                 return (
-                  <Select.Option value={data.item}>{data.item}</Select.Option>
+                  <Select.Option value={data.item}>
+                    {data.item} - {data.weight}
+                  </Select.Option>
                 );
               })}
             </Select>
@@ -237,12 +277,7 @@ export default function Transaksi(props) {
               </div>
             </div>
             <div style={{ textAlign: "right" }}>
-              <Button
-                className="btn_primary"
-                onClick={() => {
-                  setVisible(true);
-                }}
-              >
+              <Button className="btn_primary" onClick={checkQty}>
                 Bayar
               </Button>
             </div>

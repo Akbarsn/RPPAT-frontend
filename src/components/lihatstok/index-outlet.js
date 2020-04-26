@@ -11,16 +11,15 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import TablePagination from "@material-ui/core/TablePagination";
-import API from '../../pages/API';
+import API from "../../pages/API";
 
 export default function Index(props) {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [visible, setVisible] = useState(null);
+  const [id, setId] = useState(null);
   const data = props.data;
   const [loading, setLoading] = useState(false);
-
-  const [form] = Form.useForm();
 
   const layout = {
     labelCol: { span: 8 },
@@ -56,43 +55,53 @@ export default function Index(props) {
     return e && e.fileList;
   };
 
-  async function onFinish(value){
-      setLoading(true);
-      let id;
-      data.map((item)=> {
-          if(item.item === value.item){
-              id = item.id;
-          }
-      })
-      let postvalue = {
-          id : id,
-          item : value.item,
-          itemImage : value.itemImage,
-          qty : value.qty,
-          sellPrice : value.sellPrice
-      }
-      try {
-        const result = await API.post(props.linkpost, postvalue, {
-          headers: {
-            Authorization: `bearer ${props.token}`,
-            "content-type": "application/json",
-          }
-        })
-        console.log(result);
-        if(result.status === 200){
-            message.success("Perubahan data berhasil disimpan");
-            window.location.reload();
-        }
-        else {
-          message.error("Terjadi kegagalan dalam menyimpan data");
-        }
-    }
-    catch(e){
-        console.log(e.message)
+  async function onFinish(value) {
+    setLoading(true);
+    // let id;
+    // data.map((item) => {
+    //   if (item.item === value.item) {
+    //     id = item.id;
+    //   }
+    // });
+    console.log(value)
+
+    const form = new FormData();
+    form.append("id", id);
+    form.append("item", value.item);
+    form.append("image", value.image[0].originFileObj);
+    form.append("qty", value.qty);
+    form.append("sellPrice", value.sellPrice);
+
+    // let postvalue = {
+    //   id: id,
+    //   item: value.item,
+    //   image: value.itemImage,
+    //   qty: value.qty,
+    //   sellPrice: value.sellPrice,
+    // };
+
+    console.log(...form);
+
+    try {
+      const result = await API.post(props.linkpost, form, {
+        headers: {
+          Authorization: `bearer ${props.token}`,
+          "content-type": "multipart/form-data",
+        },
+      });
+      console.log(result);
+      if (result.status === 200) {
+        message.success("Perubahan data berhasil disimpan");
+        window.location.reload();
+      } else {
         message.error("Terjadi kegagalan dalam menyimpan data");
+      }
+    } catch (e) {
+      console.log(e.message);
+      message.error("Terjadi kegagalan dalam menyimpan data");
     }
-    setVisible(null);
     setLoading(false);
+    setVisible(null);
   }
 
   return (
@@ -126,45 +135,113 @@ export default function Index(props) {
                     page * rowsPerPage + rowsPerPage
                   )
                 : data
-              ).map((row, index) => (
-                <TableRow key={row}>
-                  <StyledTableCell align="center">{row.no}</StyledTableCell>
-                  <StyledTableCell align="left">{row.item}</StyledTableCell>
-                  <StyledTableCell align="center">{row.qty}</StyledTableCell>
-                  <StyledTableCell align="center">{row.weight}</StyledTableCell>
-                  <StyledTableCell align="center">
-                    {row.buyPrice}
-                  </StyledTableCell>
-                  <StyledTableCell align="center">
-                    {row.sellPrice}
-                  </StyledTableCell>
-                  <StyledTableCell align="center">
-                    <div>
-                      <Button
-                        className="btn_primary"
-                        onClick={() => setVisible(index)}
-                      >
-                        Lihat Detail
-                      </Button>
-                    </div>
-                    <Form
-                      {...layout}
-                      form={form}
-                      initialValues={form.setFieldsValue({
-                        item: row.item,
-                        itemImage: row.itemImage,
-                        qty: row.qty,
-                        sellPrice: row.sellPrice,
-                      })}
-                      onFinish={onFinish}
-                    >
+              ).map((row, index) => {
+                // value[index] = {
+                //   item: row.item,
+                //   weight: row.weight,
+                //   itemImage: row.itemImage,
+                //   qty: row.qty,
+                //   sellPrice: row.sellPrice,
+                // };
+                return (
+                  <TableRow key={row}>
+                    <StyledTableCell align="center">{row.no}</StyledTableCell>
+                    <StyledTableCell align="left">{row.item}</StyledTableCell>
+                    <StyledTableCell align="center">{row.qty}</StyledTableCell>
+                    <StyledTableCell align="center">
+                      {row.weight}
+                    </StyledTableCell>
+                    <StyledTableCell align="center">
+                      {row.buyPrice}
+                    </StyledTableCell>
+                    <StyledTableCell align="center">
+                      {row.sellPrice}
+                    </StyledTableCell>
+                    <StyledTableCell align="center">
+                      <div>
+                        <Button
+                          className="btn_primary"
+                          onClick={() => {
+                            setId(row.id);
+                            setVisible(index);
+                          }}
+                        >
+                          Lihat Detail
+                        </Button>
+                      </div>
                       <Modal
                         title={[
                           <div className="title-modalpembayaran">
-                            Edit Stok
+                            Edit Stok{row.no}
                           </div>,
                         ]}
-                        footer={
+                        footer={false}
+                        visible={visible === index}
+                        onCancel={() => setVisible(null)}
+                        centered
+                      >
+                        <Form
+                          {...layout}
+                          initialValues={data[index]}
+                          onFinish={onFinish}
+                        >
+                          <Form.Item label="Nama Produk" name="item">
+                            <Input disabled />
+                          </Form.Item>
+
+                          <Form.Item label="Satuan Kemasan" name="weight">
+                            <Input disabled />
+                          </Form.Item>
+
+                          <Form.Item
+                            name="image"
+                            rules={[
+                              {
+                                required: true,
+                                message: "Tolong berikan gambar produk !",
+                              },
+                            ]}
+                            label={<div>Upload Gambar Produk</div>}
+                            valuePropName="fileList"
+                            getValueFromEvent={normFile}
+                            extra="Pastikan file dalam format .png atau .jpeg"
+                          >
+                            <Upload
+                              name="logo"
+                              listType="picture"
+                              accept=".png,.jpeg"
+                            >
+                              <Button>
+                                <UploadOutlined />
+                                Klik untuk Upload
+                              </Button>
+                            </Upload>
+                          </Form.Item>
+                          <Form.Item
+                            label="Stok"
+                            name="qty"
+                            rules={[
+                              {
+                                required: true,
+                                message: "Tolong masukkan stok produk !",
+                              },
+                            ]}
+                          >
+                            <Input />
+                          </Form.Item>
+                          <Form.Item
+                            label="Harga Jual per Kemasan"
+                            name="sellPrice"
+                            rules={[
+                              {
+                                required: true,
+                                message: "Tolong masukkan harga jual !",
+                              },
+                            ]}
+                          >
+                            <Input />
+                          </Form.Item>
+
                           <Form.Item>
                             <div style={{ textAlign: "right" }}>
                               <Button
@@ -176,61 +253,12 @@ export default function Index(props) {
                               </Button>
                             </div>
                           </Form.Item>
-                        }
-                        visible={visible === index}
-                        onCancel={() => setVisible(null)}
-                        centered
-                      >
-                        <Form.Item label="Nama Produk" name="item">
-                          <Input disabled />
-                        </Form.Item>
-                        <Form.Item
-                          name="itemImage"
-                          label={<div>Upload Gambar Produk</div>}
-                          valuePropName="fileList"
-                          getValueFromEvent={normFile}
-                          extra="Pastikan file dalam format .png atau .jpeg"
-                        >
-                          <Upload
-                            name="logo"
-                            listType="picture"
-                            accept=".png,.jpeg"
-                          >
-                            <Button>
-                              <UploadOutlined />
-                              Klik untuk Upload
-                            </Button>
-                          </Upload>
-                        </Form.Item>
-                        <Form.Item
-                          label="Stok"
-                          name="qty"
-                          rules={[
-                            {
-                              required: true,
-                              message: "Tolong masukkan stok produk !",
-                            },
-                          ]}
-                        >
-                          <Input />
-                        </Form.Item>
-                        <Form.Item
-                          label="Harga Jual per Kemasan"
-                          name="sellPrice"
-                          rules={[
-                            {
-                              required: true,
-                              message: "Tolong masukkan harga jual !",
-                            },
-                          ]}
-                        >
-                          <Input />
-                        </Form.Item>
+                        </Form>
                       </Modal>
-                    </Form>
-                  </StyledTableCell>
-                </TableRow>
-              ))}
+                    </StyledTableCell>
+                  </TableRow>
+                );
+              })}
             </TableBody>
           </Table>
         </TableContainer>

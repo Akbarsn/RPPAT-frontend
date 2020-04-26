@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Konten from "../../components/laporan";
 import Navbar from "../../components/Navbar";
 import Sidebar from "../../components/Sidebar";
-import { Layout, Spin } from "antd";
+import { Layout, Spin, message } from "antd";
 import API from "../API";
 
 export default function LaporanStokPanen() {
@@ -122,12 +122,15 @@ export default function LaporanStokPanen() {
 
       console.log(result);
 
-      if (result.status) {
+      if (result.status == 200) {
         window.location.reload();
         setLoading(false);
+      } else {
+        setLoading(false);
+        message.error("Terjadi kesalahan, silahkan mengulangi lagi");
       }
     } catch (e) {
-      console.log(e.message)
+      console.log(e.message);
     }
   };
 
@@ -139,49 +142,49 @@ export default function LaporanStokPanen() {
         <Layout.Content
           style={{ minHeight: "100vh", backgroundColor: "white" }}
         >
-        <Spin tip="Loading..." size="large" spinning={loading}>
-          <Konten
-            name="Stok Panen"
-            table={{
-              columns: columns,
-              rows: rows,
-              isPaginate: true,
-              isTotal: false,
-            }}
-            handleSubmit={handleSubmit}
-            loading={loading}
-            isThereButton={true}
-            firstItem="Jenis Apel"
-            fields={[
-              {
-                label: "Grade",
-                name: "grade",
-                type: "select",
-                options: [
-                  { name: "A", value: "A" },
-                  { name: "B", value: "B" },
-                  { name: "C", value: "C" },
-                  { name: "D", value: "D" },
-                  { name: "E", value: "E" },
-                ],
-              },
-              {
-                label: "Jumlah",
-                name: "qty",
-                type: "number",
-              },
-              {
-                label: "Satuan",
-                name: "unit",
-                type: "text",
-              },
-              {
-                label: "Harga per Satuan",
-                name: "price",
-                type: "number",
-              },
-            ]}
-          ></Konten>
+          <Spin tip="Loading..." size="large" spinning={loading}>
+            <Konten
+              name="Stok Panen"
+              table={{
+                columns: columns,
+                rows: rows,
+                isPaginate: true,
+                isTotal: false,
+              }}
+              handleSubmit={handleSubmit}
+              loading={loading}
+              isThereButton={true}
+              firstItem="Jenis Apel"
+              fields={[
+                {
+                  label: "Grade",
+                  name: "grade",
+                  type: "select",
+                  options: [
+                    { name: "A", value: "A" },
+                    { name: "B", value: "B" },
+                    { name: "C", value: "C" },
+                    { name: "D", value: "D" },
+                    { name: "E", value: "E" },
+                  ],
+                },
+                {
+                  label: "Jumlah",
+                  name: "qty",
+                  type: "number",
+                },
+                {
+                  label: "Satuan",
+                  name: "unit",
+                  type: "text",
+                },
+                {
+                  label: "Harga per Satuan",
+                  name: "price",
+                  type: "number",
+                },
+              ]}
+            ></Konten>
           </Spin>
         </Layout.Content>
       </Layout>
