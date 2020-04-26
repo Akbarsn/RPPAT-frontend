@@ -111,6 +111,22 @@ export default function DetailToko() {
     fetchData();
   }, []);
 
+  const GenerateLinkBack = (store)=>{
+    switch(store){
+      case "baku":
+          return "bahan-baku";
+        break;
+        case "tambahan":
+            return "bahan-tambahan";
+          break;
+          case "kemasan":
+            return "kemasan";
+            break;
+    }
+  }
+
+  let linkback = "/umkm/beli-stok/"+GenerateLinkBack(store)
+
   return (
     <Layout>
       <Layout.Header>
@@ -121,7 +137,9 @@ export default function DetailToko() {
           <Sidebar role={3} />
         </Layout.Sider>
         <Layout.Content style={{ backgroundColor: "white" }}>
-          <Toko nama={nama} data={rows} link={link} store={store} bankName={bankAccount} bankDetail={bankDetail}/>
+          {console.log(linkback)}
+          <Toko nama={nama} data={rows} link={link} store={store} bankName={bankAccount} bankDetail={bankDetail}
+          linkback={linkback}/>
         </Layout.Content>
       </Layout>
     </Layout>

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Konten from "../../components/laporan";
 import Navbar from "../../components/Navbar";
 import Sidebar from "../../components/Sidebar";
-import { Layout } from "antd";
+import { Layout, Spin } from "antd";
 import API from "../API";
 
 export default function LaporanStokPanen() {
@@ -126,7 +126,9 @@ export default function LaporanStokPanen() {
         window.location.reload();
         setLoading(false);
       }
-    } catch (e) {}
+    } catch (e) {
+      console.log(e.message)
+    }
   };
 
   return (
@@ -137,6 +139,7 @@ export default function LaporanStokPanen() {
         <Layout.Content
           style={{ minHeight: "100vh", backgroundColor: "white" }}
         >
+        <Spin tip="Loading..." size="large" spinning={loading}>
           <Konten
             name="Stok Panen"
             table={{
@@ -179,6 +182,7 @@ export default function LaporanStokPanen() {
               },
             ]}
           ></Konten>
+          </Spin>
         </Layout.Content>
       </Layout>
     </Layout>

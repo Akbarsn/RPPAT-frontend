@@ -42,6 +42,7 @@ export default function Notif(props) {
     if (Array.isArray(e)) {
       return e;
     }
+    message.success("Upload Berhasil")
     return e && e.fileList;
   };
 
@@ -60,14 +61,19 @@ export default function Notif(props) {
     );
 
     if (result.status == 200) {
+      setLoading(false);
       window.location.reload();
+    } else {
+      setLoading(false);
+      message.error(
+        "Terjadi kesalahan, mohon untuk reload page dan mengulanginya lagi beberapa saat"
+      );
     }
   };
 
   const PenerimaanHandler = async (e) => {
+    setLoading(true);
     const id = e.target.value;
-
-    console.log(id);
 
     const result = await API.post(
       `/${role}/konfirmasi-penerimaan`,
@@ -85,6 +91,7 @@ export default function Notif(props) {
       setLoading(false);
       window.location.reload();
     } else {
+      setLoading(false);
       message.error(
         "Terjadi kesalahan, mohon untuk reload page dan mengulanginya lagi beberapa saat"
       );
@@ -124,10 +131,6 @@ export default function Notif(props) {
   function getModal(detail, metodeBayar) {
     let footer, content;
     const imagesrc = "http://31.220.50.154:5000/" + metodeBayar.proof;
-
-    console.log(metodeBayar)
-    console.log("link")
-    console.log(imagesrc)
 
     const banks = metodeBayar.metodePembayaran.split("-");
 

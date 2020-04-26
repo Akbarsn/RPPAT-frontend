@@ -30,12 +30,14 @@ export default function Beli() {
           store.products.map((stock) => {
             if (count == 3) {
             } else {
-              temp = {
-                barang: stock.item,
-                jumlah: stock.qty,
-              };
-              stocks.push(temp);
-              count++;
+              if(stock.type == 2){
+                temp = {
+                  barang: stock.item,
+                  jumlah: stock.qty,
+                };
+                stocks.push(temp);
+                count++;
+              }
             }
           });
           temp = {

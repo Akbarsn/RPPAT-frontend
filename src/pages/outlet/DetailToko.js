@@ -95,6 +95,7 @@ export default function DetailToko() {
             store="umkm"
             bankName={bankAccount}
             bankDetail={bankDetail}
+            linkback="/outlet/beli-produk"
           />
         </Layout.Content>
       </Layout>

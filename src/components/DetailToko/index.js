@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, Fragment } from "react";
 import "./DetailToko.scss";
 import "../Table.scss";
 import { withStyles } from "@material-ui/core/styles";
@@ -10,7 +10,7 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import TablePagination from "@material-ui/core/TablePagination";
-import { Button, Avatar, Form, InputNumber } from "antd";
+import { Button, Avatar, Form, InputNumber, Alert } from "antd";
 import { UserOutlined } from "@ant-design/icons";
 import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
@@ -23,10 +23,10 @@ const Index = (props) => {
   const data = props.data;
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
-  const [boughtItems, setBoughtItems] = useState([]);
   const [loading, setLoading] = useState(false);
   const [bankName, setbankName] = useState(props.bankName);
   const bankDetail = props.bankDetail;
+  const [message, setMessage] = useState(null);
 
   const StyledTableCell = withStyles((theme) => ({
     head: {
@@ -49,20 +49,33 @@ const Index = (props) => {
   }
 
   async function finish(value) {
-    console.log(value)
-    setBoughtItems(null);
     setLoading(true);
+    console.log(value);
+    let boughtItems=[];
     let no = 0;
     for (let i = 0; i < data.length; i++) {
-      if (value[i+1] != null || value[i+1] != undefined || value[i+1] > 0) {
-        data[i].inputdata = value[i+1];
+      if (
+        value[i + 1] != null ||
+        value[i + 1] != undefined ||
+        value[i + 1] > 0
+      ) {
+        data[i].inputdata = value[i + 1];
         boughtItems.push(data[i]);
       }
     }
     console.log("bought");
     console.log(boughtItems);
-    dispatch({ type: "ADD_DATA", payload: boughtItems, acc:props.bankName, detail:props.bankDetail });
-    history.push(props.link);
+    if (boughtItems.length < 1) {
+      setMessage("Silahkan pilih produk sebelum lanjut ke pembayaran");
+    } else {
+      dispatch({
+        type: "ADD_DATA",
+        payload: boughtItems,
+        acc: props.bankName,
+        detail: props.bankDetail,
+      });
+      history.push(props.link);
+    }
     setLoading(false);
   }
 
@@ -85,7 +98,13 @@ const Index = (props) => {
           <div style={{ display: "inline", marginLeft: "2%" }}>
             Toko {props.nama}
           </div>
+          {message == null ? (
+          <Fragment />
+        ) : (
+          <Alert message={message} type="error" closable showIcon style={{marginTop: "1%"}}/>
+        )}
         </div>
+        
 
         <div className="tablestok">
           <TableContainer component={Paper}>
@@ -117,11 +136,23 @@ const Index = (props) => {
                       Rp. {props.store === "baku" ? row.price : row.sellPrice}
                     </StyledTableCell>
                     <StyledTableCell align="center">
-                      <Form.Item name={row.id}>
+                      <Form.Item
+                        name={row.id}
+                        rules={[
+                          {
+                            type: "number",
+                            min: 1,
+                            max: row.qty,
+                            message: "Masukan tidak boleh melebihi kuantitas",
+                          },
+                        ]}
+                      >
                         <InputNumber
                           style={{ display: "inline-block", width: 100 }}
                           placeholder="ex: 100"
                           min={1}
+                          max={row.qty}
+                          type="number"
                         />
                       </Form.Item>
                     </StyledTableCell>
@@ -141,7 +172,12 @@ const Index = (props) => {
           />
         </div>
         <div className="buttongroupbeli">
-          <Button className="btn_secondary">Kembali</Button>
+          <Button
+            className="btn_secondary"
+            onClick={() => history.push(props.linkback)}
+          >
+            Kembali
+          </Button>
           <Button className="btn_primary" htmlType="submit" loading={loading}>
             Selanjutnya
           </Button>

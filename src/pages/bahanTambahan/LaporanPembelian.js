@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Konten from "../../components/laporan";
 import Navbar from "../../components/Navbar";
 import Sidebar from "../../components/Sidebar";
-import { Layout } from "antd";
+import { Layout, Spin } from "antd";
 import API from "../API";
 
 export default function LaporanPembelian() {
@@ -132,6 +132,7 @@ export default function LaporanPembelian() {
         <Layout.Content
           style={{ minHeight: "100vh", backgroundColor: "white" }}
         >
+        <Spin tip="Loading..." size="large" spinning={loading}>
           <Konten
             name="Pembelian"
             table={{
@@ -166,6 +167,7 @@ export default function LaporanPembelian() {
               },
             ]}
           ></Konten>
+          </Spin>
         </Layout.Content>
       </Layout>
     </Layout>

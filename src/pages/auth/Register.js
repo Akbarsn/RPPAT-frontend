@@ -7,11 +7,11 @@ import Step1 from "./registerstep/step1";
 import Step2 from "./registerstep/step2";
 import Step3 from "./registerstep/step3";
 import Step4 from "./registerstep/step4";
-import axios from "axios";
 import "./Register.scss";
 import Container from "../../components/Container";
 import { useHistory } from "react-router-dom";
 import jwt from "jsonwebtoken";
+import API from "../API"
 
 export default function Register() {
   function getSteps() {
@@ -99,16 +99,11 @@ export default function Register() {
       form.append("bankNumber", banknum);
       form.append("role", data.role);
       console.log(...form);
-      let hasil = await axios.post(
-        "http://31.220.50.154:5000/auth/register",
-        form,
-        {
-          headers: {
-            "content-type": "multipart/form-data",
-          },
+      const hasil = await API.post("/auth/register", form, {
+        headers: {
+          "content-type": "multipart/form-data",
         }
-      );
-
+      })
       console.log(hasil);
       switch (hasil.status) {
         case 200:

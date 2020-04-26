@@ -2,8 +2,8 @@ import React, { useState, Fragment } from "react";
 import { Alert, Form, Input, Button } from "antd";
 import jwt from "jsonwebtoken";
 import "./Login.scss";
-import axios from "axios";
 import { Link, useHistory } from "react-router-dom";
+import API from "../API";
 
 export default function Login(props) {
   let [uname, setUname] = useState("");
@@ -22,8 +22,8 @@ export default function Login(props) {
         password: password,
       };
       try {
-        let hasil = await axios.post(
-          "http://31.220.50.154:5000/auth/login",
+        let hasil = await API.post(
+          "/auth/login",
           user
         );
 
