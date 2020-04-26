@@ -1,17 +1,58 @@
-import React from "react";
-import { Menu, Row, Col, Layout, Dropdown } from "antd";
+import React, { useEffect, useState } from "react";
+import { Menu, Row, Col, Layout, Dropdown, Badge } from "antd";
 import { Link } from "react-router-dom";
 import "./Navbar.scss";
+import API from "../pages/API";
 
 import { DownOutlined, BellOutlined } from "@ant-design/icons";
 
-export default function Navbar(props) {
-  const name = localStorage.getItem('name')
+export default function Navbar() {
+  const [number, setNumber] = useState(0);
+
+  const name = localStorage.getItem("name");
+  const token = localStorage.getItem("token");
+  const role = localStorage.getItem("role");
+
+  function roleName(role) {
+    switch (role) {
+      case "0":
+        return "petani";
+      case "1":
+        return "kemasan";
+      case "2":
+        return "bahan-tambahan";
+      case "3":
+        return "umkm";
+      case "4":
+        return "outlet";
+      default:
+        return "Duar";
+    }
+  }
+  const identifier = roleName(role);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      let result = await API.get(`/${identifier}/notifikasi`, {
+        headers: {
+          Authorization: `bearer ${token}`,
+        },
+      });
+
+      if (result) {
+        const n = result.data.data.length;
+        setNumber(n);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   function handleLogOut() {
     localStorage.clear();
     window.location.replace("/");
   }
+
   const menu = (
     <Menu>
       <Menu.Item key="editProfile" className="dropdownMenu">
@@ -36,7 +77,9 @@ export default function Navbar(props) {
               <Row align="middle" justify="space-around">
                 <Col flex={1}>
                   <Link to="/notifikasi">
-                    <BellOutlined className="icon" style={{}} />
+                    <Badge count={number}>
+                      <BellOutlined className="icon" />
+                    </Badge>
                   </Link>
                 </Col>
 

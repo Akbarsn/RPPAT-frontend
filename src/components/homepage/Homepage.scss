@@ -1,5 +1,6 @@
 @import "../Root.scss";
 .homepage {
+  background-color: $color-white;
   margin-bottom: 4rem;
 
   @media screen and (min-width: $break-large) {

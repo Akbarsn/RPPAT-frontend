@@ -9,6 +9,7 @@ import jwt from "jsonwebtoken";
 
 export default function GantiProfile() {
   const [data, setData] = useState([]);
+  let oldpassword;
 
   const token = localStorage.getItem("token");
   const role = localStorage.getItem("role");
@@ -48,6 +49,8 @@ export default function GantiProfile() {
           username: result.data.data.username,
           banks: banks,
         };
+        oldpassword = result.data.data.password;
+        console.log();
         setData(data);
       }
     };
@@ -87,8 +90,13 @@ export default function GantiProfile() {
     bankNumber = bankNumber.substring(0, bankNumber.length - 1);
 
     const data = { ...value, bankAcc, bankNumber };
-
+    data.name = value.fullName.split(" ")[0];
+    if (data.password === undefined) {
+      delete data.password;
+    }
     delete data.banks;
+
+    console.log(data);
     const result = await API.post("/ganti-profile", data, {
       headers: {
         Authorization: `bearer ${token}`,
@@ -98,6 +106,9 @@ export default function GantiProfile() {
     if (result) {
       var decoded = jwt.decode(token);
       console.log(decoded);
+
+      localStorage.setItem("name", value.fullName.split(" ")[0]);
+
       switch (decoded.role) {
         case 0:
           window.location.replace("/petani");

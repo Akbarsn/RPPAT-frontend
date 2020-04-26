@@ -105,12 +105,6 @@ export default function GantiProfile(props) {
               <Form.Item
                 label="New Password"
                 name="password"
-                rules={[
-                  {
-                    required: true,
-                    message: "Tolong masukkan password anda!",
-                  },
-                ]}
               >
                 <Input.Password />
               </Form.Item>

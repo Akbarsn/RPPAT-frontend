@@ -22,10 +22,7 @@ export default function Login(props) {
         password: password,
       };
       try {
-        let hasil = await API.post(
-          "/auth/login",
-          user
-        );
+        let hasil = await API.post("/auth/login", user);
 
         console.log(hasil);
 
@@ -34,7 +31,7 @@ export default function Login(props) {
         localStorage.setItem("token", hasil.data.data);
         localStorage.setItem("role", decoded.role);
         localStorage.setItem("id", decoded.id);
-        localStorage.setItem("name", hasil.data.user.name);
+        localStorage.setItem("name", hasil.data.user.name.split(" ")[0]);
 
         Redirect(hasil.data.data);
       } catch (e) {
@@ -59,8 +56,7 @@ export default function Login(props) {
   };
 
   const Redirect = (token) => {
-
-    const decoded =  jwt.decode(token);
+    const decoded = jwt.decode(token);
 
     switch (decoded.role) {
       case 0:
@@ -93,6 +89,13 @@ export default function Login(props) {
         <div className="login">
           <div className="cardlogin">
             <p className="titlelogin">Masuk</p>
+
+            <div className="kasir">
+              Anda Kasir ?&nbsp;
+              <Link to="/kasir/login" style={{ color: "#1dc6c6" }}>
+                Masuk
+              </Link>
+            </div>
 
             <Form {...layout} name="basic">
               {visible ? (
@@ -145,9 +148,9 @@ export default function Login(props) {
             </Form>
             <p className="keregister">
               Tidak memiliki akun ?{" "}
-              <a style={{ color: "#1dc6c6" }}>
-                <Link to="/register">Register Sekarang</Link>
-              </a>
+              <Link to="/register" style={{ color: "#1dc6c6" }}>
+                Register Sekarang
+              </Link>
             </p>
           </div>
         </div>
