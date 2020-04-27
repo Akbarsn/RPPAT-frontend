@@ -90,13 +90,6 @@ export default function Login(props) {
           <div className="cardlogin">
             <p className="titlelogin">Masuk</p>
 
-            <div className="kasir">
-              Anda Kasir ?&nbsp;
-              <Link to="/kasir/login" style={{ color: "#1dc6c6" }}>
-                Masuk
-              </Link>
-            </div>
-
             <Form {...layout} name="basic">
               {visible ? (
                 <Alert
@@ -146,6 +139,14 @@ export default function Login(props) {
                 </Button>
               </div>
             </Form>
+            <hr/>
+            <div className="kasir">
+              Anda Kasir ?&nbsp;
+              <Link to="/kasir/login" style={{ color: "#1dc6c6" }}>
+                Masuk
+              </Link>
+            </div>
+            {/* <div className="keregister"> atau </div> */}
             <p className="keregister">
               Tidak memiliki akun ?{" "}
               <Link to="/register" style={{ color: "#1dc6c6" }}>

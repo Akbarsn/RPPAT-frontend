@@ -1,5 +1,5 @@
 const initialState={
-data: ["1","2"],
+data: [],
 bankacc:[{index:0, name:"BCA"}, {index:0, name:"BNI"}],
 bankdetail:[{name: "", number: ""}, {name:""}, {number:""}],
 formValue:{}                 
