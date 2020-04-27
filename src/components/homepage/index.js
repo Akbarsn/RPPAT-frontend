@@ -1,5 +1,5 @@
 import React from "react";
-import { Row, Col, Card } from "antd";
+import { Row, Col, Card, Empty } from "antd";
 import Table from "../Table";
 
 import "./Homepage.scss";
@@ -23,7 +23,7 @@ export default function Homepage(props) {
                 
                 </Col>
               </Row>
-              {props.stocks.map((stock) => (
+              {props.stocks.length < 1 ? <Empty description={<span>Tidak ada Stok</span>}/> : props.stocks.map((stock) => (
                 <Row className="stock">
                   <Col span={14}>{stock.item}</Col>
                   <Col style={{fontWeight:700}} span={10}>{stock.qty} {props.unit} </Col>
