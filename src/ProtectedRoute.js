@@ -8,7 +8,7 @@ const ProtectedRoute = ({ component: Component, role, ...rest  }) => {
   return (
     <Route {...rest} render={
       props => {
-        if (decoded === role || role === 6) {
+        if (decoded.role === role || role === 6) {
           return <Component {...rest} {...props} />
         } else {
           return <Redirect to={
