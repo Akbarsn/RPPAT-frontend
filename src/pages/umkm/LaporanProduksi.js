@@ -58,14 +58,14 @@ export default function LaporanProduksi() {
             case 4:
               temp = {
                 value: item.buyPrice,
-                align: "left",
+                align: "right",
               };
               inside.push(temp);
               break;
             case 5:
               temp = {
                 value: item.sellPrice,
-                align: "left",
+                align: "right",
               };
               inside.push(temp);
               break;
@@ -100,11 +100,11 @@ export default function LaporanProduksi() {
       name: "Satuan Kemasan",
     },
     {
-      align: "left",
+      align: "right",
       name: "Harga Beli Per Kemasan",
     },
     {
-      align: "left",
+      align: "right",
       name: "Harga Jual Per Kemasan",
     },
   ];
@@ -163,12 +163,12 @@ export default function LaporanProduksi() {
                   type: "number",
                 },
                 {
-                  label: "Harga Jual",
+                  label: "Harga Beli",
                   name: "buyPrice",
                   type: "number",
                 },
                 {
-                  label: "Harga Beli",
+                  label: "Harga Jual",
                   name: "sellPrice",
                   type: "number",
                 },

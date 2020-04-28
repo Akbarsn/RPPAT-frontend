@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment } from "react";
 import { Row, Col, Card, Empty } from "antd";
 import Table from "../Table";
 
@@ -19,16 +19,20 @@ export default function Homepage(props) {
                 </Col>
               </Row>
               <Row>
-                <Col>
-                
-                </Col>
+                <Col></Col>
               </Row>
-              {props.stocks.length < 1 ? <Empty description={<span>Tidak ada Stok</span>}/> : props.stocks.map((stock) => (
-                <Row className="stock">
-                  <Col span={14}>{stock.item}</Col>
-                  <Col style={{fontWeight:700}} span={10}>{stock.qty} {props.unit} </Col>
-                </Row>
-              ))}
+              {props.stocks.length < 1 ? (
+                <Empty description={<span>Tidak ada Stok</span>} />
+              ) : (
+                props.stocks.map((stock) => (
+                  <Row className="stock">
+                    <Col span={14}>{stock.item}</Col>
+                    <Col style={{ fontWeight: 700 }} span={10}>
+                      {stock.qty} {props.unit}{" "}
+                    </Col>
+                  </Row>
+                ))
+              )}
             </Card>
           </Col>
 
@@ -49,37 +53,58 @@ export default function Homepage(props) {
         </Row>
 
         <Row justify="space-around" gutter={[24, 12]}>
-          <Col span={11}>
-            <Card className="card">
-              <Row>
-                <Col>
-                  <span className="title">Penjualan Bulan Ini : </span>
-                </Col>
-              </Row>
+          {props.isBuying ? (
+            <Fragment>
+              <Col span={11}>
+                <Card className="card">
+                  <Row>
+                    <Col>
+                      <span className="title">Penjualan Bulan Ini : </span>
+                    </Col>
+                  </Row>
 
-              <Row>
-                <Col offset={4} className="content">
-                  Rp. {props.selling}
-                </Col>
-              </Row>
-            </Card>
-          </Col>
+                  <Row>
+                    <Col offset={4} className="content">
+                      Rp. {props.selling}
+                    </Col>
+                  </Row>
+                </Card>
+              </Col>
 
-          <Col span={11}>
-            <Card className="card">
-              <Row>
-                <Col>
-                  <span className="title">Pembelian Bulan Ini : </span>
-                </Col>
-              </Row>
+              <Col span={11}>
+                <Card className="card">
+                  <Row>
+                    <Col>
+                      <span className="title">Pembelian Bulan Ini : </span>
+                    </Col>
+                  </Row>
 
-              <Row>
-                <Col offset={4} className="content">
-                  Rp. {props.buying}
-                </Col>
-              </Row>
-            </Card>
-          </Col>
+                  <Row>
+                    <Col offset={4} className="content">
+                      {console.log(props)}
+                      Rp. {props.buying}
+                    </Col>
+                  </Row>
+                </Card>
+              </Col>
+            </Fragment>
+          ) : (
+            <Col span={11} offset={12}>
+                <Card className="card">
+                  <Row>
+                    <Col>
+                      <span className="title">Penjualan Bulan Ini : </span>
+                    </Col>
+                  </Row>
+
+                  <Row>
+                    <Col offset={4} className="content">
+                      Rp. {props.selling}
+                    </Col>
+                  </Row>
+                </Card>
+              </Col>
+          )}
         </Row>
 
         <Row justify="space-around" gutter={[24, 12]}>

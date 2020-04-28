@@ -20,9 +20,9 @@ export default function RiwayatTransaksi() {
       });
       console.log(result);
       let inside2 = [];
-      result.data.data.history.map((item) => {
+      let no = 0;
+      result.data.data.map((item) => {
         let stock = [];
-        let no = 0;
         let inside = [];
         const allItem = JSON.parse(item.itemDetail);
         let temp;
@@ -88,76 +88,6 @@ export default function RiwayatTransaksi() {
           data: stock,
         };
         inside2.push(temp);
-      });
-      result.data.data.pos.map((item) => {
-        let stock = [];
-        let no = 0;
-        let inside = [];
-        const allItem = JSON.parse(item.itemDetail);
-        let temp;
-        allItem.map((item) => {
-          inside = [];
-          for (let i = 0; i < 6; i++) {
-            switch (i) {
-              case 0:
-                temp = {
-                  value: ++no,
-                  align: "center",
-                };
-                inside.push(temp);
-                break;
-              case 1:
-                temp = {
-                  value:
-                    item.item +
-                    " " +
-                    (item.grade ? "Grade " + item.grade : " "),
-                  align: "left",
-                };
-                inside.push(temp);
-                break;
-              case 2:
-                temp = {
-                  value: item.qty,
-                  align: "center",
-                };
-                inside.push(temp);
-                break;
-              case 3:
-                temp = {
-                  value: item.unit,
-                  align: "center",
-                };
-                inside.push(temp);
-                break;
-              case 4:
-                temp = {
-                  value: item.price ? item.price : item.sellPrice,
-                  align: "center",
-                };
-                inside.push(temp);
-                break;
-              case 5:
-                temp = {
-                  value: (item.price ? item.price : item.sellPrice) * item.qty,
-                  align: "right",
-                };
-                inside.push(temp);
-                break;
-            }
-          }
-          stock.push({ data: inside });
-        });
-        no = 0;
-        temp = {
-          no: ++no,
-          name: item.name,
-          status: "Pemasukan",
-          total: item.total,
-          data: stock,
-        };
-        inside2.push(temp);
-        console.log(inside2);
       });
       setRows(inside2);
     };

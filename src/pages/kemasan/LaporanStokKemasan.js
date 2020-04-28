@@ -60,14 +60,14 @@ export default function LaporanStokKemasan() {
             case 4:
               temp = {
                 value: item.buyPrice,
-                align: "left",
+                align: "right",
               };
               inside.push(temp);
               break;
             case 5:
               temp = {
                 value: item.sellPrice,
-                align: "left",
+                align: "right",
               };
               inside.push(temp);
               break;
@@ -99,11 +99,11 @@ export default function LaporanStokKemasan() {
       name: "Satuan",
     },
     {
-      align: "center",
+      align: "right",
       name: "Harga Beli per Satuan",
     },
     {
-      align: "center",
+      align: "right",
       name: "Harga Jual per Satuan",
     },
   ];

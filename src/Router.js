@@ -1,6 +1,6 @@
 import React from "react";
 import { BrowserRouter as Brow, Route, Switch } from "react-router-dom";
-import ProtectedRoute from './ProtectedRoute';
+import ProtectedRoute from "./ProtectedRoute";
 import Homepage from "./pages/Home";
 import Laporan from "./pages/Laporan";
 import LihatStok from "./pages/LihatStok";
@@ -27,6 +27,7 @@ import UMKMDetailToko from "./pages/umkm/DetailToko";
 import UMKMDetailPembayaran from "./pages/umkm/DetailPembayaran";
 import OutletDetailToko from "./pages/outlet/DetailToko";
 import OutletDetailPembayaran from "./pages/outlet/DetailPembayaran";
+import KasirLogin from "./pages/kasir/Login";
 
 export default function Router() {
   return (
@@ -41,9 +42,19 @@ export default function Router() {
           <Register />
         </Route>
 
-        <ProtectedRoute exact path="/ganti-profile" component={GantiProfile} role={6}/>
+        <ProtectedRoute
+          exact
+          path="/ganti-profile"
+          component={GantiProfile}
+          role={6}
+        />
 
-        <ProtectedRoute exact path="/notifikasi" component = {Notifikasi} role={6}/>
+        <ProtectedRoute
+          exact
+          path="/notifikasi"
+          component={Notifikasi}
+          role={6}
+        />
 
         <ProtectedRoute
           path="/umkm/detail-toko/:store/:id"
@@ -52,15 +63,27 @@ export default function Router() {
         />
 
         <ProtectedRoute
-          exact path="/umkm/detail-pembayaran/:store/:id" component={UMKMDetailPembayaran} role={3}/>
+          exact
+          path="/umkm/detail-pembayaran/:store/:id"
+          component={UMKMDetailPembayaran}
+          role={3}
+        />
 
-        <ProtectedRoute path="/outlet/detail-toko/:id" component={OutletDetailToko} role={4}/>
+        <ProtectedRoute
+          path="/outlet/detail-toko/:id"
+          component={OutletDetailToko}
+          role={4}
+        />
 
         <ProtectedRoute
           path="/outlet/detail-pembayaran/:id"
           component={OutletDetailPembayaran}
           role={4}
         />
+
+        <Route exact path="/kasir/login">
+          <KasirLogin></KasirLogin>
+        </Route>
 
         {PetaniRouter.map((props) => (
           <ProtectedRoute exact {...props} role={0}></ProtectedRoute>

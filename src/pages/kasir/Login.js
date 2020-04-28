@@ -96,6 +96,7 @@ export default function Login(props) {
             <Button
               type="primary"
               size="large"
+              loading={loading}
               htmlType="submit"
               className="btn_primary"
               style={{ marginBottom: "2rem" }}

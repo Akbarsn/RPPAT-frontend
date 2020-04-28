@@ -172,7 +172,7 @@ export default function Index(props) {
                       <Modal
                         title={[
                           <div className="title-modalpembayaran">
-                            Edit Stok{row.no}
+                            Edit Stok
                           </div>,
                         ]}
                         footer={false}

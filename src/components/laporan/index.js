@@ -183,7 +183,6 @@ export default function Laporan(props) {
             <Col span={4}>{checkButton(props.isThereButton)}</Col>
           </Row>
         </Col>
-
         <Row justify="start">
           <Col span={23}>
             <Table

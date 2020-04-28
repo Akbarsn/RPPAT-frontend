@@ -9,13 +9,12 @@ import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import TablePagination from "@material-ui/core/TablePagination";
 import "./Table.scss";
-import { Empty } from 'antd';
+import { Empty } from "antd";
 
 export default function Tabel(props) {
   let indexTotal = 0;
 
   const hitungTotal = (rows, columns) => {
-    let temp = 0;
     let i = 0;
     let isThereTotal = false;
     columns.map((column) => {
@@ -27,6 +26,7 @@ export default function Tabel(props) {
     });
 
     if (isThereTotal) {
+      let temp = 0;
       rows.map((row) => {
         temp += row.data[indexTotal].value;
       });
@@ -44,9 +44,9 @@ export default function Tabel(props) {
 
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(temp);
-  const [total, setTotal] = useState(
-    props.total ? props.total : hitungTotal(props.rows, props.columns)
-  );
+  const total = props.total
+    ? props.total
+    : hitungTotal(props.rows, props.columns);
 
   const StyledTableCell = withStyles((theme) => ({
     head: {
@@ -84,39 +84,47 @@ export default function Tabel(props) {
             </TableRow>
           </TableHead>
           <TableBody>
-            {props.rows.length < 1 ? <TableRow><TableCell colSpan={props.columns.length}><Empty description={<span>{props.empty}</span>}/></TableCell></TableRow> : (rowsPerPage > 0
-              ? props.rows.slice(
-                  page * rowsPerPage,
-                  page * rowsPerPage + rowsPerPage
-                )
-              : props.rows
-            ).map((row) => (
-              <TableRow key={row}>
-                {row.data.map((data, index) => {
-                  if (
-                    typeof data.value == "number" &&
-                    index != 0 &&
-                    index != 2 &&
-                    index != 3
-                  ) {
-                    return (
-                      <StyledTableCell align={data.align}>
-                        Rp.{" "}
-                        {data.value
-                          .toString()
-                          .replace(/\B(?=(\d{3})+(?!\d))/g, ".")}
-                      </StyledTableCell>
-                    );
-                  } else {
-                    return (
-                      <StyledTableCell align={data.align}>
-                        {data.value}
-                      </StyledTableCell>
-                    );
-                  }
-                })}
+            {props.rows.length < 1 ? (
+              <TableRow>
+                <TableCell colSpan={props.columns.length}>
+                  <Empty description={<span>{props.empty}</span>} />
+                </TableCell>
               </TableRow>
-            ))}
+            ) : (
+              (rowsPerPage > 0
+                ? props.rows.slice(
+                    page * rowsPerPage,
+                    page * rowsPerPage + rowsPerPage
+                  )
+                : props.rows
+              ).map((row) => (
+                <TableRow key={row}>
+                  {row.data.map((data, index) => {
+                    if (
+                      typeof data.value == "number" &&
+                      index != 0 &&
+                      index != 2 &&
+                      index != 3
+                    ) {
+                      return (
+                        <StyledTableCell align={data.align}>
+                          Rp.{" "}
+                          {data.value
+                            .toString()
+                            .replace(/\B(?=(\d{3})+(?!\d))/g, ".")}
+                        </StyledTableCell>
+                      );
+                    } else {
+                      return (
+                        <StyledTableCell align={data.align}>
+                          {data.value}
+                        </StyledTableCell>
+                      );
+                    }
+                  })}
+                </TableRow>
+              ))
+            )}
 
             {props.toggleTotal ? (
               <TableRow>
@@ -132,7 +140,12 @@ export default function Tabel(props) {
                 </StyledTableCell>
                 <StyledTableCell align="right">
                   <p className="totaltable">
-                    Rp. {props.total ? props.total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") : total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}
+                    Rp.{" "}
+                    {props.total
+                      ? props.total
+                          .toString()
+                          .replace(/\B(?=(\d{3})+(?!\d))/g, ".")
+                      : total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}
                   </p>
                 </StyledTableCell>
               </TableRow>

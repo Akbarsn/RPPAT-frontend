@@ -8,9 +8,8 @@ import API from "../API";
 export default function Home() {
   const [stocks, setStocks] = useState([]);
   const [rows, setRows] = useState([]);
-  let buying = 0;
-  let selling = 0;
-  let shopping = 0;
+  const [selling, setSelling] = useState(0);
+  const [shopping, setShopping] = useState(0);
   const token = localStorage.getItem("token");
 
   useEffect(() => {
@@ -71,9 +70,8 @@ export default function Home() {
 
       setRows(history);
 
-      buying = result.data.data.buying;
-      selling = result.data.data.selling;
-      shopping = result.data.data.shopping;
+      setSelling(result.data.data.selling);
+      setShopping(result.data.data.shopping );
     };
     fetchData();
   }, []);
@@ -104,7 +102,7 @@ export default function Home() {
           <Homepage
             stocks={stocks}
             unit="Unit"
-            buying={buying}
+            isBuying={false}
             selling={selling}
             shopping={shopping}
             columns={columns}

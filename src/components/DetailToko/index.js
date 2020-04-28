@@ -51,7 +51,7 @@ const Index = (props) => {
   async function finish(value) {
     setLoading(true);
     console.log(value);
-    let boughtItems=[];
+    let boughtItems = [];
     let no = 0;
     for (let i = 0; i < data.length; i++) {
       if (
@@ -99,12 +99,17 @@ const Index = (props) => {
             Toko {props.nama}
           </div>
           {message == null ? (
-          <Fragment />
-        ) : (
-          <Alert message={message} type="error" closable showIcon style={{marginTop: "1%"}}/>
-        )}
+            <Fragment />
+          ) : (
+            <Alert
+              message={message}
+              type="error"
+              closable
+              showIcon
+              style={{ marginTop: "1%" }}
+            />
+          )}
         </div>
-        
 
         <div className="tablestok">
           <TableContainer component={Paper}>
@@ -112,7 +117,13 @@ const Index = (props) => {
               <TableHead>
                 <TableRow>
                   <StyledTableCell align="left">Nama Produk</StyledTableCell>
-                  <StyledTableCell align="center">Grade</StyledTableCell>
+                  <StyledTableCell align="center">
+                    {props.store == "baku" ? (
+                      <span>Grade</span>
+                    ) : (
+                      <span>Satuan</span>
+                    )}
+                  </StyledTableCell>
                   <StyledTableCell align="center">Stok</StyledTableCell>
                   <StyledTableCell align="center">Harga</StyledTableCell>
                   <StyledTableCell align="center">Beli</StyledTableCell>
@@ -129,7 +140,11 @@ const Index = (props) => {
                   <TableRow key={row}>
                     <StyledTableCell align="left">{row.item}</StyledTableCell>
                     <StyledTableCell align="center">
-                      {row.grade}
+                      {props.store == "baku" ? (
+                        <span>{row.grade}</span>
+                      ) : (
+                        <span>{row.unit}</span>
+                      )}
                     </StyledTableCell>
                     <StyledTableCell align="center">{row.qty}</StyledTableCell>
                     <StyledTableCell align="center">

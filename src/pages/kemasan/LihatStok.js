@@ -23,8 +23,8 @@ export default function LihatStok() {
 
       let stok = [];
       let no = 0;
-      let inside = [];
       result.data.data.map((item) => {
+        let inside = [];
         let temp;
         for (let i = 0; i < 6; i++) {
           switch (i) {
@@ -59,21 +59,21 @@ export default function LihatStok() {
             case 4:
               temp = {
                 value: item.buyPrice,
-                align: "left",
+                align: "right",
               };
               inside.push(temp);
               break;
             case 5:
               temp = {
                 value: item.sellPrice,
-                align: "left",
+                align: "right",
               };
               inside.push(temp);
               break;
           }
         }
+        stok.push({ data: inside });
       });
-      stok.push({ data: inside });
 
       setRows(stok);
     };
@@ -99,11 +99,11 @@ export default function LihatStok() {
       name: "Satuan Kemasan",
     },
     {
-      align: "left",
+      align: "right",
       name: "Harga Beli per Kemasan",
     },
     {
-      align: "left",
+      align: "right",
       name: "Harga Jual per Kemasan",
     },
   ];

@@ -62,10 +62,6 @@ export default function Register() {
     setStep((prevStep) => prevStep + 1);
   };
 
-  function getNama(data) {
-    let nama = data.split(" ");
-    return nama[0];
-  }
 
   async function onStep4(values) {
     setLoading(true);
@@ -82,11 +78,10 @@ export default function Register() {
     }
     const data = { ...step1, ...step2, ...values };
     data.birthDate = data.birthDate.format("YYYY-MM-DD");
-    let nama = getNama(data.fullName);
     try {
       console.log(data.upload[0]);
       let form = new FormData();
-      form.append("name", nama);
+      form.append("name", data.name);
       form.append("fullName", data.fullName);
       form.append("address", data.address);
       form.append("birthDate", data.birthDate);

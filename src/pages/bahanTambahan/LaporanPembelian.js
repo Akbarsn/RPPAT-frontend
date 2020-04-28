@@ -166,7 +166,7 @@ export default function LaporanPembelian() {
                   type: "number",
                 },
                 {
-                  label: "Harga Beli",
+                  label: "Harga Jual",
                   name: "sellPrice",
                   type: "number",
                 },

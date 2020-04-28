@@ -193,7 +193,7 @@ function getMenu(role) {
           </SubMenu>
 
           <Menu.Item className="item primary">
-            <Link className="link" to="/pemasok-bahan-tambah/lihat-stok">
+            <Link className="link" to="/pemasok-bahan-tambahan/lihat-stok">
               <Row align="middle">
                 <InfoCircleOutlined className="primary" />
                 Lihat Stok
@@ -202,7 +202,7 @@ function getMenu(role) {
           </Menu.Item>
 
           <Menu.Item className="item primary">
-            <Link className="link" to="/pemasok-bahan-tambah/riwayat-transaksi">
+            <Link className="link" to="/pemasok-bahan-tambahan/riwayat-transaksi">
               <Row align="middle">
                 <TransactionOutlined className="primary" />
                 Riwayat Transaksi

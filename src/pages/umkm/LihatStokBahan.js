@@ -22,10 +22,10 @@ export default function LihatStokBahan() {
 
       let stok = [];
       let no = 0;
-      let inside = [];
       result.data.data.map((item) => {
+        let inside = [];
         let temp;
-        for (let i = 0; i < 6; i++) {
+        for (let i = 0; i < 5; i++) {
           switch (i) {
             case 0:
               temp = {
@@ -57,22 +57,15 @@ export default function LihatStokBahan() {
               break;
             case 4:
               temp = {
-                value: item.buyPrice,
-                align: "left",
-              };
-              inside.push(temp);
-              break;
-            case 5:
-              temp = {
                 value: item.sellPrice,
-                align: "left",
+                align: "right",
               };
               inside.push(temp);
               break;
           }
         }
+        stok.push({ data: inside });
       });
-      stok.push({ data: inside });
 
       setRows(stok);
     };
@@ -87,7 +80,7 @@ export default function LihatStokBahan() {
     },
     {
       align: "left",
-      name: "Nama Produk",
+      name: "Nama Bahan",
     },
     {
       align: "center",
@@ -95,15 +88,11 @@ export default function LihatStokBahan() {
     },
     {
       align: "center",
-      name: "Satuan Kemasan",
+      name: "Satuan",
     },
     {
-      align: "left",
-      name: "Harga Beli per Kemasan",
-    },
-    {
-      align: "left",
-      name: "Harga Jual per Kemasan",
+      align: "right",
+      name: "Harga Beli per Satuan",
     },
   ];
 

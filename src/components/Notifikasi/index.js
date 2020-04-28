@@ -91,7 +91,7 @@ export default function Notif(props) {
 
     if (result.status == 200) {
       setLoading(false);
-      // window.location.reload();
+      window.location.reload();
     } else {
       setLoading(false);
       message.error(

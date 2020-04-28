@@ -105,6 +105,7 @@ export default function Home() {
           <Homepage
             stocks={stocks}
             unit="Unit"
+            isBuying={true}
             buying={buying}
             selling={selling}
             shopping={shopping}

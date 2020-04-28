@@ -106,58 +106,6 @@ export default function Notifikasi() {
     fetchData();
   }, []);
 
-  // const datas = [
-  //   {
-  //     id: 1,
-  //     content: "Pembelian Kripik Apel dari Toko Budi (Konfirmasi Pembayaran)",
-  //     date: "1 hari yang lalu",
-  //     modalType: 2,
-  //     detail: [
-  //       {
-  //         data: [
-  //           {
-  //             value: "1",
-  //             align: "center",
-  //           },
-  //           {
-  //             value: "Natrium Benzoat 100g",
-  //             align: "left",
-  //           },
-  //           {
-  //             value: "5",
-  //             align: "center",
-  //           },
-  //           {
-  //             value: 50000,
-  //             align: "right",
-  //           },
-  //         ],
-  //       },
-  //       {
-  //         data: [
-  //           {
-  //             value: "2",
-  //             align: "center",
-  //           },
-  //           {
-  //             value: "Natrium Benzoat 100g",
-  //             align: "left",
-  //           },
-  //           {
-  //             value: "5",
-  //             align: "center",
-  //           },
-  //           {
-  //             value: 50000,
-  //             align: "right",
-  //           },
-  //         ],
-  //       },
-  //     ],
-  //     metodePembayaran: "Sesuatu",
-  //     identifier: identifier,
-  //   },
-  // ];
 
   const columns = [
     {

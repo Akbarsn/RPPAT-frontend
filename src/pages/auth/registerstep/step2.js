@@ -27,6 +27,19 @@ export default function Step2(props) {
         initialValues={props.data}
       >
         <Form.Item
+          label="Nama Panggilan"
+          name="name"
+          rules={[
+            {
+              required: true,
+              message: "Tolong masukkan nama panggilan anda !",
+            },
+          ]}
+        >
+          <Input />
+        </Form.Item>
+
+        <Form.Item
           label="Nama Lengkap"
           name="fullName"
           rules={[

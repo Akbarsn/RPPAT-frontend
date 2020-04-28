@@ -24,8 +24,8 @@ export default function LaporanPenjualan() {
       result.data.data.map((item) => {
         const allItem = JSON.parse(item.itemDetail);
         let temp;
-        let inside = [];
         allItem.map((item) => {
+          let inside = [];
           for (let i = 0; i < 5; i++) {
             switch (i) {
               case 0:
@@ -58,15 +58,15 @@ export default function LaporanPenjualan() {
                 break;
               case 4:
                 temp = {
-                  value: (item.price ? item.price : item.sellPrice) * item.qty,
+                  value: item.price * item.qty,
                   align: "right",
                 };
                 inside.push(temp);
                 break;
             }
           }
+          buying.push({ data: inside });
         });
-        buying.push({ data: inside });
       });
 
       setrows(buying);
