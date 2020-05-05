@@ -89,7 +89,8 @@ export default function Register() {
       form.append("email", data.email);
       form.append("username", data.username);
       form.append("password", data.password);
-      form.append("IDcard", data.upload[0].originFileObj);
+      form.append("IDcard", data.identitas[0].originFileObj);
+      form.append("profilImage", data.fotoprofil[0].originFileObj);
       form.append("bankAccount", bankacc);
       form.append("bankNumber", banknum);
       form.append("role", data.role);

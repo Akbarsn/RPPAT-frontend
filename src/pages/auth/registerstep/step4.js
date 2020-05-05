@@ -1,11 +1,20 @@
-import React, {useState} from "react";
-import { Form, Input, Row, Col, Button } from "antd";
+import React from "react";
+import { Form, Input, Upload, Button, Row, Col } from "antd";
+import { UploadOutlined } from "@ant-design/icons";
 
 export default function Step4(props) {
 
   const layout = {
     labelCol: { span: 8 },
     wrapperCol: { span: 16 },
+  };
+
+  const normFile = (e) => {
+    console.log("Upload event:", e);
+    if (Array.isArray(e)) {
+      return e;
+    }
+    return e && e.fileList;
   };
 
   return (
@@ -33,6 +42,20 @@ export default function Step4(props) {
           ]}
         >
           <Input.Password />
+        </Form.Item>
+        <Form.Item
+          name="fotoprofil"
+          label="Upload Foto Profil"
+          valuePropName="fileList"
+          getValueFromEvent={normFile}
+          rules={[{ required: true, message: "Tolong upload foto profil anda !" }]}
+          extra="Pastikan file dalam format .png atau .jpeg"
+        >
+          <Upload name="logo" listType="picture" accept=".png,.jpeg">
+            <Button>
+              <UploadOutlined /> Klik untuk Upload
+            </Button>
+          </Upload>
         </Form.Item>
         <div className="buttonGroup">
           <Row justify="space-between">

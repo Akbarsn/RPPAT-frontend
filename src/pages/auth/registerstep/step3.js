@@ -1,13 +1,9 @@
-import React, { useState } from "react";
+import React from "react";
 import { Row, Col, Button, Form, Input } from "antd";
 import { MinusCircleOutlined, PlusOutlined } from "@ant-design/icons";
 import "./step3.scss";
 
 export default function Step3(props) {
-  const layout = {
-    labelCol: { span: 8 },
-    wrapperCol: { span: 16 },
-  };
 
   const rules = [{ required: true }];
 

@@ -42,9 +42,10 @@ export default function Beli() {
           });
           temp = {
             link: "/outlet/detail-toko/" + store.id,
-            nama: store.name,
+            role:"UMKM",
+            nama: "Toko " + store.name,
             stok: stocks,
-          };
+          }; 
 
           card.push(temp);
         }

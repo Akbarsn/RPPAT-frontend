@@ -4,6 +4,11 @@
   #sidebar .primary {
     font-size: 20px !important;
   }
+  #detail{
+    font-size: 32px;
+    margin: 0%;
+    font-family: $font-header;
+  }
 
   #sidebar .secondary {
     font-size: 16px !important;
@@ -13,6 +18,11 @@
 @media screen and (min-width: $break-medium) {
   #sidebar .primary {
     font-size: 18px
+  }
+
+  #detail{
+    font-size: 24px;
+    margin: 0%;
   }
 
   #sidebar .secondary {
