@@ -1,5 +1,8 @@
 @import '../Root.scss';
 
+#cardtoko{
+    font-family: $font-header;
+}
 .titletoko{
     font-family: $font-header;
     font-size: 28px;
@@ -26,4 +29,8 @@
     display: flex;
     justify-content: space-between;
     line-height: 0.7em;
+}
+.role-beli{
+    text-align: center;
+    font-size: 18px;
 }

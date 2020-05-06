@@ -7,7 +7,10 @@ export default function Beli(props) {
   const data = props.data;
 
   return (
-    <div className="cardtoko">
+    <div id="cardtoko">
+    <div className="role-beli">
+      <p>{data.role}</p>
+    </div>
       <div className="titlecard">
         <Avatar size={42} style={{ display: "inline-block" }} />
         <p

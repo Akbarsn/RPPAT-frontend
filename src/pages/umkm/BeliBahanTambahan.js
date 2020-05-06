@@ -39,7 +39,8 @@ export default function Beli() {
           });
           temp = {
             link: "/umkm/detail-toko/tambahan/" + store.id,
-            nama: store.name,
+            role: "Pemasok Bahan Tambah",
+            nama: "Toko " + store.name,
             stok: stocks,
           };
 

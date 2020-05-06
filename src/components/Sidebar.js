@@ -428,6 +428,9 @@ export default function Sidebar(props) {
       id="sidebar"
     >
       <div id="photoProfile">
+      <Col>
+          <span className="header">{getRole(props.role)}</span>
+        </Col>
         <Col className="center">
           <Avatar
             size={80}
@@ -435,10 +438,12 @@ export default function Sidebar(props) {
             style={{ display: "block" }}
           />
         </Col>
-
-        <Col>
-          <span className="header">{getRole(props.role)}</span>
+        <Col id="nama">
+          <p id="detail">{localStorage.getItem("name")}</p>
+          <p id = "detail">{localStorage.getItem("address")}</p>
         </Col>
+
+        
 
         <div id="divider"></div>
       </div>

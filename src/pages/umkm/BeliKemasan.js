@@ -39,7 +39,8 @@ export default function Beli() {
           });
           temp = {
             link: "/umkm/detail-toko/kemasan/" + store.id,
-            nama: store.name,
+            role:"Pemasok Kemasan",
+            nama: "Toko " + store.name,
             stok: stocks,
           };
 

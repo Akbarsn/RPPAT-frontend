@@ -84,7 +84,7 @@ export default function Step2(props) {
         </Form.Item>
 
         <Form.Item
-          name="upload"
+          name="identitas"
           label="Upload Foto KTP"
           valuePropName="fileList"
           getValueFromEvent={normFile}

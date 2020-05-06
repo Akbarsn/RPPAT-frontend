@@ -32,6 +32,7 @@ export default function Login(props) {
         localStorage.setItem("role", decoded.role);
         localStorage.setItem("id", decoded.id);
         localStorage.setItem("name", hasil.data.user.name.split(" ")[0]);
+        localStorage.setItem("address", hasil.data.user.address);
 
         Redirect(hasil.data.data);
       } catch (e) {
