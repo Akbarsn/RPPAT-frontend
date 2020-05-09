@@ -139,6 +139,7 @@ export default function LaporanPembelian() {
         >
           <Spin tip="Loading..." size="large" spinning={loading}>
             <Konten
+            notitle={true}
               name="Pembelian"
               table={{
                 columns: columns,

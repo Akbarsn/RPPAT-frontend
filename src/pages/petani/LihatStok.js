@@ -72,13 +72,12 @@ export default function LihatStok() {
               };
               inside.push(temp);
               break;
-            // case 6:
-            //   temp = {
-            //     value: detail(no, item),
-            //     align: "center",
-            //   };
-            //   inside.push(temp);
-            //   break;
+            case 6:
+              temp = {
+                value : "button"
+              };
+              inside.push(temp);
+              break;
           }
         }
         stok.push({ data: inside });
@@ -93,26 +92,32 @@ export default function LihatStok() {
     {
       align: "center",
       name: "No",
+      label:"no"
     },
     {
       align: "center",
       name: "Jenis Apel",
+      label:"item"
     },
     {
       align: "center",
       name: "Grade",
+      label:"grade"
     },
     {
       align: "center",
       name: "Jumlah",
+      label:"qty"
     },
     {
       align: "center",
       name: "Satuan",
+      label:"unit"
     },
     {
       align: "center",
       name: "Harga per Satuan",
+      label:"price"
     },
     // {
     //   align: "center",

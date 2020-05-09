@@ -148,6 +148,7 @@ export default function LaporanStokKemasan() {
         >
           <Spin tip="Loading..." size="large" spinning={loading}>
             <Konten
+            notitle={true}
               name="Stok Kemasan"
               table={{
                 columns: columns,

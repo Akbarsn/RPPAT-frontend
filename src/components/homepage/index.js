@@ -9,10 +9,7 @@ export default function Homepage(props) {
     <div className="homepage">
       <div style={{ marginLeft: "1rem" }}>
         <span className="title">Beranda</span>
-
-        <Row justify="space-around" gutter={[24, 12]}>
-          <Col span={11}>
-            <Card className="card">
+            <Card className="card stok-home">
               <Row>
                 <Col>
                   <span className="title">Stok : </span>
@@ -26,31 +23,15 @@ export default function Homepage(props) {
               ) : (
                 props.stocks.map((stock) => (
                   <Row className="stock">
-                    <Col span={14}>{stock.item}</Col>
-                    <Col style={{ fontWeight: 700 }} span={10}>
+                    <Col span={18}>{stock.item}</Col>
+                    <Col style={{ fontWeight: 700 }} span={6}>
                       {stock.qty} {props.unit}{" "}
                     </Col>
                   </Row>
                 ))
               )}
             </Card>
-          </Col>
 
-          <Col span={11}>
-            <Card className="card">
-              <Row>
-                <Col>
-                  <span className="title">Total Belanja Bulan Ini : </span>
-                </Col>
-              </Row>
-              <Row>
-                <Col offset={4} className="content">
-                  Rp. {props.shopping}
-                </Col>
-              </Row>
-            </Card>
-          </Col>
-        </Row>
 
         <Row justify="space-around" gutter={[24, 12]}>
           {props.isBuying ? (

@@ -14,6 +14,7 @@ import {
   HomeOutlined,
 } from "@ant-design/icons";
 import SubMenu from "antd/lib/menu/SubMenu";
+import Image from './Sidebar Image';
 
 function getRole(role) {
   let name;
@@ -432,11 +433,7 @@ export default function Sidebar(props) {
           <span className="header">{getRole(props.role)}</span>
         </Col>
         <Col className="center">
-          <Avatar
-            size={80}
-            icon={<UserOutlined />}
-            style={{ display: "block" }}
-          />
+        <Image/>
         </Col>
         <Col id="nama">
           <p id="detail">{localStorage.getItem("name")}</p>

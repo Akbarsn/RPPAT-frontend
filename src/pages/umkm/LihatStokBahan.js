@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import Navbar from "../../components/Navbar";
 import Sidebar from "../../components/Sidebar";
 import { Layout } from "antd";
-import Lihat from "../../components/lihatstok";
+import Lihat from "../../components/lihatstok/index2";
 import API from "../API";
 
 export default function LihatStokBahan() {
@@ -25,7 +25,7 @@ export default function LihatStokBahan() {
       result.data.data.map((item) => {
         let inside = [];
         let temp;
-        for (let i = 0; i < 5; i++) {
+        for (let i = 0; i < 6; i++) {
           switch (i) {
             case 0:
               temp = {
@@ -62,6 +62,12 @@ export default function LihatStokBahan() {
               };
               inside.push(temp);
               break;
+            case 5 : 
+            temp = {
+              value : "button"
+            };
+            inside.push(temp);
+            break;
           }
         }
         stok.push({ data: inside });
@@ -77,22 +83,27 @@ export default function LihatStokBahan() {
     {
       align: "center",
       name: "No",
+      label : "no"
     },
     {
       align: "left",
       name: "Nama Bahan",
+      label : "item"
     },
     {
       align: "center",
       name: "Jumlah",
+      label : "qty"
     },
     {
       align: "center",
       name: "Satuan",
+      label : "weight"
     },
     {
       align: "right",
       name: "Harga Beli per Satuan",
+      label : "sellPrice"
     },
   ];
 

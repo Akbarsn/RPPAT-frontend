@@ -141,6 +141,8 @@ export default function LaporanProduksi() {
         >
           <Spin tip="Loading..." size="large" spinning={loading}>
             <Konten
+            resep={true}
+            notitle={true}
               name="Produksi"
               table={{
                 columns: columns,

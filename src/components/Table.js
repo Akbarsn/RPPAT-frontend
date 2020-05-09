@@ -114,6 +114,15 @@ export default function Tabel(props) {
                             .replace(/\B(?=(\d{3})+(?!\d))/g, ".")}
                         </StyledTableCell>
                       );
+                    } else if (props.columns[index].name === "Total") {
+                      return (
+                        <StyledTableCell align={data.align}>
+                          Rp.{" "}
+                          {data.value
+                            .toString()
+                            .replace(/\B(?=(\d{3})+(?!\d))/g, ".")}
+                        </StyledTableCell>
+                      );
                     } else {
                       return (
                         <StyledTableCell align={data.align}>
