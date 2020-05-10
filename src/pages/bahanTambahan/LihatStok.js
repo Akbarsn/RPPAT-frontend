@@ -26,7 +26,7 @@ export default function LihatStok() {
       result.data.data.map((item) => {
         let inside = [];
         let temp;
-        for (let i = 0; i < 6; i++) {
+        for (let i = 0; i < 7; i++) {
           switch (i) {
             case 0:
               temp = {
@@ -70,6 +70,12 @@ export default function LihatStok() {
               };
               inside.push(temp);
               break;
+            case 6:
+              temp = {
+                value: "button",
+              };
+              inside.push(temp);
+              break;
           }
         }
         stok.push({ data: inside });
@@ -85,26 +91,32 @@ export default function LihatStok() {
     {
       align: "center",
       name: "No",
+      label: "no",
     },
     {
       align: "left",
       name: "Nama Produk",
+      label: "item",
     },
     {
       align: "center",
       name: "Jumlah",
+      label: "qty",
     },
     {
       align: "center",
       name: "Satuan Kemasan",
+      label: "unit",
     },
     {
       align: "right",
       name: "Harga Beli per Kemasan",
+      label: "buyPrice",
     },
     {
       align: "right",
       name: "Harga Jual per Kemasan",
+      label: "sellPrice",
     },
   ];
 

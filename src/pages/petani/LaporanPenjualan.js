@@ -111,6 +111,7 @@ export default function LaporanPenjualan() {
           style={{ minHeight: "100vh", backgroundColor: "white" }}
         >
           <Konten
+          notitle={true}
             name="Penjualan"
             table={{
               columns: columns,

@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Row, Col, Modal, Form, Input, Select, Button, message } from "antd";
+import React, { useState, Fragment } from "react";
+import { Row, Col, Modal, Form, Input, Select, Button, message, InputNumber } from "antd";
 import Table from "../Table";
 
 import { PlusOutlined } from "@ant-design/icons";
@@ -10,6 +10,43 @@ import "../Inc.scss";
 export default function Laporan(props) {
   let [visible, setVisible] = useState(false);
   const [loading, setloading] = useState(false);
+  const [list, setList] = useState([]);
+  const [datas, setDatas] = useState([{id: 10, item:"Apel"}, {id: 20, item:"Jeruk"}])
+
+  function searchDetail(value) {
+    const getIndexArray = datas.map((e) => e.item).indexOf(value);
+    const values = [...list];
+    const results = datas.filter((data) => {
+      const namalower = data.item.toLowerCase();
+      return namalower.includes(value.toLowerCase());
+    });
+    values.push({
+      id: results[0].id,
+      item:results[0].item,
+      qty:1
+    });
+    const newData = [...datas];
+    newData.splice(getIndexArray, 1);
+    setDatas(newData);
+    setList(values);
+  }
+
+  function handleInputChange(data, index) {
+    const values = [...list];
+    const addData = [...datas];
+    if (data > 0) {
+      values[index].qty = data;
+    } else {
+      addData.push({
+        id: values[index].id,
+        item: values[index].item,
+        qty: 0,
+      });
+      values.splice(index, 1);
+    }
+    setList(values);
+    setDatas(addData)
+  }
 
   //Button Handler
 
@@ -57,6 +94,7 @@ export default function Laporan(props) {
     if (!props.isThereButton) {
       return <div></div>;
     }
+
     return (
       <Modal
         title={`Tambah ${props.name}`}
@@ -140,6 +178,63 @@ export default function Laporan(props) {
               );
             })}
           </Row>
+          {props.resep ? 
+          <div className="bahan">
+          <hr/>
+          <div className="title-bahan">Bahan</div>
+          <Select
+              showSearch
+              style={{ width: 400 }}
+              size="large"
+              placeholder="eg. Apel"
+              optionFilterProp="children"
+              filterOption={(input, option) =>
+                option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+              }
+              onChange={searchDetail}
+            >
+              {datas.map((data) => {
+                return (
+                  <Select.Option value={data.item}>
+                    {data.item} - {data.weight}
+                  </Select.Option>
+                );
+              })}
+            </Select>
+            <div style={{ overflowY: "scroll", height: "40vh" }}>
+              {list.map((data, index) => {
+                return (
+                  <div className="listbarang-kasir" key={data.item}>
+                    <Row justify="space-between" align="middle">
+                      <Col span={12}>
+                        <div className="nama-bahan">{data.item}</div>
+                      </Col>
+                      <Col span={12}>
+                        <Form
+                          className="form-kasir"
+                          initialValues={{ qty: data.qty }}
+                        >
+                          <Form.Item
+                            name="qty"
+                            label="Qty"
+                            rules={[{ required: true }]}
+                          >
+                            <InputNumber
+                              onChange={(data) =>
+                                handleInputChange(data, index)
+                              }
+                            />
+                          </Form.Item>
+                        </Form>
+                      </Col>
+                    </Row>
+                    <hr className="hr-kasir-2" />
+                  </div>
+                );
+              })}
+              </div>
+          </div> : <Fragment/>}
+          
 
           <Row justify="space-around">
             <Button
@@ -172,15 +267,15 @@ export default function Laporan(props) {
   return (
     <div id="laporan">
       <div style={{ marginLeft: "1.5rem" }}>
-        <span className="title">Laporan {props.name}</span>
+        <span className="title">{props.notitle ? <Fragment/> : "Laporan " + (props.name)} </span>
 
-        <Col span={24}>
+        <Col span={24} style={{paddingTop:"2rem"}}>
           <Row justify="space-between" style={{ marginBottom: "1rem" }}>
-            <Col span={6}>
+            <Col span={12}>
               <span className="subtitle">{props.name}</span>
             </Col>
 
-            <Col span={4}>{checkButton(props.isThereButton)}</Col>
+            <Col span={12} style={{textAlign:"right", paddingRight:"3rem"}}>{checkButton(props.isThereButton)}</Col>
           </Row>
         </Col>
         <Row justify="start">

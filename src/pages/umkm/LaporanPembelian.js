@@ -108,6 +108,7 @@ export default function LaporanPembelian() {
           style={{ minHeight: "100vh", backgroundColor: "white" }}
         >
           <Konten
+          notitle={true}
             name="Pembelian"
             table={{
               columns: columns,

@@ -8,7 +8,7 @@ const ProtectedRoute = ({ component: Component, role, ...rest }) => {
     <Route
       {...rest}
       render={(props) => {
-        if (decoded.role === role || role === 5) {
+        if (decoded.role === role || role === 6) {
           return <Component {...rest} {...props} />;
         } else {
           localStorage.clear()

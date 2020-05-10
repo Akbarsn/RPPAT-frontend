@@ -148,7 +148,9 @@ const Index = (props) => {
                     </StyledTableCell>
                     <StyledTableCell align="center">{row.qty}</StyledTableCell>
                     <StyledTableCell align="center">
-                      Rp. {props.store === "baku" ? row.price : row.sellPrice}
+                      Rp. {props.store === "baku" ? row.price.toString()
+                            .replace(/\B(?=(\d{3})+(?!\d))/g, ".") : row.sellPrice.toString()
+                            .replace(/\B(?=(\d{3})+(?!\d))/g, ".")}
                     </StyledTableCell>
                     <StyledTableCell align="center">
                       <Form.Item

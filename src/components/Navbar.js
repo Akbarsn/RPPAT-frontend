@@ -62,9 +62,11 @@ export default function Navbar() {
     </Menu>
   ) : (
     <Menu>
-      <Menu.Item key="editProfile" className="dropdownMenu">
-        <Link to="/ganti-profile">Ganti Profile</Link>
-      </Menu.Item>
+      <Menu.ItemGroup title="Profil">
+        <Menu.Item key="editProfile" className="dropdownMenu">
+          <Link to="/ganti-profile">Ganti Profile</Link>
+        </Menu.Item>
+      </Menu.ItemGroup>
 
       <Menu.Item key="logOut" className="dropdownMenu" onClick={handleLogOut}>
         Keluar
@@ -77,8 +79,8 @@ export default function Navbar() {
       <Row justify="space-between">
         <Col span={22}>
           <Row justify="space-between">
-            <Col span={3}>
-              <span className="navHeader">RPPAT</span>
+            <Col span={8}>
+              <span className="navHeader">Integrated Apple Supply Chain</span>
             </Col>
             <Col xs={10} md={6} sm={9}>
               <Row align="middle" justify="space-around">
@@ -93,7 +95,7 @@ export default function Navbar() {
                 <Col flex={2}>
                   <Dropdown overlay={menu}>
                     <Row align="middle" justify="space-between" id="helloNav">
-                      <Col className="navHeader">Hello {name}</Col>
+                      <Col className="navHeader">Hello, {name}</Col>
                       <Col>
                         <DownOutlined className="icon" />
                       </Col>
