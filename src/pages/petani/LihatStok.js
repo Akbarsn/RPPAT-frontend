@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import Navbar from "../../components/Navbar";
 import Sidebar from "../../components/Sidebar";
 import { Layout, Modal, Button, Row, Form, Input, Col, Select } from "antd";
-import Lihat from "../../components/lihatstok/index";
+import Lihat from "../../components/lihatstok/index2";
 import API from "../API";
 
 export default function LihatStok() {
@@ -281,7 +281,7 @@ export default function LihatStok() {
           <Sidebar role={0} />
         </Layout.Sider>
         <Layout.Content style={{ backgroundColor: "white" }}>
-          <Lihat title="Stok Apel" rows={rows} columns={columns} />
+          <Lihat title="Stok Apel" rows={rows} columns={columns} linkpost="/petani/lihat-stok"/>
         </Layout.Content>
       </Layout>
     </Layout>

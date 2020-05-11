@@ -8,6 +8,7 @@ import API from "../API";
 export default function LaporanProduksi() {
   const [rows, setrows] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [material, setMaterial] = useState([])
   const token = localStorage.getItem("token");
   useEffect(() => {
     const fetchData = async () => {
@@ -23,7 +24,11 @@ export default function LaporanProduksi() {
       let stock = [];
       let no = 0;
       let temp = 0;
-      result.data.data.map((item) => {
+      let material = [];
+      result.data.data.materials.map((item) => {
+        material.push(item);
+      })
+      result.data.data.stocks.map((item) => {
         let inside = [];
         for (let i = 0; i < 6; i++) {
           switch (i) {
@@ -75,8 +80,9 @@ export default function LaporanProduksi() {
           data: inside,
         });
       });
-
+      setMaterial(material);
       setrows(stock);
+      console.log(material)
     };
 
     fetchData();
@@ -113,21 +119,21 @@ export default function LaporanProduksi() {
     try {
       setLoading(true);
       console.log(value);
-      const result = await API.post("/umkm/laporan", value, {
-        headers: {
-          Authorization: `bearer ${token}`,
-          "content-type": "application/json",
-        },
-      });
+      // const result = await API.post("/umkm/laporan", value, {
+      //   headers: {
+      //     Authorization: `bearer ${token}`,
+      //     "content-type": "application/json",
+      //   },
+      // });
 
-      if (result.status == 200) {
-        console.log(result);
-        setLoading(false);
-        window.location.reload();
-      } else {
-        setLoading(false);
-        message.error("Terjadi kesalahan, silahkan mengulangi lagi");
-      }
+      // if (result.status == 200) {
+      //   console.log(result);
+      //   setLoading(false);
+      //   window.location.reload();
+      // } else {
+      //   setLoading(false);
+      //   message.error("Terjadi kesalahan, silahkan mengulangi lagi");
+      // }
     } catch (e) {}
   };
 
@@ -141,6 +147,7 @@ export default function LaporanProduksi() {
         >
           <Spin tip="Loading..." size="large" spinning={loading}>
             <Konten
+            material={material}
             resep={true}
             notitle={true}
               name="Produksi"
@@ -150,7 +157,7 @@ export default function LaporanProduksi() {
                 isPaginate: true,
                 isTotal: false,
               }}
-              handleSubmit={handleSubmit}
+              onFinish={handleSubmit}
               isThereButton={true}
               firstItem="Jenis Produk Olahan"
               fields={[
