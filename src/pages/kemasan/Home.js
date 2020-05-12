@@ -10,7 +10,6 @@ export default function Home() {
   const [rows, setRows] = useState([]);
   const [buying, setBuying] = useState(0);
   const [selling, setSelling] = useState(0);
-  const [shopping, setShopping] = useState(0);
   const token = localStorage.getItem("token");
 
   useEffect(() => {
@@ -72,9 +71,8 @@ export default function Home() {
 
       setRows(history);
 
-      setBuying(result.data.data.buying);
-      setSelling(result.data.data.selling);
-      setShopping(result.data.data.shopping);
+      setBuying(result.data.data.trans.buying);
+      setSelling(result.data.data.trans.selling);
     };
     fetchData();
   }, []);
@@ -108,7 +106,6 @@ export default function Home() {
             isBuying={true}
             buying={buying}
             selling={selling}
-            shopping={shopping}
             columns={columns}
             rows={rows}
           ></Homepage>

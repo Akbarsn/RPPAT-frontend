@@ -74,7 +74,8 @@ export default function LihatStok() {
               break;
             case 6:
               temp = {
-                value : "button"
+                value : "button",
+                id:item.id
               };
               inside.push(temp);
               break;
@@ -125,152 +126,6 @@ export default function LihatStok() {
     // },
   ];
 
-  // const handleSubmit = (value) => {};
-
-  // function DataModal(id, content) {
-  //   return (
-  //     <Modal
-  //       title={[<div className="title-modalpembayaran">Rubah Stok</div>]}
-  //       footer={false}
-  //       visible={visible === id}
-  //       onCancel={() => setVisible(null)}
-  //       centered
-  //     >
-  //       <div className="isiModal-notif">
-  //         <Form
-  //           layout="vertical"
-  //           onFinish={handleSubmit}
-  //           initialValues={content}
-  //         >
-  //           <Form.Item
-  //             label="Jenis apel"
-  //             name="item"
-  //             rules={[
-  //               {
-  //                 required: true,
-  //                 message: "Isi jenis apel",
-  //               },
-  //             ]}
-  //           >
-  //             <Input />
-  //           </Form.Item>
-
-  //           <Row justify="space-around" gutter={[24, 24]}>
-  //             <Col span={12}>
-  //               <Form.Item
-  //                 key="grade"
-  //                 label="Grade"
-  //                 name="grade"
-  //                 rules={[
-  //                   {
-  //                     required: true,
-  //                     message: "Pilih grade apel anda",
-  //                   },
-  //                 ]}
-  //               >
-  //                 <Select>
-  //                   <Select.Option key="A" value="A">
-  //                     A
-  //                   </Select.Option>
-  //                   <Select.Option key="B" value="B">
-  //                     B
-  //                   </Select.Option>
-  //                   <Select.Option key="C" value="C">
-  //                     C
-  //                   </Select.Option>
-  //                   <Select.Option key="D" value="D">
-  //                     D
-  //                   </Select.Option>
-  //                   <Select.Option key="E" value="E">
-  //                     E
-  //                   </Select.Option>
-  //                 </Select>
-  //               </Form.Item>
-  //             </Col>
-  //             <Col span={12}>
-  //               <Form.Item
-  //                 label="Jumlah Stok"
-  //                 name="qty"
-  //                 rules={[
-  //                   {
-  //                     required: true,
-  //                     message: "Isi jumlah stok anda",
-  //                   },
-  //                 ]}
-  //               >
-  //                 <Input />
-  //               </Form.Item>
-  //             </Col>
-  //             <Col span={12}>
-  //               <Form.Item
-  //                 label="Harga per Satuan"
-  //                 name="price"
-  //                 rules={[
-  //                   {
-  //                     required: true,
-  //                     message: "Isi Harga per satuan anda",
-  //                   },
-  //                 ]}
-  //               >
-  //                 <Input type="number" />
-  //               </Form.Item>
-  //             </Col>
-  //             <Col span={12}>
-  //               <Form.Item
-  //                 label="Satuan"
-  //                 name="unit"
-  //                 rules={[
-  //                   {
-  //                     required: true,
-  //                     message: "Isi satuan stok anda",
-  //                   },
-  //                 ]}
-  //               >
-  //                 <Input />
-  //               </Form.Item>
-  //             </Col>
-  //           </Row>
-  //         </Form>
-
-  //         <Row justify="space-around">
-  //           <Button
-  //             type="secondary"
-  //             size="large"
-  //             onClick={() => setVisible(null)}
-  //             className="btn_secondary"
-  //           >
-  //             Batal
-  //           </Button>
-
-  //           <Button
-  //             type="primary"
-  //             size="large"
-  //             htmlType="submit"
-  //             className="btn_primary"
-  //           >
-  //             Submit
-  //           </Button>
-  //         </Row>
-  //       </div>
-  //     </Modal>
-  //   );
-  // }
-
-  // function detail(id, data) {
-  //   return (
-  //     <div>
-  //       <Button
-  //         className="btn_primary"
-  //         onClick={(id)=>setVisible(id)}
-  //       >
-  //         Lihat Detail
-  //       </Button>
-
-  //       {DataModal(id, data)}
-  //     </div>
-  //   );
-  // }
-
   return (
     <Layout>
       <Layout.Header>
@@ -281,7 +136,7 @@ export default function LihatStok() {
           <Sidebar role={0} />
         </Layout.Sider>
         <Layout.Content style={{ backgroundColor: "white" }}>
-          <Lihat title="Stok Apel" rows={rows} columns={columns} linkpost="/petani/lihat-stok"/>
+          <Lihat title="Stok Apel" token = {token} aksi = {true} rows={rows} columns={columns} linkpost="/petani/lihat-stok" token={token}/>
         </Layout.Content>
       </Layout>
     </Layout>

@@ -136,7 +136,7 @@ export default function LaporanStokPanen() {
 
   return (
     <Layout style={{ backgroundColor: "#ffffff" }}>
-      <Navbar name={"Akbar"} />
+      <Navbar/>
       <Layout style={{ marginTop: 64, marginLeft: 280 }}>
         <Sidebar role={0} />
         <Layout.Content
@@ -144,7 +144,7 @@ export default function LaporanStokPanen() {
         >
           <Spin tip="Loading..." size="large" spinning={loading}>
             <Konten
-            notitle={true}
+              notitle={true}
               name="Stok Panen"
               table={{
                 columns: columns,
@@ -152,7 +152,7 @@ export default function LaporanStokPanen() {
                 isPaginate: true,
                 isTotal: false,
               }}
-              handleSubmit={handleSubmit}
+              onFinish={handleSubmit}
               loading={loading}
               isThereButton={true}
               firstItem="Jenis Apel"

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Fragment } from "react";
 import "./LihatStok.scss";
 import { Modal, Button, Form, Input, Upload, message } from "antd";
 import { UploadOutlined } from "@ant-design/icons";
@@ -17,14 +17,14 @@ export default function Index(props) {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [visible, setVisible] = useState(null);
-  const [id, setId] = useState(null);
   const data = props.data;
   const [loading, setLoading] = useState(false);
   const [dataform, setDataform] = useState();
+  const [id, setId] = useState(null);
 
   const layout = {
-    labelCol: { span: 8 },
-    wrapperCol: { span: 16 },
+    labelCol: { span: 10 },
+    wrapperCol: { span: 14 },
   };
 
   const StyledTableCell = withStyles((theme) => ({
@@ -47,42 +47,34 @@ export default function Index(props) {
     setPage(0);
   }
 
-  const normFile = (e) => {
-    console.log("Upload event:", e);
-    if (Array.isArray(e)) {
-      return e;
-    }
-    message.success("Upload Berhasil");
-    return e && e.fileList;
-  };
+  // const normFile = (e) => {
+  //   console.log("Upload event:", e);
+  //   if (Array.isArray(e)) {
+  //     return e;
+  //   }
+  //   message.success("Upload Berhasil");
+  //   return e && e.fileList;
+  // };
 
   const [form] = Form.useForm();
 
   async function onFinish(value) {
     setLoading(true);
 
+    Object.assign(value, {id : id})
+
     console.log(value);
 
-    const form = new FormData();
-    {
-      props.columns.map((data) => {
-        let label = data.label;
-        if (label !== "no") {
-          return form.append(label, value[label]);
-        }
-      });
-    }
-
-    console.log(...form);
-
     try {
-      const result = await API.post(props.linkpost, form, {
+      const result = await API.post(props.linkpost, value, {
         headers: {
           Authorization: `bearer ${props.token}`,
-          "content-type": "multipart/form-data",
+          "content-type": "application/json",
         },
       });
+
       console.log(result);
+
       if (result.status === 200) {
         message.success("Perubahan data berhasil disimpan");
         window.location.reload();
@@ -100,26 +92,22 @@ export default function Index(props) {
   useEffect(() => {
     const fetchData = async () => {
       let columns = props.columns;
-    let row = props.rows;
-    let values={};
-    try{
-      for (let i = 0; i < columns.length; i++) {
-        if(columns[i].label !== "no"){
-          values[columns[i].label] = row[visible].data[i].value;
+      let row = props.rows;
+      let values = {};
+      try {
+        for (let i = 0; i < columns.length; i++) {
+          if (columns[i].label !== "no") {
+            values[columns[i].label] = row[visible].data[i].value;
+          }
         }
-       
+        let initial = values;
+        setDataform(initial);
+      } catch {
+        console.log("yo");
       }
-      let initial = values;
-      console.log(initial);
-      setDataform(initial);
-    }
-    catch {
-      console.log("yo");
-    }
-    }
+    };
     fetchData();
-    
-  }, [visible])
+  }, [visible]);
 
   return (
     <div id="lihatstok">
@@ -139,7 +127,11 @@ export default function Index(props) {
                     </StyledTableCell>
                   );
                 })}
-                <StyledTableCell align="center">Aksi</StyledTableCell>
+                {props.aksi ? (
+                  <StyledTableCell align="center">Aksi</StyledTableCell>
+                ) : (
+                  <Fragment />
+                )}
               </TableRow>
             </TableHead>
             <TableBody>
@@ -173,7 +165,7 @@ export default function Index(props) {
                               <Button
                                 className="btn_primary"
                                 onClick={() => {
-                                  setId(row.id);
+                                  setId(data.id);
                                   setVisible(indexx);
                                 }}
                               >
@@ -193,7 +185,8 @@ export default function Index(props) {
                             >
                               <Form
                                 {...layout}
-                                form={form} initialValues={form.setFieldsValue(dataform)}
+                                form={form}
+                                initialValues={form.setFieldsValue(dataform)}
                                 onFinish={onFinish}
                               >
                                 {props.columns.map((data) => {
@@ -224,7 +217,7 @@ export default function Index(props) {
                                     );
                                   }
                                 })}
-                                <Form.Item
+                                {/* <Form.Item
                                   name="image"
                                   // rules={[
                                   //   {
@@ -247,7 +240,7 @@ export default function Index(props) {
                                       Klik untuk Upload
                                     </Button>
                                   </Upload>
-                                </Form.Item>
+                                </Form.Item> */}
                                 <Form.Item>
                                   <div style={{ textAlign: "right" }}>
                                     <Button

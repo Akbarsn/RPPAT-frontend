@@ -55,9 +55,9 @@ const Index = (props) => {
     let no = 0;
     for (let i = 0; i < data.length; i++) {
       if (
-        value[i + 1] != null ||
-        value[i + 1] != undefined ||
-        value[i + 1] > 0
+        value[i] != null ||
+        value[i] != undefined ||
+        value[i] > 0
       ) {
         data[i].inputdata = value[i + 1];
         boughtItems.push(data[i]);

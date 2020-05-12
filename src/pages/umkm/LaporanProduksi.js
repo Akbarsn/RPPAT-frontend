@@ -8,7 +8,7 @@ import API from "../API";
 export default function LaporanProduksi() {
   const [rows, setrows] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [material, setMaterial] = useState([])
+  const [material, setMaterial] = useState([]);
   const token = localStorage.getItem("token");
   useEffect(() => {
     const fetchData = async () => {
@@ -27,7 +27,7 @@ export default function LaporanProduksi() {
       let material = [];
       result.data.data.materials.map((item) => {
         material.push(item);
-      })
+      });
       result.data.data.stocks.map((item) => {
         let inside = [];
         for (let i = 0; i < 6; i++) {
@@ -82,7 +82,6 @@ export default function LaporanProduksi() {
       });
       setMaterial(material);
       setrows(stock);
-      console.log(material)
     };
 
     fetchData();
@@ -117,23 +116,25 @@ export default function LaporanProduksi() {
 
   const handleSubmit = async (value) => {
     try {
+      console.log("here")
       setLoading(true);
       console.log(value);
-      // const result = await API.post("/umkm/laporan", value, {
-      //   headers: {
-      //     Authorization: `bearer ${token}`,
-      //     "content-type": "application/json",
-      //   },
-      // });
+      const result = await API.post("/umkm/laporan", value, {
+        headers: {
+          Authorization: `bearer ${token}`,
+          "content-type": "application/json",
+        },
+      });
 
-      // if (result.status == 200) {
-      //   console.log(result);
-      //   setLoading(false);
-      //   window.location.reload();
-      // } else {
-      //   setLoading(false);
-      //   message.error("Terjadi kesalahan, silahkan mengulangi lagi");
-      // }
+      console.log(result);
+
+      if (result.status == 200) {
+        setLoading(false);
+        // window.location.reload();
+      } else {
+        setLoading(false);
+        message.error("Terjadi kesalahan, silahkan mengulangi lagi");
+      }
     } catch (e) {}
   };
 
@@ -147,9 +148,9 @@ export default function LaporanProduksi() {
         >
           <Spin tip="Loading..." size="large" spinning={loading}>
             <Konten
-            material={material}
-            resep={true}
-            notitle={true}
+              material={material}
+              resep={true}
+              notitle={true}
               name="Produksi"
               table={{
                 columns: columns,

@@ -73,6 +73,7 @@ export default function LihatStok() {
             case 6:
               temp = {
                 value: "button",
+                id:item.id
               };
               inside.push(temp);
               break;
@@ -130,7 +131,7 @@ export default function LihatStok() {
           <Sidebar role={1} />
         </Layout.Sider>
         <Layout.Content style={{ backgroundColor: "white" }}>
-          <Lihat title="Stok Kemasan" rows={rows} columns={columns} linkpost="/kemasan/lihat-stok"/>
+          <Lihat title="Stok Kemasan" token = {token} aksi = {true} rows={rows} columns={columns} linkpost="/kemasan/lihat-stok"/>
         </Layout.Content>
       </Layout>
     </Layout>

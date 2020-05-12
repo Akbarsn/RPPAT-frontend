@@ -156,7 +156,7 @@ export default function LaporanStokKemasan() {
                 isPaginate: true,
                 isTotal: false,
               }}
-              handleSubmit={handleSubmit}
+              onFinish={handleSubmit}
               isThereButton={true}
               firstItem="Jenis Kemasan"
               fields={[

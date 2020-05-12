@@ -36,6 +36,7 @@ export default function Login(props) {
 
         Redirect(hasil.data.data);
       } catch (e) {
+        console.log(e);
         switch (e.response) {
           case 406:
             setError("Username atau Password Salah");

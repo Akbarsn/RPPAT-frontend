@@ -147,7 +147,7 @@ export default function LaporanPembelian() {
                 isPaginate: true,
                 isTotal: false,
               }}
-              handleSubmit={handleSubmit}
+              onFinish={handleSubmit}
               isThereButton={true}
               firstItem="Nama Bahan Tambahan"
               fields={[

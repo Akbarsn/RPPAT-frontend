@@ -46,7 +46,8 @@ export default function Homepage(props) {
 
                   <Row>
                     <Col offset={4} className="content">
-                      Rp. {props.selling}
+                      Rp. {props.selling.toString()
+                            .replace(/\B(?=(\d{3})+(?!\d))/g, ".")}
                     </Col>
                   </Row>
                 </Card>
@@ -63,7 +64,8 @@ export default function Homepage(props) {
                   <Row>
                     <Col offset={4} className="content">
                       {console.log(props)}
-                      Rp. {props.buying}
+                      Rp. {props.buying.toString()
+                            .replace(/\B(?=(\d{3})+(?!\d))/g, ".")}
                     </Col>
                   </Row>
                 </Card>
@@ -80,7 +82,8 @@ export default function Homepage(props) {
 
                   <Row>
                     <Col offset={4} className="content">
-                      Rp. {props.selling}
+                      Rp. {props.selling.toString()
+                            .replace(/\B(?=(\d{3})+(?!\d))/g, ".")}
                     </Col>
                   </Row>
                 </Card>

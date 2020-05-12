@@ -25,7 +25,7 @@ export default function LihatStokBahan() {
       result.data.data.map((item) => {
         let inside = [];
         let temp;
-        for (let i = 0; i < 6; i++) {
+        for (let i = 0; i < 5; i++) {
           switch (i) {
             case 0:
               temp = {
@@ -62,12 +62,6 @@ export default function LihatStokBahan() {
               };
               inside.push(temp);
               break;
-            case 5 : 
-            temp = {
-              value : "button"
-            };
-            inside.push(temp);
-            break;
           }
         }
         stok.push({ data: inside });
@@ -117,7 +111,7 @@ export default function LihatStokBahan() {
           <Sidebar role={3} />
         </Layout.Sider>
         <Layout.Content style={{ backgroundColor: "white" }}>
-          <Lihat title="Stok Bahan" rows={rows} columns={columns} linkpost="/umkm/lihat-stok/bahan"/>
+          <Lihat title="Stok Bahan" rows={rows} columns={columns} linkpost="/umkm/lihat-stok/bahan" aksi={false}/>
         </Layout.Content>
       </Layout>
     </Layout>

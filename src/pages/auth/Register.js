@@ -11,7 +11,7 @@ import "./Register.scss";
 import Container from "../../components/Container";
 import { useHistory } from "react-router-dom";
 import jwt from "jsonwebtoken";
-import API from "../API"
+import API from "../API";
 
 export default function Register() {
   function getSteps() {
@@ -62,7 +62,6 @@ export default function Register() {
     setStep((prevStep) => prevStep + 1);
   };
 
-
   async function onStep4(values) {
     setLoading(true);
     let bankacc = "";
@@ -79,7 +78,7 @@ export default function Register() {
     const data = { ...step1, ...step2, ...values };
     data.birthDate = data.birthDate.format("YYYY-MM-DD");
     try {
-      console.log(data.upload[0]);
+      // console.log(data.upload[0]);
       let form = new FormData();
       form.append("name", data.name);
       form.append("fullName", data.fullName);
@@ -90,7 +89,7 @@ export default function Register() {
       form.append("username", data.username);
       form.append("password", data.password);
       form.append("IDcard", data.identitas[0].originFileObj);
-      form.append("profilImage", data.fotoprofil[0].originFileObj);
+      form.append("profile", data.fotoprofil[0].originFileObj);
       form.append("bankAccount", bankacc);
       form.append("bankNumber", banknum);
       form.append("role", data.role);
@@ -98,12 +97,14 @@ export default function Register() {
       const hasil = await API.post("/auth/register", form, {
         headers: {
           "content-type": "multipart/form-data",
-        }
-      })
+        },
+      });
       console.log(hasil);
       switch (hasil.status) {
         case 200:
           console.log(form);
+          setLoading(false);
+          setSuccess(true);
           break;
         default:
           console.log("ya");
@@ -111,8 +112,6 @@ export default function Register() {
     } catch (err) {
       console.log(err);
     }
-    setLoading(false);
-    setSuccess(true);
   }
 
   function getContent(stepindex) {
