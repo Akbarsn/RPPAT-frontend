@@ -53,16 +53,14 @@ const Index = (props) => {
     console.log(value);
     let boughtItems = [];
     let no = 0;
-    for (let i = 0; i < data.length; i++) {
-      if (
-        value[i] != null ||
-        value[i] != undefined ||
-        value[i] > 0
-      ) {
-        data[i].inputdata = value[i + 1];
-        boughtItems.push(data[i]);
-      }
-    }
+    data.map((data)=> {
+        if(value[data.id] != null ||
+          value[data.id] != undefined ||
+          value[data.id] > 0) {
+              data.inputdata = value[data.id];
+              boughtItems.push(data)
+          }
+    })
     console.log("bought");
     console.log(boughtItems);
     if (boughtItems.length < 1) {
