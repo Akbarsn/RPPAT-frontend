@@ -67,8 +67,8 @@ export default function Index(props) {
     {
       props.columns.map((data) => {
         let label = data.label;
-        if (label !== "buyPrice" && label !== "no") {
-          return form.append(label, value.label);
+        if (label !== "no") {
+          return form.append(label, value[label]);
         }
       });
     }
@@ -226,12 +226,12 @@ export default function Index(props) {
                                 })}
                                 <Form.Item
                                   name="image"
-                                  rules={[
-                                    {
-                                      required: true,
-                                      message: "Tolong unggah gambar produk !",
-                                    },
-                                  ]}
+                                  // rules={[
+                                  //   {
+                                  //     required: true,
+                                  //     message: "Tolong unggah gambar produk !",
+                                  //   },
+                                  // ]}
                                   label={<div>Upload Gambar Produk</div>}
                                   valuePropName="fileList"
                                   getValueFromEvent={normFile}

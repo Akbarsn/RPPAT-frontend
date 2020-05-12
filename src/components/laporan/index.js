@@ -1,4 +1,4 @@
-import React, { useState, Fragment } from "react";
+import React, { useState, Fragment, useEffect } from "react";
 import { Row, Col, Modal, Form, Input, Select, Button, message, InputNumber } from "antd";
 import Table from "../Table";
 
@@ -11,7 +11,7 @@ export default function Laporan(props) {
   let [visible, setVisible] = useState(false);
   const [loading, setloading] = useState(false);
   const [list, setList] = useState([]);
-  const [datas, setDatas] = useState([{id: 10, item:"Apel"}, {id: 20, item:"Jeruk"}])
+  const [datas, setDatas] = useState([])
 
   function searchDetail(value) {
     const getIndexArray = datas.map((e) => e.item).indexOf(value);
@@ -63,12 +63,21 @@ export default function Laporan(props) {
         </Row>
       );
       const button = (
-        <Button className="btn_secondary" onClick={() => setVisible(true)}>
+        <Button className="btn_secondary" onClick={() => {setVisible(true); setDatas(props.material)}}>
           {text}
         </Button>
       );
       return button;
     }
+  }
+
+  function handleFinish(value){
+    if(props.resep){
+      let material=[];
+    material.push(list);
+    Object.assign(value, {materials : material});
+    }
+    props.onFinish(value)
   }
 
   //Modal
@@ -94,12 +103,11 @@ export default function Laporan(props) {
     if (!props.isThereButton) {
       return <div></div>;
     }
-
+    
     return (
       <Modal
         title={`Tambah ${props.name}`}
         visible={visible}
-        onOk={() => handleOk(props.handleSubmit)}
         onCancel={() => handleCancel()}
         footer={false}
       >
@@ -107,7 +115,7 @@ export default function Laporan(props) {
         <Form
           name="addStock"
           layout="vertical"
-          onFinish={props.handleSubmit}
+          onFinish={handleFinish}
           onFinishFailed={errorHandler}
         >
           <Row>
@@ -195,8 +203,8 @@ export default function Laporan(props) {
             >
               {datas.map((data) => {
                 return (
-                  <Select.Option value={data.item}>
-                    {data.item} - {data.weight}
+                  <Select.Option value={data.item} key={data.item}>
+                    {data.item}
                   </Select.Option>
                 );
               })}

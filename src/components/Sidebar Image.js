@@ -10,11 +10,13 @@ export default function Navbar() {
 
   useEffect(() => {
     const fetchData = async () => {
-      let result = await API.get("/notifikasi", {
+      let result = await API.get(" /upload/users/profilImage", {
         headers: {
           Authorization: `bearer ${token}`,
         },
-      });
+      })
+      console.log(result);
+      setImage(result);
     };
 
     fetchData();
