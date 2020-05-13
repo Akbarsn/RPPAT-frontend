@@ -22,6 +22,7 @@ export default function Login(props) {
       console.log(user);
       try {
         let hasil = await API.post("/kasir/login", user);
+        console.log(hasil)
         var decoded = jwt.decode(hasil.data.token);
         console.log(decoded);
         localStorage.setItem("token", hasil.data.token);
