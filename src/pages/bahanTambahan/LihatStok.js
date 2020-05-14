@@ -132,7 +132,7 @@ export default function LihatStok() {
         </Layout.Sider>
         <Layout.Content style={{ backgroundColor: "white" }}>
           <Lihat
-            title="Stok Bahan Tambahan"
+            title="Persediaan Bahan Tambahan"
             aksi={true}
             rows={rows}
             columns={columns}

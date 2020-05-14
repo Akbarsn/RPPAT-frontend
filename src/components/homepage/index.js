@@ -7,19 +7,18 @@ import "./Homepage.scss";
 export default function Homepage(props) {
   return (
     <div className="homepage">
-      <div style={{ marginLeft: "1rem" }}>
-        <span className="title">Beranda</span>
+      <div style={{ marginLeft: "1rem", paddingTop : "1rem" }}>
             <Card className="card stok-home">
               <Row>
                 <Col>
-                  <span className="title">Stok : </span>
+                  <span className="title">Persediaan : </span>
                 </Col>
               </Row>
               <Row>
                 <Col></Col>
               </Row>
               {props.stocks.length < 1 ? (
-                <Empty description={<span>Tidak ada Stok</span>} />
+                <Empty description={<span>Tidak ada Persediaan</span>} />
               ) : (
                 props.stocks.map((stock) => (
                   <Row className="stock">
