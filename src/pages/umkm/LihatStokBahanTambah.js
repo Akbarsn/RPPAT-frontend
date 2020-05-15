@@ -5,7 +5,7 @@ import { Layout } from "antd";
 import Lihat from "../../components/lihatstok/index2";
 import API from "../API";
 
-export default function LihatStokBahan() {
+export default function LihatStokBahanTambah() {
   const [rows, setRows] = useState([]);
 
   const token = localStorage.getItem("token");
@@ -81,7 +81,7 @@ export default function LihatStokBahan() {
     },
     {
       align: "left",
-      name: "Nama Bahan",
+      name: "Nama Bahan Tambah",
       label : "item"
     },
     {
@@ -111,7 +111,7 @@ export default function LihatStokBahan() {
           <Sidebar role={3} />
         </Layout.Sider>
         <Layout.Content style={{ backgroundColor: "white" }}>
-          <Lihat title="Persediaan Bahan" rows={rows} columns={columns} linkpost="/umkm/lihat-stok/bahan" aksi={false}/>
+          <Lihat title="Persediaan Bahan Tambah" rows={rows} columns={columns} linkpost="/umkm/lihat-stok/bahan" aksi={false}/>
         </Layout.Content>
       </Layout>
     </Layout>

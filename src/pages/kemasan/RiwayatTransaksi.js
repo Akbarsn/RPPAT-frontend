@@ -84,7 +84,7 @@ export default function RiwayatTransaksi() {
         temp = {
           no: ++no2,
           name: item.name,
-          status: "Pengeluaran",
+          status: "Pemasukan",
           total: item.total,
           data: stock,
         };
