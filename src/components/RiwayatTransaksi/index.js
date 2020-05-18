@@ -42,9 +42,6 @@ export default function Index(props) {
   }
   return (
     <div id="riwayattransaksi">
-      <p className="titlepage" style={{ margin: "1% 2% 2% 2%" }}>
-        Riwayat Transaksi
-      </p>
       <p className="sectitle" style={{ margin: "1% 2%" }}>
         Detail Transaksi
       </p>

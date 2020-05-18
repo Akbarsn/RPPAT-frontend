@@ -21,6 +21,7 @@ export default function RiwayatTransaksi() {
       console.log(result);
       let inside2 = [];
       let no = 0;
+      let no2 = 0;
       result.data.data.map((item) => {
         let stock = [];
         let inside = [];
@@ -81,9 +82,9 @@ export default function RiwayatTransaksi() {
         });
         no = 0;
         temp = {
-          no: ++no,
+          no: ++no2,
           name: item.name,
-          status: "Pengeluaran",
+          status: "Pemasukan",
           total: item.total,
           data: stock,
         };

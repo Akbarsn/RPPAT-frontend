@@ -261,9 +261,24 @@ function getMenu(role) {
               </Row>
             }
           >
-            <Menu.Item className="secondary">
+            {/* <Menu.Item className="secondary">
               <Link className="link" to="/umkm/lihat-stok/bahan">
                 Bahan
+              </Link>
+            </Menu.Item> */}
+            <Menu.Item className="secondary">
+              <Link className="link" to="/umkm/lihat-stok/bahan-baku">
+                Bahan Baku
+              </Link>
+            </Menu.Item>
+            <Menu.Item className="secondary">
+              <Link className="link" to="/umkm/lihat-stok/bahan-tambahan">
+                Bahan Tambahan
+              </Link>
+            </Menu.Item>
+            <Menu.Item className="secondary">
+              <Link className="link" to="/umkm/lihat-stok/kemasan">
+                Kemasan
               </Link>
             </Menu.Item>
             <Menu.Item className="secondary">

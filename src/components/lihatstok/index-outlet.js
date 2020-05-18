@@ -22,8 +22,8 @@ export default function Index(props) {
   const [loading, setLoading] = useState(false);
 
   const layout = {
-    labelCol: { span: 8 },
-    wrapperCol: { span: 16 },
+    labelCol: { span: 10 },
+    wrapperCol: { span: 14 },
   };
 
   const StyledTableCell = withStyles((theme) => ({
@@ -106,10 +106,7 @@ export default function Index(props) {
 
   return (
     <div id="lihatstok">
-      <p className="titlepage" style={{ margin: "1% 2% 1% 2%" }}>
-        Lihat Stok
-      </p>
-      <p className="sectitle">{props.title}</p>
+      <p className="sectitle" style={{ margin: "1% 2% 1% 2%" }}>{props.title}</p>
       <div className="tablestok">
         <TableContainer component={Paper}>
           <Table>
@@ -152,10 +149,12 @@ export default function Index(props) {
                       {row.weight}
                     </StyledTableCell>
                     <StyledTableCell align="center">
-                      {row.buyPrice}
+                      Rp. {row.buyPrice.toString()
+                              .replace(/\B(?=(\d{3})+(?!\d))/g, ".")}
                     </StyledTableCell>
                     <StyledTableCell align="center">
-                      {row.sellPrice}
+                      Rp. {row.sellPrice.toString()
+                              .replace(/\B(?=(\d{3})+(?!\d))/g, ".")}
                     </StyledTableCell>
                     <StyledTableCell align="center">
                       <div>
@@ -172,7 +171,7 @@ export default function Index(props) {
                       <Modal
                         title={[
                           <div className="title-modalpembayaran">
-                            Edit Stok
+                            Edit Data
                           </div>,
                         ]}
                         footer={false}
@@ -218,12 +217,12 @@ export default function Index(props) {
                             </Upload>
                           </Form.Item>
                           <Form.Item
-                            label="Stok"
+                            label="Jumlah"
                             name="qty"
                             rules={[
                               {
                                 required: true,
-                                message: "Tolong masukkan stok produk !",
+                                message: "Tolong masukkan jumlah produk !",
                               },
                             ]}
                           >

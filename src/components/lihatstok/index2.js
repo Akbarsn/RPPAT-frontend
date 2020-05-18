@@ -111,10 +111,7 @@ export default function Index(props) {
 
   return (
     <div id="lihatstok">
-      <p className="titlepage" style={{ margin: "1% 2% 1% 2%" }}>
-        Lihat Stok
-      </p>
-      <p className="sectitle">{props.title}</p>
+      <p className="sectitle" style={{ margin: "1% 2% 1% 2%" }}>{props.title}</p>
       <div className="tablestok">
         <TableContainer component={Paper}>
           <Table>
@@ -169,13 +166,13 @@ export default function Index(props) {
                                   setVisible(indexx);
                                 }}
                               >
-                                Edit Stok
+                                Edit Data
                               </Button>
                             </div>
                             <Modal
                               title={[
                                 <div className="title-modalpembayaran">
-                                  Edit Stok
+                                  Edit Data
                                 </div>,
                               ]}
                               footer={false}
@@ -208,7 +205,7 @@ export default function Index(props) {
                                           {
                                             required: true,
                                             message:
-                                              "Tolong lengkapi data stok !",
+                                              "Tolong lengkapi data !",
                                           },
                                         ]}
                                       >

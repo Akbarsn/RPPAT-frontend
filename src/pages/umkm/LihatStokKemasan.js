@@ -1,20 +1,18 @@
 import React, { useState, useEffect } from "react";
 import Navbar from "../../components/Navbar";
 import Sidebar from "../../components/Sidebar";
-import { Layout, Modal, Button, Row, Form, Input, Col, Select } from "antd";
+import { Layout } from "antd";
 import Lihat from "../../components/lihatstok/index2";
 import API from "../API";
 
-export default function LihatStok() {
+export default function LihatStokKemasan() {
   const [rows, setRows] = useState([]);
-  const [visible, setVisible] = useState(0);
 
   const token = localStorage.getItem("token");
-
   useEffect(() => {
     const fetchData = async () => {
       let result;
-      result = await API.get("/petani/lihat-stok", {
+      result = await API.get("/umkm/lihat-stok/bahan", {
         headers: {
           Authorization: `bearer ${token}`,
         },
@@ -25,14 +23,13 @@ export default function LihatStok() {
       let stok = [];
       let no = 0;
       result.data.data.map((item) => {
-        ++no;
-        let temp;
         let inside = [];
-        for (let i = 0; i < 7; i++) {
+        let temp;
+        for (let i = 0; i < 5; i++) {
           switch (i) {
             case 0:
               temp = {
-                value: no,
+                value: ++no,
                 align: "center",
               };
               inside.push(temp);
@@ -46,36 +43,22 @@ export default function LihatStok() {
               break;
             case 2:
               temp = {
-                value: item.grade,
+                value: item.qty,
                 align: "center",
               };
               inside.push(temp);
               break;
             case 3:
               temp = {
-                value: item.qty,
+                value: item.weight,
                 align: "center",
               };
               inside.push(temp);
               break;
             case 4:
               temp = {
-                value: item.unit,
-                align: "center",
-              };
-              inside.push(temp);
-              break;
-            case 5:
-              temp = {
-                value: item.price,
-                align: "center",
-              };
-              inside.push(temp);
-              break;
-            case 6:
-              temp = {
-                value : "button",
-                id:item.id
+                value: item.sellPrice,
+                align: "right",
               };
               inside.push(temp);
               break;
@@ -83,6 +66,7 @@ export default function LihatStok() {
         }
         stok.push({ data: inside });
       });
+
       setRows(stok);
     };
 
@@ -93,37 +77,28 @@ export default function LihatStok() {
     {
       align: "center",
       name: "No",
-      label:"no"
+      label : "no"
     },
     {
-      align: "center",
-      name: "Jenis Apel",
-      label:"item"
-    },
-    {
-      align: "center",
-      name: "Grade",
-      label:"grade"
+      align: "left",
+      name: "Nama Kemasan",
+      label : "item"
     },
     {
       align: "center",
       name: "Jumlah",
-      label:"qty"
+      label : "qty"
     },
     {
       align: "center",
       name: "Satuan",
-      label:"unit"
+      label : "weight"
     },
     {
-      align: "center",
-      name: "Harga per Satuan",
-      label:"price"
+      align: "right",
+      name: "Harga Beli per Satuan",
+      label : "sellPrice"
     },
-    // {
-    //   align: "center",
-    //   name: "Edit Stok",
-    // },
   ];
 
   return (
@@ -133,10 +108,10 @@ export default function LihatStok() {
       </Layout.Header>
       <Layout>
         <Layout.Sider width={280}>
-          <Sidebar role={0} />
+          <Sidebar role={3} />
         </Layout.Sider>
         <Layout.Content style={{ backgroundColor: "white" }}>
-          <Lihat title="Persediaan Apel" token = {token} aksi = {true} rows={rows} columns={columns} linkpost="/petani/lihat-stok" token={token}/>
+          <Lihat title="Persediaan Kemasan" rows={rows} columns={columns} linkpost="/umkm/lihat-stok/bahan" aksi={false}/>
         </Layout.Content>
       </Layout>
     </Layout>

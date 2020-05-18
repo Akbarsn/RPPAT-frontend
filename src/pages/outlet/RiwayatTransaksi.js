@@ -20,6 +20,7 @@ export default function RiwayatTransaksi() {
       });
       console.log(result);
       let inside2 = [];
+      let no2 = 0;
       result.data.data.history.map((item) => {
         let stock = [];
         let no = 0;
@@ -76,22 +77,22 @@ export default function RiwayatTransaksi() {
           }
           stock.push({data: inside});
       })
-        no = 0;
         temp = {
-          no: ++no,
+          no: ++no2,
           name: item.name,
           status: "Pengeluaran",
           total: item.total,
           data: stock,
         };
         inside2.push(temp);
+        no = 0;
       });
       result.data.data.pos.map((item) => {
         let stock = [];
-        let no = 0;
         let inside = [];
         const allItem = JSON.parse(item.itemDetail);
         let temp;
+        let no = 0;
         allItem.map((item) => {
           inside = [];
           for (let i = 0; i < 6; i++) {
@@ -142,15 +143,15 @@ export default function RiwayatTransaksi() {
           }
           stock.push({data: inside});
       })
-        no = 0;
         temp = {
-          no: ++no,
+          no: ++no2,
           name: "Penjualan Produk",
           status: "Pemasukan",
           total: item.total,
           data: stock,
         };
         inside2.push(temp);
+        no = 0;
         console.log(inside2)
       });
       setRows(inside2)
@@ -170,7 +171,7 @@ export default function RiwayatTransaksi() {
     },
     {
       align: "center",
-      name: "Stok",
+      name: "Persediaan",
     },
     {
       align: "center",
