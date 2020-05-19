@@ -9,6 +9,7 @@ export default function Notifikasi() {
   const [data, setData] = useState([]);
   const token = localStorage.getItem("token");
   const role = localStorage.getItem("role");
+  const id = localStorage.getItem("id");
 
   function roleName(role) {
     switch (role) {
@@ -22,8 +23,6 @@ export default function Notifikasi() {
         return "umkm";
       case "4":
         return "outlet";
-      default:
-        return "Duar";
     }
   }
   const identifier = roleName(role);
@@ -86,13 +85,13 @@ export default function Notifikasi() {
 
           let temp = {
             id: notif.id,
-            content: notif.name,
+            content: notif.from == id ? notif.forSeller : notif.forBuyer,
             date: "",
             modalType: notif.status + 1,
             detail: stocks,
             metodePembayaran: notif.payment,
             identifier: identifier,
-            proof:notif.proof
+            proof: notif.proof,
           };
 
           allNotif.push(temp);
@@ -105,7 +104,6 @@ export default function Notifikasi() {
 
     fetchData();
   }, []);
-
 
   const columns = [
     {

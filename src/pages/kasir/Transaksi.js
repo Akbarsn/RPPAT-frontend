@@ -37,7 +37,7 @@ export default function Transaction() {
   return (
     <Layout>
       <Layout.Header>
-        <Navbar name={"Kasir"} />
+        <Navbar/>
       </Layout.Header>
       <Layout>
         <Layout.Sider width={280}>

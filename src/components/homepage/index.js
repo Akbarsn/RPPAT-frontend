@@ -24,7 +24,7 @@ export default function Homepage(props) {
                   <Row className="stock">
                     <Col span={18}>{stock.item}</Col>
                     <Col style={{ fontWeight: 700 }} span={6}>
-                      {stock.qty} {props.unit}{" "}
+                      {stock.qty} {stock.unit}{" "}
                     </Col>
                   </Row>
                 ))

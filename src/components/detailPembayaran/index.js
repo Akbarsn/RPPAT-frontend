@@ -184,24 +184,35 @@ function DetailPembayaran(props) {
     let itemDetail = handleItemDetail(data);
     let bank =
       bankName + "-" + bankDetail[index].number + "-" + bankDetail[index].name;
-    let name = "Pembelian ";
+    let forBuyer = "Pembelian ";
+    let forSeller = "Penjualan ";
+    let type = 1;
     switch (jenisToko) {
       case "baku":
-        name += "Bahan Baku";
+        forBuyer += "Bahan Baku";
+        forSeller += "Bahan Baku";
+        type = 2;
         break;
       case "tambahan":
-        name += "Bahan Tambahan";
+        forBuyer += "Bahan Tambahan";
+        forSeller += "Bahan Tambahan";
+        type = 4;
         break;
       case "kemasan":
-        name += "Kemasan";
+        forBuyer += "Kemasan";
+        forSeller += "Kemasan";
+        type = 3;
         break;
       case "umkm":
-        name += "Produk";
+        forBuyer += "Produk";
+        forSeller += "Produk";
     }
     let postvalue = {
       from: props.from,
       total: total,
-      name: name,
+      forBuyer: forBuyer,
+      forSeller: forSeller,
+      type: type,
       banks: bank,
       items: itemDetail,
     };
@@ -231,90 +242,98 @@ function DetailPembayaran(props) {
 
   return (
     <div>
-    {data.length < 1 ? (history.push(props.linkback)) : (<div style={{ marginLeft: "2rem" }} id="detailPembayaran">
-    <span className="title">Info Pembayaran</span>
+      {data.length < 1 ? (
+        history.push(props.linkback)
+      ) : (
+        <div style={{ marginLeft: "2rem" }} id="detailPembayaran">
+          <span className="title">Info Pembayaran</span>
 
-    <div style={{ marginTop: "2rem" }}>
-      <span className="subtitle">Detail Pemesanan</span>
+          <div style={{ marginTop: "2rem" }}>
+            <span className="subtitle">Detail Pemesanan</span>
 
-      <Row>
-        <Col span={23}>
-          {console.log(rows)}
-          <Table
-            columns={props.columns}
-            rows={rows}
-            empty="Tidak Ada Transaksi"
-            togglePagination={false}
-            toggleTotal={true}
-            total={total}
-          ></Table>
-        </Col>
-      </Row>
-    </div>
-    <div style={{ marginTop: "2rem" }}>
-      <span className="subtitle">Channel Pembayaran</span>
-      <div className="paragraph">Pilih salah satu pembayaran dibawah ini</div>
-      <div style={{ marginBottom: "1rem" }}></div>
-      <Row>
-        <Col span={22}>
-          <Form>
-            <Form.Item>
-              <Radio.Group onChange={handleIndex}>
-                {bankacc.map((bank) => {
-                  return (
-                    <Radio.Button
-                      value={bank.index + "-" + bank.name}
-                      className="radioButton"
-                    >
-                      {bank.name}
-                    </Radio.Button>
-                  );
-                })}
-              </Radio.Group>
-            </Form.Item>
-          </Form>
-          <Card className="card">
-            <span className="paragraph">
-              <span id="highlight">{bankName}</span> <br />
-              Silahkan Transfer ke no Rekening berikut : <br />{" "}
-              <span id="highlight">
-                {bankDetail[index].number} atas nama {bankDetail[index].name}
-              </span>{" "}
-              <br />
-              Dan silahkan upload bukti pembayaran melalui halaman notifikasi
-              <br />
-            </span>
-          </Card>
-        </Col>
-      </Row>
-    </div>
+            <Row>
+              <Col span={23}>
+                {console.log(rows)}
+                <Table
+                  columns={props.columns}
+                  rows={rows}
+                  empty="Tidak Ada Transaksi"
+                  togglePagination={false}
+                  toggleTotal={true}
+                  total={total}
+                ></Table>
+              </Col>
+            </Row>
+          </div>
+          <div style={{ marginTop: "2rem" }}>
+            <span className="subtitle">Channel Pembayaran</span>
+            <div className="paragraph">
+              Pilih salah satu pembayaran dibawah ini
+            </div>
+            <div style={{ marginBottom: "1rem" }}></div>
+            <Row>
+              <Col span={22}>
+                <Form>
+                  <Form.Item>
+                    <Radio.Group onChange={handleIndex}>
+                      {bankacc.map((bank) => {
+                        return (
+                          <Radio.Button
+                            value={bank.index + "-" + bank.name}
+                            className="radioButton"
+                          >
+                            {bank.name}
+                          </Radio.Button>
+                        );
+                      })}
+                    </Radio.Group>
+                  </Form.Item>
+                </Form>
+                <Card className="card">
+                  <span className="paragraph">
+                    <span id="highlight">{bankName}</span> <br />
+                    Silahkan Transfer ke no Rekening berikut : <br />{" "}
+                    <span id="highlight">
+                      {bankDetail[index].number} atas nama{" "}
+                      {bankDetail[index].name}
+                    </span>{" "}
+                    <br />
+                    Dan silahkan upload bukti pembayaran melalui halaman
+                    notifikasi
+                    <br />
+                  </span>
+                </Card>
+              </Col>
+            </Row>
+          </div>
 
-    <div className="buttonGroup">
-      <Col span={22}>
-        <Row justify="space-between">
-          <Col span={2}>
-            <Button
-              type="secondary"
-              className="btn_secondary"
-              onClick={handleBack}
-            >
-              Back
-            </Button>
-          </Col>
-          <Col span={2}>
-            <Button
-              type="primary"
-              className="btn_primary"
-              loading={loading}
-              onClick={handleSelesai}
-            >
-              Selesai
-            </Button>
-          </Col>
-        </Row>
-      </Col>
-    </div>
-  </div>)}
+          <div className="buttonGroup">
+            <Col span={22}>
+              <Row justify="space-between">
+                <Col span={2}>
+                  <Button
+                    type="secondary"
+                    className="btn_secondary"
+                    onClick={handleBack}
+                  >
+                    Back
+                  </Button>
+                </Col>
+                <Col span={2}>
+                  <Button
+                    type="primary"
+                    className="btn_primary"
+                    loading={loading}
+                    onClick={handleSelesai}
+                  >
+                    Selesai
+                  </Button>
+                </Col>
+              </Row>
+            </Col>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

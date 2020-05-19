@@ -100,7 +100,7 @@ export default function LaporanPenjualan() {
 
   return (
     <Layout style={{ backgroundColor: "#ffffff" }}>
-      <Navbar name={"Akbar"} />
+      <Navbar/>
       <Layout style={{ marginTop: 64, marginLeft: 280 }}>
         <Sidebar role={3} />
         <Layout.Content

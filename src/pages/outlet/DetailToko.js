@@ -81,7 +81,7 @@ export default function DetailToko() {
   return (
     <Layout>
       <Layout.Header>
-        <Navbar name={"Akbar"} />
+        <Navbar />
       </Layout.Header>
       <Layout>
         <Layout.Sider width={280}>

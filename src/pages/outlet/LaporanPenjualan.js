@@ -52,7 +52,7 @@ export default function LaporanPenjualan() {
                 break;
               case 3:
                 temp = {
-                  value: item.unit,
+                  value: item.weight,
                   align: "center",
                 };
                 inside.push(temp);
@@ -91,7 +91,7 @@ export default function LaporanPenjualan() {
     },
     {
       align: "center",
-      name: "Satuan",
+      name: "Satuan Kemasan",
     },
     {
       align: "right",
@@ -101,14 +101,14 @@ export default function LaporanPenjualan() {
 
   return (
     <Layout style={{ backgroundColor: "#ffffff" }}>
-      <Navbar name={"Akbar"} />
+      <Navbar />
       <Layout style={{ marginTop: 64, marginLeft: 280 }}>
         <Sidebar role={4} />
         <Layout.Content
           style={{ minHeight: "100vh", backgroundColor: "white" }}
         >
           <Konten
-          notitle={true}
+            notitle={true}
             name="Penjualan"
             table={{
               columns: columns,

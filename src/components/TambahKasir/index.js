@@ -5,7 +5,7 @@ import "./TambahKasir.scss";
 
 export default function TambahKasir(props) {
   const layout = {
-    labelCol: { span: 8 },
+    labelCol: { span: 4 },
     wrapperCol: { span: 16 },
   };
 
@@ -14,18 +14,7 @@ export default function TambahKasir(props) {
       <div className="title">Tambah Kasir</div>
 
       <Row justify="space-around" gutter={[24]}>
-        <Col span={11}>
-          <Table
-            columns={props.columns}
-            rows={props.rows}
-            togglePagination={false}
-            toggleTotal={false}
-          />
-        </Col>
-        <Col span={11}>
-          <div className="center">
-            <span className="subtitle">Tambah Kasir</span>
-          </div>
+        <Col span={24}>
           <Form {...layout} onFinish={props.onFinish}>
             <Form.Item
               label="Nama Lengkap"
@@ -69,6 +58,17 @@ export default function TambahKasir(props) {
               </Button>
             </div>
           </Form>
+        </Col>
+        <Col span={24}>
+          <div style={{marginTop:'2rem'}}>
+              <h1 className="title">Data Kasir</h1>
+          </div>
+          <Table
+            columns={props.columns}
+            rows={props.rows}
+            togglePagination={false}
+            toggleTotal={false}
+          />
         </Col>
       </Row>
     </div>

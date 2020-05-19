@@ -10,7 +10,6 @@ export default function Home() {
   const [rows, setRows] = useState([]);
   const [buying, setBuying] = useState(0);
   const [selling, setSelling] = useState(0);
-  const [shopping, setShopping] = useState(0);
   const token = localStorage.getItem("token");
 
   useEffect(() => {
@@ -28,7 +27,8 @@ export default function Home() {
       result.data.data.allStock.map((item) => {
         const temp = {
           item: item.item,
-          qty: item.qty + " " + item.unit,
+          qty: item.qty,
+          unit: item.unit,
         };
         stocks.push(temp);
       });
@@ -51,7 +51,7 @@ export default function Home() {
               break;
             case 2:
               temp = {
-                value: item.name,
+                value: item.forSeller,
                 align: "Left",
               };
               inside.push(temp);
@@ -73,7 +73,6 @@ export default function Home() {
 
       setBuying(result.data.data.buying);
       setSelling(result.data.data.selling);
-      setShopping(result.data.data.shopping);
     };
     fetchData();
   }, []);
@@ -107,7 +106,6 @@ export default function Home() {
             isBuying={true}
             buying={buying}
             selling={selling}
-            shopping={shopping}
             columns={columns}
             rows={rows}
           ></Homepage>

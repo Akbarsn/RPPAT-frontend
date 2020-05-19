@@ -9,6 +9,7 @@ export default function RiwayatTransaksi() {
   const [rows, setRows] = useState([]);
 
   const token = localStorage.getItem("token");
+  const id = localStorage.getItem("id");
   useEffect(() => {
     const fetchData = async () => {
       let result;
@@ -81,8 +82,8 @@ export default function RiwayatTransaksi() {
         });
         temp = {
           no: ++no2,
-          name: item.name,
-          status: "Pengeluaran",
+          name: item.from == id ? item.forSeller : item.forBuyer,
+          status: item.from == id ? "Pemasukan" : "Pengeluaran",
           total: item.total,
           data: stock,
         };
@@ -122,12 +123,10 @@ export default function RiwayatTransaksi() {
     },
   ];
 
-  console.log(rows);
-
   return (
     <Layout>
       <Layout.Header>
-        <Navbar name={"Akbar"} />
+        <Navbar />
       </Layout.Header>
       <Layout>
         <Layout.Sider width={280}>

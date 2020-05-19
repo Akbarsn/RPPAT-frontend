@@ -1,16 +1,6 @@
 import React from "react";
 import { BrowserRouter as Brow, Route, Switch } from "react-router-dom";
 import ProtectedRoute from "./ProtectedRoute";
-import Homepage from "./pages/Home";
-import Laporan from "./pages/Laporan";
-import LihatStok from "./pages/LihatStok";
-import RiwayatTransaksi from "./pages/RiwayatTransaksi";
-import Beli from "./pages/Beli";
-// import DetailPembayaran from "./pages/DetailPembayaran";
-// import DetailToko from "./pages/DetailToko";
-import DaftarBarang from "./pages/kasir/DaftarBarang";
-import Transaksi from "./pages/kasir/Transaksi";
-import TambahKasir from "./pages/TambahKasir";
 import GantiProfile from "./pages/GantiProfile";
 
 import OutletRouter from "./pages/outlet";
@@ -46,14 +36,14 @@ export default function Router() {
           exact
           path="/ganti-profile"
           component={GantiProfile}
-          role={6}
+          role={5}
         />
 
         <ProtectedRoute
           exact
           path="/notifikasi"
           component={Notifikasi}
-          role={6}
+          role={5}
         />
 
         <ProtectedRoute
@@ -108,52 +98,6 @@ export default function Router() {
         {KasirRouter.map((props) => (
           <ProtectedRoute exact {...props} role={5}></ProtectedRoute>
         ))}
-
-        {/* Development Route */}
-
-        <Route exact path="/beli-bahan">
-          {" "}
-          <Beli />{" "}
-        </Route>
-
-        <Route exact path="/daftar-barang">
-          <DaftarBarang />
-        </Route>
-
-        {/* <Route exact path="/detail-toko/:id">
-          <DetailToko />
-        </Route> */}
-
-        <Route exact path="/homepage">
-          <Homepage />
-        </Route>
-
-        <Route exact path="/laporan">
-          <Laporan />
-        </Route>
-
-        <Route exact path="/lihatstok">
-          <LihatStok />
-        </Route>
-
-        <Route
-          exact
-          path="/transaksi"
-          render={(props) => <Transaksi {...props} />}
-        />
-
-        <Route exact path="/riwayat">
-          {" "}
-          <RiwayatTransaksi />
-        </Route>
-
-        {/* <Route exact path="/detail-pembayaran">
-          <DetailPembayaran />
-        </Route> */}
-
-        <Route exact path="/tambah-kasir">
-          <TambahKasir />
-        </Route>
 
         <Route path="*">
           <NotFound />{" "}

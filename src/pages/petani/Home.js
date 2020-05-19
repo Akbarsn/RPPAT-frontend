@@ -19,7 +19,7 @@ export default function Home() {
           Authorization: `bearer ${token}`,
         },
       });
-
+      console.log("API")
       console.log(result);
 
       let stocks = [];
@@ -27,7 +27,8 @@ export default function Home() {
       result.data.data.allStock.map((item) => {
         const temp = {
           item: item.item + " Grade " + item.grade,
-          qty: item.qty + " " + item.unit,
+          qty: item.qty,
+          unit: item.unit,
         };
         stocks.push(temp);
       });
@@ -50,7 +51,7 @@ export default function Home() {
               break;
             case 2:
               temp = {
-                value: item.name,
+                value: item.forSeller,
                 align: "Left",
               };
               inside.push(temp);
@@ -71,7 +72,7 @@ export default function Home() {
       setRows(history);
 
       setSelling(result.data.data.selling);
-      setShopping(result.data.data.shopping );
+      setShopping(result.data.data.shopping);
     };
     fetchData();
   }, []);
@@ -93,7 +94,7 @@ export default function Home() {
 
   return (
     <Layout style={{ backgroundColor: "#ffffff" }}>
-      <Navbar name={"Akbar"} />
+      <Navbar />
       <Layout style={{ marginTop: 64, marginLeft: 280 }}>
         <Sidebar role={0} />
         <Layout.Content

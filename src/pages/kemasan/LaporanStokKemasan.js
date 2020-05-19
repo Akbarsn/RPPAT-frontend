@@ -140,7 +140,7 @@ export default function LaporanStokKemasan() {
 
   return (
     <Layout style={{ backgroundColor: "#ffffff" }}>
-      <Navbar name={"Akbar"} />
+      <Navbar/>
       <Layout style={{ marginTop: 64, marginLeft: 280 }}>
         <Sidebar role={1} />
         <Layout.Content

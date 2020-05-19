@@ -10,7 +10,6 @@ export default function Home() {
   const [rows, setRows] = useState([]);
   const [buying, setBuying] = useState(0);
   const [selling, setSelling] = useState(0);
-  const [shopping, setShopping] = useState(0);
   const token = localStorage.getItem("token");
 
   useEffect(() => {
@@ -29,6 +28,7 @@ export default function Home() {
         const temp = {
           item: item.item + " " + item.weight,
           qty: item.qty,
+          unit: "Unit",
         };
         stocks.push(temp);
       });
@@ -51,7 +51,40 @@ export default function Home() {
               break;
             case 2:
               temp = {
-                value: item.name,
+                value: item.forBuyer,
+                align: "Left",
+              };
+              inside.push(temp);
+              break;
+            case 3:
+              temp = {
+                value: item.total,
+                align: "Center",
+              };
+              inside.push(temp);
+              break;
+          }
+        }
+
+        history.push({ data: inside });
+      });
+
+      no = 0;
+      result.data.data.pos.map((item) => {
+        let inside = [];
+        let temp;
+        for (let i = 1; i <= 3; i++) {
+          switch (i) {
+            case 1:
+              temp = {
+                value: ++no,
+                align: "Center",
+              };
+              inside.push(temp);
+              break;
+            case 2:
+              temp = {
+                value: "Penjualan Produk",
                 align: "Left",
               };
               inside.push(temp);
@@ -73,7 +106,6 @@ export default function Home() {
 
       setBuying(result.data.data.buying);
       setSelling(result.data.data.selling);
-      setShopping(result.data.data.shopping);
     };
     fetchData();
   }, []);
@@ -95,7 +127,7 @@ export default function Home() {
 
   return (
     <Layout style={{ backgroundColor: "#ffffff" }}>
-      <Navbar name={"Akbar"} />
+      <Navbar />
       <Layout style={{ marginTop: 64, marginLeft: 280 }}>
         <Sidebar role={4} />
         <Layout.Content
@@ -103,11 +135,9 @@ export default function Home() {
         >
           <Homepage
             stocks={stocks}
-            unit="Unit"
             isBuying={true}
             buying={buying}
             selling={selling}
-            shopping={shopping}
             columns={columns}
             rows={rows}
           ></Homepage>

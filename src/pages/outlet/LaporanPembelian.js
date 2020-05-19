@@ -101,7 +101,7 @@ export default function LaporanPembelian() {
 
   return (
     <Layout style={{ backgroundColor: "#ffffff" }}>
-      <Navbar name={"Akbar"} />
+      <Navbar/>
       <Layout style={{ marginTop: 64, marginLeft: 280 }}>
         <Sidebar role={4} />
         <Layout.Content

@@ -12,7 +12,7 @@ export default function LihatStokBahanBaku() {
   useEffect(() => {
     const fetchData = async () => {
       let result;
-      result = await API.get("/umkm/lihat-stok/bahan", {
+      result = await API.get("/umkm/lihat-stok/bahan-baku", {
         headers: {
           Authorization: `bearer ${token}`,
         },
@@ -104,7 +104,7 @@ export default function LihatStokBahanBaku() {
   return (
     <Layout>
       <Layout.Header>
-        <Navbar name={"Akbar"} />
+        <Navbar/>
       </Layout.Header>
       <Layout>
         <Layout.Sider width={280}>

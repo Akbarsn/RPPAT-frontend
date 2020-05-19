@@ -53,14 +53,16 @@ const Index = (props) => {
     console.log(value);
     let boughtItems = [];
     let no = 0;
-    data.map((data)=> {
-        if(value[data.id] != null ||
-          value[data.id] != undefined ||
-          value[data.id] > 0) {
-              data.inputdata = value[data.id];
-              boughtItems.push(data)
-          }
-    })
+    data.map((data) => {
+      if (
+        value[data.id] != null ||
+        value[data.id] != undefined ||
+        value[data.id] > 0
+      ) {
+        data.inputdata = value[data.id];
+        boughtItems.push(data);
+      }
+    });
     console.log("bought");
     console.log(boughtItems);
     if (boughtItems.length < 1) {
@@ -136,18 +138,30 @@ const Index = (props) => {
                   : data
                 ).map((row, index) => (
                   <TableRow key={row}>
-                    <StyledTableCell align="left">{row.item}</StyledTableCell>
-                    <StyledTableCell align="center">
+                    <StyledTableCell align="left">
+                      {row.item}{" "}
                       {props.store == "baku" ? (
-                        <span>{row.grade}</span>
+                        <span>Grade {row.grade}</span>
+                      ) : (
+                        <span></span>
+                      )}
+                    </StyledTableCell>
+                    <StyledTableCell align="center">
+                      {props.store == "umkm" ? (
+                        <span>{row.weight}</span>
                       ) : (
                         <span>{row.unit}</span>
                       )}
                     </StyledTableCell>
                     <StyledTableCell align="center">{row.qty}</StyledTableCell>
                     <StyledTableCell align="center">
-                      Rp. {props.store === "baku" ? row.price.toString()
-                            .replace(/\B(?=(\d{3})+(?!\d))/g, ".") : row.sellPrice.toString()
+                      Rp.{" "}
+                      {props.store === "baku"
+                        ? row.price
+                            .toString()
+                            .replace(/\B(?=(\d{3})+(?!\d))/g, ".")
+                        : row.sellPrice
+                            .toString()
                             .replace(/\B(?=(\d{3})+(?!\d))/g, ".")}
                     </StyledTableCell>
                     <StyledTableCell align="center">

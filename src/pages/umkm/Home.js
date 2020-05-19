@@ -10,9 +10,9 @@ export default function Home() {
   const [rows, setRows] = useState([]);
   const [buying, setBuying] = useState(0);
   const [selling, setSelling] = useState(0);
-  const [shopping, setShopping] = useState(0);
 
   const token = localStorage.getItem("token");
+  const id = localStorage.getItem("id");
 
   useEffect(() => {
     const fetchData = async () => {
@@ -39,6 +39,7 @@ export default function Home() {
         const temp = {
           item: item.item + " " + item.weight,
           qty: item.qty,
+          unit: "Unit",
         };
         stocks.push(temp);
       });
@@ -61,7 +62,7 @@ export default function Home() {
               break;
             case 2:
               temp = {
-                value: item.name,
+                value: item.from == id ? item.forSeller : item.forBuyer,
                 align: "Left",
               };
               inside.push(temp);
@@ -83,7 +84,6 @@ export default function Home() {
 
       setBuying(result.data.data.buying);
       setSelling(result.data.data.selling);
-      setShopping(result.data.data.shopping );
     };
     fetchData();
   }, []);
@@ -105,7 +105,7 @@ export default function Home() {
 
   return (
     <Layout style={{ backgroundColor: "#ffffff" }}>
-      <Navbar name={"Akbar"} />
+      <Navbar/>
       <Layout style={{ marginTop: 64, marginLeft: 280 }}>
         <Sidebar role={3} />
         <Layout.Content
@@ -117,7 +117,6 @@ export default function Home() {
             isBuying={true}
             buying={buying}
             selling={selling}
-            shopping={shopping}
             columns={columns}
             rows={rows}
           ></Homepage>

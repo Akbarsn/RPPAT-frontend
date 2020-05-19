@@ -60,7 +60,7 @@ export default function Beli() {
   return (
     <Layout>
       <Layout.Header>
-        <Navbar name={"Akbar"} />
+        <Navbar/>
       </Layout.Header>
       <Layout>
         <Layout.Sider width={280}>
