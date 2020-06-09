@@ -116,7 +116,6 @@ export default function LaporanProduksi() {
 
   const handleSubmit = async (value) => {
     try {
-      console.log("here")
       setLoading(true);
       console.log(value);
       const result = await API.post("/umkm/laporan", value, {
@@ -130,7 +129,7 @@ export default function LaporanProduksi() {
 
       if (result.status == 200) {
         setLoading(false);
-        // window.location.reload();
+        window.location.reload();
       } else {
         setLoading(false);
         message.error("Terjadi kesalahan, silahkan mengulangi lagi");

@@ -27,6 +27,7 @@ export default function Login(props) {
         console.log(hasil);
 
         var decoded = jwt.decode(hasil.data.data);
+        localStorage.clear();
         console.log(decoded);
         localStorage.setItem("token", hasil.data.data);
         localStorage.setItem("role", decoded.role);
@@ -141,7 +142,7 @@ export default function Login(props) {
                 </Button>
               </div>
             </Form>
-            <hr/>
+            <hr />
             <div className="kasir">
               Anda Kasir ?&nbsp;
               <Link to="/kasir/login" style={{ color: "#1dc6c6" }}>

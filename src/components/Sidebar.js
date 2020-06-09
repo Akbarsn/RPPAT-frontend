@@ -261,11 +261,6 @@ function getMenu(role) {
               </Row>
             }
           >
-            {/* <Menu.Item className="secondary">
-              <Link className="link" to="/umkm/lihat-stok/bahan">
-                Bahan
-              </Link>
-            </Menu.Item> */}
             <Menu.Item className="secondary">
               <Link className="link" to="/umkm/lihat-stok/bahan-baku">
                 Bahan Baku
@@ -372,7 +367,7 @@ function getMenu(role) {
             <Link classname="link" to="/outlet/beli-stok">
               <Row align="middle">
                 <ShoppingCartOutlined className="primary" />
-                Beli Stok
+                Beli Produk
               </Row>
             </Link>
           </Menu.Item>

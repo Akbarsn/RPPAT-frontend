@@ -180,6 +180,7 @@ export default function Transaksi(props) {
               <Fragment />
             ) : (
               <div>
+              {console.log(detail[0])}
                 <div className="namabarang-kasir">{detail[0].item}</div>
                 <div className="beratbarang-kasir">{detail[0].weight}</div>
                 <div className="namabarang-kasir">
@@ -200,6 +201,7 @@ export default function Transaksi(props) {
                       {
                         required: true,
                         message: "Tolong lengkapi form anda !",
+
                       },
                     ]}
                   >

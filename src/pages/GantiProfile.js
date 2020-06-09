@@ -89,7 +89,7 @@ export default function GantiProfile() {
     bankAcc = bankAcc.substring(0, bankAcc.length - 1);
     bankNumber = bankNumber.substring(0, bankNumber.length - 1);
 
-    const data = { ...value, bankAcc, bankNumber };
+    const data = { ...value, bankAccount: bankAcc, bankNumber };
     data.name = value.fullName.split(" ")[0];
     if (data.password === undefined) {
       delete data.password;
@@ -103,7 +103,9 @@ export default function GantiProfile() {
       },
     });
 
-    if (result) {
+    console.log(result);
+
+    if (result.status == 200) {
       var decoded = jwt.decode(token);
       console.log(decoded);
 

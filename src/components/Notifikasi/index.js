@@ -132,7 +132,7 @@ export default function Notif(props) {
 
   function getModal(detail, metodeBayar) {
     let footer, content;
-    const imagesrc = "http://31.220.50.154:5000/" + metodeBayar.proof;
+    const imagesrc = "http://localhost:5000/" + metodeBayar.proof;
 
     const banks = metodeBayar.metodePembayaran.split("-");
 

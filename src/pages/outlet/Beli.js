@@ -30,7 +30,7 @@ export default function Beli() {
           store.products.map((stock) => {
             if (count == 3) {
             } else {
-              if(stock.type == 2){
+              if (stock.type == 1) {
                 temp = {
                   barang: stock.item,
                   jumlah: stock.qty,
@@ -42,10 +42,10 @@ export default function Beli() {
           });
           temp = {
             link: "/outlet/detail-toko/" + store.id,
-            role:"UMKM",
+            role: "UMKM",
             nama: "Toko " + store.name,
             stok: stocks,
-          }; 
+          };
 
           card.push(temp);
         }
@@ -60,7 +60,7 @@ export default function Beli() {
   return (
     <Layout>
       <Layout.Header>
-        <Navbar/>
+        <Navbar />
       </Layout.Header>
       <Layout>
         <Layout.Sider width={280}>

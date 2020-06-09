@@ -18,6 +18,7 @@ import UMKMDetailPembayaran from "./pages/umkm/DetailPembayaran";
 import OutletDetailToko from "./pages/outlet/DetailToko";
 import OutletDetailPembayaran from "./pages/outlet/DetailPembayaran";
 import KasirLogin from "./pages/kasir/Login";
+import Test from "./pages/Test";
 
 export default function Router() {
   return (
@@ -99,9 +100,14 @@ export default function Router() {
           <ProtectedRoute exact {...props} role={5}></ProtectedRoute>
         ))}
 
+        <Route exact path="/test">
+          <Test />
+        </Route>
+        
         <Route path="*">
           <NotFound />{" "}
         </Route>
+
       </Switch>
     </Brow>
   );
