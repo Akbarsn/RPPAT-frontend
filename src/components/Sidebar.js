@@ -1,10 +1,10 @@
+/* eslint-disable default-case */
 import React from "react";
-import { Menu, Layout, Avatar, Col, Row } from "antd";
+import { Menu, Layout, Col, Row } from "antd";
 import { Link } from "react-router-dom";
 import "./Sidebar.scss";
 
 import {
-  UserOutlined,
   BookOutlined,
   InfoCircleOutlined,
   ShoppingCartOutlined,
@@ -433,6 +433,9 @@ export default function Sidebar(props) {
       style={{
         minHeight: "100vh",
         position: "fixed",
+        overflowY:"scroll",
+        top:64,
+        bottom:0,
         left: 0,
       }}
       width="280"
@@ -449,8 +452,6 @@ export default function Sidebar(props) {
           <p id="detail">{localStorage.getItem("name")}</p>
           <p id = "detail">{localStorage.getItem("address")}</p>
         </Col>
-
-        
 
         <div id="divider"></div>
       </div>
