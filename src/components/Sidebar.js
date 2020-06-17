@@ -434,14 +434,16 @@ export default function Sidebar(props) {
         minHeight: "100vh",
         position: "fixed",
         overflowY:"scroll",
-        top:64,
+        top:0,
         bottom:0,
         left: 0,
       }}
       width="280"
       id="sidebar"
     >
-      <div id="photoProfile">
+      <div id="photoProfile" style={{
+        marginTop:80
+      }}>
       <Col>
           <span className="header">{getRole(props.role)}</span>
         </Col>
