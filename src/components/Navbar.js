@@ -54,25 +54,25 @@ export default function Navbar() {
     window.location.replace("/");
   }
 
-  const menu = outletId ? (
+  const menu = (outletId || role === 5) ? (
     <Menu>
       <Menu.Item key="logOut" className="dropdownMenu" onClick={handleLogOut}>
         Keluar
       </Menu.Item>
     </Menu>
   ) : (
-    <Menu>
-      <Menu.ItemGroup title="Profil">
-        <Menu.Item key="editProfile" className="dropdownMenu">
-          <Link to="/ganti-profile">Ganti Profile</Link>
-        </Menu.Item>
-      </Menu.ItemGroup>
+      <Menu>
+        <Menu.ItemGroup title="Profil">
+          <Menu.Item key="editProfile" className="dropdownMenu">
+            <Link to="/ganti-profile">Ganti Profile</Link>
+          </Menu.Item>
+        </Menu.ItemGroup>
 
-      <Menu.Item key="logOut" className="dropdownMenu" onClick={handleLogOut}>
-        Keluar
+        <Menu.Item key="logOut" className="dropdownMenu" onClick={handleLogOut}>
+          Keluar
       </Menu.Item>
-    </Menu>
-  );
+      </Menu>
+    );
 
   return (
     <Layout.Header id="navbar">

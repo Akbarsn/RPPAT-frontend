@@ -77,41 +77,39 @@ export default function LihatStokBahanTambah() {
     {
       align: "center",
       name: "No",
-      label : "no"
+      label: "no"
     },
     {
       align: "left",
       name: "Nama Bahan Tambah",
-      label : "item"
+      label: "item"
     },
     {
       align: "center",
       name: "Jumlah",
-      label : "qty"
+      label: "qty"
     },
     {
       align: "center",
       name: "Satuan",
-      label : "weight"
+      label: "weight"
     },
     {
       align: "right",
       name: "Harga Beli per Satuan",
-      label : "sellPrice"
+      label: "sellPrice"
     },
   ];
 
   return (
     <Layout>
-      <Layout.Header>
-        <Navbar/>
-      </Layout.Header>
+      <Navbar />
       <Layout>
         <Layout.Sider width={280}>
           <Sidebar role={3} />
         </Layout.Sider>
         <Layout.Content style={{ backgroundColor: "white" }}>
-          <Lihat title="Persediaan Bahan Tambah" rows={rows} columns={columns} linkpost="/umkm/lihat-stok/bahan" aksi={false}/>
+          <Lihat title="Persediaan Bahan Tambah" rows={rows} columns={columns} linkpost="/umkm/lihat-stok/bahan" aksi={false} />
         </Layout.Content>
       </Layout>
     </Layout>

@@ -39,7 +39,7 @@ export default function Beli() {
           });
           temp = {
             link: "/umkm/detail-toko/kemasan/" + store.id,
-            role:"Pemasok Kemasan",
+            role: "Pemasok Kemasan",
             nama: "Toko " + store.name,
             stok: stocks,
           };
@@ -56,9 +56,7 @@ export default function Beli() {
 
   return (
     <Layout>
-      <Layout.Header>
-        <Navbar/>
-      </Layout.Header>
+      <Navbar />
       <Layout>
         <Layout.Sider width={280}>
           <Sidebar role={3} />

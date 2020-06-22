@@ -27,7 +27,7 @@ export default function LaporanStokPanen() {
         let inside = [];
         let temp = {};
 
-        for (let i = 0; i < 6; i++) {
+        for (let i = 0; i < 7; i++) {
           switch (i) {
             case 0:
               temp = {
@@ -66,7 +66,14 @@ export default function LaporanStokPanen() {
               break;
             case 5:
               temp = {
-                value: item.price,
+                value: item.buyPrice,
+                align: "right",
+              };
+              inside.push(temp);
+              break;
+            case 6:
+              temp = {
+                value: item.sellPrice,
                 align: "right",
               };
               inside.push(temp);
@@ -106,6 +113,10 @@ export default function LaporanStokPanen() {
     },
     {
       align: "right",
+      name: "Harga Pokok Penjualan",
+    },
+    {
+      align: "right",
       name: "Harga per Satuan",
     },
   ];
@@ -136,7 +147,7 @@ export default function LaporanStokPanen() {
 
   return (
     <Layout style={{ backgroundColor: "#ffffff" }}>
-      <Navbar/>
+      <Navbar />
       <Layout style={{ marginTop: 64, marginLeft: 280 }}>
         <Sidebar role={0} />
         <Layout.Content
@@ -180,8 +191,13 @@ export default function LaporanStokPanen() {
                   type: "text",
                 },
                 {
+                  label: "Harga Pokok Penjualan",
+                  name: "buyPrice",
+                  type: "number",
+                },
+                {
                   label: "Harga per Satuan",
-                  name: "price",
+                  name: "sellPrice",
                   type: "number",
                 },
               ]}

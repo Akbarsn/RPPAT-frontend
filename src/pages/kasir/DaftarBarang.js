@@ -13,68 +13,11 @@ export default function DaftarBarang() {
   //       berat: "500 gr",
   //       harga: "20.000"
   //     },
-  //     {
-  //         nama: "Dodol",
-  //         berat: "500 gr",
-  //         harga: "20.000"
-  //       },
-  //       {
-  //         nama: "Pikachu",
-  //         berat: "500 gr",
-  //         harga: "20.000"
-  //       },
-  //       {
-  //         nama: "Kripik Apel",
-  //         berat: "500 gr",
-  //         harga: "20.000"
-  //       },
-  //       {
-  //         nama: "Kripik Apel",
-  //         berat: "500 gr",
-  //         harga: "20.000"
-  //       },
-  //       {
-  //         nama: "Kripik Apel",
-  //         berat: "500 gr",
-  //         harga: "20.000"
-  //       },
-  //       {
-  //         nama: "Kripik Apel",
-  //         berat: "500 gr",
-  //         harga: "20.000"
-  //       },
-  //       {
-  //         nama: "Kripik Apel",
-  //         berat: "500 gr",
-  //         harga: "20.000"
-  //       },
-  //       {
-  //         nama: "Kripik Apel",
-  //         berat: "500 gr",
-  //         harga: "20.000"
-  //       },
-  //       {
-  //         nama: "Kripik Apel",
-  //         berat: "500 gr",
-  //         harga: "20.000"
-  //       },
-  //       {
-  //         nama: "Kripik Apel",
-  //         berat: "500 gr",
-  //         harga: "20.000"
-  //       },
-  //       {
-  //         nama: "Kripik Apel",
-  //         berat: "500 gr",
-  //         harga: "20.000"
-  //       }
   //   ];
 
   return (
     <Layout>
-      <Layout.Header>
-        <Navbar  />
-      </Layout.Header>
+      <Navbar />
       <Layout>
         <Layout.Sider width={280}>
           <Sidebar role={5} />

@@ -125,9 +125,7 @@ export default function RiwayatTransaksi() {
 
   return (
     <Layout>
-      <Layout.Header>
-        <Navbar name={"Akbar"} />
-      </Layout.Header>
+      <Navbar />
       <Layout>
         <Layout.Sider width={280}>
           <Sidebar role={1} />

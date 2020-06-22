@@ -28,7 +28,7 @@ export default function LaporanPenjualan() {
         let temp;
         allItem.map((item) => {
           let inside = [];
-          total += parseInt(item.price * item.qty);
+          total += parseInt(item.sellPrice * item.qty);
           for (let i = 0; i < 5; i++) {
             switch (i) {
               case 0:
@@ -61,7 +61,7 @@ export default function LaporanPenjualan() {
                 break;
               case 4:
                 temp = {
-                  value: item.price * item.qty,
+                  value: item.sellPrice * item.qty,
                   align: "right",
                 };
                 inside.push(temp);

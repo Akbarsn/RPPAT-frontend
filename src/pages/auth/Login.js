@@ -24,6 +24,7 @@ export default function Login(props) {
       try {
         let hasil = await API.post("/auth/login", user);
 
+        console.log("Hasil")
         console.log(hasil);
 
         var decoded = jwt.decode(hasil.data.data);
@@ -45,9 +46,6 @@ export default function Login(props) {
             break;
           case 500:
             console.log("status:" + e.reponse.message);
-            break;
-          default:
-            console.log("berhasil");
             break;
         }
       }
@@ -77,6 +75,9 @@ export default function Login(props) {
       case 4:
         window.location.replace("/outlet");
         break;
+      case 5:
+        window.location.replace("/admin");
+        break;
     }
   };
 
@@ -89,76 +90,76 @@ export default function Login(props) {
       {localStorage.getItem("token") ? (
         Redirect(localStorage.getItem("token"))
       ) : (
-        <div className="login">
-          <div className="cardlogin">
-            <p className="titlelogin">Masuk</p>
+          <div className="login">
+            <div className="cardlogin">
+              <p className="titlelogin">Masuk</p>
 
-            <Form {...layout} name="basic">
-              {visible ? (
-                <Alert
-                  message={error}
-                  type="error"
-                  showIcon
-                  closable
-                  onClose={handleClose}
-                  style={{ margin: "1.5rem" }}
-                />
-              ) : (
-                <Fragment />
-              )}
-              <Form.Item
-                label="Username"
-                name="username"
-                rules={[
-                  { required: true, message: "Tolong masukkan username anda!" },
-                ]}
-              >
-                <Input onChange={(data) => setUname(data.target.value)} />
-              </Form.Item>
-
-              <Form.Item
-                label="Password"
-                name="password"
-                rules={[
-                  { required: true, message: "Tolong masukkan password anda!" },
-                ]}
-              >
-                <Input.Password
-                  onChange={(data) => setPassword(data.target.value)}
-                />
-              </Form.Item>
-              <div className="buttonlogin">
-                <Button
-                  type="primary"
-                  size="large"
-                  htmlType="submit"
-                  className="btn_primary"
-                  onClick={(e) => {
-                    submit(e);
-                  }}
-                  loading={loading}
+              <Form {...layout} name="basic">
+                {visible ? (
+                  <Alert
+                    message={error}
+                    type="error"
+                    showIcon
+                    closable
+                    onClose={handleClose}
+                    style={{ margin: "1.5rem" }}
+                  />
+                ) : (
+                    <Fragment />
+                  )}
+                <Form.Item
+                  label="Username"
+                  name="username"
+                  rules={[
+                    { required: true, message: "Tolong masukkan username anda!" },
+                  ]}
                 >
-                  Submit
+                  <Input onChange={(data) => setUname(data.target.value)} />
+                </Form.Item>
+
+                <Form.Item
+                  label="Password"
+                  name="password"
+                  rules={[
+                    { required: true, message: "Tolong masukkan password anda!" },
+                  ]}
+                >
+                  <Input.Password
+                    onChange={(data) => setPassword(data.target.value)}
+                  />
+                </Form.Item>
+                <div className="buttonlogin">
+                  <Button
+                    type="primary"
+                    size="large"
+                    htmlType="submit"
+                    className="btn_primary"
+                    onClick={(e) => {
+                      submit(e);
+                    }}
+                    loading={loading}
+                  >
+                    Submit
                 </Button>
-              </div>
-            </Form>
-            <hr />
-            <div className="kasir">
-              Anda Kasir ?&nbsp;
+                </div>
+              </Form>
+              <hr />
+              <div className="kasir">
+                Anda Kasir ?&nbsp;
               <Link to="/kasir/login" style={{ color: "#1dc6c6" }}>
-                Masuk
+                  Masuk
               </Link>
+              </div>
+              {/* <div className="keregister"> atau </div> */}
+              <p className="keregister">
+                Tidak memiliki akun ?{" "}
+                <Link to="/register" style={{ color: "#1dc6c6" }}>
+                  Register Sekarang
+              </Link>
+              </p>
             </div>
-            {/* <div className="keregister"> atau </div> */}
-            <p className="keregister">
-              Tidak memiliki akun ?{" "}
-              <Link to="/register" style={{ color: "#1dc6c6" }}>
-                Register Sekarang
-              </Link>
-            </p>
           </div>
-        </div>
-      )}
+        )}
     </div>
   );
 }

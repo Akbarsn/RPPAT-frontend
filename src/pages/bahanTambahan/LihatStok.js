@@ -123,9 +123,7 @@ export default function LihatStok() {
 
   return (
     <Layout>
-      <Layout.Header>
-        <Navbar />
-      </Layout.Header>
+      <Navbar />
       <Layout>
         <Layout.Sider width={280}>
           <Sidebar role={2} />

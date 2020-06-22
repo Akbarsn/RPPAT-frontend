@@ -18,6 +18,7 @@ import UMKMDetailPembayaran from "./pages/umkm/DetailPembayaran";
 import OutletDetailToko from "./pages/outlet/DetailToko";
 import OutletDetailPembayaran from "./pages/outlet/DetailPembayaran";
 import KasirLogin from "./pages/kasir/Login";
+import AdminHomepage from "./pages/admin/Homepage";
 import Test from "./pages/Test";
 
 export default function Router() {
@@ -71,6 +72,12 @@ export default function Router() {
           component={OutletDetailPembayaran}
           role={4}
         />
+
+        <Route
+          path="/admin"
+          component={AdminHomepage}
+        />
+
 
         <Route exact path="/kasir/login">
           <KasirLogin></KasirLogin>

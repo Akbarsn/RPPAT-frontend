@@ -64,14 +64,14 @@ export default function RiwayatTransaksi() {
                 break;
               case 4:
                 temp = {
-                  value: item.price ? item.price : item.sellPrice,
+                  value: item.sellPrice,
                   align: "center",
                 };
                 inside.push(temp);
                 break;
               case 5:
                 temp = {
-                  value: (item.price ? item.price : item.sellPrice) * item.qty,
+                  value: item.sellPrice * item.qty,
                   align: "right",
                 };
                 inside.push(temp);
@@ -125,9 +125,7 @@ export default function RiwayatTransaksi() {
 
   return (
     <Layout>
-      <Layout.Header>
-        <Navbar/>
-      </Layout.Header>
+      <Navbar />
       <Layout>
         <Layout.Sider width={280}>
           <Sidebar role={0} />

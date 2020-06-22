@@ -7,7 +7,7 @@ import API from "../API";
 import { useParams } from "react-router-dom";
 
 export default function DetailToko() {
-  const[nama, setNama] = useState('')
+  const [nama, setNama] = useState('')
   let gambar = "";
   const [rows, setRows] = useState([]);
   const [bankAccount, setBankAccount] = useState([]);
@@ -31,7 +31,7 @@ export default function DetailToko() {
       console.log(account);
       let no = 0;
       let insideacc = [];
-      for(let i = 0; i < account.length; i++){
+      for (let i = 0; i < account.length; i++) {
         let temp;
         temp = {
           index: ++no,
@@ -47,7 +47,7 @@ export default function DetailToko() {
         let temp;
         temp = {
           number: temp2[0],
-      name: temp2[1],
+          name: temp2[1],
         };
         insidenum.push(temp);
       });
@@ -111,27 +111,25 @@ export default function DetailToko() {
     fetchData();
   }, []);
 
-  const GenerateLinkBack = (store)=>{
-    switch(store){
+  const GenerateLinkBack = (store) => {
+    switch (store) {
       case "baku":
-          return "bahan-baku";
+        return "bahan-baku";
         break;
-        case "tambahan":
-            return "bahan-tambahan";
-          break;
-          case "kemasan":
-            return "kemasan";
-            break;
+      case "tambahan":
+        return "bahan-tambahan";
+        break;
+      case "kemasan":
+        return "kemasan";
+        break;
     }
   }
 
-  let linkback = "/umkm/beli-stok/"+GenerateLinkBack(store)
+  let linkback = "/umkm/beli-stok/" + GenerateLinkBack(store)
 
   return (
     <Layout>
-      <Layout.Header>
-        <Navbar/>
-      </Layout.Header>
+      <Navbar />
       <Layout>
         <Layout.Sider width={280}>
           <Sidebar role={3} />
@@ -139,7 +137,7 @@ export default function DetailToko() {
         <Layout.Content style={{ backgroundColor: "white" }}>
           {console.log(linkback)}
           <Toko nama={nama} data={rows} link={link} store={store} bankName={bankAccount} bankDetail={bankDetail}
-          linkback={linkback}/>
+            linkback={linkback} />
         </Layout.Content>
       </Layout>
     </Layout>

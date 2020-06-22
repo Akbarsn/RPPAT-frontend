@@ -1,0 +1,71 @@
+@import "../Root.scss";
+
+@media screen and (min-width: $break-large) {
+    .admin-title {
+        font-size: 64px !important;
+    }
+
+    .admin-sub {
+        font-size: 32px !important;
+    }
+
+    .card-main {
+        font-size: 36px !important;
+    }
+
+    .card-detail {
+        font-size: 20px !important;
+    }
+}
+
+@media screen and (min-width: $break-medium) {
+    .admin-title {
+        font-size: 40px;
+    }
+
+    .admin-sub {
+        font-size: 28px;
+    }
+
+    .card-main {
+        font-size: 20px;
+    }
+
+    .card-detail {
+        font-size: 12px;
+    }
+}
+
+#admin {
+    padding-bottom: 2rem;
+    .admin-title {
+        font-family: $font-header;
+    }
+
+    .admin-sub {
+        margin-top: 2rem;
+        font-family: $font-header;
+        margin-bottom: 1rem;
+    }
+
+    .stat-card {
+
+    }
+
+    .admin-card {
+        vertical-align: middle;
+        color: black !important;
+        text-align: center;
+        border: 2px solid $color-black;
+        border-radius: 12px;
+    }
+
+    .card-main {
+        font-family: $font-header;
+        font-weight: bold;
+    }
+
+    .card-detail {
+        font-family: $font-header;
+    }
+}

@@ -73,7 +73,7 @@ export default function LihatStok() {
             case 6:
               temp = {
                 value: "button",
-                id:item.id
+                id: item.id
               };
               inside.push(temp);
               break;
@@ -92,46 +92,44 @@ export default function LihatStok() {
     {
       align: "center",
       name: "No",
-      label:"no"
+      label: "no"
     },
     {
       align: "left",
       name: "Nama Produk",
-      label:"item"
+      label: "item"
     },
     {
       align: "center",
       name: "Jumlah",
-      label:"qty"
+      label: "qty"
     },
     {
       align: "center",
       name: "Satuan Kemasan",
-      label:"unit"
+      label: "unit"
     },
     {
       align: "right",
       name: "Harga Beli per Kemasan",
-      label:"buyPrice"
+      label: "buyPrice"
     },
     {
       align: "right",
       name: "Harga Jual per Kemasan",
-      label:"sellPrice"
+      label: "sellPrice"
     },
   ];
 
   return (
     <Layout>
-      <Layout.Header>
-        <Navbar />
-      </Layout.Header>
+      <Navbar />
       <Layout>
         <Layout.Sider width={280}>
           <Sidebar role={1} />
         </Layout.Sider>
         <Layout.Content style={{ backgroundColor: "white" }}>
-          <Lihat title="Persediaan Kemasan" token = {token} aksi = {true} rows={rows} columns={columns} linkpost="/kemasan/lihat-stok"/>
+          <Lihat title="Persediaan Kemasan" token={token} aksi={true} rows={rows} columns={columns} linkpost="/kemasan/lihat-stok" />
         </Layout.Content>
       </Layout>
     </Layout>

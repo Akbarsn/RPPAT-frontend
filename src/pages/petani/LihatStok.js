@@ -28,7 +28,7 @@ export default function LihatStok() {
         ++no;
         let temp;
         let inside = [];
-        for (let i = 0; i < 7; i++) {
+        for (let i = 0; i < 8; i++) {
           switch (i) {
             case 0:
               temp = {
@@ -67,15 +67,22 @@ export default function LihatStok() {
               break;
             case 5:
               temp = {
-                value: item.price,
+                value: item.buyPrice,
                 align: "center",
               };
               inside.push(temp);
               break;
             case 6:
               temp = {
-                value : "button",
-                id:item.id
+                value: item.sellPrice,
+                align: "center",
+              };
+              inside.push(temp);
+              break;
+            case 7:
+              temp = {
+                value: "button",
+                id: item.id
               };
               inside.push(temp);
               break;
@@ -93,50 +100,47 @@ export default function LihatStok() {
     {
       align: "center",
       name: "No",
-      label:"no"
+      label: "no"
     },
     {
       align: "center",
       name: "Jenis Apel",
-      label:"item"
+      label: "item"
     },
     {
       align: "center",
       name: "Grade",
-      label:"grade"
+      label: "grade"
     },
     {
       align: "center",
       name: "Jumlah",
-      label:"qty"
+      label: "qty"
     },
     {
       align: "center",
       name: "Satuan",
-      label:"unit"
+      label: "unit"
     },
     {
-      align: "center",
-      name: "Harga per Satuan",
-      label:"price"
+      align: "right",
+      name: "Harga Pokok Penjualan",
     },
-    // {
-    //   align: "center",
-    //   name: "Edit Stok",
-    // },
+    {
+      align: "right",
+      name: "Harga per Satuan",
+    },
   ];
 
   return (
     <Layout>
-      <Layout.Header>
-        <Navbar/>
-      </Layout.Header>
+      <Navbar />
       <Layout>
         <Layout.Sider width={280}>
           <Sidebar role={0} />
         </Layout.Sider>
         <Layout.Content style={{ backgroundColor: "white" }}>
-          <Lihat title="Persediaan Apel" token = {token} aksi = {true} rows={rows} columns={columns} linkpost="/petani/lihat-stok" token={token}/>
+          <Lihat title="Persediaan Apel" token={token} aksi={true} rows={rows} columns={columns} linkpost="/petani/lihat-stok" token={token} />
         </Layout.Content>
       </Layout>
     </Layout>
