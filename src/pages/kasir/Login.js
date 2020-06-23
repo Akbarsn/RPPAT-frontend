@@ -70,8 +70,8 @@ export default function Login(props) {
               style={{ margin: "1.5rem" }}
             />
           ) : (
-            <Fragment />
-          )}
+              <Fragment />
+            )}
           <Form.Item
             label="Username"
             name="username"

@@ -101,14 +101,14 @@ export default function LaporanPembelian() {
 
   return (
     <Layout style={{ backgroundColor: "#ffffff" }}>
-      <Navbar/>
+      <Navbar />
       <Layout style={{ marginTop: 64, marginLeft: 280 }}>
         <Sidebar role={4} />
         <Layout.Content
           style={{ minHeight: "100vh", backgroundColor: "white" }}
         >
           <Konten
-          notitle={true}
+            notitle={true}
             name="Pembelian"
             table={{
               columns: columns,

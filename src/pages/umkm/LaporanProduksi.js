@@ -134,12 +134,12 @@ export default function LaporanProduksi() {
         setLoading(false);
         message.error("Terjadi kesalahan, silahkan mengulangi lagi");
       }
-    } catch (e) {}
+    } catch (e) { }
   };
 
   return (
     <Layout style={{ backgroundColor: "#ffffff" }}>
-      <Navbar/>
+      <Navbar />
       <Layout style={{ marginTop: 64, marginLeft: 280 }}>
         <Sidebar role={3} />
         <Layout.Content

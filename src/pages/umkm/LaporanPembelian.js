@@ -59,7 +59,7 @@ export default function LaporanPembelian() {
                 break;
               case 4:
                 temp = {
-                  value: item.price  * item.qty,
+                  value: item.price * item.qty,
                   align: "right",
                 };
                 inside.push(temp);
@@ -108,7 +108,7 @@ export default function LaporanPembelian() {
           style={{ minHeight: "100vh", backgroundColor: "white" }}
         >
           <Konten
-          notitle={true}
+            notitle={true}
             name="Pembelian"
             table={{
               columns: columns,

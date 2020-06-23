@@ -135,12 +135,12 @@ export default function LaporanStokKemasan() {
         setLoading(false);
         message.error("Terjadi kesalahan, silahkan mengulangi lagi");
       }
-    } catch (e) {}
+    } catch (e) { }
   };
 
   return (
     <Layout style={{ backgroundColor: "#ffffff" }}>
-      <Navbar/>
+      <Navbar />
       <Layout style={{ marginTop: 64, marginLeft: 280 }}>
         <Sidebar role={1} />
         <Layout.Content
@@ -148,7 +148,7 @@ export default function LaporanStokKemasan() {
         >
           <Spin tip="Loading..." size="large" spinning={loading}>
             <Konten
-            notitle={true}
+              notitle={true}
               name="Stok Kemasan"
               table={{
                 columns: columns,

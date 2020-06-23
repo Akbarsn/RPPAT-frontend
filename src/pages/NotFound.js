@@ -5,10 +5,9 @@ import { useHistory } from "react-router-dom";
 export default function NotFound() {
   const history = useHistory();
 
-  function Back(){
+  function Back() {
     history.push("/")
   }
-
 
   return (
     <div>

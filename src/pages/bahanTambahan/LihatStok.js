@@ -136,6 +136,7 @@ export default function LihatStok() {
             columns={columns}
             linkpost="/bahan-tambahan/lihat-stok"
             token={token}
+            role={2}
           />
         </Layout.Content>
       </Layout>

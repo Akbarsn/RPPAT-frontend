@@ -126,7 +126,7 @@ export default function LaporanPembelian() {
         setLoading(false);
         message.error("Terjadi kesalahan, silahkan mengulangi lagi");
       }
-    } catch (e) {}
+    } catch (e) { }
   };
 
   return (
@@ -139,7 +139,7 @@ export default function LaporanPembelian() {
         >
           <Spin tip="Loading..." size="large" spinning={loading}>
             <Konten
-            notitle={true}
+              notitle={true}
               name="Pembelian"
               table={{
                 columns: columns,

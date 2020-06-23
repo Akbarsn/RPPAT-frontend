@@ -1,4 +1,4 @@
-import React, { useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import Navbar from "../../components/Navbar";
 import Sidebar from "../../components/Sidebar";
 import Konten from "../../components/detailPembayaran";
@@ -7,8 +7,8 @@ import { useParams } from "react-router-dom";
 
 export default function DetailPembayaran() {
   const token = localStorage.getItem("token");
-  const {id, store} = useParams()
-  
+  const { id, store } = useParams()
+
   const columns = [
     {
       align: "center",
@@ -38,8 +38,8 @@ export default function DetailPembayaran() {
       name: "Nama Produk",
     },
     {
-      align:"center",
-      name:"Grade"
+      align: "center",
+      name: "Grade"
     },
     {
       align: "center",
@@ -54,21 +54,21 @@ export default function DetailPembayaran() {
 
   return (
     <Layout style={{ backgroundColor: "#ffffff" }}>
-      <Navbar/>
+      <Navbar />
       <Layout style={{ marginTop: 64, marginLeft: 280 }}>
         <Sidebar role={3} />
         <Layout.Content
           style={{ minHeight: "100vh", backgroundColor: "white" }}
         >
-          
+
           <Konten
-            columns={store==="baku" ? columns2 : columns}
+            columns={store === "baku" ? columns2 : columns}
             store={store}
-            linkback = {`/umkm/detail-toko/${store}/${id}`}
-            linkselesai = "/umkm"
-            linkpost = "/umkm/beli-bahan"
-            from = {id}
-            token = {token}
+            linkback={`/umkm/detail-toko/${store}/${id}`}
+            linkselesai="/umkm"
+            linkpost="/umkm/beli-bahan"
+            from={id}
+            token={token}
           ></Konten>
         </Layout.Content>
       </Layout>
