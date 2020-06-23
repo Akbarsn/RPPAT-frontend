@@ -187,7 +187,7 @@ export default function Index(props) {
                                 onFinish={onFinish}
                               >
                                 {props.columns.map((data) => {
-                                  if (data.label === "buyPrice") {
+                                  if (data.label === "buyPrice" && props.role !== 0) {
                                     return (
                                       <Form.Item
                                         label={data.name}

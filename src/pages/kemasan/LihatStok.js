@@ -129,7 +129,10 @@ export default function LihatStok() {
           <Sidebar role={1} />
         </Layout.Sider>
         <Layout.Content style={{ backgroundColor: "white" }}>
-          <Lihat title="Persediaan Kemasan" token={token} aksi={true} rows={rows} columns={columns} linkpost="/kemasan/lihat-stok" />
+          <Lihat
+            title="Persediaan Kemasan" token={token} aksi={true}
+            rows={rows} columns={columns}
+            linkpost="/kemasan/lihat-stok" role={1} />
         </Layout.Content>
       </Layout>
     </Layout>

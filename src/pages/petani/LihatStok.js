@@ -125,10 +125,12 @@ export default function LihatStok() {
     {
       align: "right",
       name: "Harga Pokok Penjualan",
+      label: "buyPrice"
     },
     {
       align: "right",
       name: "Harga per Satuan",
+      label: "sellPrice"
     },
   ];
 
@@ -140,7 +142,10 @@ export default function LihatStok() {
           <Sidebar role={0} />
         </Layout.Sider>
         <Layout.Content style={{ backgroundColor: "white" }}>
-          <Lihat title="Persediaan Apel" token={token} aksi={true} rows={rows} columns={columns} linkpost="/petani/lihat-stok" token={token} />
+          <Lihat
+            title="Persediaan Apel" token={token} aksi={true}
+            rows={rows} columns={columns} linkpost="/petani/lihat-stok"
+            token={token} role={0}/>
         </Layout.Content>
       </Layout>
     </Layout>
