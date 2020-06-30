@@ -90,8 +90,8 @@ const Index = (props) => {
                 props.gambar == null ? (
                   <UserOutlined />
                 ) : (
-                  <img src={props.gambar} />
-                )
+                    <img src={props.gambar} />
+                  )
               }
             />
           </div>
@@ -101,14 +101,14 @@ const Index = (props) => {
           {message == null ? (
             <Fragment />
           ) : (
-            <Alert
-              message={message}
-              type="error"
-              closable
-              showIcon
-              style={{ marginTop: "1%" }}
-            />
-          )}
+              <Alert
+                message={message}
+                type="error"
+                closable
+                showIcon
+                style={{ marginTop: "1%" }}
+              />
+            )}
         </div>
 
         <div className="tablestok">
@@ -121,8 +121,8 @@ const Index = (props) => {
                     {props.store == "baku" ? (
                       <span>Grade</span>
                     ) : (
-                      <span>Satuan</span>
-                    )}
+                        <span>Satuan</span>
+                      )}
                   </StyledTableCell>
                   <StyledTableCell align="center">Stok</StyledTableCell>
                   <StyledTableCell align="center">Harga</StyledTableCell>
@@ -132,9 +132,9 @@ const Index = (props) => {
               <TableBody>
                 {(rowsPerPage > 0
                   ? data.slice(
-                      page * rowsPerPage,
-                      page * rowsPerPage + rowsPerPage
-                    )
+                    page * rowsPerPage,
+                    page * rowsPerPage + rowsPerPage
+                  )
                   : data
                 ).map((row, index) => (
                   <TableRow key={row}>
@@ -143,26 +143,21 @@ const Index = (props) => {
                       {props.store == "baku" ? (
                         <span>Grade {row.grade}</span>
                       ) : (
-                        <span></span>
-                      )}
+                          <span></span>
+                        )}
                     </StyledTableCell>
                     <StyledTableCell align="center">
                       {props.store == "umkm" ? (
                         <span>{row.weight}</span>
                       ) : (
-                        <span>{row.unit}</span>
-                      )}
+                          <span>{row.unit}</span>
+                        )}
                     </StyledTableCell>
                     <StyledTableCell align="center">{row.qty}</StyledTableCell>
                     <StyledTableCell align="center">
-                      Rp.{" "}
-                      {props.store === "baku"
-                        ? row.price
-                            .toString()
-                            .replace(/\B(?=(\d{3})+(?!\d))/g, ".")
-                        : row.sellPrice
-                            .toString()
-                            .replace(/\B(?=(\d{3})+(?!\d))/g, ".")}
+                      Rp.{" "} {row.sellPrice
+                        .toString()
+                        .replace(/\B(?=(\d{3})+(?!\d))/g, ".")}
                     </StyledTableCell>
                     <StyledTableCell align="center">
                       <Form.Item

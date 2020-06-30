@@ -32,7 +32,7 @@ function DetailPembayaran(props) {
       for (let k = 0; k < data.length; k++) {
         let temp;
         let harga =
-          (jenisToko === "baku" ? data[k].price : data[k].sellPrice) *
+          data[k].sellPrice *
           data[k].inputdata;
         for (let i = 0; i < 4; i++) {
           switch (i) {
@@ -81,7 +81,7 @@ function DetailPembayaran(props) {
       for (let k = 0; k < data.length; k++) {
         let temp;
         let harga =
-          (jenisToko === "baku" ? data[k].price : data[k].sellPrice) *
+          data[k].sellPrice *
           data[k].inputdata;
         for (let i = 0; i < 5; i++) {
           switch (i) {
@@ -156,23 +156,12 @@ function DetailPembayaran(props) {
     let detail = [];
     data.map((item) => {
       let temp;
-      if (jenisToko === "baku") {
-        temp = {
-          id: item.id,
-          item: item.item,
-          grade: item.grade,
-          qty: item.inputdata,
-          price: item.price,
-          unit: item.unit,
-        };
-      } else {
-        temp = {
-          id: item.id,
-          item: item.item,
-          unit: jenisToko === "umkm" ? item.weight : item.unit,
-          qty: item.inputdata,
-          price: item.sellPrice,
-        };
+      temp = {
+        id: item.id,
+        item: item.item,
+        unit: jenisToko === "umkm" ? item.weight : item.unit,
+        qty: item.inputdata,
+        price: item.sellPrice,
       }
       detail.push(temp);
     });
@@ -245,95 +234,95 @@ function DetailPembayaran(props) {
       {data.length < 1 ? (
         history.push(props.linkback)
       ) : (
-        <div style={{ marginLeft: "2rem" }} id="detailPembayaran">
-          <span className="title">Info Pembayaran</span>
+          <div style={{ marginLeft: "2rem" }} id="detailPembayaran">
+            <span className="title">Info Pembayaran</span>
 
-          <div style={{ marginTop: "2rem" }}>
-            <span className="subtitle">Detail Pemesanan</span>
+            <div style={{ marginTop: "2rem" }}>
+              <span className="subtitle">Detail Pemesanan</span>
 
-            <Row>
-              <Col span={23}>
-                {console.log(rows)}
-                <Table
-                  columns={props.columns}
-                  rows={rows}
-                  empty="Tidak Ada Transaksi"
-                  togglePagination={false}
-                  toggleTotal={true}
-                  total={total}
-                ></Table>
-              </Col>
-            </Row>
-          </div>
-          <div style={{ marginTop: "2rem" }}>
-            <span className="subtitle">Channel Pembayaran</span>
-            <div className="paragraph">
-              Pilih salah satu pembayaran dibawah ini
+              <Row>
+                <Col span={23}>
+                  {console.log(rows)}
+                  <Table
+                    columns={props.columns}
+                    rows={rows}
+                    empty="Tidak Ada Transaksi"
+                    togglePagination={false}
+                    toggleTotal={true}
+                    total={total}
+                  ></Table>
+                </Col>
+              </Row>
             </div>
-            <div style={{ marginBottom: "1rem" }}></div>
-            <Row>
-              <Col span={22}>
-                <Form>
-                  <Form.Item>
-                    <Radio.Group onChange={handleIndex}>
-                      {bankacc.map((bank) => {
-                        return (
-                          <Radio.Button
-                            value={bank.index + "-" + bank.name}
-                            className="radioButton"
-                          >
-                            {bank.name}
-                          </Radio.Button>
-                        );
-                      })}
-                    </Radio.Group>
-                  </Form.Item>
-                </Form>
-                <Card className="card">
-                  <span className="paragraph">
-                    <span id="highlight">{bankName}</span> <br />
+            <div style={{ marginTop: "2rem" }}>
+              <span className="subtitle">Channel Pembayaran</span>
+              <div className="paragraph">
+                Pilih salah satu pembayaran dibawah ini
+            </div>
+              <div style={{ marginBottom: "1rem" }}></div>
+              <Row>
+                <Col span={22}>
+                  <Form>
+                    <Form.Item>
+                      <Radio.Group onChange={handleIndex}>
+                        {bankacc.map((bank) => {
+                          return (
+                            <Radio.Button
+                              value={bank.index + "-" + bank.name}
+                              className="radioButton"
+                            >
+                              {bank.name}
+                            </Radio.Button>
+                          );
+                        })}
+                      </Radio.Group>
+                    </Form.Item>
+                  </Form>
+                  <Card className="card">
+                    <span className="paragraph">
+                      <span id="highlight">{bankName}</span> <br />
                     Silahkan Transfer ke no Rekening berikut : <br />{" "}
-                    <span id="highlight">
-                      {bankDetail[index].number} atas nama{" "}
-                      {bankDetail[index].name}
-                    </span>{" "}
-                    <br />
+                      <span id="highlight">
+                        {bankDetail[index].number} atas nama{" "}
+                        {bankDetail[index].name}
+                      </span>{" "}
+                      <br />
                     Dan silahkan upload bukti pembayaran melalui halaman
                     notifikasi
                     <br />
-                  </span>
-                </Card>
-              </Col>
-            </Row>
-          </div>
-
-          <div className="buttonGroup">
-            <Col span={22}>
-              <Row justify="space-between">
-                <Col span={2}>
-                  <Button
-                    type="secondary"
-                    className="btn_secondary"
-                    onClick={handleBack}
-                  >
-                    Back
-                  </Button>
-                </Col>
-                <Col span={2}>
-                  <Button
-                    type="primary"
-                    className="btn_primary"
-                    loading={loading}
-                    onClick={handleSelesai}
-                  >
-                    Selesai
-                  </Button>
+                    </span>
+                  </Card>
                 </Col>
               </Row>
-            </Col>
+            </div>
+
+            <div className="buttonGroup">
+              <Col span={22}>
+                <Row justify="space-between">
+                  <Col span={2}>
+                    <Button
+                      type="secondary"
+                      className="btn_secondary"
+                      onClick={handleBack}
+                    >
+                      Back
+                  </Button>
+                  </Col>
+                  <Col span={2}>
+                    <Button
+                      type="primary"
+                      className="btn_primary"
+                      loading={loading}
+                      onClick={handleSelesai}
+                    >
+                      Selesai
+                  </Button>
+                  </Col>
+                </Row>
+              </Col>
+            </div>
           </div>
-        </div>
-      )}
+        )}
     </div>
   );
 }
