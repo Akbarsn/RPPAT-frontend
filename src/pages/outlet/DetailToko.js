@@ -85,7 +85,7 @@ export default function DetailToko() {
         <Layout.Sider width={280}>
           <Sidebar role={4} />
         </Layout.Sider>
-        <Layout.Content style={{ backgroundColor: "white" }}>
+        <Layout.Content style={{ backgroundColor: "white", marginTop:60 }}>
           <Toko
             nama={nama}
             data={rows}

@@ -58,7 +58,7 @@ export default function DetailPembayaran() {
       <Layout style={{ marginTop: 64, marginLeft: 280 }}>
         <Sidebar role={3} />
         <Layout.Content
-          style={{ minHeight: "100vh", backgroundColor: "white" }}
+          style={{ minHeight: "100vh", backgroundColor: "white"}}
         >
 
           <Konten

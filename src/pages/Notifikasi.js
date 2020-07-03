@@ -126,14 +126,12 @@ export default function Notifikasi() {
 
   return (
     <Layout>
-      <Layout.Header>
-        <Navbar />
-      </Layout.Header>
+      <Navbar />
       <Layout>
         <Layout.Sider width={280}>
           <Sidebar role={parseInt(role)} />
         </Layout.Sider>
-        <Layout.Content style={{ backgroundColor: "white" }}>
+        <Layout.Content style={{ backgroundColor: "white", marginTop:60 }}>
           <Konten data={data} columns={columns} identifier={identifier} />
         </Layout.Content>
       </Layout>

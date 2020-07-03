@@ -110,11 +110,11 @@ export default function Router() {
         <Route exact path="/test">
           <Test />
         </Route>
-        
+
         <Route path="*">
           <NotFound />{" "}
         </Route>
-
+        
       </Switch>
     </Brow>
   );

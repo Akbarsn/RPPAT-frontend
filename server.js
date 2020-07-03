@@ -8,5 +8,5 @@ app.get("/", function (req, res) {
   res.sendFile(path.join(__dirname, "build", "index.html"));
 });
 app.listen(3000, ()=>{
-    console.log("Listening to 9000")
+    console.log("Listening to 3000")
 });
