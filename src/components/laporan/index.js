@@ -88,7 +88,7 @@ export default function Laporan(props) {
     if (props.resep) {
       let material = [];
       list.map((data) => {
-        return(
+        return (
           material.push({
             id: data.id,
             item: data.item,
@@ -207,10 +207,13 @@ export default function Laporan(props) {
               );
             })}
           </Row>
+          
           {props.resep ? (
             <div className="bahan">
               <hr />
               <div className="title-bahan">Bahan</div>
+              {console.log("datas")}
+              {console.log(datas)}
               <Select
                 showSearch
                 style={{ width: 400 }}
@@ -218,14 +221,13 @@ export default function Laporan(props) {
                 placeholder="eg. Apel"
                 optionFilterProp="children"
                 filterOption={(input, option) =>
-                  option.children.toLowerCase().indexOf(input.toLowerCase()) >=
-                  0
+                  option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
                 }
                 onChange={searchDetail}
               >
                 {datas.map((data) => {
                   return (
-                    <Select.Option value={data.item} key={data.item}>
+                    <Select.Option value={data.item} key={data.id}>
                       {data.item}
                     </Select.Option>
                   );
@@ -248,13 +250,13 @@ export default function Laporan(props) {
                               name="qty"
                               label="Qty"
                               rules={[
-                          {
-                            type: "number",
-                            min: 1,
-                            max: data.max,
-                            message: "Masukan tidak boleh melebihi kuantitas",
-                          },
-                        ]}
+                                {
+                                  type: "number",
+                                  min: 1,
+                                  max: data.max,
+                                  message: "Masukan tidak boleh melebihi kuantitas",
+                                },
+                              ]}
                             >
                               <InputNumber
                                 onChange={(data) =>
@@ -272,8 +274,8 @@ export default function Laporan(props) {
               </div>
             </div>
           ) : (
-            <Fragment />
-          )}
+              <Fragment />
+            )}
 
           <Row justify="space-around">
             <Button

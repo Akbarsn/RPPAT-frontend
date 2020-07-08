@@ -136,7 +136,6 @@ export default function DetailToko() {
           <Sidebar role={3} />
         </Layout.Sider>
         <Layout.Content style={{ backgroundColor: "white", marginTop:60 }}>
-          {console.log(linkback)}
           <Toko nama={nama} data={rows} link={link} store={store} bankName={bankAccount} bankDetail={bankDetail}
             linkback={linkback} />
         </Layout.Content>
