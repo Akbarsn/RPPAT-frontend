@@ -7,10 +7,11 @@ import {
   Input,
   Select,
   Button,
-  message,
+  Alert,
   InputNumber,
 } from "antd";
 import Table from "../Table";
+
 
 import { PlusOutlined } from "@ant-design/icons";
 
@@ -19,7 +20,7 @@ import "../Inc.scss";
 
 export default function Laporan(props) {
   let [visible, setVisible] = useState(false);
-  const [loading, setloading] = useState(false);
+  const [error, setError] = useState(false);
   const [list, setList] = useState([]);
   const [datas, setDatas] = useState([]);
 
@@ -34,6 +35,7 @@ export default function Laporan(props) {
       id: results[0].id,
       item: results[0].item,
       max: results[0].qty,
+      type: results[0].type,
       qty: 1,
     });
     const newData = [...datas];
@@ -86,33 +88,47 @@ export default function Laporan(props) {
 
   function handleFinish(value) {
     if (props.resep) {
-      let material = [];
-      list.map((data) => {
-        return (
-          material.push({
-            id: data.id,
-            item: data.item,
-            qty: data.qty
-          })
-        )
+      let isMaterial = false, isPackage = false, isIngredient = false;
+      list.forEach(stock => {
+        switch (stock.type) {
+          case 2:
+            isIngredient = true
+            break;
+          case 3:
+            isPackage = true
+            break;
+          case 4:
+            isMaterial = true
+            break;
+          default:
+            break;
+        }
       })
-      Object.assign(value, { materials: material });
+
+      if (isMaterial && isPackage && isIngredient) {
+        let material = [];
+        list.map((data) => {
+          return (
+            material.push({
+              id: data.id,
+              item: data.item,
+              qty: data.qty
+            })
+          )
+        })
+        Object.assign(value, { materials: material });
+        props.onFinish(value);
+        setError(false)
+      } else {
+        setError(true)
+        setVisible(true)
+      }
     }
-    props.onFinish(value);
   }
 
   //Modal
   function checkModal(props) {
     //Modal Button Handler
-    function handleOk(handleSubmit) {
-      // handleSubmit;
-      setloading(true);
-      setTimeout(() => {
-        setloading(false);
-        setVisible(false);
-      }, 3000);
-    }
-
     function handleCancel() {
       setVisible(false);
     }
@@ -207,13 +223,18 @@ export default function Laporan(props) {
               );
             })}
           </Row>
-          
+
           {props.resep ? (
             <div className="bahan">
               <hr />
+              {error ?
+                <Alert
+                  message="Peringatan"
+                  description="Dimohon untuk mengisi bahan baku, bahan tambahan dan kemasan"
+                  type="warning"
+                /> : <div />
+              }
               <div className="title-bahan">Bahan</div>
-              {console.log("datas")}
-              {console.log(datas)}
               <Select
                 showSearch
                 style={{ width: 400 }}
