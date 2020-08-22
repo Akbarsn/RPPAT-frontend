@@ -130,7 +130,7 @@ export default function RiwayatTransaksi() {
         <Layout.Sider width={280}>
           <Sidebar role={1} />
         </Layout.Sider>
-        <Layout.Content style={{ backgroundColor: "white" }}>
+        <Layout.Content style={{marginTop:64,  backgroundColor: "white" }}>
           <Riwayat data={rows} columns2={columns2} />
         </Layout.Content>
       </Layout>

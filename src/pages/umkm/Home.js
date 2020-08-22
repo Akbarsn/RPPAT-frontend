@@ -16,22 +16,14 @@ export default function Home() {
 
   useEffect(() => {
     const fetchData = async () => {
-      let result;
       try {
-        result = await API.get("/umkm", {
+        const result = await API.get("/umkm", {
           headers: {
             Authorization: `bearer ${token}`,
           },
         });
-      } catch (e) {
-        switch (e.response) {
-          case 403:
-            alert("Silahkan Login terlebih dahulu");
-            window.location.replace("/");
-        }
-      }
 
-      console.log(result);
+        console.log(result);
 
       let stocks = [];
 
@@ -84,6 +76,13 @@ export default function Home() {
 
       setBuying(result.data.data.buying);
       setSelling(result.data.data.selling);
+      } catch (e) {
+        switch (e.response) {
+          case 403:
+            alert("Silahkan Login terlebih dahulu");
+            window.location.replace("/");
+        }
+      }
     };
     fetchData();
   }, []);
